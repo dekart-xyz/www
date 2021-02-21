@@ -1,18 +1,24 @@
 [[docs]]
-  name = "Prologue"
+  name = "About"
   weight = 10
-  identifier = "prologue"
-  url = "/docs/prologue/"
+  identifier = "about"
+  url = "/docs/about/"
 
 [[docs]]
-  name = "Help"
+  name = "self-hosting"
   weight = 60
-  identifier = "help"
-  url = "/docs/help/"
+  identifier = "self-hosting"
+  url = "/docs/self-hosting/"
+
+[[docs]]
+  name = "Configuration"
+  weight = 60
+  identifier = "Configuration"
+  url = "/docs/install/"
 
 # [[main]]
-#   name = "Docs"
-#   url = "/docs/prologue/introduction/"
+#   name = "Documentation"
+#   url = "/docs/"
 #   weight = 10
 
 # [[main]]
