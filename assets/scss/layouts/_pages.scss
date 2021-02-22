@@ -7,6 +7,13 @@
   content: "";
 }
 
+.docs-content th,
+.docs-content td {
+  border: 1px solid $border-color;
+  padding: 10px;
+  vertical-align: top;
+}
+
 .anchor {
   visibility: hidden;
   padding-left: 0.5rem;

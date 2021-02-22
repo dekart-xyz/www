@@ -13,8 +13,8 @@
 [[docs]]
   name = "Configuration"
   weight = 60
-  identifier = "Configuration"
-  url = "/docs/install/"
+  identifier = "configuration"
+  url = "/docs/configuration/"
 
 # [[main]]
 #   name = "Documentation"
