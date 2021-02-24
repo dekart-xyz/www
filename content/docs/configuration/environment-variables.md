@@ -1,6 +1,6 @@
 ---
-title: "Enviroment Variables"
-description: ""
+title: "Environment Variables"
+description: "Environment Variables"
 date: 2021-02-22T07:48:05+01:00
 lastmod: 2021-02-22T07:48:05+01:00
 draft: false
@@ -16,7 +16,7 @@ images: []
 | ------------- | ------------- |
 | `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project`|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | <a href="https://cloud.google.com/storage">Google Cloud Storage</a> bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket`|
-| `DEKART_MAPBOX_TOKEN`      | <a href="[https://](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/)">Mapbox Token</a> to show a map|
+| `DEKART_MAPBOX_TOKEN`      | <a href="https://docs.mapbox.com/help/how-mapbox-works/access-tokens/">Mapbox Token</a> to show a map|
 | `DEKART_POSTGRES_DB`      | Database name. Dekart needs Postgres Database to store query meta information. <br> *Example*: `dekart`|
 | `DEKART_POSTGRES_HOST`      | *Example*: `localhost`|
 | `DEKART_POSTGRES_PORT`      | *Example*: `5432`|

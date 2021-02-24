@@ -1,25 +1,26 @@
 [[docs]]
-  name = "About"
-  weight = 10
-  identifier = "about"
-  url = "/docs/about/"
-
-[[docs]]
-  name = "self-hosting"
-  weight = 60
+  name = "Self-Hosting"
+  weight = 5
   identifier = "self-hosting"
   url = "/docs/self-hosting/"
 
 [[docs]]
   name = "Configuration"
-  weight = 60
+  weight = 10
   identifier = "configuration"
   url = "/docs/configuration/"
 
-# [[main]]
-#   name = "Documentation"
-#   url = "/docs/"
-#   weight = 10
+[[docs]]
+  name = "About"
+  weight = 20
+  identifier = "about"
+  url = "/docs/about/"
+
+
+[[main]]
+  name = "Documentation"
+  url = "/docs/about/screencast/"
+  weight = 10
 
 # [[main]]
 #   name = "Blog"

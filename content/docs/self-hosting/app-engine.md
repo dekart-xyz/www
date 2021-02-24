@@ -1,9 +1,10 @@
 ---
 title: "Google App Engine"
-description: ""
+description: "Deploying Dekart to Google App Engine"
 date: 2021-02-22T08:24:45+01:00
 lastmod: 2021-02-22T08:24:45+01:00
 draft: false
+weight: 1
 images: []
 menu:
   docs:
@@ -40,7 +41,7 @@ gcloud sql instances create ${DB_INSTANCE_NAME} \
 gcloud sql databases create dekart --instance=${DB_INSTANCE_NAME}
 ```
 
-3. Set password
+3. Set password; can be not secret, because there is one more layer of encryption and authorization in Cloud SQL
 
 ```
 gcloud sql users set-password postgres --instance=${DB_INSTANCE_NAME} --password=dekart
@@ -71,6 +72,8 @@ gcloud app deploy app.yaml
 
 9. [Configure Google IAP](https://cloud.google.com/iap/docs/app-engine-quickstart) (works only with web console)
 
+## Example
 
-**All gcloud commands in [Makefile](https://github.com/dekart-xyz/dekart/tree/main/install/app-engine/Makefile)**
+* All gcloud commands in [Makefile](https://github.com/dekart-xyz/dekart/tree/main/install/app-engine/Makefile)
+* Full [example](https://github.com/dekart-xyz/dekart/tree/main/install/app-engine)
 
