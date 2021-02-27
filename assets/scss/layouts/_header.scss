@@ -12,6 +12,9 @@
 
 .navbar-brand {
   font-weight: $headings-font-weight;
+  line-height: 33px;
+  padding: 0;
+  font-size: 18px;
 }
 
 .navbar-light .navbar-brand,
@@ -36,6 +39,11 @@
 
 .nav-item {
   margin-left: 1.25rem;
+}
+.nav-link {
+  margin-top: 2px;
+  line-height: 33px;
+  padding: 0;
 }
 
 @include media-breakpoint-up(md) {
