@@ -5,6 +5,7 @@ date: 2021-02-22T08:24:45+01:00
 lastmod: 2021-02-22T08:24:45+01:00
 weight: 10
 draft: false
+toc: false
 images: []
 menu:
   docs:

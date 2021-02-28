@@ -4,6 +4,7 @@ description: "Run Dekart locally with docker-compose"
 date: 2021-02-22T08:24:45+01:00
 lastmod: 2021-02-22T08:24:45+01:00
 draft: false
+toc: false
 weight: 10
 images: []
 menu:
