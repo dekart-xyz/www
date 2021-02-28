@@ -53,6 +53,6 @@ WHERE  Rand() < 5 / 100.0
 
 <p align="center"><img src="/images/quick-start-3.png" width="100%"/></p>
 
-7. Now you can save and share you beautiful Map 🎉
+7. Now you can save and share you beautiful Map!
 
 <a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to play.dekart.xyz</a>
