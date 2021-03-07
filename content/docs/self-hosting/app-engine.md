@@ -76,4 +76,5 @@ gcloud app deploy app.yaml
 
 * All gcloud commands in [Makefile](https://github.com/dekart-xyz/dekart/tree/main/install/app-engine/Makefile)
 * Full [example](https://github.com/dekart-xyz/dekart/tree/main/install/app-engine)
+* Configuration [details](/docs/configuration/environment-variables/)
 

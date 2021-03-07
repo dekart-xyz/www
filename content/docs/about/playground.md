@@ -56,3 +56,5 @@ WHERE  Rand() < 5 / 100.0
 7. Now you can save and share you beautiful Map!
 
 <a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to play.dekart.xyz</a>
+
+[Use with your Data](/docs/about/your-datasets/)
