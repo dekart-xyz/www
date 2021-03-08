@@ -1,6 +1,6 @@
 ---
 title: "Playground"
-description: "Quick Start with Playground"
+description: "Quick Start with Dekart Playground: Create data-driven maps BigQuery Open Datasets"
 date: 2021-02-21T09:17:56+01:00
 lastmod: 2021-02-21T09:17:56+01:00
 draft: false
