@@ -12,11 +12,11 @@ twitterCreator = "delfrrr"
 ogLocale = "en_US"
 
 ## JSON-LD
-schemaType = "Organization"
+# schemaType = "Organization"
 schemaLogo = "dekart-logo.png"
-schemaTwitter = "http://twitter.com/delfrrr"
-schemaLinkedIn = "https://www.linkedin.com/in/bilonenko/"
-schemaGitHub = "http://github.com/dekart-xyz/dekart"
+# schemaTwitter = "http://twitter.com/delfrrr"
+# schemaLinkedIn = "https://www.linkedin.com/in/bilonenko/"
+schemaGitHub = "https://github.com/dekart-xyz/dekart"
 schemaSection = "blog"
 
 ## Sitelinks Search Box

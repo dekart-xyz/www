@@ -8,8 +8,6 @@
       "name": "{{ .Site.Params.title }}",
       "logo": "{{ "/" | absURL }}{{ .Site.Params.schemaLogo }}",
       "sameAs": [
-        "{{ .Site.Params.schemaTwitter | safeURL }}",
-        "{{ .Site.Params.schemaLinkedIn | safeURL }}",
         "{{ .Site.Params.schemaGitHub | safeURL }}"
       ]
     }
