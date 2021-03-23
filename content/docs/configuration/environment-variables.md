@@ -10,7 +10,19 @@ menu:
 images: []
 ---
 
-## Production configuration
+Dekart deployment requires:
+
+* access to BigQuery API
+* Cloud Storage bucket where query results are stored
+* Postgres DB (like Cloud SQL) to store metadata
+* Mapbox token to load the map
+
+Optionally, secure deployment with Google IAP. You have 2 options:
+* Just configure Google IAP (for example for [App Engine](/docs/self-hosting/app-engine/) deployment)
+* Additionally [enable user authentication with Google IAP](#user-management-with-google-iap) to isolate user permissions
+
+
+## Main configuration
 
 | Name        | Description           |
 | ------------- | ------------- |
@@ -41,6 +53,7 @@ Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signe
 
 | Name        | Description           |
 | ------------- | ------------- |
+| `DEKART_UX_HOMEPAGE` |  Change URL linked from Dekart logo<br> *Default value*: `/`|
 | `DEKART_UX_DATA_DOCUMENTATION` |  Allows provide URL to dataset documentation. It will appear in Dekart UI.<br> *Example value*: `https://my.company/dataset/schema.html`|
 | `DEKART_HTML_CUSTOM_CODE`      |  Allows to add custom HTML code to `<head>`. Can be used for adding trackers. |
 
