@@ -1,6 +1,6 @@
 ---
-title: "Use with your Data"
-description: "Using Dekart with your company internal/private datasets"
+title: "Use with Your Data"
+description: "Using Dekart with your team/company internal/private datasets"
 date: 2021-02-21T09:17:56+01:00
 lastmod: 2021-02-21T09:17:56+01:00
 draft: false
@@ -12,12 +12,12 @@ menu:
 
 ---
 
-You can use Dekart with any dataset created in BigQuery you have access to.
+With Dekart you can query and visualize any dataset in BigQuery you have access to. For this you can self-host Dekart instance (open-source, MIT License [GitHub](https://github.com/dekart-xyz/dekart)) on your Google Cloud Account:
+* [Running Dekart on Google App Engine](/docs/self-hosting/app-engine)
+* [Running Dekart with Docker](/docs/self-hosting/docker)
 
-For this you need:
- * [Deploy](/docs/self-hosting/app-engine/) Dekart (open-source, MIT) to your Google Account
- * Make sure service account used has the right [role to access BigQuery datasets](https://cloud.google.com/iam/docs/understanding-roles#bigquery-roles)
- * [Secure](https://cloud.google.com/iap/docs/app-engine-quickstart) your Dekart deployment with Google IAP and [configure](/docs/configuration/environment-variables/#user-management-with-google-iap)  user management
+To secure your Dekart instance, you can:
 
-<a class="btn btn-primary" target="_blank" href="/docs/self-hosting/app-engine/" role="button">Deploy Dekart to Google App Engine</a>
+* Configure <a href="https://cloud.google.com/iap/docs/app-engine-quickstart">Google IAP</a> for your deployment
+* Optionally, [configure Dekart to Authorize users](/docs/configuration/environment-variables/#user-management-with-google-iap) with Google IAP
 
