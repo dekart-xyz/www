@@ -20,7 +20,7 @@ You can try Dekart on <a target="_blank" href="https://play.dekart.xyz">play.dek
 
 
 ## Quick Start
-<p align="center"><img src="/images/screencast.gif" width="100%"/></p>
+<p align="center"><img src="/images/screencast.gif" width="1024" height="640" style="width: 100%; height: auto;" alt="Dekart Playground Screencast: Visualize Chicago Crime Dataset from BogQuery open data"/></p>
 
 1. Go to <a target="_blank" href="https://play.dekart.xyz">play.dekart.xyz</a>
 
