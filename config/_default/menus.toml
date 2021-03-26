@@ -54,10 +54,10 @@
   url = "http://github.com/dekart-xyz/dekart"
   weight = 20
 
-[[footer]]
-  name = "Legal"
-  url = "/legal/"
-  weight = 15
+# [[footer]]
+#   name = "Legal"
+#   url = "/legal/"
+#   weight = 15
 [[footer]]
   name = "Community in Slack"
   url = "https://join.slack.com/t/dekartcommunity/shared_invite/zt-o7ggzzte-I8bYFTnifTpqYWEZHDt0eg"
