@@ -16,6 +16,26 @@
 </section>
 {{ end }}
 
+{{ define "blog-prefooter" }}
+<section class="section section-sm mt-n3">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <h2 class="mt-3 text-center">What's New?</h2>
+          {{ range (where .Site.RegularPages.ByDate "Section" "blog" ) -}}
+          <div class="card">
+            <div class="card-body">
+              <h2 class="h3"><a class="stretched-link text-body" href="{{ .Permalink }}">{{ .Params.title }}</a></h2>
+              <p>{{ .Params.lead | safeHTML }}</p>
+              {{ partial "main/blog-meta.html" . -}}
+            </div>
+          </div>
+          {{ end -}}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
 {{ define "sidebar-prefooter" }}
 <section class="section section-sm">
   <div class="container">

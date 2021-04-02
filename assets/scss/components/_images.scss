@@ -2,8 +2,18 @@ figure {
   margin: 2rem 0;
 }
 
+.img-simple-caption {
+  margin: -1rem 0 0.75rem;
+  text-align: center;
+  font-style: italic;
+  font-size: 90%;
+  color: #6c757d;
+}
+
 .figure-caption {
   margin: 0.25rem 0 0.75rem;
+  text-align: center;
+  font-style: italic;
 }
 
 figure.wide {
