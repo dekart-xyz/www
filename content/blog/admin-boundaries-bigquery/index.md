@@ -6,11 +6,11 @@ date: 2021-03-28T06:59:51Z
 lastmod: 2021-03-28T06:59:51Z
 draft: false
 weight: 50
-images: ["all-us-zipcodes.png"]
+images: []
 contributors: ["Vladi"]
 ---
 
-{{< img src="all-us-zipcodes.png"  caption="All US Zip Codes Geometries Visualized with Dekart" class="wide" >}}
+{{< img src="all-us-zipcodes-large.png"  caption="All US Zip Codes Geometries Visualized with Dekart" class="wide" >}}
 
 
 ## When you need Admin Boundaries in BigQuery?

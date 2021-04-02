@@ -28,8 +28,8 @@ themeColor = "#fff"
 # Images
 quality = 85
 bgColor = "#fff"
-landscapePhotoWidths = [900, 800, 700, 600, 500]
-portraitPhotoWidths = [800, 700, 600, 500]
+landscapePhotoWidths = [1800, 900, 800, 700, 600]
+portraitPhotoWidths = [1600, 800, 700, 600]
 lqipWidth = "20x"
 
 # Footer
