@@ -1,4 +1,4 @@
 {{ $image := .Page.Resources.GetMatch (printf "*%s*" (.Get "src")) -}}
 {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
-<img class="img-simple img-fluid lazyload blur-up" src="{{ $lqip.Permalink }}" data-src="{{ $image.Permalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" {{ with .Get "caption" }}alt="{{.}}"{{ end }}>
+<img class="img-simple img-fluid lazyload" src="{{ $lqip.Permalink }}" data-src="{{ $image.Permalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" {{ with .Get "caption" }}alt="{{.}}"{{ end }}>
 {{ with .Get "caption" }}<div class="img-simple-caption">{{ . | safeHTML }}</div>{{ end }}
