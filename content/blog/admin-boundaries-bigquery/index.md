@@ -19,7 +19,7 @@ There are few reason why you need Admin Boundaries in your Data Analysis:
 
 * Your data does not have explicit coordinates or geometries but has reference to Countries, States, Counties or Zip codes
 * Admin Boundaries (like city boundary) presents a meaningful way to clip your data for analysis.
-* You want to perform analysis per admin geography (like number of new COVID vases per state/ per capita)
+* You want to perform analysis per admin geography (like number of new COVID cases per state/ per capita)
 
 There are platforms which allow you to enrich your data with Admin Geometries, but then you lose all power of filtering and aggregation with BigQuery SQL.
 
@@ -33,13 +33,13 @@ You always can acquire Admin Boundaries dataset and upload it to BigQuery. Howev
 
 Open Street Maps (OSM) did for cartography the same as Wikipedia did for encyclopedias. You may find data structure tricky, but with some effort you can extract extensive geometries sets.
 
-Before I used Overpass Turbo with its quirky DSL to get subset OSM Data. But now () since 2020) every user of BigQuery can select (and join!) OpenStreetMap as one of Open Datasets.
+Before I used Overpass Turbo with its quirky DSL to get subset OSM Data. But now (since 2020) every user of BigQuery can select (and join!) OpenStreetMap as one of Open Datasets.
 
 These are few SQL examples of how you do it with tips and tricks:
 
 ### World Countries Borders
 
-This example shows how to fetch countries borders from <a href="https://wiki.openstreetmap.org/wiki/BigQuery_dataset" target="_blank">BigQuery hosted OSM dataset</a>
+This example shows how to fetch country borders from <a href="https://wiki.openstreetmap.org/wiki/BigQuery_dataset" target="_blank">BigQuery hosted OSM dataset</a>
 
 {{< img src="world-countries-borders.png"  caption="World Countries Borders example from OSM" report="03483cdc-9e29-4d79-804b-23bdd2fcd07a" >}}
 
@@ -58,7 +58,7 @@ ARRAY(
   WHERE key IN('int_name', 'name')
   LIMIT 1
 ) [OFFSET(0)] AS name,
--- fixing cross anti-meridian edges
+-- fixing cross antimeridian edges
 ST_ASGEOJSON(
   -- simplifying geometry, full one >100Mb
   ST_SIMPLIFY(geometry, 1000)
@@ -86,13 +86,13 @@ Explanations:
 * all OSM geometries (multipolygons) are in `planet_features_multipolygons` table which is available for free for every user of BigQuery.
 * to fetch specific geometries (country borders) we filter by tags stored in nested `all_tags` structure; specifically we filter by `boundary` and `admin_level` tags
 * countries are big and raw geometries of borders are huge; we use BigQuery function `ST_SIMPLIFY` to simplify geometry to 1000m precision;
-* to avoid artifacts when visualize with tools like Kepler.gl or other supporting only projected (flat-map) spatial reference system (SRS), we use `ST_ASGEOJSON` to achieve correct rendering of edges crossing anti-meridian;
+* to avoid artifacts when visualize with tools like Kepler.gl or other supporting only projected (flat-map) spatial reference system (SRS), we use `ST_ASGEOJSON` to achieve correct rendering of edges crossing antimeridian;
 
 {{< img src="osm-geometry-cross-meridian-distortion.png"  caption="Edges cross anti-meridian distortion" >}}
 
 ### US States Borders
 
-Using the same method you can go down to the state level. Here query for The fifty states, the District of Columbia, and the five permanently inhabited territories of the United States.
+Using the same method you can go down to the state level. Here ia a query for the fifty states, the District of Columbia, and the five permanently inhabited territories of the United States.
 
 {{< img src="us-borders-osm-bigquery.png"  caption="US States Borders including DC and territories" report="a12bd8b7-8b48-48a3-b8dc-48edbbef29ec" >}}
 
@@ -104,7 +104,7 @@ SELECT
   FROM UNNEST(all_tags)
   WHERE key = 'name'
 ) AS name,
--- fixing edges crossing ante-meridian
+-- fixing edges crossing antimeridian
 ST_ASGEOJSON(
   -- simplifying geometry for smaller size
   ST_SIMPLIFY(geometry, 1000)
@@ -177,7 +177,7 @@ So how does one know what tags to filter for? I start by googling something like
 
 **Please Note:**
 * Admin Boundaries and maps are subject of regulation in many countries (like showing disputed borders)
-* data in OSM does not necessarily up-to-date and correctly representing borders according to your country law
+* data in OSM is not necessarily up-to-date and correctly representing borders according to your country law
 
 
 
