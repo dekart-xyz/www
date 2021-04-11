@@ -6,7 +6,7 @@ date: 2021-03-28T06:59:51Z
 lastmod: 2021-03-28T06:59:51Z
 draft: false
 weight: 50
-images: []
+images: ["all-us-zipcodes-large.png"]
 contributors: ["Vladi"]
 ---
 
