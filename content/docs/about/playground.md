@@ -1,6 +1,6 @@
 ---
 title: "Playground"
-description: "Quick Start with Dekart Playground: Create data-driven maps BigQuery Open Datasets"
+description: "Quick Start with Dekart Playground: Create data-driven maps from BigQuery Open Datasets"
 date: 2021-02-21T09:17:56+01:00
 lastmod: 2021-02-21T09:17:56+01:00
 draft: false
@@ -20,7 +20,7 @@ You can try Dekart on <a target="_blank" href="https://play.dekart.xyz">play.dek
 
 
 ## Quick Start
-<p align="center"><img src="/images/screencast.gif" width="1024" height="640" style="width: 100%; height: auto;" alt="Dekart Playground Screencast: Visualize Chicago Crime Dataset from BogQuery open data"/></p>
+<p align="center"><img src="/images/screencast.gif" width="1024" height="640" style="width: 100%; height: auto;" alt="Dekart Playground Screencast: Visualize Chicago Crime Dataset from BigQuery open data"/></p>
 
 1. Go to <a target="_blank" href="https://play.dekart.xyz">play.dekart.xyz</a>
 
