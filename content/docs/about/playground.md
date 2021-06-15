@@ -1,6 +1,6 @@
 ---
-title: "Playground"
-description: "Quick Start with Dekart Playground: Create data-driven maps from BigQuery Open Datasets"
+title: "BigQuery Playground"
+description: "Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets"
 date: 2021-02-21T09:17:56+01:00
 lastmod: 2021-02-21T09:17:56+01:00
 draft: false
@@ -12,11 +12,13 @@ menu:
 
 ---
 
-You can try Dekart on <a target="_blank" href="https://play.dekart.xyz">play.dekart.xyz</a> (requires Gmail Account) with one of many public datasets available on BigQuery.
+You can try Dekart on <a target="_blank" href="https://play.dekart.xyz">play.dekart.xyz</a> (requires Gmail Account) with one of many Public Datasets available on BigQuery.
 
-<a class="btn btn-primary" target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button">Discover Public Data Sets</a>
+<a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to BigQuery Playground</a>
 
-<p><a target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button">Even more datasets</a></p>
+
+
+<p><a target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button">BigQuery Public Datasets</a> and <a target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button">Even More Datasets</a></p>
 
 
 ## Quick Start
@@ -55,6 +57,6 @@ WHERE  Rand() < 5 / 100.0
 
 7. Now you can save and share you beautiful Map!
 
-<a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to play.dekart.xyz</a>
+<a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to BigQuery Playground</a>
 
-[Use with your Data](/docs/about/your-datasets/)
+[How to use with Your Private Datasets](/docs/about/your-datasets/)
