@@ -39,7 +39,7 @@
 
 [[main]]
   name = "Slack"
-  url = "https://join.slack.com/t/dekartcommunity/shared_invite/zt-qk4d7rdg-ARDpZfgQoVqlEsY0_4IFgA"
+  url = "https://join.slack.com/t/dekartcommunity/shared_invite/zt-rsi9p0s4-22vad025LXjfE8relxvj2A"
   weight = 15
 
 # [[main]]
@@ -65,5 +65,5 @@
 #   weight = 15
 [[footer]]
   name = "Community in Slack"
-  url = "https://join.slack.com/t/dekartcommunity/shared_invite/zt-qk4d7rdg-ARDpZfgQoVqlEsY0_4IFgA"
+  url = "https://join.slack.com/t/dekartcommunity/shared_invite/zt-rsi9p0s4-22vad025LXjfE8relxvj2A"
   weight = 10
