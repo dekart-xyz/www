@@ -18,36 +18,49 @@ menu:
 * Cloud Storage Bucket
 * Service account credentials with access to all above
 * Mapbox Token
+* GitHub Account and [GitHub Token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token)
 
 ## Steps
 
 1. Checkout [Dekart from GitHub](https://github.com/dekart-xyz/dekart); navigate to project directory;
 
-2. Install frontend dependencies
+2. Get your
+
+3. Create `.npmrc` file in the project directory with the following content and your github token
+
+```
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+@dekart-xyz:registry=https://npm.pkg.github.com
+
+```
+
+This step is required because dekart is using github packages
+
+4. Install frontend dependencies
 ```
 npm install
 ```
 
-1. Create and edit `.env`; see [environment variables](/docs/configuration/environment-variables/) for details
+5. Create and edit `.env`; see [environment variables](/docs/configuration/environment-variables/) for details
 
 
 ```
 cp .env.example .env
 ```
 
-4. Run Postgres DB locally
+6. Run Postgres DB locally
 
 ```
 docker-compose  --env-file .env up
 ```
 
-5. Run Server; you will need to install [godotenv](https://github.com/joho/godotenv) or handle environment variable otherwise
+7. Run Server; you will need to install [godotenv](https://github.com/joho/godotenv) or handle environment variable otherwise
 
 ```
 godotenv -f .env go run ./src/server/main.go
 ```
 
-6. Run frontend
+8. Run frontend
 
 ```
 npm start
