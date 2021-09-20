@@ -5,5 +5,5 @@ lead: "Dekart is an open-source analytical tool for large scale geo-spatial data
 date: 2020-10-06T08:47:36+00:00
 lastmod: 2020-10-06T08:47:36+00:00
 draft: false
-images: ["dekart-social-preview.png", "screen.png"]
+images: ["dekart-social-preview-0-6.png", "screen.png", "covid-population-density-germany.png"]
 ---
