@@ -18,7 +18,7 @@
 
 {{ with .Description -}}
   <meta name="description" content="{{ . }}">
-{{ else -}}
+  {{ else -}}
   <meta name="description" content="{{ .Site.Params.description }}">
 {{ end -}}
 
@@ -31,7 +31,11 @@
     <link rel="next" href="{{ .Paginator.Next.URL | absURL }}">
   {{ end -}}
 {{ else -}}
-  <link rel="canonical" href="{{ .Permalink }}">
+  {{with .Params.Canonical }}
+    <link rel="canonical" href="{{ . | absURL}}">
+  {{ else -}}
+    <link rel="canonical" href="{{ .Permalink | absURL }}">
+  {{ end -}}
 {{ end -}}
 
 {{ partial "head/twitter_cards.html" . }}

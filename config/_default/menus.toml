@@ -1,4 +1,10 @@
 [[docs]]
+  name = "Contributing"
+  weight = 0
+  identifier = "contributing"
+  url = "/docs/contributing/"
+
+[[docs]]
   name = "Self-Hosting"
   weight = 3
   identifier = "self-hosting"

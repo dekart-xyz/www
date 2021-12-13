@@ -6,7 +6,11 @@ lastmod: 2021-02-22T08:24:45+01:00
 weight: 100
 draft: false
 images: []
-canonical: /docs/contributing/build-from-source/
+aliases:
+  - ../self-hosting/from-source/
+menu:
+  docs:
+    parent: "contributing"
 ---
 
 ## Prerequisites
@@ -22,9 +26,7 @@ canonical: /docs/contributing/build-from-source/
 
 1. Checkout [Dekart from GitHub](https://github.com/dekart-xyz/dekart); navigate to project directory;
 
-2. Get your
-
-3. Create `.npmrc` file in the project directory with the following content and your github token
+2. Create `.npmrc` file in the project directory with the following content and your github token
 
 ```
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
@@ -34,31 +36,31 @@ canonical: /docs/contributing/build-from-source/
 
 This step is required because dekart is using github packages
 
-4. Install frontend dependencies
+3. Install frontend dependencies
 ```
 npm install
 ```
 
-5. Create and edit `.env`; see [environment variables](/docs/configuration/environment-variables/) for details
+4. Create and edit `.env`; see [environment variables](/docs/configuration/environment-variables/) for details
 
 
 ```
 cp .env.example .env
 ```
 
-6. Run Postgres DB locally
+5. Run Postgres DB locally
 
 ```
 docker-compose  --env-file .env up
 ```
 
-7. Run Server; you will need to install [godotenv](https://github.com/joho/godotenv) or handle environment variable otherwise
+6. Run Server; you will need to install [godotenv](https://github.com/joho/godotenv) or handle environment variable otherwise
 
 ```
 godotenv -f .env go run ./src/server/main.go
 ```
 
-8. Run frontend
+7. Run frontend
 
 ```
 npm start
