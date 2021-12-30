@@ -14,13 +14,10 @@ menu:
 
 For all Docker based deployments, update docker tag, for example:
 
-`dekartxyz/dekart:0.5` -> `dekartxyz/dekart:0.6`
+`dekartxyz/dekart:0.6` -> `dekartxyz/dekart:0.7`
 
 Then redeploy application
 
-<a class="btn btn-primary" target="_blank" href="https://github.com/dekart-xyz/dekart/releases/tag/v0.6.1" role="button">Read v0.6.1 release notes</a>
-
-
 ## Migration instructions
 
-There is no breaking changes in version `0.6`
+There is no breaking changes in version `0.7`

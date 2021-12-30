@@ -27,6 +27,7 @@ Optionally, secure deployment with Google IAP. You have 2 options:
 | Name        | Description           |
 | ------------- | ------------- |
 | `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project`|
+| `DEKART_BIGQUERY_MAX_BYTES_BILLED` <small class="badge badge-info">version &gt;= 0.7</small>    | Sets `maximumBytesBilled` in BigQuery Job Configuration to implement  <a href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed">Best Practices for Controlling Query Cost</a>.<br> If not set warning message will appear in logs.|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | <a href="https://cloud.google.com/storage">Google Cloud Storage</a> bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket`|
 | `DEKART_MAPBOX_TOKEN`      | <a href="https://docs.mapbox.com/help/how-mapbox-works/access-tokens/">Mapbox Token</a> to show a map|
 | `DEKART_POSTGRES_DB`      | Database name. Dekart needs Postgres Database to store query meta information. <br> *Example*: `dekart`|
