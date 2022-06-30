@@ -29,7 +29,7 @@
       {{ $imgSrcSet = (delimit $imgSrcSet ",") -}}
 
       <figure class="main">
-        <img class="img-fluid lazyload" data-sizes="auto" src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}">
+        <a href="https://play.dekart.xyz/reports/40ab609f-30cb-47ac-9394-e807f5795cc6/source" target="_blank" title="COVID vs Population Density in Germany on Dekart BigQuery Playground"><img class="img-fluid lazyload" data-sizes="auto" src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}"></a>
         <noscript><img class="img-fluid" sizes="100vw" srcset="{{ $imgSrcSet }}" src="{{ $image.Permalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}"></noscript>
       </figure>
 

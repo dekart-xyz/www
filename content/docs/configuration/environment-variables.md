@@ -12,10 +12,16 @@ images: []
 
 Dekart deployment requires:
 
-* access to BigQuery API
-* Cloud Storage bucket where query results are stored
 * Postgres DB (like Cloud SQL) to store metadata
 * Mapbox token to load the map
+
+For BigQuery data source:
+* access to BigQuery API
+* Cloud Storage or S3 bucket where query results are stored
+
+For AWS Athena:
+* access to AWS Athena workspace
+* S3 bucket where query results are stored
 
 Optionally, secure deployment with Google IAP. You have 2 options:
 * Just configure Google IAP (for example for [App Engine](/docs/self-hosting/app-engine/) deployment)
@@ -26,9 +32,6 @@ Optionally, secure deployment with Google IAP. You have 2 options:
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project`|
-| `DEKART_BIGQUERY_MAX_BYTES_BILLED` <small class="badge badge-info">version &gt;= 0.7</small>    | Sets `maximumBytesBilled` in BigQuery Job Configuration to implement  <a href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed">Best Practices for Controlling Query Cost</a>.<br> If not set warning message will appear in logs.|
-| `DEKART_CLOUD_STORAGE_BUCKET`      | <a href="https://cloud.google.com/storage">Google Cloud Storage</a> bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket`|
 | `DEKART_MAPBOX_TOKEN`      | <a href="https://docs.mapbox.com/help/how-mapbox-works/access-tokens/">Mapbox Token</a> to show a map|
 | `DEKART_POSTGRES_DB`      | Database name. Dekart needs Postgres Database to store query meta information. <br> *Example*: `dekart`|
 | `DEKART_POSTGRES_HOST`      | *Example*: `localhost`|
@@ -36,7 +39,43 @@ Optionally, secure deployment with Google IAP. You have 2 options:
 | `DEKART_POSTGRES_USER`      | *Example*: `postgres`|
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
+| `DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li></ul>|
+| `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li></ul>|
+| `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket`|
+
+
+## AWS
+
+Dekart support started AWS SDK environment variables. Required to query AWS Athena and use AWS S3.
+
+| Name        | Description           |
+| ------------- | ------------- |
+|`AWS_REGION`<br/><small class="badge badge-info">version &gt;= 0.8</small> | The AWS SDK compatible environment variable that specifies the AWS Region to send the request to  |
+|`AWS_ACCESS_KEY_ID` <br/><small class="badge badge-info">version &gt;= 0.8</small>| Specifies an AWS access key associated with an IAM user or role. |
+|`AWS_SECRET_ACCESS_KEY` <br/><small class="badge badge-info">version &gt;= 0.8</small>| Specifies the secret key associated with the access key. This is essentially the "password" for the access key. |
+
+## AWS Athena
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_ATHENA_CATALOG` <br/><small class="badge badge-info">version &gt;= 0.8</small>     | Amazon S3 query result location required by Athena SDK. This is different from  `DEKART_CLOUD_STORAGE_BUCKET`. First query results are stored in `DEKART_ATHENA_S3_OUTPUT_LOCATION` and then copied to `DEKART_CLOUD_STORAGE_BUCKET`.  <br> *Example*: `athena-results`|
+| `DEKART_ATHENA_S3_OUTPUT_LOCATION` <br/><small class="badge badge-info">version &gt;= 0.8</small>     | Amazon S3 query result location required by Athena SDK. This is different from  `DEKART_CLOUD_STORAGE_BUCKET`. First query results are stored in `DEKART_ATHENA_S3_OUTPUT_LOCATION` and then copied to `DEKART_CLOUD_STORAGE_BUCKET`.  <br> *Example*: `athena-results`|
+
+## Google Cloud
+
+Required to query BigQuery and use Cloud Storage
+
+| Name        | Description           |
+| ------------- | ------------- |
 |`GOOGLE_APPLICATION_CREDENTIALS`| Credentials for <a href="https://cloud.google.com/docs/authentication/getting-started">Google Cloud API</a> <br> *Example*: `/.../service-account-123456.json`|
+
+## BigQuery
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project`|
+| `DEKART_BIGQUERY_MAX_BYTES_BILLED` <br/><small class="badge badge-info">version &gt;= 0.7</small>    | Sets `maximumBytesBilled` in BigQuery Job Configuration to implement  <a href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed">Best Practices for Controlling Query Cost</a>.<br> If not set warning message will appear in logs.|
+
 
 ## User management with Google IAP
 

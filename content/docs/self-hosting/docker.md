@@ -1,18 +1,24 @@
 ---
 title: "Docker"
-description: "Running Dekart as in Docker"
+description: "Running Dekart for BigQuery as in Docker"
 date: 2021-02-22T08:24:45+01:00
 lastmod: 2021-02-22T08:24:45+01:00
 weight: 10
 draft: false
-toc: false
+toc: true
 images: []
 menu:
   docs:
     parent: "self-hosting"
 ---
 
-## Prerequisites
+## AWS Athena
+
+Example coming soon
+
+## BigQuery
+
+### Prerequisites
 
 * Google Cloud Project
 * BigQuery API Enabled
@@ -21,7 +27,7 @@ menu:
 * Service account credentials with access to all above
 * Mapbox Token
 
-## Running docker
+### Running docker
 
 ```bash
 	docker run -it --rm \
@@ -37,11 +43,11 @@ menu:
 		-e DEKART_BIGQUERY_MAX_BYTES_BILLED=53687091200 \
 		-e DEKART_MAPBOX_TOKEN=${DEKART_MAPBOX_TOKEN} \
 		-p 8080:8080 \
-		dekartxyz/dekart:0.7
+		dekartxyz/dekart:0.8
 ```
 
 See details on [environment variables](/docs/configuration/environment-variables)
 
-## Example
+### Example
 
 * Run with [Makefile](https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile)

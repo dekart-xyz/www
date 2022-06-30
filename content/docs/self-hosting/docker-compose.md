@@ -4,7 +4,7 @@ description: "Run Dekart locally with docker-compose"
 date: 2021-02-22T08:24:45+01:00
 lastmod: 2021-02-22T08:24:45+01:00
 draft: false
-toc: false
+toc: true
 weight: 10
 images: []
 menu:
@@ -12,7 +12,13 @@ menu:
     parent: "self-hosting"
 ---
 
-## Prerequisites
+## AWS Athena
+
+Documentation coming soon
+
+## BigQuery
+
+### Prerequisites
 
 * Google Cloud Project
 * BigQuery API Enabled
@@ -21,7 +27,7 @@ menu:
 * Mapbox Token
 
 
-## Steps
+### Steps
 
 1. Copy [docker-compose.yaml](https://github.com/dekart-xyz/dekart/blob/main/install/docker-compose/docker-compose.yaml) file
 2. Create `.env` file

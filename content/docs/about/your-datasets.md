@@ -12,8 +12,9 @@ menu:
 
 ---
 
-With Dekart you can query and visualize any dataset in BigQuery you have access to. For this you can self-host Dekart instance (open-source, MIT License [GitHub](https://github.com/dekart-xyz/dekart)) on your Google Cloud Account:
+With Dekart you can query and visualize private datasets using BigQuery and AWS Athena. For this you can self-host Dekart instance (open-source, MIT License [GitHub](https://github.com/dekart-xyz/dekart)) on your Google Cloud or AWS account:
 * [Running Dekart on Google App Engine](/docs/self-hosting/app-engine)
+* Running Dekart on AWS (documentation coming soon)
 * [Running Dekart with Docker](/docs/self-hosting/docker)
 
 To secure your Dekart instance, you can:

@@ -12,12 +12,16 @@ menu:
     parent: "self-hosting"
 ---
 
+<p><div class="alert alert-primary" role="alert">
+Before you begin: it is always recommended to backup your postgres database before upgrading Dekart. On the first run Dekart applies migrations to database and you won't be able to downgrade.
+</div></p>
+
 For all Docker based deployments, update docker tag, for example:
 
-`dekartxyz/dekart:0.6` -> `dekartxyz/dekart:0.7`
+`dekartxyz/dekart:0.7` -> `dekartxyz/dekart:0.8`
 
 Then redeploy application
 
 ## Migration instructions
 
-There is no breaking changes in version `0.7`
+There is no breaking configuration changes in version `0.8`
