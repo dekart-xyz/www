@@ -49,13 +49,13 @@ cp .env.example .env
 6. Run Postgres DB locally
 
 ```
-docker-compose  --env-file .env up
+make docker-compose-up
 ```
 
-7. Run Server; you will need to install [godotenv](https://github.com/joho/godotenv) or handle environment variable otherwise
+7. Run Server
 
 ```
-godotenv -f .env go run ./src/server/main.go
+make run-dev-server
 ```
 
 8. Run frontend

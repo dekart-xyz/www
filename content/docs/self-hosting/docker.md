@@ -14,7 +14,38 @@ menu:
 
 ## AWS Athena
 
-Example coming soon
+### Prerequisites
+
+* AWS Account
+* AWS Athena Workspace
+* AWS S3 bucket
+* PostgreSQL
+* Service account credentials with access to all above
+* Mapbox Token
+
+### Running docker
+
+```bash
+docker run \
+  -e AWS_REGION=${AWS_REGION} \
+  -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+  -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+  -e DEKART_POSTGRES_DB=${DEKART_POSTGRES_DB} \
+  -e DEKART_POSTGRES_USER=${DEKART_POSTGRES_USER} \
+  -e DEKART_POSTGRES_PASSWORD=${DEKART_POSTGRES_PASSWORD} \
+  -e DEKART_POSTGRES_PORT=${DEKART_POSTGRES_PORT} \
+  -e DEKART_POSTGRES_HOST=host.docker.internal \
+  -e DEKART_STORAGE=S3 \
+  -e DEKART_DATASOURCE=ATHENA \
+  -e DEKART_CLOUD_STORAGE_BUCKET=${DEKART_CLOUD_STORAGE_BUCKET} \
+  -e DEKART_ATHENA_CATALOG=${DEKART_ATHENA_CATALOG} \
+  -e DEKART_ATHENA_S3_OUTPUT_LOCATION=${DEKART_ATHENA_S3_OUTPUT_LOCATION} \
+  -e DEKART_MAPBOX_TOKEN=${DEKART_MAPBOX_TOKEN} \
+  -e DEKART_MAPBOX_TOKEN=${DEKART_MAPBOX_TOKEN} \
+  -p 8080:8080 \
+  dekartxyz/dekart:0.8
+```
+
 
 ## BigQuery
 
@@ -48,6 +79,6 @@ Example coming soon
 
 See details on [environment variables](/docs/configuration/environment-variables)
 
-### Example
+## Example
 
 * Run with [Makefile](https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile)
