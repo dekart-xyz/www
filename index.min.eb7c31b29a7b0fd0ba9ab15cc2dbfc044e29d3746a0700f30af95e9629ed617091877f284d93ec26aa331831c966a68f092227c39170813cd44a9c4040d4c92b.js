@@ -57,9 +57,36 @@ var suggestions=document.getElementById("suggestions"),userinput=document.getEle
 \u003cli\u003eConfiguration \u003ca href="/docs/configuration/environment-variables/"\u003edetails\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
 `},{id:1,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Running Dekart for BigQuery as in Docker",content:`\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
-\u003cp\u003eExample coming soon\u003c/p\u003e
-\u003ch2 id="bigquery"\u003eBigQuery\u003c/h2\u003e
 \u003ch3 id="prerequisites"\u003ePrerequisites\u003c/h3\u003e
+\u003cul\u003e
+\u003cli\u003eAWS Account\u003c/li\u003e
+\u003cli\u003eAWS Athena Workspace\u003c/li\u003e
+\u003cli\u003eAWS S3 bucket\u003c/li\u003e
+\u003cli\u003ePostgreSQL\u003c/li\u003e
+\u003cli\u003eService account credentials with access to all above\u003c/li\u003e
+\u003cli\u003eMapbox Token\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="running-docker"\u003eRunning docker\u003c/h3\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_ACCESS_KEY_ID\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eAWS_ACCESS_KEY_ID\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_SECRET_ACCESS_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eAWS_SECRET_ACCESS_KEY\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_DB\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_DB\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_USER\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_USER\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehost.docker.internal \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eS3 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eATHENA \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_ATHENA_CATALOG\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_ATHENA_CATALOG\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_ATHENA_S3_OUTPUT_LOCATION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_ATHENA_S3_OUTPUT_LOCATION\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -p 8080:8080 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.8
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="bigquery"\u003eBigQuery\u003c/h2\u003e
+\u003ch3 id="prerequisites-1"\u003ePrerequisites\u003c/h3\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -68,7 +95,7 @@ var suggestions=document.getElementById("suggestions"),userinput=document.getEle
 \u003cli\u003eService account credentials with access to all above\u003c/li\u003e
 \u003cli\u003eMapbox Token\u003c/li\u003e
 \u003c/ul\u003e
-\u003ch3 id="running-docker"\u003eRunning docker\u003c/h3\u003e
+\u003ch3 id="running-docker-1"\u003eRunning docker\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e	docker run -it --rm \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e		-v \u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e:\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e		-e \u003cspan class="nv"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
@@ -84,18 +111,17 @@ var suggestions=document.getElementById("suggestions"),userinput=document.getEle
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e		-p 8080:8080 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e		dekartxyz/dekart:0.8
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eSee details on \u003ca href="/docs/configuration/environment-variables"\u003eenvironment variables\u003c/a\u003e\u003c/p\u003e
-\u003ch3 id="example"\u003eExample\u003c/h3\u003e
+\u003ch2 id="example"\u003eExample\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eRun with \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile"\u003eMakefile\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
 `},{id:2,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart locally with docker-compose",content:`\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
-\u003cp\u003eDocumentation coming soon\u003c/p\u003e
-\u003ch2 id="bigquery"\u003eBigQuery\u003c/h2\u003e
 \u003ch3 id="prerequisites"\u003ePrerequisites\u003c/h3\u003e
 \u003cul\u003e
-\u003cli\u003eGoogle Cloud Project\u003c/li\u003e
-\u003cli\u003eBigQuery API Enabled\u003c/li\u003e
-\u003cli\u003eCloud Storage Bucket\u003c/li\u003e
+\u003cli\u003eAWS Account\u003c/li\u003e
+\u003cli\u003eAWS Athena Workspace\u003c/li\u003e
+\u003cli\u003eAWS S3 bucket\u003c/li\u003e
+\u003cli\u003ePostgreSQL\u003c/li\u003e
 \u003cli\u003eService account credentials with access to all above\u003c/li\u003e
 \u003cli\u003eMapbox Token\u003c/li\u003e
 \u003c/ul\u003e
@@ -108,11 +134,38 @@ var suggestions=document.getElementById("suggestions"),userinput=document.getEle
 PROJECT_ID=
 CLOUD_STORAGE_BUCKET=
 MAPBOX_TOKEN=
+DEKART_ATHENA_CATALOG=
+DEKART_ATHENA_S3_OUTPUT_LOCATION=
+AWS_REGION=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+\u003c/code\u003e\u003c/pre\u003e\u003col start="3"\u003e
+\u003cli\u003eRun\u003c/li\u003e
+\u003c/ol\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up dekart-athena
+\u003c/code\u003e\u003c/pre\u003e\u003ch2 id="bigquery"\u003eBigQuery\u003c/h2\u003e
+\u003ch3 id="prerequisites-1"\u003ePrerequisites\u003c/h3\u003e
+\u003cul\u003e
+\u003cli\u003eGoogle Cloud Project\u003c/li\u003e
+\u003cli\u003eBigQuery API Enabled\u003c/li\u003e
+\u003cli\u003eCloud Storage Bucket\u003c/li\u003e
+\u003cli\u003eService account credentials with access to all above\u003c/li\u003e
+\u003cli\u003eMapbox Token\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="steps-1"\u003eSteps\u003c/h3\u003e
+\u003col\u003e
+\u003cli\u003eCopy \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/install/docker-compose/docker-compose.yaml"\u003edocker-compose.yaml\u003c/a\u003e file\u003c/li\u003e
+\u003cli\u003eCreate \u003ccode\u003e.env\u003c/code\u003e file\u003c/li\u003e
+\u003c/ol\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003ePOSTGRES_PASSWORD=
+PROJECT_ID=
+CLOUD_STORAGE_BUCKET=
+MAPBOX_TOKEN=
 GOOGLE_APPLICATION_CREDENTIALS=
 \u003c/code\u003e\u003c/pre\u003e\u003col start="3"\u003e
 \u003cli\u003eRun\u003c/li\u003e
 \u003c/ol\u003e
-\u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up
+\u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up dekart-bigquery
 \u003c/code\u003e\u003c/pre\u003e`},{id:3,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`\u003cp\u003e\u003cdiv class="alert alert-primary" role="alert"\u003e
 Before you begin: it is always recommended to backup your postgres database before upgrading Dekart. On the first run Dekart applies migrations to database and you won't be able to downgrade.
 \u003c/div\u003e\u003c/p\u003e
@@ -205,29 +258,32 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003cp\u003eCheckout \u003ca href="https://github.com/dekart-xyz/dekart"\u003eDekart from GitHub\u003c/a\u003e; navigate to project directory;\u003c/p\u003e
 \u003c/li\u003e
 \u003cli\u003e
+\u003cp\u003eGet your\u003c/p\u003e
+\u003c/li\u003e
+\u003cli\u003e
 \u003cp\u003eCreate \u003ccode\u003e.npmrc\u003c/code\u003e file in the project directory with the following content and your github token\u003c/p\u003e
 \u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003e//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
 @dekart-xyz:registry=https://npm.pkg.github.com
 \u003c/code\u003e\u003c/pre\u003e\u003cp\u003eThis step is required because dekart is using github packages\u003c/p\u003e
-\u003col start="3"\u003e
+\u003col start="4"\u003e
 \u003cli\u003eInstall frontend dependencies\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm install
-\u003c/code\u003e\u003c/pre\u003e\u003col start="4"\u003e
+\u003c/code\u003e\u003c/pre\u003e\u003col start="5"\u003e
 \u003cli\u003eCreate and edit \u003ccode\u003e.env\u003c/code\u003e; see \u003ca href="/docs/configuration/environment-variables/"\u003eenvironment variables\u003c/a\u003e for details\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003ecp .env.example .env
-\u003c/code\u003e\u003c/pre\u003e\u003col start="5"\u003e
+\u003c/code\u003e\u003c/pre\u003e\u003col start="6"\u003e
 \u003cli\u003eRun Postgres DB locally\u003c/li\u003e
 \u003c/ol\u003e
-\u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up
-\u003c/code\u003e\u003c/pre\u003e\u003col start="6"\u003e
-\u003cli\u003eRun Server; you will need to install \u003ca href="https://github.com/joho/godotenv"\u003egodotenv\u003c/a\u003e or handle environment variable otherwise\u003c/li\u003e
-\u003c/ol\u003e
-\u003cpre tabindex="0"\u003e\u003ccode\u003egodotenv -f .env go run ./src/server/main.go
+\u003cpre tabindex="0"\u003e\u003ccode\u003emake docker-compose-up
 \u003c/code\u003e\u003c/pre\u003e\u003col start="7"\u003e
+\u003cli\u003eRun Server\u003c/li\u003e
+\u003c/ol\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003emake run-dev-server
+\u003c/code\u003e\u003c/pre\u003e\u003col start="8"\u003e
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
@@ -266,11 +322,11 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003c/code\u003e\u003c/pre\u003e\u003col start="6"\u003e
 \u003cli\u003eRun Postgres DB locally\u003c/li\u003e
 \u003c/ol\u003e
-\u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up
+\u003cpre tabindex="0"\u003e\u003ccode\u003emake docker-compose-up
 \u003c/code\u003e\u003c/pre\u003e\u003col start="7"\u003e
-\u003cli\u003eRun Server; you will need to install \u003ca href="https://github.com/joho/godotenv"\u003egodotenv\u003c/a\u003e or handle environment variable otherwise\u003c/li\u003e
+\u003cli\u003eRun Server\u003c/li\u003e
 \u003c/ol\u003e
-\u003cpre tabindex="0"\u003e\u003ccode\u003egodotenv -f .env go run ./src/server/main.go
+\u003cpre tabindex="0"\u003e\u003ccode\u003emake run-dev-server
 \u003c/code\u003e\u003c/pre\u003e\u003col start="8"\u003e
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e

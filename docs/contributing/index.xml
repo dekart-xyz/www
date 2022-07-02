@@ -2,6 +2,7 @@
 Keplrer.gl (fork) is used to render maps and configure visualizations. It is integrated via redux actions
 Communication with server is happening via GRPC. Query results are fetched via HTTP in CSV format.
 Server Server is a golang application.</description></item><item><title>Build from Source</title><link>https://dekart.xyz/docs/contributing/build-from-source/</link><pubDate>Mon, 22 Feb 2021 08:24:45 +0100</pubDate><guid>https://dekart.xyz/docs/contributing/build-from-source/</guid><description>Prerequisites Google Cloud Project BigQuery API Enabled Cloud Storage Bucket Service account credentials with access to all above Mapbox Token GitHub Account and GitHub Token Steps Checkout Dekart from GitHub; navigate to project directory;
+Get your
 Create .npmrc file in the project directory with the following content and your github token
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN @dekart-xyz:registry=https://npm.pkg.github.com This step is required because dekart is using github packages
-Install frontend dependencies npm install Create and edit .env; see environment variables for details cp .</description></item></channel></rss>
+Install frontend dependencies npm install Create and edit .</description></item></channel></rss>
