@@ -7,7 +7,7 @@ titleAddition = "Geospatial analysis for BigQuery"
 description = "Dekart is an open-source data visualization and analytical tool for large scale geo-spatial data."
 
 ## Open Graph + Twitter Cards
-images = ["dekart-social-preview-0-6.png"]
+images = ["dekart-social-preview-0-8.png"]
 twitterCreator = "delfrrr"
 ogLocale = "en_US"
 
