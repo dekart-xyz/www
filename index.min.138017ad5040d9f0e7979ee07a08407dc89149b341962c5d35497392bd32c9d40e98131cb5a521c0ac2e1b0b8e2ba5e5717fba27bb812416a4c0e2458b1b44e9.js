@@ -56,7 +56,537 @@ var suggestions=document.getElementById("suggestions"),userinput=document.getEle
 \u003cli\u003eFull \u003ca href="https://github.com/dekart-xyz/dekart/tree/main/install/app-engine"\u003eexample\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eConfiguration \u003ca href="/docs/configuration/environment-variables/"\u003edetails\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:1,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Running Dekart for BigQuery as in Docker",content:`\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
+`},{id:1,href:"https://dekart.xyz/docs/self-hosting/aws-ecs-terraform/",title:"Amazon ECS",description:"Example of deploying Dekart to Amazon Elastic Container Service (ECS) with Terraform.",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+\u003cul\u003e
+\u003cli\u003eAWS Credentials and Terraform installed\u003c/li\u003e
+\u003cli\u003eRoute 53 zone where Dekart will be hosted in subdomains\u003c/li\u003e
+\u003cli\u003eMapbox Token\u003c/li\u003e
+\u003cli\u003eAthena Catalog, \u003ca href="https://aws.amazon.com/blogs/big-data/querying-openstreetmap-with-amazon-athena/" target="_blank"\u003eexample adding OpenStreetMap\u003c/a\u003e\u003c/li\u003e
+\u003cli\u003eCognito User Pool, \u003ca href="https://beabetterdev.com/2021/08/16/how-to-add-google-social-sign-on-to-your-amazon-cognito-user-pool/" target="_blank"\u003eexample with Cognito and Google SSO\u003c/a\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="resources"\u003eResources\u003c/h2\u003e
+\u003cp\u003eResources created in this guide\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003enetwork configuration (VPC, public and private subnets)\u003c/li\u003e
+\u003cli\u003esecurity groups\u003c/li\u003e
+\u003cli\u003eroles\u003c/li\u003e
+\u003cli\u003eRDS db instance\u003c/li\u003e
+\u003cli\u003eS3 bucket (for query storage and results cache)\u003c/li\u003e
+\u003cli\u003eload balancer including HTTPS and SSO with Cognito\u003c/li\u003e
+\u003cli\u003eECS cluster, service, and task running on FARGATE\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="setup-with-terraform"\u003eSetup with Terraform\u003c/h2\u003e
+\u003ch3 id="basics"\u003eBasics\u003c/h3\u003e
+\u003cp\u003eBefore we can start talking to an AWS account, we have to set up the Terraform provider:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-tf" data-lang="tf"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nx"\u003eterraform\u003c/span\u003e \u003cspan class="p"\u003e{\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e  \u003cspan class="nx"\u003erequired_providers\u003c/span\u003e \u003cspan class="p"\u003e{\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e    \u003cspan class="na"\u003eaws\u003c/span\u003e = \u003cspan class="p"\u003e{\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e      \u003cspan class="na"\u003esource\u003c/span\u003e  = \u003cspan class="s2"\u003e\u0026#34;hashicorp/aws\u0026#34;\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e      \u003cspan class="na"\u003eversion\u003c/span\u003e = \u003cspan class="s2"\u003e\u0026#34;~\u0026gt; 4.16\u0026#34;\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e    \u003cspan class="p"\u003e}\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e  \u003cspan class="p"\u003e}\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e  \u003cspan class="na"\u003erequired_version\u003c/span\u003e = \u003cspan class="s2"\u003e\u0026#34;\u0026gt;= 1.2.0\u0026#34;\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="p"\u003e}\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="kr"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="kr"\u003eprovider\u003c/span\u003e \u003cspan class="s2"\u003e\u0026#34;aws\u0026#34;\u003c/span\u003e \u003cspan class="p"\u003e{\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e  \u003cspan class="na"\u003eregion\u003c/span\u003e = \u003cspan class="nb"\u003evar\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="nx"\u003eregion\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="p"\u003e}\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eThis is an example, so no terraform backend configuration.\u003c/p\u003e
+\u003ch3 id="network"\u003eNetwork\u003c/h3\u003e
+\u003cp\u003eHere we will set up as an example VPC with public and private networks in 2 availability zones. This setup following best practices described in \u003ca href="https://aws.amazon.com/de/blogs/compute/task-networking-in-aws-fargate/" target="_blank"\u003eTask Networking in AWS Fargate\u003c/a\u003e. Note that in the private subnet, outbound traffic has to go through a NAT gateway. AWS charges a considerable cost for NAT per hour, plus traffic. Dekart considerable amount of traffics in form of query results. Instead, we keep tasks in the public subnet and only the RDS instance in the private subnet. This setup does not require NAT configuration.\u003c/p\u003e
+\u003cp\u003eExample VPC setup:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_vpc\u0026#34; \u0026#34;main\u0026#34; {
+  cidr_block = \u0026#34;172.31.0.0/16\u0026#34;
+}
+
+resource \u0026#34;aws_internet_gateway\u0026#34; \u0026#34;main\u0026#34; {
+  vpc_id = aws_vpc.main.id
+}
+
+data \u0026#34;aws_availability_zones\u0026#34; \u0026#34;available\u0026#34; {
+  state = \u0026#34;available\u0026#34;
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003ePublic and private subnets:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_subnet\u0026#34; \u0026#34;private\u0026#34; {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = element([\u0026#34;172.31.0.0/24\u0026#34;, \u0026#34;172.31.1.0/24\u0026#34;], count.index)
+  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+  count             = 2
+}
+
+resource \u0026#34;aws_subnet\u0026#34; \u0026#34;public\u0026#34; {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = element([\u0026#34;172.31.2.0/24\u0026#34;, \u0026#34;172.31.3.0/24\u0026#34;], count.index)
+  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+  count             = 2
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eRoute public subnet via internet gateway:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_route_table\u0026#34; \u0026#34;public\u0026#34; {
+  vpc_id = aws_vpc.main.id
+}
+
+resource \u0026#34;aws_route\u0026#34; \u0026#34;public\u0026#34; {
+  route_table_id         = aws_route_table.public.id
+  destination_cidr_block = \u0026#34;0.0.0.0/0\u0026#34;
+  gateway_id             = aws_internet_gateway.main.id
+}
+
+resource \u0026#34;aws_route_table_association\u0026#34; \u0026#34;public\u0026#34; {
+  count          = 2
+  subnet_id      = element(aws_subnet.public.*.id, count.index)
+  route_table_id = aws_route_table.public.id
+}
+\u003c/code\u003e\u003c/pre\u003e\u003ch3 id="security-groups"\u003eSecurity Groups\u003c/h3\u003e
+\u003cp\u003ePrivate security groups will let ECS Task, RDS db instance and Load Balancer to connect to each other. We also allow outbound traffic, so Docker images can be fetched.\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003e# let the ecs, rds and alb to connect to each other
+resource \u0026#34;aws_security_group\u0026#34; \u0026#34;dekart_private\u0026#34; {
+  name   = \u0026#34;\${var.dekart_deployment_name}-private\u0026#34;
+  vpc_id = aws_vpc.main.id
+
+  # connection within the group
+  ingress {
+    from_port = 0
+    to_port   = 0
+    protocol  = \u0026#34;-1\u0026#34;
+    self      = true
+  }
+
+  # connecting to outside
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = \u0026#34;-1\u0026#34;
+    cidr_blocks      = [\u0026#34;0.0.0.0/0\u0026#34;]
+    ipv6_cidr_blocks = [\u0026#34;::/0\u0026#34;]
+  }
+
+  # https://github.com/hashicorp/terraform-provider-aws/issues/265
+  lifecycle { create_before_destroy = true }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eNote the lifecycle rule necessary for security groups because of known issue \u003ca href="https://github.com/hashicorp/terraform-provider-aws/issues/265" target="_blank"\u003eDestroying Security Groups Takes Forever with Attached SG\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eLoad balancer security group allows inbound traffic.\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003e# allow connections to load balancer
+resource \u0026#34;aws_security_group\u0026#34; \u0026#34;dekart_alb\u0026#34; {
+  name   = \u0026#34;\${var.dekart_deployment_name}-alb\u0026#34;
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    protocol         = \u0026#34;tcp\u0026#34;
+    from_port        = 80
+    to_port          = 80
+    cidr_blocks      = [\u0026#34;0.0.0.0/0\u0026#34;]
+    ipv6_cidr_blocks = [\u0026#34;::/0\u0026#34;]
+  }
+
+  ingress {
+    protocol         = \u0026#34;tcp\u0026#34;
+    from_port        = 443
+    to_port          = 443
+    cidr_blocks      = [\u0026#34;0.0.0.0/0\u0026#34;]
+    ipv6_cidr_blocks = [\u0026#34;::/0\u0026#34;]
+  }
+
+  lifecycle { create_before_destroy = true }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003ch3 id="s3-bucket"\u003eS3 bucket\u003c/h3\u003e
+\u003cp\u003eBucket to store queries and cache query results\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_s3_bucket\u0026#34; \u0026#34;dekart_output\u0026#34; {
+  bucket = \u0026#34;\${var.dekart_deployment_name}-output\u0026#34;
+}
+\u003c/code\u003e\u003c/pre\u003e\u003ch3 id="roles"\u003eRoles\u003c/h3\u003e
+\u003cp\u003eEcs task role requires access to output S3 bucket and sufficient access to run Athena jobs.\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_iam_role\u0026#34; \u0026#34;dekart_task\u0026#34; {
+  name = \u0026#34;\${var.dekart_deployment_name}-task\u0026#34;
+  assume_role_policy = jsonencode({
+    Version = \u0026#34;2012-10-17\u0026#34;
+    Statement = [
+      {
+        Effect = \u0026#34;Allow\u0026#34;,
+        Action = \u0026#34;sts:AssumeRole\u0026#34;,
+        Sid    = \u0026#34;\u0026#34;,
+        Principal = {
+          Service = \u0026#34;ecs-tasks.amazonaws.com\u0026#34;
+        }
+      },
+    ]
+  })
+  inline_policy {
+    name = \u0026#34;\${var.dekart_deployment_name}-task-policy\u0026#34;
+    policy = jsonencode({
+      Version = \u0026#34;2012-10-17\u0026#34;,
+      Statement = [
+        {
+          Effect = \u0026#34;Allow\u0026#34;,
+          Action = [
+            \u0026#34;s3:*\u0026#34;
+          ]
+          Resource = [
+            aws_s3_bucket.dekart_output.arn,
+            \u0026#34;\${aws_s3_bucket.dekart_output.arn}/*\u0026#34;,
+          ]
+        },
+        {
+          Effect = \u0026#34;Allow\u0026#34;,
+          Action = [
+            \u0026#34;athena:CancelQueryExecution\u0026#34;,
+            \u0026#34;athena:Get*\u0026#34;,
+            \u0026#34;athena:StartQueryExecution\u0026#34;,
+            \u0026#34;athena:StopQueryExecution\u0026#34;,
+            \u0026#34;glue:Get*\u0026#34;,
+          ],
+          Resource = [
+            \u0026#34;*\u0026#34;
+          ]
+        },
+        {
+          \u0026#34;Effect\u0026#34; : \u0026#34;Allow\u0026#34;,
+          \u0026#34;Action\u0026#34; : [
+            \u0026#34;s3:ListBucket\u0026#34;,
+            \u0026#34;s3:GetBucketLocation\u0026#34;,
+            \u0026#34;s3:ListAllMyBuckets\u0026#34;
+          ],
+          \u0026#34;Resource\u0026#34; : [
+            \u0026#34;*\u0026#34;
+          ]
+        },
+        {
+          \u0026#34;Effect\u0026#34; : \u0026#34;Allow\u0026#34;,
+          \u0026#34;Action\u0026#34; : [
+            \u0026#34;lakeformation:GetDataAccess\u0026#34;
+          ],
+          \u0026#34;Resource\u0026#34; : [
+            \u0026#34;*\u0026#34;
+          ]
+        },
+        {
+          \u0026#34;Effect\u0026#34; : \u0026#34;Allow\u0026#34;,
+          \u0026#34;Action\u0026#34; : [
+            \u0026#34;s3:GetObject\u0026#34;
+          ],
+          \u0026#34;Resource\u0026#34; : flatten([
+            [for bucket in var.athena_s3_data_source : \u0026#34;arn:aws:s3:::\${bucket}\u0026#34;]
+          ])
+        },
+      ]
+    })
+  }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eEcs execution role:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_iam_role\u0026#34; \u0026#34;dekart_execution\u0026#34; {
+  name = \u0026#34;\${var.dekart_deployment_name}-execution\u0026#34;
+  managed_policy_arns = [
+    \u0026#34;arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy\u0026#34;,
+  ]
+  assume_role_policy = jsonencode({
+    Version = \u0026#34;2012-10-17\u0026#34;
+    Statement = [
+      {
+        Effect = \u0026#34;Allow\u0026#34;,
+        Action = \u0026#34;sts:AssumeRole\u0026#34;,
+        Sid    = \u0026#34;\u0026#34;,
+        Principal = {
+          Service = \u0026#34;ecs-tasks.amazonaws.com\u0026#34;
+        }
+      },
+    ]
+  })
+}
+\u003c/code\u003e\u003c/pre\u003e\u003ch3 id="rds"\u003eRDS\u003c/h3\u003e
+\u003cp\u003eGenerate password and store it in secret manager:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;random_password\u0026#34; \u0026#34;dekart_rds\u0026#34; {
+  length  = 16
+  special = false
+}
+
+resource \u0026#34;aws_secretsmanager_secret\u0026#34; \u0026#34;dekart_rds\u0026#34; {
+  name = \u0026#34;\${var.dekart_deployment_name}-rds\u0026#34;
+}
+
+resource \u0026#34;aws_secretsmanager_secret_version\u0026#34; \u0026#34;dekart_rds\u0026#34; {
+  secret_id     = aws_secretsmanager_secret.dekart_rds.id
+  secret_string = random_password.dekart_rds.result
+  lifecycle {
+    ignore_changes = [
+      secret_string
+    ]
+  }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eSubnet group\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_db_subnet_group\u0026#34; \u0026#34;dekart_rds\u0026#34; {
+  name       = \u0026#34;\${var.dekart_deployment_name}-rds\u0026#34;
+  subnet_ids = aws_subnet.private.*.id
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eExample DB instance configuration. It does not follow all the best practices in terms to back up and protection from deletion.\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_db_instance\u0026#34; \u0026#34;dekart\u0026#34; {
+  identifier                  = var.dekart_deployment_name
+  allocated_storage           = 20 # min size for gp2 storage_type type
+  storage_type                = \u0026#34;gp2\u0026#34;
+  engine                      = \u0026#34;postgres\u0026#34;
+  engine_version              = \u0026#34;14.1\u0026#34;
+  instance_class              = \u0026#34;db.t3.micro\u0026#34;
+  db_name                     = var.dekart_rds_db_name
+  username                    = var.dekart_rds_username
+  password                    = aws_secretsmanager_secret_version.dekart_rds.secret_string
+  allow_major_version_upgrade = false
+  auto_minor_version_upgrade  = true
+  port                        = 5432
+  publicly_accessible         = false
+  storage_encrypted           = true
+  vpc_security_group_ids      = [aws_security_group.dekart_private.id]
+  db_subnet_group_name        = aws_db_subnet_group.dekart_rds.name
+  skip_final_snapshot         = true
+
+  lifecycle {
+    ignore_changes = [
+      password
+    ]
+  }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003ch3 id="load-balancer"\u003eLoad Balancer\u003c/h3\u003e
+\u003cp\u003eCreate a load balancer and target group. In real configuration, you may use already existing balancer:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_alb\u0026#34; \u0026#34;dekart\u0026#34; {
+  name               = var.dekart_deployment_name
+  load_balancer_type = \u0026#34;application\u0026#34;
+  security_groups    = [aws_security_group.dekart_private.id, aws_security_group.dekart_alb.id]
+  subnets            = aws_subnet.public.*.id
+}
+
+resource \u0026#34;aws_alb_target_group\u0026#34; \u0026#34;dekart\u0026#34; {
+  name        = var.dekart_deployment_name
+  port        = \u0026#34;8080\u0026#34;
+  protocol    = \u0026#34;HTTP\u0026#34;
+  vpc_id      = aws_vpc.main.id
+  target_type = \u0026#34;ip\u0026#34;
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eDNS zone record:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003edata \u0026#34;aws_route53_zone\u0026#34; \u0026#34;main\u0026#34; {
+  name = var.zone_name
+}
+
+resource \u0026#34;aws_route53_record\u0026#34; \u0026#34;dekart\u0026#34; {
+  name    = \u0026#34;\${var.dekart_deployment_name}.\${data.aws_route53_zone.main.name}\u0026#34;
+  zone_id = data.aws_route53_zone.main.zone_id
+  type    = \u0026#34;A\u0026#34;
+
+  alias {
+    name                   = aws_alb.dekart.dns_name
+    zone_id                = aws_alb.dekart.zone_id
+    evaluate_target_health = false
+  }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eACM certificate for HTTPS with validation over DNS\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_acm_certificate\u0026#34; \u0026#34;dekart\u0026#34; {
+
+  domain_name       = aws_route53_record.dekart.name
+  validation_method = \u0026#34;DNS\u0026#34;
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource \u0026#34;aws_route53_record\u0026#34; \u0026#34;dekart_certificate_validation\u0026#34; {
+  for_each = {
+    for dvo in aws_acm_certificate.dekart.domain_validation_options : dvo.domain_name =\u0026gt; {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = aws_route53_record.dekart.zone_id
+}
+
+resource \u0026#34;aws_acm_certificate_validation\u0026#34; \u0026#34;dekart\u0026#34; {
+  certificate_arn         = aws_acm_certificate.dekart.arn
+  validation_record_fqdns = [for record in aws_route53_record.dekart_certificate_validation : record.fqdn]
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eListeners for HTTP and HTTPS requests:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_http\u0026#34; {
+  load_balancer_arn = aws_alb.dekart.arn
+  port              = \u0026#34;80\u0026#34;
+  protocol          = \u0026#34;HTTP\u0026#34;
+
+  default_action {
+    type = \u0026#34;redirect\u0026#34;
+
+    redirect {
+      port        = 443
+      protocol    = \u0026#34;HTTPS\u0026#34;
+      status_code = \u0026#34;HTTP_301\u0026#34;
+    }
+  }
+}
+
+resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
+  load_balancer_arn = aws_alb.dekart.arn
+  port              = 443
+  protocol          = \u0026#34;HTTPS\u0026#34;
+
+  ssl_policy      = \u0026#34;ELBSecurityPolicy-2016-08\u0026#34;
+  certificate_arn = aws_acm_certificate.dekart.arn
+
+  default_action {
+    type             = \u0026#34;forward\u0026#34;
+    target_group_arn = aws_alb_target_group.dekart.arn
+  }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eLoad balancer rule with Cognito authentication. For this configuration, you need to create a Cognito user pool. Check this example for user pool configuration \u003ca href="https://beabetterdev.com/2021/08/16/how-to-add-google-social-sign-on-to-your-amazon-cognito-user-pool/"\u003eHow to add Google Social Sign On To Your Amazon Cognito User Pool\u003c/a\u003e\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_alb_listener_rule\u0026#34; \u0026#34;dekart_listener_rule\u0026#34; {
+
+  listener_arn = aws_alb_listener.dekart_https.arn
+
+  action {
+    type = \u0026#34;authenticate-cognito\u0026#34;
+
+    authenticate_cognito {
+      scope               = \u0026#34;email openid\u0026#34;
+      user_pool_arn       = var.user_pool_arn
+      user_pool_client_id = var.user_pool_client_id
+      user_pool_domain    = var.user_pool_domain
+    }
+  }
+
+  action {
+    type             = \u0026#34;forward\u0026#34;
+    target_group_arn = aws_alb_target_group.dekart.arn
+  }
+
+  condition {
+    path_pattern {
+      values = [\u0026#34;/*\u0026#34;]
+    }
+  }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003ch3 id="ecs"\u003eECS\u003c/h3\u003e
+\u003cp\u003eOptional, Cloud Watch log group configuration\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_cloudwatch_log_group\u0026#34; \u0026#34;dekart\u0026#34; {
+  name              = var.dekart_deployment_name
+  retention_in_days = 7
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eECS task for Dekart. In this example, we configure Dekart to work with Amazon Athena. See \u003ca href="/docs/configuration/environment-variables/"\u003eenvironment variables documentation\u003c/a\u003e for details:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_ecs_task_definition\u0026#34; \u0026#34;dekart\u0026#34; {
+  family                   = \u0026#34;dekart\u0026#34;
+  requires_compatibilities = [\u0026#34;FARGATE\u0026#34;]
+  network_mode             = \u0026#34;awsvpc\u0026#34;
+  cpu                      = \u0026#34;256\u0026#34;
+  memory                   = \u0026#34;512\u0026#34;
+  task_role_arn            = aws_iam_role.dekart_task.arn
+  execution_role_arn       = aws_iam_role.dekart_execution.arn
+  container_definitions    = \u0026lt;\u0026lt;TASK_DEFINITION
+[
+    {
+       \u0026#34;name\u0026#34;: \u0026#34;\${var.dekart_deployment_name}\u0026#34;,
+       \u0026#34;image\u0026#34;: \u0026#34;dekartxyz/dekart:\${var.dekart_version}\u0026#34;,
+       \u0026#34;portmappings\u0026#34;: [
+          {
+            \u0026#34;hostport\u0026#34;: 8080,
+            \u0026#34;protocol\u0026#34;: \u0026#34;tcp\u0026#34;,
+            \u0026#34;containerport\u0026#34;: 8080
+          }
+        ],
+       \u0026#34;environment\u0026#34;: [
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;AWS_REGION\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${var.region}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_POSTGRES_HOST\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${aws_db_instance.dekart.address}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_POSTGRES_PORT\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${aws_db_instance.dekart.port}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_POSTGRES_DB\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${aws_db_instance.dekart.db_name}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_POSTGRES_USER\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;dekart\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_POSTGRES_PASSWORD\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${aws_secretsmanager_secret_version.dekart_rds.secret_string}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_STORAGE\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;S3\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_DATASOURCE\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;ATHENA\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_CLOUD_STORAGE_BUCKET\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${aws_s3_bucket.dekart_output.id}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_ATHENA_CATALOG\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${var.athena_catalog}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_ATHENA_S3_OUTPUT_LOCATION\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${aws_s3_bucket.dekart_output.id}\u0026#34;
+          },
+          {
+             \u0026#34;name\u0026#34;: \u0026#34;DEKART_MAPBOX_TOKEN\u0026#34;,
+             \u0026#34;value\u0026#34;: \u0026#34;\${var.mapbox_token}\u0026#34;
+          }
+       ],
+       \u0026#34;logconfiguration\u0026#34;: {
+          \u0026#34;logdriver\u0026#34;: \u0026#34;awslogs\u0026#34;,
+          \u0026#34;secretoptions\u0026#34;: null,
+          \u0026#34;options\u0026#34;: {
+             \u0026#34;awslogs-group\u0026#34;: \u0026#34;\${aws_cloudwatch_log_group.dekart.name}\u0026#34;,
+             \u0026#34;awslogs-region\u0026#34;: \u0026#34;\${var.region}\u0026#34;,
+             \u0026#34;awslogs-stream-prefix\u0026#34;: \u0026#34;dekart\u0026#34;
+          }
+       }
+    }
+ ]
+   TASK_DEFINITION
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eECS cluster configuration:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_ecs_cluster\u0026#34; \u0026#34;dekart\u0026#34; {
+  name = var.dekart_deployment_name
+}
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eFinally, ECS service configuration. For cost efficiency, we launch this service using FARGATE. Currently, Dekart does not support horizontal scaling, so we need to set \u003ccode\u003edesired_count = 1\u003c/code\u003e.\u003c/p\u003e
+\u003cp\u003eBecause we avoid creating NAT and proxy query results through it, we need to put task in the public subnet. Task also needs a public IP address in order to make outbound requests like fetch docker image. However, as it is part of the private security group, inbound traffic is not allowed to the task. The only way to access it is via load balancer.\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eresource \u0026#34;aws_ecs_service\u0026#34; \u0026#34;dekart\u0026#34; {
+  name                 = var.dekart_deployment_name
+  cluster              = aws_ecs_cluster.dekart.id
+  task_definition      = \u0026#34;\${aws_ecs_task_definition.dekart.family}:\${aws_ecs_task_definition.dekart.revision}\u0026#34;
+  desired_count        = 1 # important, dekart does not scale horizontally
+  force_new_deployment = true
+  launch_type          = \u0026#34;FARGATE\u0026#34;
+
+  network_configuration {
+    security_groups  = [aws_security_group.dekart_private.id]
+    subnets          = aws_subnet.public.*.id
+    assign_public_ip = true # it is necessarily to access Internet from task without NAT
+  }
+
+  load_balancer {
+    target_group_arn = aws_alb_target_group.dekart.arn
+    container_name   = var.dekart_deployment_name
+    container_port   = 8080
+  }
+}
+\u003c/code\u003e\u003c/pre\u003e\u003ch2 id="complete-example"\u003eComplete example\u003c/h2\u003e
+\u003cp\u003eHere you can find \u003ca href="https://github.com/dekart-xyz/dekart/tree/main/install/ecs" target="_blank"\u003ecomplete example\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eTo run it:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003ecreate \u003ccode\u003e./terraform.tfvars.json\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003edefine required variables, see \u003ccode\u003e./variables.tf\u003c/code\u003e for details\u003c/li\u003e
+\u003cli\u003erun \u003ccode\u003eterraform apply\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+`},{id:2,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Running Dekart for BigQuery as in Docker",content:`\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
 \u003ch3 id="prerequisites"\u003ePrerequisites\u003c/h3\u003e
 \u003cul\u003e
 \u003cli\u003eAWS Account\u003c/li\u003e
@@ -115,7 +645,7 @@ var suggestions=document.getElementById("suggestions"),userinput=document.getEle
 \u003cul\u003e
 \u003cli\u003eRun with \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile"\u003eMakefile\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:2,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart locally with docker-compose",content:`\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
+`},{id:3,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart locally with docker-compose",content:`\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
 \u003ch3 id="prerequisites"\u003ePrerequisites\u003c/h3\u003e
 \u003cul\u003e
 \u003cli\u003eAWS Account\u003c/li\u003e
@@ -166,7 +696,7 @@ GOOGLE_APPLICATION_CREDENTIALS=
 \u003cli\u003eRun\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up dekart-bigquery
-\u003c/code\u003e\u003c/pre\u003e`},{id:3,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`\u003cp\u003e\u003cdiv class="alert alert-primary" role="alert"\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:4,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`\u003cp\u003e\u003cdiv class="alert alert-primary" role="alert"\u003e
 Before you begin: it is always recommended to backup your postgres database before upgrading Dekart. On the first run Dekart applies migrations to database and you won't be able to downgrade.
 \u003c/div\u003e\u003c/p\u003e
 \u003cp\u003eFor all Docker based deployments, update docker tag, for example:\u003c/p\u003e
@@ -174,7 +704,7 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003cp\u003eThen redeploy application\u003c/p\u003e
 \u003ch2 id="migration-instructions"\u003eMigration instructions\u003c/h2\u003e
 \u003cp\u003eThere is no breaking configuration changes in version \u003ccode\u003e0.8\u003c/code\u003e\u003c/p\u003e
-`},{id:4,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
+`},{id:5,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
 \u003cp\u003e\u003ca href="./dekart-architecture-overview.png"\u003e\u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -243,7 +773,7 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003cli\u003eClient requests result by separate HTTP endpoint from server\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003eGoogle IAP (Identity Aware Proxy) is supported to authenticate user requests.\u003c/p\u003e
-`},{id:5,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+`},{id:6,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -287,7 +817,7 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:6,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:7,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -331,7 +861,7 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:7,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:8,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003cp\u003eDekart deployment requires:\u003c/p\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:8,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:9,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003cp\u003eDekart deployment requires:\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003ePostgres DB (like Cloud SQL) to store metadata\u003c/li\u003e
 \u003cli\u003eMapbox token to load the map\u003c/li\u003e
@@ -551,7 +1081,7 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:9,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eYou can try Dekart on \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e (requires Gmail Account) with one of many Public Datasets available on BigQuery.\u003c/p\u003e
+`},{id:10,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eYou can try Dekart on \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e (requires Gmail Account) with one of many Public Datasets available on BigQuery.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button"\u003eBigQuery Public Datasets\u003c/a\u003e and \u003ca target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button"\u003eEven More Datasets\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -636,18 +1166,28 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca href="/docs/about/your-datasets/"\u003eHow to use with Your Private Datasets\u003c/a\u003e\u003c/p\u003e
-`},{id:10,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Use with Your Data",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eWith Dekart you can query and visualize private datasets using BigQuery and AWS Athena. For this you can self-host Dekart instance (open-source, MIT License \u003ca href="https://github.com/dekart-xyz/dekart"\u003eGitHub\u003c/a\u003e) on your Google Cloud or AWS account:\u003c/p\u003e
+`},{id:11,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Use with Your Data",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eWith Dekart you can query and visualize private datasets using BigQuery and AWS Athena. For this you can self-host Dekart instance (open-source, MIT License \u003ca href="https://github.com/dekart-xyz/dekart"\u003eGitHub\u003c/a\u003e) on your Google Cloud or AWS account:\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003e\u003ca href="/docs/self-hosting/app-engine"\u003eRunning Dekart on Google App Engine\u003c/a\u003e\u003c/li\u003e
-\u003cli\u003eRunning Dekart on AWS (documentation coming soon)\u003c/li\u003e
+\u003cli\u003e\u003ca href="/docs/self-hosting/aws-ecs-terraform"\u003eRunning Dekart on Amazon ECS\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/self-hosting/docker"\u003eRunning Dekart with Docker\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-\u003cp\u003eTo secure your Dekart instance, you can:\u003c/p\u003e
+\u003ch3 id="secure-your-dekart-instance-with-sso"\u003eSecure your Dekart instance with SSO\u003c/h3\u003e
 \u003cul\u003e
-\u003cli\u003eConfigure \u003ca href="https://cloud.google.com/iap/docs/app-engine-quickstart"\u003eGoogle IAP\u003c/a\u003e for your deployment\u003c/li\u003e
-\u003cli\u003eOptionally, \u003ca href="/docs/configuration/environment-variables/#user-management-with-google-iap"\u003econfigure Dekart to Authorize users\u003c/a\u003e with Google IAP\u003c/li\u003e
+\u003cli\u003e
+\u003cp\u003eOn Google Cloud: configure \u003ca href="https://cloud.google.com/iap/docs/app-engine-quickstart" target="_blank"\u003eGoogle IAP\u003c/a\u003e for your deployment\u003c/p\u003e
+\u003c/li\u003e
+\u003cli\u003e
+\u003cp\u003eOn Amazon: configure load balancer to \u003ca href="/docs/self-hosting/aws-ecs-terraform/#load-balancer"\u003eauthorize using Cognito\u003c/a\u003e for your deployment\u003c/p\u003e
+\u003c/li\u003e
+\u003cli\u003e
+\u003cp\u003eConfigure \u003ca href="https://cloud.google.com/iap/docs/app-engine-quickstart"\u003eGoogle IAP\u003c/a\u003e for your deployment\u003c/p\u003e
+\u003c/li\u003e
+\u003cli\u003e
+\u003cp\u003eOptionally, \u003ca href="/docs/configuration/environment-variables/#user-management-with-google-iap"\u003econfigure Dekart to Authorize users\u003c/a\u003e with Google IAP\u003c/p\u003e
+\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:11,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:12,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/about/screencast/screencast_hubcb05f9855198997eaa919acc67d2bb4_11376295_20x0_resize_box.gif" data-src="https://dekart.xyz/docs/about/screencast/screencast.gif" width="1024" height="640" alt="Querying Chicago Crime Dataset from BigQuery Public Data"\u003e
+`},{id:12,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:13,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/about/screencast/screencast_hubcb05f9855198997eaa919acc67d2bb4_11376295_20x0_resize_box.gif" data-src="https://dekart.xyz/docs/about/screencast/screencast.gif" width="1024" height="640" alt="Querying Chicago Crime Dataset from BigQuery Public Data"\u003e
 \u003cdiv class="img-simple-caption"\u003eQuerying Chicago Crime Dataset from BigQuery Public Data\u003c/div\u003e
 
 \u003cdiv class="text-center"\u003e
