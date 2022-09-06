@@ -14,10 +14,13 @@ menu:
 
 With Dekart you can query and visualize private datasets using BigQuery and AWS Athena. For this you can self-host Dekart instance (open-source, MIT License [GitHub](https://github.com/dekart-xyz/dekart)) on your Google Cloud or AWS account:
 * [Running Dekart on Google App Engine](/docs/self-hosting/app-engine)
-* Running Dekart on AWS (documentation coming soon)
+* [Running Dekart on Amazon ECS](/docs/self-hosting/aws-ecs-terraform)
 * [Running Dekart with Docker](/docs/self-hosting/docker)
 
-To secure your Dekart instance, you can:
+### Secure your Dekart instance with SSO
+
+* On Google Cloud: configure <a href="https://cloud.google.com/iap/docs/app-engine-quickstart" target="_blank">Google IAP</a> for your deployment
+* On Amazon: configure load balancer to [authorize using Cognito](/docs/self-hosting/aws-ecs-terraform/#load-balancer) for your deployment
 
 * Configure <a href="https://cloud.google.com/iap/docs/app-engine-quickstart">Google IAP</a> for your deployment
 * Optionally, [configure Dekart to Authorize users](/docs/configuration/environment-variables/#user-management-with-google-iap) with Google IAP
