@@ -18,10 +18,10 @@ Before you begin: it is always recommended to backup your postgres database befo
 
 For all Docker based deployments, update docker tag, for example:
 
-`dekartxyz/dekart:0.7` -> `dekartxyz/dekart:0.8`
+`dekartxyz/dekart:0.8` -> `dekartxyz/dekart:0.9`
 
 Then redeploy application
 
 ## Migration instructions
 
-There is no breaking configuration changes in version `0.8`
+There is no breaking configuration changes in version `0.9`

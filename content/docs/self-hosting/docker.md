@@ -43,7 +43,7 @@ docker run \
   -e DEKART_MAPBOX_TOKEN=${DEKART_MAPBOX_TOKEN} \
   -e DEKART_MAPBOX_TOKEN=${DEKART_MAPBOX_TOKEN} \
   -p 8080:8080 \
-  dekartxyz/dekart:0.8
+  dekartxyz/dekart:0.9
 ```
 
 
@@ -74,7 +74,7 @@ docker run \
 		-e DEKART_BIGQUERY_MAX_BYTES_BILLED=53687091200 \
 		-e DEKART_MAPBOX_TOKEN=${DEKART_MAPBOX_TOKEN} \
 		-p 8080:8080 \
-		dekartxyz/dekart:0.8
+		dekartxyz/dekart:0.9
 ```
 
 See details on [environment variables](/docs/configuration/environment-variables)
