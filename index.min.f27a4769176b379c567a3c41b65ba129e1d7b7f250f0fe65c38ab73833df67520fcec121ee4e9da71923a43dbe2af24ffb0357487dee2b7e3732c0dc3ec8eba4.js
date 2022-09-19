@@ -1010,11 +1010,11 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="user-management-with-google-iap"\u003eUser management with Google IAP\u003c/h2\u003e
-\u003cp\u003eDekart can read \u003ca target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto"\u003eclaims provided by Google IAP\u003c/a\u003e and implement following policies:\u003c/p\u003e
+\u003ch2 id="user-authorization-via-google-iap"\u003eUser authorization via Google IAP\u003c/h2\u003e
+\u003cp\u003eDekart can read \u003ca target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto"\u003eclaims provided by Google IAP\u003c/a\u003e and authorize users to:\u003c/p\u003e
 \u003cul\u003e
-\u003cli\u003eUser can list and edit only their own reports\u003c/li\u003e
-\u003cli\u003eUsers have read-only access to other users reports\u003c/li\u003e
+\u003cli\u003elist and edit only their own reports\u003c/li\u003e
+\u003cli\u003eread-only access to other users reports\u003c/li\u003e
 \u003c/ul\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -1031,6 +1031,27 @@ Before you begin: it is always recommended to backup your postgres database befo
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_IAP_JWT_AUD\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003eSigned Header JWT Audience (\u003ccode\u003eaud\u003c/code\u003e). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. \u003ca href="https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload"\u003eSee details\u003c/a\u003e.  \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e/projects/PROJECT_NUMBER/apps/PROJECT_ID\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="user-authorization-via-amazon-load-balancer"\u003eUser authorization via Amazon Load Balancer\u003c/h2\u003e
+\u003cp\u003eDekart can read \u003ca target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html"\u003eclaims provided by Amazon Load Balancer\u003c/a\u003e and authorize users to:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003elist and edit only their own reports\u003c/li\u003e
+\u003cli\u003eread-only access to other users reports\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/aws-ecs-terraform/"\u003eAmazon Load Balancer configuration example with Terraform\u003c/a\u003e\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eEnables users authorization. Requires users to be authenticated and \u003ccode\u003ex-amzn-oidc-data\u003c/code\u003e to be passed from Load Balancer. Requires \u003ccode\u003eAWS_REGION\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
