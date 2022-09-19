@@ -77,17 +77,32 @@ Required to query BigQuery and use Cloud Storage
 | `DEKART_BIGQUERY_MAX_BYTES_BILLED` <br/><small class="badge badge-info">version &gt;= 0.7</small>    | Sets `maximumBytesBilled` in BigQuery Job Configuration to implement  <a href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed">Best Practices for Controlling Query Cost</a>.<br> If not set warning message will appear in logs.|
 
 
-## User management with Google IAP
+## User authorization via Google IAP
 
-Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto">claims provided by Google IAP</a> and implement following policies:
+Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto">claims provided by Google IAP</a> and authorize users to:
 
-* User can list and edit only their own reports
-* Users have read-only access to other users reports
+* list and edit only their own reports
+* read-only access to other users reports
 
 | Name        | Description           |
 | ------------- | ------------- |
 | `DEKART_REQUIRE_IAP`      |  Enables validation Google IAP JWT. Required users to be authenticated. ENables user management policies. <br> *Example value*: `1`|
 | `DEKART_IAP_JWT_AUD`      |  Signed Header JWT Audience (`aud`). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. [See details](https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload).  <br> *Example value*: `/projects/PROJECT_NUMBER/apps/PROJECT_ID`|
+
+## User authorization via Amazon Load Balancer
+
+Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html">claims provided by Amazon Load Balancer</a> and authorize users to:
+
+* list and edit only their own reports
+* read-only access to other users reports
+
+[Amazon Load Balancer configuration example with Terraform](/docs/self-hosting/aws-ecs-terraform/)
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_REQUIRE_AMAZON_OIDC`      |  Enables users authorization. Requires users to be authenticated and `x-amzn-oidc-data` to be passed from Load Balancer. Requires `AWS_REGION`. <br> *Example value*: `1`|
+
+
 
 ## User Experience
 
