@@ -48,10 +48,10 @@
   url = "https://join.slack.com/t/dekartcommunity/shared_invite/zt-1flpmu9k2-dbAOAAGn46h0U4t46_9ceA"
   weight = 15
 
-# [[main]]
-#   name = "Blog"
-#   url = "/blog/"
-#   weight = 20
+[[main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 20
 
 # [[social]]
 #   name = "Twitter"
