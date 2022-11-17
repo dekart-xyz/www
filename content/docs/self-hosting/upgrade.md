@@ -18,10 +18,12 @@ Before you begin: it is always recommended to backup your postgres database befo
 
 For all Docker based deployments, update docker tag, for example:
 
-`dekartxyz/dekart:0.8` -> `dekartxyz/dekart:0.9`
+`dekartxyz/dekart:0.9` -> `dekartxyz/dekart:0.10`
+
+Configure `DEKART_CORS_ORIGIN` environment variable to ensure security of your instance and prevent warnings in logs.
 
 Then redeploy application
 
 ## Migration instructions
 
-There is no breaking configuration changes in version `0.9`
+There is no breaking configuration changes in version `0.10`
