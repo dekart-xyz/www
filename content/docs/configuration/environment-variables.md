@@ -121,6 +121,7 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 | `DEKART_UX_HOMEPAGE` |  Change URL linked from Dekart logo<br> *Default value*: `/`|
 | `DEKART_UX_DATA_DOCUMENTATION` |  Allows provide URL to dataset documentation. It will appear in Dekart UI.<br> *Example value*: `https://my.company/dataset/schema.html`|
 | `DEKART_HTML_CUSTOM_CODE`      |  Allows to add custom HTML code to `<head>`. Can be used for adding trackers. |
+| `DEKART_DISABLE_USAGE_STATS` <br><small class="badge badge-info">version &gt;= 0.11</small> | By default, Dekart appends certain information to the referrer of external links. This information includes the version number, the SHA256 hash of the hostname, the name of the data source, and the total number of reports, queries, files, and authors. No other information is collected. The source code for this implementation can be found [here](https://github.com/dekart-xyz/dekart/blob/main/src/client/lib/ref.js#L25). This behavior can be turned off by setting this variable to `1`.|
 
 ## Development specific
 
