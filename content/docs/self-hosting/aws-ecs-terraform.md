@@ -463,6 +463,7 @@ resource "aws_alb_listener" "dekart_https" {
 }
 ```
 
+#### Cognito authentication
 
 Load balancer rule with Cognito authentication. For this configuration, you need to create a Cognito user pool. Check this example for user pool configuration <a href="https://beabetterdev.com/2021/08/16/how-to-add-google-social-sign-on-to-your-amazon-cognito-user-pool/">How to add Google Social Sign On To Your Amazon Cognito User Pool</a>
 
