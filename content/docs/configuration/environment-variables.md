@@ -10,24 +10,6 @@ menu:
 images: []
 ---
 
-Dekart deployment requires:
-
-* Postgres DB (like Cloud SQL) to store metadata
-* Mapbox token to load the map
-
-For BigQuery data source:
-* access to BigQuery API
-* Cloud Storage or S3 bucket where query results are stored
-
-For AWS Athena:
-* access to AWS Athena workspace
-* S3 bucket where query results are stored
-
-Optionally, secure deployment with Google IAP. You have 2 options:
-* Just configure Google IAP (for example for [App Engine](/docs/self-hosting/app-engine/) deployment)
-* Additionally [enable user authentication with Google IAP](#user-management-with-google-iap) to isolate user permissions
-
-
 ## Main configuration
 
 | Name        | Description           |
@@ -39,7 +21,7 @@ Optionally, secure deployment with Google IAP. You have 2 options:
 | `DEKART_POSTGRES_USER`      | *Example*: `postgres`|
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
-| `DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li></ul>|
+| `DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li></ul>|
 | `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li></ul>|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket`|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
@@ -77,6 +59,14 @@ Required to query BigQuery and use Cloud Storage
 | `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project`|
 | `DEKART_BIGQUERY_MAX_BYTES_BILLED` <br/><small class="badge badge-info">version &gt;= 0.7</small>    | Sets `maximumBytesBilled` in BigQuery Job Configuration to implement  <a href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed">Best Practices for Controlling Query Cost</a>.<br> If not set warning message will appear in logs.|
 
+## Snowflake
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_SNOWFLAKE_ACCOUNT_ID` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | <a target="_blank" href="https://docs.snowflake.com/en/user-guide/admin-account-identifier#using-an-account-name-as-an-identifier">Snowflake Account Identifier</a>  <br> *Example*: `orgname-account_name`|
+| `DEKART_SNOWFLAKE_USER` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user with default warehouse configured  <br> *Example*: `example_user`|
+| `DEKART_SNOWFLAKE_PASSWORD` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user password  <br> *Example*: `******`|
+
 
 ## File upload
 
@@ -103,10 +93,10 @@ Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signe
 
 Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html">claims provided by Amazon Load Balancer</a> and authorize users to:
 
-* list and edit only their own reports
-* read-only access to other users reports
+* list and edit only their reports
+* read-only access to other user's reports
 
-[Amazon Load Balancer configuration example with Terraform](/docs/self-hosting/aws-ecs-terraform/)
+[Amazon Load Balancer configuration example with Terraform](/docs/self-hosting/aws-ecs-terraform/#cognito-authentication)
 
 | Name        | Description           |
 | ------------- | ------------- |

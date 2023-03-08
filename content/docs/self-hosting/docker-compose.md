@@ -29,15 +29,16 @@ menu:
 2. Create `.env` file
 
 ```
-POSTGRES_PASSWORD=
-PROJECT_ID=
-CLOUD_STORAGE_BUCKET=
-MAPBOX_TOKEN=
+DEKART_POSTGRES_PASSWORD=
+DEKART_PROJECT_ID=
+DEKART_CLOUD_STORAGE_BUCKET=
+DEKART_MAPBOX_TOKEN=
 DEKART_ATHENA_CATALOG=
 DEKART_ATHENA_S3_OUTPUT_LOCATION=
 AWS_REGION=
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
+DEKART_CORS_ORIGIN=
 ```
 
 3. Run
@@ -63,15 +64,49 @@ docker-compose  --env-file .env up dekart-athena
 2. Create `.env` file
 
 ```
-POSTGRES_PASSWORD=
-PROJECT_ID=
-CLOUD_STORAGE_BUCKET=
-MAPBOX_TOKEN=
+DEKART_POSTGRES_PASSWORD=
+DEKART_PROJECT_ID=
+DEKART_CLOUD_STORAGE_BUCKET=
+DEKART_MAPBOX_TOKEN=
 GOOGLE_APPLICATION_CREDENTIALS=
+DEKART_CORS_ORIGIN=
 ```
 
 3. Run
 
 ```
 docker-compose  --env-file .env up dekart-bigquery
+```
+## Snowflake
+
+### Prerequisites
+
+* Snowflake Account and User
+* Amazon S3 Bucket
+* Mapbox Token
+
+
+### Steps
+
+1. Copy [docker-compose.yaml](https://github.com/dekart-xyz/dekart/blob/main/install/docker-compose/docker-compose.yaml) file
+2. Create `.env` file
+
+```
+DEKART_POSTGRES_PASSWORD=
+DEKART_PROJECT_ID=
+DEKART_CLOUD_STORAGE_BUCKET=
+DEKART_MAPBOX_TOKEN=
+DEKART_SNOWFLAKE_ACCOUNT_ID=
+DEKART_SNOWFLAKE_USER=
+DEKART_SNOWFLAKE_PASSWORD=
+DEKART_CORS_ORIGIN=
+AWS_REGION=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+```
+
+3. Run
+
+```
+docker-compose  --env-file .env up dekart-snowflake
 ```
