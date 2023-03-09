@@ -34,7 +34,7 @@ lqipWidth = "20x"
 
 # Footer
 # footer = "Powered by <a href=\"https://www.netlify.com/\">Netlify</a>, <a href=\"https://gohugo.io/\">Hugo</a>, and <a href=\"https://getdoks.org/\">Doks</a>"
-footer = "Like Dekart? <a href=\"https://github.com/dekart-xyz/dekart/\">Give it ⭐️on GitHub!</a>"
+footer = "Liking Dekart? <a href=\"https://github.com/dekart-xyz/dekart/\">Give it a ⭐️ on GitHub!</a>"
 
 # Alert
 alert = false

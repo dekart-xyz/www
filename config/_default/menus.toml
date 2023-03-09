@@ -1,20 +1,8 @@
 [[docs]]
-  name = "Contributing"
-  weight = 0
-  identifier = "contributing"
-  url = "/docs/contributing/"
-
-[[docs]]
-  name = "Self-Hosting"
-  weight = 3
-  identifier = "self-hosting"
-  url = "/docs/self-hosting/"
-
-[[docs]]
-  name = "Configuration"
-  weight = 2
-  identifier = "configuration"
-  url = "/docs/configuration/"
+  name = "What's new"
+  weight = -1
+  identifier = "whatsnew"
+  url = "/docs/whatsnew/"
 
 [[docs]]
   name = "About"
@@ -22,6 +10,37 @@
   identifier = "about"
   url = "/docs/about/"
 
+[[docs]]
+  name = "Using Dekart"
+  weight = 1
+  identifier = "using-dekart"
+  url = "/docs/using-dekart/"
+
+[[docs]]
+  name = "Installation & Configuration"
+  weight = 3
+  identifier = "installation"
+  url = "/docs/installation/"
+
+[[docs]]
+  name = "Contributing"
+  weight = 0
+  identifier = "contributing"
+  url = "/docs/contributing/"
+
+
+
+[[docs]]
+  name = "Data Sources"
+  weight = 4
+  identifier = "data-sources"
+  url = "/docs/data-sources/"
+
+[[docs]]
+  name = "Security"
+  weight = 4
+  identifier = "security"
+  url = "/docs/security/"
 
 [[main]]
   name = "Docs"

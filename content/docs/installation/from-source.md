@@ -6,7 +6,7 @@ lastmod: 2021-02-22T08:24:45+01:00
 weight: 100
 draft: false
 images: []
-canonical: /docs/contributing/build-from-source/
+canonical: /docs/contributing/building-from-source/
 ---
 
 ## Prerequisites
@@ -39,7 +39,7 @@ This step is required because dekart is using github packages
 npm install
 ```
 
-5. Create and edit `.env`; see [environment variables](/docs/configuration/environment-variables/) for details
+5. Create and edit `.env`; see [environment variables](/docs/installation/environment-variables/) for details
 
 
 ```

@@ -1,5 +1,5 @@
 ---
-title: "Upgrade to new version"
+title: "Upgrading to newer version"
 description: "How to upgrade and migration notes"
 date: 2021-02-22T08:24:45+01:00
 lastmod: 2021-02-22T08:24:45+01:00
@@ -9,7 +9,7 @@ toc: false
 images: []
 menu:
   docs:
-    parent: "self-hosting"
+    parent: "installation"
 ---
 
 <p><div class="alert alert-primary" role="alert">

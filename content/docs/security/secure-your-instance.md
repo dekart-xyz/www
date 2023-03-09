@@ -1,5 +1,5 @@
 ---
-title: "Use with Your Data"
+title: "Securing your Dekart instance"
 description: "Using Dekart with your team/company internal/private datasets"
 date: 2021-02-21T09:17:56+01:00
 lastmod: 2021-02-21T09:17:56+01:00
@@ -8,11 +8,11 @@ toc: false
 images: []
 menu:
   docs:
-    parent: "about"
+    parent: "security"
 
 ---
 
-To analyze private datasets you can self-host the Dekart instance (open-source, MIT License) on your Google Cloud, AWS account or your server.
+To analyze private datasets you can self-host the Dekart instance (open-source, MIT License) on your Google Cloud, AWS account or own server.
 
 ## Requirements
 

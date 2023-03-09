@@ -6,7 +6,7 @@ weight: 2
 images: []
 menu:
   docs:
-    parent: "self-hosting"
+    parent: "installation"
 ---
 
 ## Prerequisites
@@ -507,7 +507,7 @@ resource "aws_cloudwatch_log_group" "dekart" {
 }
 ```
 
-ECS task for Dekart. In this example, we configure Dekart to work with Amazon Athena. See <a href="/docs/configuration/environment-variables/">environment variables documentation</a> for details:
+ECS task for Dekart. In this example, we configure Dekart to work with Amazon Athena. See <a href="/docs/installation/environment-variables/">environment variables documentation</a> for details:
 
 ```
 resource "aws_ecs_task_definition" "dekart" {

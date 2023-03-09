@@ -9,7 +9,7 @@ toc: true
 images: []
 menu:
   docs:
-    parent: "self-hosting"
+    parent: "installation"
 ---
 
 ## Requirements
@@ -97,5 +97,5 @@ docker run -it --rm \
 ## Example
 
 * Run with [Makefile](https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile)
-* See details on [environment variables](/docs/configuration/environment-variables)
+* See details on [environment variables](/docs/installation/environment-variables)
 

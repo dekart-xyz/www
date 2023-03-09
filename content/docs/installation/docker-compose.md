@@ -9,7 +9,7 @@ weight: 10
 images: []
 menu:
   docs:
-    parent: "self-hosting"
+    parent: "installation"
 ---
 ## AWS Athena
 

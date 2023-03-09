@@ -8,7 +8,7 @@ weight: 1
 images: []
 menu:
   docs:
-    parent: "self-hosting"
+    parent: "installation"
 ---
 
 ## Prerequisites
@@ -76,5 +76,5 @@ gcloud app deploy app.yaml
 
 * All gcloud commands in [Makefile](https://github.com/dekart-xyz/dekart/tree/main/install/app-engine/Makefile)
 * Full [example](https://github.com/dekart-xyz/dekart/tree/main/install/app-engine)
-* Configuration [details](/docs/configuration/environment-variables/)
+* Configuration [details](/docs/installation/environment-variables/)
 

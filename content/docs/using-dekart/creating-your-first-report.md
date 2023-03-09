@@ -1,12 +1,12 @@
 ---
-title: "Environment Variables"
-description: "Environment Variables"
+title: "Creating your first report"
+description: "Creating your first report"
 date: 2021-02-22T07:48:05+01:00
 lastmod: 2021-02-22T07:48:05+01:00
 draft: false
 menu:
   docs:
-    parent: "configuration"
+    parent: "using-dekart"
 images: []
 ---
 
@@ -96,7 +96,7 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 * list and edit only their reports
 * read-only access to other user's reports
 
-[Amazon Load Balancer configuration example with Terraform](/docs/self-hosting/aws-ecs-terraform/#cognito-authentication)
+[Amazon Load Balancer configuration example with Terraform](/docs/installation/aws-ecs-terraform/#cognito-authentication)
 
 | Name        | Description           |
 | ------------- | ------------- |

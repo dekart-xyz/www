@@ -1,6 +1,6 @@
 ---
-title: "Build from Source"
-description: "Build Dekart from Source"
+title: "Building from Source"
+description: "Building Dekart from Source"
 date: 2021-02-22T08:24:45+01:00
 lastmod: 2021-02-22T08:24:45+01:00
 weight: 100
@@ -8,7 +8,7 @@ draft: false
 toc: false
 images: []
 aliases:
-  - ../self-hosting/from-source/
+  - ../installation/from-source/
 menu:
   docs:
     parent: "contributing"
@@ -44,7 +44,7 @@ This step is required because dekart is using github packages
 npm install
 ```
 
-5. Create and edit `.env`; see [environment variables](/docs/configuration/environment-variables/) for details
+5. Create and edit `.env`; see [environment variables](/docs/installation/environment-variables/) for details
 
 
 ```
