@@ -60,7 +60,7 @@ make docker-compose-up
 7. Run Server
 
 ```
-make run-dev-server
+make server
 ```
 
 8. Run frontend
