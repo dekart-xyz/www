@@ -43,6 +43,7 @@ Dekart support started AWS SDK environment variables. Required to query AWS Athe
 | ------------- | ------------- |
 | `DEKART_ATHENA_CATALOG` <br/><small class="badge badge-info">version &gt;= 0.8</small>     | Amazon S3 query result location required by Athena SDK. This is different from  `DEKART_CLOUD_STORAGE_BUCKET`. First query results are stored in `DEKART_ATHENA_S3_OUTPUT_LOCATION` and then copied to `DEKART_CLOUD_STORAGE_BUCKET`.  <br> *Example*: `athena-results`|
 | `DEKART_ATHENA_S3_OUTPUT_LOCATION` <br/><small class="badge badge-info">version &gt;= 0.8</small>     | Amazon S3 query result location required by Athena SDK. This is different from  `DEKART_CLOUD_STORAGE_BUCKET`. First query results are stored in `DEKART_ATHENA_S3_OUTPUT_LOCATION` and then copied to `DEKART_CLOUD_STORAGE_BUCKET`.  <br> *Example*: `athena-results`|
+| `DEKART_ATHENA_WORKGROUP` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | AWS Athena workgroup to use when executing Athena queries. If not specified, the default `primary` workgroup will be used. <br> *Example*: `my-athena-workgroup`|
 
 ## Google Cloud
 
