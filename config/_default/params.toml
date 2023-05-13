@@ -3,8 +3,8 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "Geospatial analysis for BigQuery"
-description = "Dekart is an open-source data visualization and analytical tool for large scale geo-spatial data."
+titleAddition = "Maps for your Data Platform"
+description = "Open-source WebGL-powered map visualization and spatial analytics for modern data warehouses."
 
 ## Open Graph + Twitter Cards
 images = ["dekart-social-preview-0-8.png"]

@@ -39,9 +39,10 @@
 
     </div>
     <div class="col-lg-9 col-xl-8 text-center">
-      <p class="mt-2"><a class="btn btn-primary btn-lg" href="/docs/about/playground/" role="button">BigQuery
-          Playground</a></p>
-      <p><a href="/docs/about/your-datasets/">Use with private datasets</a></p>
+      <p class="mt-2"><a class="btn btn-primary btn-lg" href="/docs/about/playground/" role="button">BigQuery Live
+          Demo</a></p>
+      <p><a target="_blank" href="https://github.com/dekart-xyz/dekart/releases/tag/v0.12.1">Latest release 0.12.1</a>
+      </p>
     </div>
   </div>
 </section>
@@ -68,19 +69,46 @@
 </section>
 {{ end }}
 {{ define "sidebar-prefooter" }}
+<section class="section section-featured mt-3 bg-light py-4">
+  <div class="container">
+    <h2 class="h3 mt-0 mb-5 text-center">Connectors</h2>
+    <div class="row justify-content-center g-4">
+      <div class="col-sm">
+        <div class="text-center">
+          <img class="connector" src="/bigquery.svg" alt="BigQuery">
+          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#bigquery">BigQuery</a></div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="text-center">
+          <img class="connector" src="/snowflake.svg" alt="BigQuery">
+          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#snowflake">Snowflake</a></div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="text-center">
+          <img class="connector" src="/athena.svg" alt="BigQuery">
+          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#aws-athena">Athena</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="section section-sm">
   <div class="container">
     <div class="row justify-content-center text-center">
       <div class="col-lg-5">
-        <h2 class="h4">Visualize up to 1 million rows</h2>
-        <p>Get A+ scores on <a href="https://observatory.mozilla.org/analyze/doks.netlify.app">Mozilla Observatory</a>
-          out of the box. Easily change the default Security Headers to suit your needs.</p>
+        <h2 class="h4">GPU accelerated</h2>
+        <p>State-of-the art WebGL-powered map visualizations and spatial analysis based on deck.gl</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">Fast by default</h2>
-        <p>Get 100 scores on <a
-            href="https://googlechrome.github.io/lighthouse/viewer/?gist=7731347bb8ce999eff7428a8e763b637">Google
-            Lighthouse</a> by default. Doks removes unused css, prefetches links, and lazy loads images.</p>
+        <h2 class="h4">For large query results</h2>
+        <p>Tested at 100Mb and 1M rows.
+          Efficient query result caching on Amazon S3 or Google Cloud Storage.</p>
+      </div>
+      <div class="col-lg-5">
+        <h2 class="h4">SQL, CSV, GeoJSON</h2>
+        <p>Side-by-side SQL editor and support for CSV and GeoJSON file uploads.</p>
       </div>
     </div>
   </div>
