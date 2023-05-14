@@ -5,5 +5,5 @@ lead: "Open-source, self-hosted alternative to CARTO and Foursquare Studio for d
 date: 2020-10-06T08:47:36+00:00
 lastmod: 2020-10-06T08:47:36+00:00
 draft: false
-images: ["dekart-social-preview-0-8.png", "screen.png", "covid-population-density-germany.png"]
+images: ["dekart-social-preview-0-12.png", "screen.png", "covid-population-density-germany.png"]
 ---
