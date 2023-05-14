@@ -7,7 +7,7 @@ titleAddition = "Maps for your Data Platform"
 description = "Open-source WebGL-powered map visualization and spatial analytics for modern data warehouses."
 
 ## Open Graph + Twitter Cards
-images = ["dekart-social-preview-0-8.png"]
+images = ["dekart-social-preview-0-12.png"]
 twitterCreator = "delfrrr"
 ogLocale = "en_US"
 
@@ -34,11 +34,11 @@ lqipWidth = "20x"
 
 # Footer
 # footer = "Powered by <a href=\"https://www.netlify.com/\">Netlify</a>, <a href=\"https://gohugo.io/\">Hugo</a>, and <a href=\"https://getdoks.org/\">Doks</a>"
-footer = "Like Dekart? <a href=\"https://github.com/dekart-xyz/dekart/\">Give it ⭐️on GitHub!</a>"
+footer = "<a href=\"/support-project\">Help Dekart 🩷</a></a>"
 
 # Alert
 alert = false
-alertText = "Like Dekart? <a class=\"alert-link\" href=\"https://github.com/dekart-xyz/dekart/stargazers\">Give it a Star!</a></a>"
+alertText = "Using Dekart? <a class=\"alert-link\" href=\"https://github.com/dekart-xyz/dekart/stargazers\">Help us 🩷</a></a>"
 
 # Edit Page
 docsRepo = "https://github.com/dekart-xyz/www"
