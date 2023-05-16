@@ -34,7 +34,7 @@ lqipWidth = "20x"
 
 # Footer
 # footer = "Powered by <a href=\"https://www.netlify.com/\">Netlify</a>, <a href=\"https://gohugo.io/\">Hugo</a>, and <a href=\"https://getdoks.org/\">Doks</a>"
-footer = "<a href=\"/support-project\">Help Dekart 🩷</a></a>"
+footer = "<a href=\"/support-project\">Help Dekart 💜</a></a>"
 
 # Alert
 alert = false
