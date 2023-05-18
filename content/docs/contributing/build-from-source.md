@@ -54,13 +54,13 @@ cp .env.example .env
 6. Run Postgres DB locally
 
 ```
-make docker-compose-up
+make up
 ```
 
 7. Run Server
 
 ```
-make run-dev-server
+make server
 ```
 
 8. Run frontend
