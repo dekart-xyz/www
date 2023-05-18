@@ -21,7 +21,7 @@ images: []
 | `DEKART_POSTGRES_USER`      | *Example*: `postgres`|
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
-| `DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li></ul>|
+|`DEKART_POSTGRES_URL` <br><small class="badge badge-info">version &gt;= 0.13</small> | Alternatively to specify `DEKART_POSTGRES_DB`, `DEKART_POSTGRES_HOST`, `DEKART_POSTGRES_PORT`, `DEKART_POSTGRES_USER`, `DEKART_POSTGRES_PASSWORD`, configure PostgreSQL by passing the connection string. If both specified `DEKART_POSTGRES_URL` is used. <br/> *Example*: `postgres://user:pass@hostname:5432/dekart?sslmode=verify-full`|, `DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li></ul>|
 | `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li></ul>|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket`|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
@@ -41,8 +41,10 @@ Dekart support started AWS SDK environment variables. Required to query AWS Athe
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_ATHENA_CATALOG` <br/><small class="badge badge-info">version &gt;= 0.8</small>     | Amazon S3 query result location required by Athena SDK. This is different from  `DEKART_CLOUD_STORAGE_BUCKET`. First query results are stored in `DEKART_ATHENA_S3_OUTPUT_LOCATION` and then copied to `DEKART_CLOUD_STORAGE_BUCKET`.  <br> *Example*: `athena-results`|
+| `DEKART_ATHENA_CATALOG` <br/><small class="badge badge-info">version &gt;= 0.8</small> | Data source (group of databases) for AWS Athena to reference when executing queries. Default value is usually `AwsDataCatalog`. <br> *Example*: `my-athena-catalog`|
+`DEKART_ATHENA_S3_OUTPUT_LOCATION` and then copied to `DEKART_CLOUD_STORAGE_BUCKET`.  <br> *Example*: `athena-results`|
 | `DEKART_ATHENA_S3_OUTPUT_LOCATION` <br/><small class="badge badge-info">version &gt;= 0.8</small>     | Amazon S3 query result location required by Athena SDK. This is different from  `DEKART_CLOUD_STORAGE_BUCKET`. First query results are stored in `DEKART_ATHENA_S3_OUTPUT_LOCATION` and then copied to `DEKART_CLOUD_STORAGE_BUCKET`.  <br> *Example*: `athena-results`|
+| `DEKART_ATHENA_WORKGROUP` <br/><small class="badge badge-info">version &gt;= 0.13</small> | AWS Athena workgroup to use when executing Athena queries. If not specified, the default `primary` workgroup will be used. <br> *Example*: `my-athena-workgroup`|
 
 ## Google Cloud
 

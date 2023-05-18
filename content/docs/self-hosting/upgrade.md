@@ -13,17 +13,19 @@ menu:
 ---
 
 <p><div class="alert alert-primary" role="alert">
-Before you begin: it is always recommended to backup your postgres database before upgrading Dekart. On the first run Dekart applies migrations to database and you won't be able to downgrade.
+Before you begin: it is always recommended to backup your Postgres database before upgrading Dekart. On the first run Dekart applies migrations to the database and you won't be able to downgrade.
 </div></p>
 
-For all Docker based deployments, update docker tag, for example:
+For all Docker-based deployments, update the docker tag, for example: `dekartxyz/dekart:0.12` -> `dekartxyz/dekart:0.13`
 
-`dekartxyz/dekart:0.10` -> `dekartxyz/dekart:0.12`
+## Migration instructions
+
+**`dekartxyz/dekart:0.12` -> `dekartxyz/dekart:0.13`**
+
+No breaking changes, just update the docker tag.
+
+**`dekartxyz/dekart:0.11` -> `dekartxyz/dekart:0.12`**
 
 Configure `DEKART_CORS_ORIGIN` environment variable to ensure security of your instance and prevent warnings in logs.
 
 Then redeploy application
-
-## Migration instructions
-
-There is no breaking configuration changes in version `0.12`
