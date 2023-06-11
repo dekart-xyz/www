@@ -37,7 +37,7 @@ type: "support-project"
             <p><i>Weekly updates</i></p>
             <p><b>Join Slack Community&nbsp;💬</b></p>
             <p>Read weekly behind-the-scenes update from the maintainer. Give feedback about features and the road map.</p>
-            <p><a class="btn btn-outline-primary" href="https://bit.ly/dekart-slack" role="button">Join Slack</a></p>
+            <p><a class="btn btn-outline-primary" href="https://slack.dekart.xyz" role="button">Join Slack</a></p>
         </div>
         <div class="col-md-6 col-lg-4">
             <h2>Pro 🚀</h2>

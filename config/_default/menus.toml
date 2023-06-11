@@ -35,7 +35,7 @@
 
 [[main]]
   name = "Slack"
-  url = "https://bit.ly/dekart-slack"
+  url = "https://slack.dekart.xyz"
   weight = 15
 
 #[[main]]
@@ -66,5 +66,5 @@
 #   weight = 15
 [[footer]]
   name = "Behind the scenes in Slack group"
-  url = "https://bit.ly/dekart-slack"
+  url = "https://slack.dekart.xyz"
   weight = 10
