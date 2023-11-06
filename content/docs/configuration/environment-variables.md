@@ -21,9 +21,10 @@ images: []
 | `DEKART_POSTGRES_USER`      | *Example*: `postgres`|
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
-|`DEKART_POSTGRES_URL` <br><small class="badge badge-info">version &gt;= 0.13</small> | Alternatively to specify `DEKART_POSTGRES_DB`, `DEKART_POSTGRES_HOST`, `DEKART_POSTGRES_PORT`, `DEKART_POSTGRES_USER`, `DEKART_POSTGRES_PASSWORD`, configure PostgreSQL by passing the connection string. If both specified `DEKART_POSTGRES_URL` is used. <br/> *Example*: `postgres://user:pass@hostname:5432/dekart?sslmode=verify-full`|, `DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li></ul>|
+|`DEKART_POSTGRES_URL` <br><small class="badge badge-info">version &gt;= 0.13</small> | Alternatively to specify `DEKART_POSTGRES_DB`, `DEKART_POSTGRES_HOST`, `DEKART_POSTGRES_PORT`, `DEKART_POSTGRES_USER`, `DEKART_POSTGRES_PASSWORD`, configure PostgreSQL by passing the connection string. If both specified `DEKART_POSTGRES_URL` is used. <br/> *Example*: `postgres://user:pass@hostname:5432/dekart?sslmode=verify-full`|
+|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li></ul>|
 | `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li></ul>|
-| `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket`|
+| `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul>|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
 
 
@@ -58,7 +59,7 @@ Required to query BigQuery and use Cloud Storage
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project`|
+| `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project` <br><br><small class="badge badge-info">version &gt;= 0.15</small> If value is empty, users will be able to define project ID via UI.|
 | `DEKART_BIGQUERY_MAX_BYTES_BILLED` <br/><small class="badge badge-info">version &gt;= 0.7</small>    | Sets `maximumBytesBilled` in BigQuery Job Configuration to implement  <a href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed">Best Practices for Controlling Query Cost</a>.<br> If not set warning message will appear in logs.|
 | `DEKART_GCP_EXTRA_OAUTH_SCOPES` <br/><small class="badge badge-info">version &gt;= 0.14</small>    | Set additional scopes for the GCP OAuth token when connecting to BigQuery.<br> The value is interpreted as a comma-delimited list.<br> E.g., in order to query a BigQuery table backed by a Google Sheet in Google Drive, the value needs to be set to `https://www.googleapis.com/auth/drive`. |
 
@@ -73,12 +74,39 @@ Required to query BigQuery and use Cloud Storage
 
 ## File upload
 
-Starting from version 0.10 Dekart supports file upload. File upload is disabled by default. Once uploaded file are stored in a same storage as query results. Both AWS S3 and Google Cloud Storage are supported. Recommended max file size is 100MB.
+Starting from version 0.10 Dekart supports file upload. File upload is disabled by default. Once uploaded files are stored in the same storage as query results. Both AWS S3 and Google Cloud Storage are supported. The recommended max file size is 100MB.
 
 | Name        | Description           |
 | ------------- | ------------- |
 | `DEKART_ALLOW_FILE_UPLOAD` <br/><small class="badge badge-info">version &gt;= 0.10</small> | Enable file upload <br> *Example value*: `1`|
 
+## User authorization via Google OAuth 2.0 flow
+
+Dekart can authorize users via Google OAuth 2.0 and use users' credentials to access BigQuery and Cloud Storage. When this option is enabled, Dekart does not require a service account and `GOOGLE_APPLICATION_CREDENTIALS` to be set. The user token is retrieved from Google OAuth 2.0 flow and stored in only in the browser memory. When the page is refreshed, the token is retrieved again. User short-lived token is then passed via Authorization header Dekart backend to access BigQuery and Cloud Storage.
+
+No token is stored in the Dekart backend, database, or logs.
+
+Each user needs to have access to BigQuery and Cloud Storage with following permissions:
+* BigQuery Data Viewer
+* BigQuery Job User
+* BigQuery Read Session User
+* Storage Object User
+
+
+This option is only supported for BigQuery and Cloud Storage. It is not supported for AWS and Snowflake Data Sources.
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_REQUIRE_GOOGLE_OAUTH`  <br/><small class="badge badge-info">version &gt;= 0.15</small> |  Enables Google OAuth 2.0 flow. Requires users to be authenticated. <br> *Example value*: `1`|
+| `DEKART_GOOGLE_OAUTH_CLIENT_ID`<br/><small class="badge badge-info">version &gt;= 0.15</small>|  Google OAuth 2.0 Client ID. <br> *Example value*: `1234567890-abcde.apps.googleusercontent.com`|
+| `DEKART_GOOGLE_OAUTH_CLIENT_SECRET`<br/><small class="badge badge-info">version &gt;= 0.15</small>|  Google OAuth 2.0 Client Secret. <br> *Example value*: `******`|
+
+
+Creating Google OAuth 2.0 Client ID and Client Secret:
+
+1. Configure [OAuth Consent Screen](https://console.cloud.google.com/apis/credentials/consent) in your Google Cloud Project
+2. Create [OAuth 2.0 Client ID](https://console.cloud.google.com/apis/credentials) with `Web application` type
+3. Add `https://your-dekart-url.com/api/v1/authenticate` to `Authorized redirect URIs`
 
 ## User authorization via Google IAP
 
