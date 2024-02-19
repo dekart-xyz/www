@@ -32,10 +32,6 @@ landscapePhotoWidths = [1800, 900, 800, 700, 600]
 portraitPhotoWidths = [1600, 800, 700, 600]
 lqipWidth = "20x"
 
-# Footer
-# footer = "Powered by <a href=\"https://www.netlify.com/\">Netlify</a>, <a href=\"https://gohugo.io/\">Hugo</a>, and <a href=\"https://getdoks.org/\">Doks</a>"
-footer = "<a href=\"/support-project\">Help Dekart 💜</a></a>"
-
 # Alert
 alert = false
 alertText = "Using Dekart? <a class=\"alert-link\" href=\"https://github.com/dekart-xyz/dekart/stargazers\">Help us 🩷</a></a>"
