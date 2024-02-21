@@ -9,13 +9,18 @@ images: []
 
 # Dekart Cloud Privacy Policy
 
-Effective Date: 2024-02-19
+Effective Date: 2024-02-21
 
 Welcome to Dekart Cloud. This Privacy Policy describes how Dekart XYZ UG (haftungsbeschränkt) ("Dekart Cloud," "we," "us," or "our") collects, uses, and shares information about you through our digital platforms and services. By accessing or using our services, you agree to the collection and use of information in accordance with this policy.
 
+
+## Compliance with Google API Services User Data Policy
+
+Our application's use and transfer to any other application of information received from Google APIs comply with the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes), including the Limited Use requirements. We ensure that the handling of data received through Google APIs is done with the utmost care and respect for your privacy and data security.
+
 ## Information We Collect
 
-Personal Information: We collect your email address for authorization purposes and to communicate with you. We also collect metadata about the reports, data warehouse jobs, and map configurations and report names you create, including the names of the data warehouses used and bucket names. We do not store SQL queries, data caches, or access tokens.
+Personal Information: We collect your email address for authorization purposes and to communicate with you. We also collect metadata about the reports, data warehouse jobs (like id, bites processed), and map configurations and report names you create, including the names of the data warehouses used and bucket names. We do not store SQL queries, data caches, or access tokens.
 
 Nobody at Dekart Cloud has access to your data or warehouse credentials.
 
