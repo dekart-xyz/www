@@ -99,7 +99,7 @@ This option is only supported for BigQuery and Cloud Storage. It is not supporte
 | ------------- | ------------- |
 | `DEKART_REQUIRE_GOOGLE_OAUTH`  <br/><small class="badge badge-info">version &gt;= 0.15</small> |  Enables Google OAuth 2.0 flow. Requires users to be authenticated. <br> *Example value*: `1`|
 | `DEKART_GOOGLE_OAUTH_CLIENT_ID`<br/><small class="badge badge-info">version &gt;= 0.15</small>|  Google OAuth 2.0 Client ID. <br> *Example value*: `1234567890-abcde.apps.googleusercontent.com`|
-| `DEKART_GOOGLE_OAUTH_CLIENT_SECRET`<br/><small class="badge badge-info">version &gt;= 0.15</small>|  Google OAuth 2.0 Client Secret. <br> *Example value*: `******`|
+| `DEKART_GOOGLE_OAUTH_SECRET`<br/><small class="badge badge-info">version &gt;= 0.15</small>|  Google OAuth 2.0 Client Secret. <br> *Example value*: `******`|
 
 
 Creating Google OAuth 2.0 Client ID and Client Secret:
