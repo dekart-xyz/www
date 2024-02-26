@@ -24,6 +24,11 @@
 
 
 [[main]]
+  name = "Cloud"
+  url = "/cloud/"
+  weight = 9
+
+[[main]]
   name = "Docs"
   url = "/docs/"
   weight = 9
@@ -43,10 +48,10 @@
 #  url = "/blog/"
 #  weight = 20
 
-[[main]]
-  name = "Contribute 💜"
-  url = "/support-project"
-  weight = 21
+#[[main]]
+#  name = "Contribute 💜"
+#  url = "/support-project"
+#  weight = 21
 
 # [[social]]
 #   name = "Twitter"
