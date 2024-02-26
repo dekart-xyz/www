@@ -1127,7 +1127,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ctd\u003eGoogle OAuth 2.0 Client ID. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1234567890-abcde.apps.googleusercontent.com\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_CLIENT_SECRET\u003c/code\u003e\u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_SECRET\u003c/code\u003e\u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/td\u003e
 \u003ctd\u003eGoogle OAuth 2.0 Client Secret. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e******\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
