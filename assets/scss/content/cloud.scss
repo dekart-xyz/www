@@ -1,0 +1,30 @@
+.cloud-prices div {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 407px;
+    width: 100%;
+    max-width: 689px;
+    @media (max-width: 768px) {
+        height: calc(100vw * 0.4);
+    }
+    @media (max-width: 576px) {
+        height: calc(100vw * 0.5);
+    }
+}
+.cloud-prices {
+    background-color: #F7F7F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+.cloud-title {
+    background-color: white;
+    background-image: linear-gradient(90deg, #D9A8BF, #5C5DE3);
+    // background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}

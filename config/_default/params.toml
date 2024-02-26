@@ -28,8 +28,8 @@ themeColor = "#fff"
 # Images
 quality = 100
 bgColor = "#fff"
-landscapePhotoWidths = [1800, 900, 800, 700, 600]
-portraitPhotoWidths = [1600, 800, 700, 600]
+landscapePhotoWidths = [2048, 1600, 1024, 512]
+portraitPhotoWidths = [2048, 1600, 1024, 512]
 lqipWidth = "20x"
 
 # Alert
