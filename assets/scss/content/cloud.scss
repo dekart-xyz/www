@@ -12,6 +12,12 @@
         height: calc(100vw * 0.5);
     }
 }
+.cloud-scroll-down{
+    display: none;
+    @media (min-width: 1400px) and (max-width: 1800px) {
+        display: block;
+    }
+}
 .cloud-prices {
     background-color: #F7F7F7;
     display: flex;
