@@ -1234,9 +1234,10 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:10,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eYou can try Dekart on \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e (requires Gmail Account) with one of many Public Datasets available on BigQuery.\u003c/p\u003e
+`},{id:10,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eTry Dekart on \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e with one of many \u003cstrong\u003ePublic Datasets\u003c/strong\u003e available on BigQuery.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003e\u003ca target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button"\u003eBigQuery Public Datasets\u003c/a\u003e and \u003ca target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button"\u003eEven More Datasets\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/"\u003e⚙️ Configure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003e👉 \u003ca target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button"\u003eBigQuery Public Datasets\u003c/a\u003e and \u003ca target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button"\u003eEven More Datasets\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
 \u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/about/playground/screencast_hubcb05f9855198997eaa919acc67d2bb4_11376295_20x0_resize_box.gif" data-src="https://dekart.xyz/docs/about/playground/screencast.gif" width="1024" height="640" alt="Screencast"\u003e
 
@@ -1318,19 +1319,22 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003e\u003ca href="/docs/about/your-datasets/"\u003eHow to use with Your Private Datasets\u003c/a\u003e\u003c/p\u003e
-`},{id:11,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Use with Your Data",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eTo analyze private datasets with Dekart, you have 2 options:\u003c/p\u003e
-\u003cul\u003e
-\u003cli\u003e\u003cstrong\u003eDekart Cloud\u003c/strong\u003e: we host and manage Dekart instance for you (BigQuery only). Free for personal use. Requires Google Cloud access (BigQuery and Google Cloud Storage). \u003ca href="/cloud"\u003eTry it free\u003c/a\u003e.\u003c/li\u003e
-\u003cli\u003e\u003cstrong\u003eSelf-hosted\u003c/strong\u003e: you self-host the Dekart instance (open-source, MIT License) on your Google Cloud, AWS account or your server. \u003ca href="/docs/"\u003eDocumentation\u003c/a\u003e.\u003c/li\u003e
-\u003c/ul\u003e
+\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/"\u003e⚙️ Configure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
+`},{id:11,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+\u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
+\u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
+\u003chr/\u003e
+\u003cp class="lead text-left"\u003e\u003cb\u003e🏰 Self-hosted\u003c/b\u003e. You host the Dekart instance (open-source, MIT License) on your Google Cloud, AWS account or your server.
+\u003cp\u003e👉 \u003ca href="/docs/"\u003eDocumentation\u003c/a\u003e.\u003c/p\u003e
+\u003chr/\u003e
 \u003ch2 id="requirements"\u003eRequirements\u003c/h2\u003e
-\u003cp\u003e\u003cstrong\u003eDekart Cloud\u003c/strong\u003e\u003c/p\u003e
+\u003cp\u003e✨\u003cstrong\u003eDekart Cloud\u003c/strong\u003e:\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud project with BigQuery and Google Cloud Storage enabled\u003c/li\u003e
 \u003cli\u003eGoogle Cloud Storage bucket to store query cache\u003c/li\u003e
 \u003c/ul\u003e
-\u003cp\u003e\u003cstrong\u003eSelf-hosted\u003c/strong\u003e\u003c/p\u003e
+\u003cp\u003e\u003csmall\u003e⚙️ \u003ca href="https://cloud.dekart.xyz"\u003eConfigure\u003c/a\u003e\u003c/small\u003e\u003c/p\u003e
+\u003cp\u003e🏰 \u003cstrong\u003eSelf-hosted\u003c/strong\u003e\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003ePostgres DB (like Amazon RDS or Google Cloud SQL) to store metadata\u003c/li\u003e
 \u003cli\u003eMapbox token to load the map\u003c/li\u003e
