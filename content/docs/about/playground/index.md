@@ -12,13 +12,13 @@ menu:
 
 ---
 
-You can try Dekart on <a target="_blank" href="https://play.dekart.xyz">play.dekart.xyz</a> (requires Gmail Account) with one of many Public Datasets available on BigQuery.
+Try Dekart on <a target="_blank" href="https://play.dekart.xyz">play.dekart.xyz</a> with one of many **Public Datasets** available on BigQuery.
 
 <a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to BigQuery Playground</a>
 
+[⚙️ Configure access to private BigQuery datasets](https://cloud.dekart.xyz/)
 
-
-<p><a target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button">BigQuery Public Datasets</a> and <a target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button">Even More Datasets</a></p>
+<p>👉 <a target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button">BigQuery Public Datasets</a> and <a target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button">Even More Datasets</a></p>
 
 
 ## Quick Start
@@ -60,4 +60,4 @@ WHERE  Rand() < 5 / 100.0
 
 <a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to BigQuery Playground</a>
 
-[How to use with Your Private Datasets](/docs/about/your-datasets/)
+[⚙️ Configure access to private BigQuery datasets](https://cloud.dekart.xyz/)

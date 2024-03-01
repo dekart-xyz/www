@@ -1,5 +1,5 @@
 ---
-title: "Use with Your Data"
+title: "Query Private Datasets"
 description: "Using Dekart with your team/company internal/private datasets"
 date: 2021-02-21T09:17:56+01:00
 lastmod: 2021-02-21T09:17:56+01:00
@@ -12,21 +12,32 @@ menu:
 
 ---
 
-To analyze private datasets with Dekart, you have 2 options:
-
-* **Dekart Cloud**: we host and manage Dekart instance for you (BigQuery only). Free for personal use. Requires Google Cloud access (BigQuery and Google Cloud Storage). [Try it free](/cloud).
-* **Self-hosted**: you self-host the Dekart instance (open-source, MIT License) on your Google Cloud, AWS account or your server. [Documentation](/docs/).
+Dekart offers 2 different options to work with private datasets:
 
 
+<p class="lead text-left">✨<a href="/cloud"><b>Dekart Cloud</b></a>. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.</p>
+
+⚙️ [Configure access to private BigQuery datasets](https://cloud.dekart.xyz/)
+
+<hr/>
+
+<p class="lead text-left"><b>🏰 Self-hosted</b>. You host the Dekart instance (open-source, MIT License) on your Google Cloud, AWS account or your server.
+
+👉 [Documentation](/docs/).
+
+<hr/>
 
 ## Requirements
 
-**Dekart Cloud**
+✨**Dekart Cloud**:
 
 * Google Cloud project with BigQuery and Google Cloud Storage enabled
 * Google Cloud Storage bucket to store query cache
 
-**Self-hosted**
+<p><small>⚙️ <a href="https://cloud.dekart.xyz">Configure</a></small></p>
+
+
+🏰 **Self-hosted**
 
 * Postgres DB (like Amazon RDS or Google Cloud SQL) to store metadata
 * Mapbox token to load the map
