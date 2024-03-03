@@ -16,9 +16,12 @@ menu:
 Before you begin: it is always recommended to back up your Postgres database before upgrading Dekart. On the first run, Dekart applies migrations to the database and you won't be able to downgrade.
 </div></p>
 
-For all Docker-based deployments, update the docker tag, for example `dekartxyz/`dekart:0.14` -> `dekartxyz/dekart:0.15`
+For all Docker-based deployments, update the docker tag, for example `dekartxyz/`dekart:0.15` -> `dekartxyz/dekart:0.16`
 
 ## Migration instructions
+
+**`dekartxyz/dekart:0.15` -> `dekartxyz/dekart:0.16`**
+No breaking changes, just update the docker tag. New Postgres migrations will be applied on the first run.
 
 **`dekartxyz/dekart:0.14` -> `dekartxyz/dekart:0.15`**
 No breaking changes, just update the docker tag. New Postgres migrations will be applied on the first run.

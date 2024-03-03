@@ -22,7 +22,7 @@ images: []
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
 |`DEKART_POSTGRES_URL` <br><small class="badge badge-info">version &gt;= 0.13</small> | Alternatively to specify `DEKART_POSTGRES_DB`, `DEKART_POSTGRES_HOST`, `DEKART_POSTGRES_PORT`, `DEKART_POSTGRES_USER`, `DEKART_POSTGRES_PASSWORD`, configure PostgreSQL by passing the connection string. If both specified `DEKART_POSTGRES_URL` is used. <br/> *Example*: `postgres://user:pass@hostname:5432/dekart?sslmode=verify-full`|
-|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li></ul>|
+|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li><li>`PG` Postgres <small class="badge badge-info">version &gt;= 0.16</small></li></ul>|
 | `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li></ul>|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul>|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
@@ -70,6 +70,14 @@ Required to query BigQuery and use Cloud Storage
 | `DEKART_SNOWFLAKE_ACCOUNT_ID` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | <a target="_blank" href="https://docs.snowflake.com/en/user-guide/admin-account-identifier#using-an-account-name-as-an-identifier">Snowflake Account Identifier</a>  <br> *Example*: `orgname-account_name`|
 | `DEKART_SNOWFLAKE_USER` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user with default warehouse configured  <br> *Example*: `example_user`|
 | `DEKART_SNOWFLAKE_PASSWORD` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user password  <br> *Example*: `******`|
+
+## Postgres (as a data source)
+
+Postgres can be used as a data source for Dekart. Do not confuse with Dekart's Postgres database, which is used to store query meta information.
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_POSTGRES_DATA_CONNECTION` <br/><small class="badge badge-info">version &gt;= 0.16</small>     | Postgres DB to be used as data source  <br> *Example*: `postgres://user:password@host:port/db`|
 
 
 ## File upload
@@ -143,6 +151,9 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 | `DEKART_UX_DATA_DOCUMENTATION` |  Allows provide URL to dataset documentation. It will appear in Dekart UI.<br> *Example value*: `https://my.company/dataset/schema.html`|
 | `DEKART_HTML_CUSTOM_CODE`      |  Allows to add custom HTML code to `<head>`. Can be used for adding trackers. |
 | `DEKART_DISABLE_USAGE_STATS` <br><small class="badge badge-info">version &gt;= 0.11</small> | By default, Dekart appends certain information to the referrer of external links. This information includes the version number, the SHA256 hash of the hostname, the name of the data source, and the total number of reports, queries, files, and authors. No other information is collected. The source code for this implementation can be found [here](https://github.com/dekart-xyz/dekart/blob/main/src/client/lib/ref.js#L25). This behavior can be turned off by setting this variable to `1`.|
+| `DEKART_UX_ACCESS_ERROR_INFO_HTML` <br><small class="badge badge-info">version &gt;= 0.16</small> | Allows to provide custom HTML code to be shown on the access error page. |
+| `DEKART_UX_NOT_FOUND_ERROR_INFO_HTML` <br><small class="badge badge-info">version &gt;= 0.16</small> | Allows to provide custom HTML code to be shown on the not found error page. |
+| `DEKART_UX_SAMPLE_QUERY_SQL` <br><small class="badge badge-info">version &gt;= 0.16</small> | Allows to provide a sample SQL query to be shown in the query editor. |
 
 ## Development specific
 
