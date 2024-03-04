@@ -617,7 +617,7 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -p 8080:8080 \u003cspan class="se"\u003e\\
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.15
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.16
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="google-bigquery"\u003eGoogle BigQuery\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -v \u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e:\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
@@ -634,7 +634,7 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -p 8080:8080 \u003cspan class="se"\u003e\\
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.15
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.16
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="snowflake"\u003eSnowflake\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run -it --rm \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
@@ -654,7 +654,26 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -p 8080:8080 \u003cspan class="se"\u003e\\
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.15
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.16
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="postgresql"\u003ePostgreSQL\u003c/h3\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_ACCESS_KEY_ID\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eAWS_ACCESS_KEY_ID\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_SECRET_ACCESS_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eAWS_SECRET_ACCESS_KEY\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_POSTGRES_DB\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_DB\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_POSTGRES_USER\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_USER\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehost.docker.internal \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eS3 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ePG \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e	-e \u003cspan class="nv"\u003eDEKART_POSTGRES_DATA_CONNECTION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_DATA_CONNECTION\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="si"\u003e\${\u003c/span\u003e\u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="si"\u003e}\u003c/span\u003e \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -p 8080:8080 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:0.16
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="example"\u003eExample\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eRun with \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile"\u003eMakefile\u003c/a\u003e\u003c/li\u003e
@@ -743,8 +762,10 @@ AWS_SECRET_ACCESS_KEY=
 \u003c/code\u003e\u003c/pre\u003e`},{id:4,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`\u003cp\u003e\u003cdiv class="alert alert-primary" role="alert"\u003e
 Before you begin: it is always recommended to back up your Postgres database before upgrading Dekart. On the first run, Dekart applies migrations to the database and you won't be able to downgrade.
 \u003c/div\u003e\u003c/p\u003e
-\u003cp\u003eFor all Docker-based deployments, update the docker tag, for example \u003ccode\u003edekartxyz/\u003c/code\u003edekart:0.14\u003ccode\u003e-\u0026gt;\u003c/code\u003edekartxyz/dekart:0.15\`\u003c/p\u003e
+\u003cp\u003eFor all Docker-based deployments, update the docker tag, for example \u003ccode\u003edekartxyz/\u003c/code\u003edekart:0.15\u003ccode\u003e-\u0026gt;\u003c/code\u003edekartxyz/dekart:0.16\`\u003c/p\u003e
 \u003ch2 id="migration-instructions"\u003eMigration instructions\u003c/h2\u003e
+\u003cp\u003e\u003cstrong\u003e\u003ccode\u003edekartxyz/dekart:0.15\u003c/code\u003e -\u0026gt; \u003ccode\u003edekartxyz/dekart:0.16\u003c/code\u003e\u003c/strong\u003e
+No breaking changes, just update the docker tag. New Postgres migrations will be applied on the first run.\u003c/p\u003e
 \u003cp\u003e\u003cstrong\u003e\u003ccode\u003edekartxyz/dekart:0.14\u003c/code\u003e -\u0026gt; \u003ccode\u003edekartxyz/dekart:0.15\u003c/code\u003e\u003c/strong\u003e
 No breaking changes, just update the docker tag. New Postgres migrations will be applied on the first run.\u003c/p\u003e
 \u003cp\u003e\u003cstrong\u003e\u003ccode\u003edekartxyz/dekart:0.13\u003c/code\u003e -\u0026gt; \u003ccode\u003edekartxyz/dekart:0.14\u003c/code\u003e\u003c/strong\u003e\u003c/p\u003e
@@ -954,7 +975,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_DATASOURCE=BQ\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eWhich datasource to use: \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery, default\u003c/li\u003e\u003cli\u003e\u003ccode\u003eATHENA\u003c/code\u003e AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Snowflake \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
+\u003ctd\u003eWhich datasource to use: \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery, default\u003c/li\u003e\u003cli\u003e\u003ccode\u003eATHENA\u003c/code\u003e AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Snowflake \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Postgres \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_STORAGE=GCS\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
@@ -1083,6 +1104,22 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
+\u003ch2 id="postgres-as-a-data-source"\u003ePostgres (as a data source)\u003c/h2\u003e
+\u003cp\u003ePostgres can be used as a data source for Dekart. Do not confuse with Dekart\u0026rsquo;s Postgres database, which is used to store query meta information.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_DATA_CONNECTION\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003ePostgres DB to be used as data source  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003epostgres://user:password@host:port/db\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
 \u003ch2 id="file-upload"\u003eFile upload\u003c/h2\u003e
 \u003cp\u003eStarting from version 0.10 Dekart supports file upload. File upload is disabled by default. Once uploaded files are stored in the same storage as query results. Both AWS S3 and Google Cloud Storage are supported. The recommended max file size is 100MB.\u003c/p\u003e
 \u003ctable\u003e
@@ -1207,6 +1244,18 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_DISABLE_USAGE_STATS\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.11\u003c/small\u003e\u003c/td\u003e
 \u003ctd\u003eBy default, Dekart appends certain information to the referrer of external links. This information includes the version number, the SHA256 hash of the hostname, the name of the data source, and the total number of reports, queries, files, and authors. No other information is collected. The source code for this implementation can be found \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/src/client/lib/ref.js#L25"\u003ehere\u003c/a\u003e. This behavior can be turned off by setting this variable to \u003ccode\u003e1\u003c/code\u003e.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_ACCESS_ERROR_INFO_HTML\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eAllows to provide custom HTML code to be shown on the access error page.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_NOT_FOUND_ERROR_INFO_HTML\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eAllows to provide custom HTML code to be shown on the not found error page.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_SAMPLE_QUERY_SQL\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eAllows to provide a sample SQL query to be shown in the query editor.\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
