@@ -17,6 +17,12 @@
   url = "/docs/configuration/"
 
 [[docs]]
+  name = "Dekart Cloud"
+  weight = 3
+  identifier = "cloud"
+  url = "/docs/cloud/"
+
+[[docs]]
   name = "About"
   weight = 1
   identifier = "about"
