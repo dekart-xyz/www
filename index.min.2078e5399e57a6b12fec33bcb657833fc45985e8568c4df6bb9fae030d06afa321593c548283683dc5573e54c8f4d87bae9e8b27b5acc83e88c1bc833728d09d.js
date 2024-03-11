@@ -1283,7 +1283,28 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:10,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eTry Dekart on \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e with one of many \u003cstrong\u003ePublic Datasets\u003c/strong\u003e available on BigQuery.\u003c/p\u003e
+`},{id:10,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+\u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
+
+* **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
+
+* **Compliance Friendly**: We comply with [Google API Services User Data Policy](https://cloud.google.com/terms/services) and verified by Google's Trust \u0026 Safety team. --\u003e
+\u003ch3 id="what-permissions-am-i-granting-to-dekart-and-why-are-they-necessary"\u003eWhat permissions am I granting to Dekart, and why are they necessary?\u003c/h3\u003e
+\u003cp\u003eYou are granting Dekart the following scopes:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003ehttps://www.googleapis.com/auth/bigquery\u003c/code\u003e this scope grants Dekart the ability to manage user data in Google BigQuery, encompassing actions like running queries, managing datasets, and configuring settings.\u003c/li\u003e
+\u003cli\u003e\u003ccode\u003ehttps://www.googleapis.com/auth/devstorage.read_write\u003c/code\u003e this scope allows Dekart to read and write user data in Google Cloud Storage, enabling it to manage files and potentially other data storage elements.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eThese permissions are necessary for Dekart to run queries and store results in your Google Cloud Storage bucket.\u003c/p\u003e
+\u003ch3 id="how-will-my-data-be-used-and-protected"\u003eHow will my data be used and protected?\u003c/h3\u003e
+\u003cp\u003eSQL queries and their results are stored in Google Cloud Storage bucket \u003cem\u003eprovided by you!\u003c/em\u003e We never store tokens, and query results in Dekart Cloud backend. Nobody at Dekart can access your BigQuery data or Google Cloud Storage bucket.\u003c/p\u003e
+\u003ch3 id="can-i-revoke-dekarts-access-if-i-change-my-mind"\u003eCan I revoke Dekart\u0026rsquo;s access if I change my mind?\u003c/h3\u003e
+\u003cp\u003eYes, you can revoke Dekart\u0026rsquo;s access to your Google Cloud resources by signing out of Dekart Cloud. This will remove Dekart\u0026rsquo;s access to your Google Cloud resources and prevent Dekart from running queries or storing results in your Google Cloud Storage bucket.\u003c/p\u003e
+\u003ch3 id="does-dekart-comply-with-data-protection-regulations"\u003eDoes Dekart comply with data protection regulations?\u003c/h3\u003e
+\u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
+\u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
+\u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
+`},{id:11,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eTry Dekart on \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e with one of many \u003cstrong\u003ePublic Datasets\u003c/strong\u003e available on BigQuery.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca href="https://cloud.dekart.xyz/"\u003e⚙️ Configure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button"\u003eBigQuery Public Datasets\u003c/a\u003e and \u003ca target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button"\u003eEven More Datasets\u003c/a\u003e\u003c/p\u003e
@@ -1369,7 +1390,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca href="https://cloud.dekart.xyz/"\u003e⚙️ Configure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
-`},{id:11,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:12,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
 \u003chr/\u003e
@@ -1396,7 +1417,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:12,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:13,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/about/screencast/screencast_hubcb05f9855198997eaa919acc67d2bb4_11376295_20x0_resize_box.gif" data-src="https://dekart.xyz/docs/about/screencast/screencast.gif" width="1024" height="640" alt="Querying Chicago Crime Dataset from BigQuery Public Data"\u003e
+`},{id:13,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:14,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/about/screencast/screencast_hubcb05f9855198997eaa919acc67d2bb4_11376295_20x0_resize_box.gif" data-src="https://dekart.xyz/docs/about/screencast/screencast.gif" width="1024" height="640" alt="Querying Chicago Crime Dataset from BigQuery Public Data"\u003e
 \u003cdiv class="img-simple-caption"\u003eQuerying Chicago Crime Dataset from BigQuery Public Data\u003c/div\u003e
 
 \u003cdiv class="text-center"\u003e
