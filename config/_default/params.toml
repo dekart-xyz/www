@@ -3,7 +3,7 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "Maps for your Data Platform"
+titleAddition = "Advanced WebGL Geospatial Analytics"
 description = "Open-source WebGL-powered map visualization and spatial analytics for modern data warehouses."
 
 ## Open Graph + Twitter Cards
