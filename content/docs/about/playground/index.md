@@ -35,7 +35,7 @@ Try Dekart on <a target="_blank" href="https://play.dekart.xyz">play.dekart.xyz<
 
 {{< img src="quick-start-1.png" alt="Create Report" >}}
 
-1. Type example query (uses [Chicago Crime Data](https://console.cloud.google.com/marketplace/product/city-of-chicago-public-data/chicago-crime?project=dekart-playground&folder=&organizationId=))
+4. Type example query (uses [Chicago Crime Data](https://console.cloud.google.com/marketplace/product/city-of-chicago-public-data/chicago-crime?project=dekart-playground&folder=&organizationId=))
 
 ```SQL
 SELECT
@@ -52,11 +52,11 @@ WHERE  Rand() < 5 / 100.0
 
 {{< img src="quick-start-2.png"  alt="Report Edit" >}}
 
-1. Style a map (see [Kepler Docs](https://docs.kepler.gl/docs/user-guides) for details)
+6. Style a map (see [Kepler Docs](https://docs.kepler.gl/docs/user-guides) for details)
 
 {{< img src="quick-start-3.png" alt="Style Visualization" >}}
 
-1. Now you can save and share you beautiful Map!
+7. Now you can save and share you beautiful Map!
 
 <a class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button">Go to BigQuery Playground</a>
 
