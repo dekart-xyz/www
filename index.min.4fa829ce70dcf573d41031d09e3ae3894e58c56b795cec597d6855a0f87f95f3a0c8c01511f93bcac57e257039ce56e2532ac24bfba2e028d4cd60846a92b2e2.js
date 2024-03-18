@@ -1304,17 +1304,15 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:11,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eTry Dekart on \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e with one of many \u003cstrong\u003ePublic Datasets\u003c/strong\u003e available on BigQuery.\u003c/p\u003e
-\u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/"\u003e⚙️ Configure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003e👉 \u003ca target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button"\u003eBigQuery Public Datasets\u003c/a\u003e and \u003ca target="_blank" href="https://www.reddit.com/r/bigquery/wiki/datasets" role="button"\u003eEven More Datasets\u003c/a\u003e\u003c/p\u003e
+`},{id:11,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eTry Dekart in \u003ca target="_blank" href="https://cloud.dekart.xyz/playground"\u003ePlayground Mode\u003c/a\u003e with one of many \u003ca target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button"\u003ePublic Datasets\u003c/a\u003e available on BigQuery.\u003c/p\u003e
+\u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/playground" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
 \u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/about/playground/screencast_hubcb05f9855198997eaa919acc67d2bb4_11376295_20x0_resize_box.gif" data-src="https://dekart.xyz/docs/about/playground/screencast.gif" width="1024" height="640" alt="Screencast"\u003e
 
 
 \u003col\u003e
 \u003cli\u003e
-\u003cp\u003eGo to \u003ca target="_blank" href="https://play.dekart.xyz"\u003eplay.dekart.xyz\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eGo to \u003ca target="_blank" href="https://cloud.dekart.xyz/playground"\u003ecloud.dekart.xyz/playground\u003c/a\u003e\u003c/p\u003e
 \u003c/li\u003e
 \u003cli\u003e
 \u003cp\u003eAuthorize with Gmail Account. Dekart Playground access only your email to store Maps you created on Playground. Emails are not used for any marketing purposes. You are not charge for anything.\u003c/p\u003e
@@ -1338,7 +1336,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/figure\u003e
 
 
-\u003col\u003e
+\u003col start="4"\u003e
 \u003cli\u003eType example query (uses \u003ca href="https://console.cloud.google.com/marketplace/product/city-of-chicago-public-data/chicago-crime?project=dekart-playground\u0026amp;folder=\u0026amp;organizationId="\u003eChicago Crime Data\u003c/a\u003e)\u003c/li\u003e
 \u003c/ol\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-SQL" data-lang="SQL"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1367,7 +1365,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/figure\u003e
 
 
-\u003col\u003e
+\u003col start="6"\u003e
 \u003cli\u003eStyle a map (see \u003ca href="https://docs.kepler.gl/docs/user-guides"\u003eKepler Docs\u003c/a\u003e for details)\u003c/li\u003e
 \u003c/ol\u003e
 \u003cfigure\u003e
@@ -1385,11 +1383,10 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/figure\u003e
 
 
-\u003col\u003e
+\u003col start="7"\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
-\u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://play.dekart.xyz/" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/"\u003e⚙️ Configure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/playground" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
 `},{id:12,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
