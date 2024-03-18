@@ -2,7 +2,7 @@
 title: "Dekart Cloud"
 description: "Secure, worry-free Dekart instance at the cost of self-hosting on AWS or Google Cloud."
 draft: false
-images: ["cloud-large.png", "cloud-prices.png"]
+images: ["cloud-large.png", "cloud-prices-2.png"]
 type: "html-content"
 ---
 
@@ -10,18 +10,15 @@ type: "html-content"
   <div class="pb-3 text-center">
     <h1 class="cloud-title">Introducing Dekart Cloud.</h1>
     <p class="lead">
-      <mark>Secure, worry-free Dekart instance at the cost of hosting it yourself on AWS or Google Cloud.</mark>
-      <br/> Lightweight alternative for CARTO and Foursquare Studio.
+      Secure, worry-free Dekart instance at the cost of hosting it yourself on AWS or Google Cloud.
     </p>
   </div>
   <a class="cloud-prices plausible-event-name--cloud plausible-event-name--cloud-page-image" href="http://cloud.dekart.xyz">
-    <div style="background-image: url(./cloud-prices.png);">
+    <div style="background-image: url(./cloud-prices-2.png);">
     </div>
   </a>
   <div class="text-center pt-5">
-    <a class="btn btn-primary btn-lg plausible-event-name--cloud plausible-event-name--cloud-page-button" href="http://cloud.dekart.xyz" role="button">Launch Dekart</a>
-    <p><small>Requires Google Cloud Access</small></p>
-    <div class="cloud-scroll-down">↓</div>
+    <a class="btn btn-primary btn-lg plausible-event-name--cloud plausible-event-name--cloud-page-button" href="http://cloud.dekart.xyz" role="button">Create workspace</a>
   </div>
   <div>
     <div class="text-center d-flex flex-column align-items-center">
