@@ -15,7 +15,10 @@
     <div class="col-lg-9 col-xl-9 text-center">
       <p class="lead">{{ .Params.lead | safeHTML }}</p>
     </div>
-    <!-- <div class="center-block"><img class="mw-100" src="/images/screen.png" alt="Dekart Screenshot: Visualizing Chicago Crime Dataset Hosted on BigQuery"/></div> -->
+    <div class="col-lg-9 col-xl-8 text-center mt-4">
+      <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/" role="button">Start Free with BigQuery</a></p>
+          <p><a target="_blank" href="https://github.com/dekart-xyz/dekart/releases/tag/v0.16.0">Latest open-source release 0.16.0</a></p>
+    </div>
     <div class="center-block">
       {{ $image := .Page.Resources.GetMatch ("*covid-population-density-germany.png*") -}}
       {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
@@ -37,19 +40,16 @@
       {{ $imgSrcSet = (delimit $imgSrcSet ",") -}}
 
       <figure class="main">
-        <a href="https://play.dekart.xyz/reports/40ab609f-30cb-47ac-9394-e807f5795cc6/source" target="_blank"
+        <a href="https://cloud.dekart.xyz/reports/bef92772-5ad8-4b6a-8d94-72f45f44bf92/source" target="_blank"
           title="COVID vs Population Density in Germany on Dekart BigQuery Playground"><img class="img-fluid lazyload"
             data-sizes="auto" src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}"
             height="{{ $image.Height }}" alt="{{ $alt }}"></a>
         <noscript><img class="img-fluid" sizes="100vw" srcset="{{ $imgSrcSet }}" src="{{ $image.Permalink }}"
             width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}"></noscript>
       </figure>
-
     </div>
     <div class="col-lg-9 col-xl-8 text-center">
-      <p class="mt-2"><a class="btn btn-primary btn-lg" href="/docs/about/playground/" role="button">BigQuery Live
-          Demo</a></p>
-          <p><a target="_blank" href="https://github.com/dekart-xyz/dekart/releases/tag/v0.16.0">Latest open-source release 0.16.0</a></p>
+          <p><a target="_blank" href="/docs/about/playground/">Try Dekart with Pubic Datasets</a></p>
     </div>
   </div>
 </section>
@@ -83,29 +83,29 @@
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/bigquery.svg" alt="BigQuery">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#bigquery">BigQuery</a></div>
-          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/" title="Configure in Dekart Cloud" target="_blank">Configure</a></div>
+          <div class="h5 connector">BigQuery</div>
+          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/" title="Configure in Dekart Cloud" target="_blank">Configure in Cloud</a></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/snowflake.svg" alt="snowflake">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#snowflake">Snowflake</a></div>
-          <div class="configure-in-cloud"><small>Self-hosted only</small></div>
+          <div class="h5 connector">Snowflake</div>
+          <div class="configure-in-cloud"><small><a href="/docs/configuration/environment-variables/#snowflake">Self-hosted only</a></small></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/athena.svg" alt="AWS Athena">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#aws-athena">Athena</a></div>
-          <div class="configure-in-cloud"><small>Self-hosted only</small></div>
+          <div class="h5 connector">Athena</div>
+          <div class="configure-in-cloud"><small><a href="/docs/configuration/environment-variables/#aws-athena">Self-hosted only</a></small></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/postgres.svg" alt="Postgres">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#postgres-as-a-data-source">Postgres</a></div>
-          <div class="configure-in-cloud"><small>Self-hosted only</small></div>
+          <div class="h5 connector">Postgres</div>
+          <div class="configure-in-cloud"><small><a href="/docs/configuration/environment-variables/#postgres-as-a-data-source">Self-hosted only</a></small></div>
         </div>
       </div>
     </div>
@@ -119,7 +119,7 @@
         <p>With WebGL rendering and advanced caching you don't need to worry much about data sampling and aggregation.</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">Never talk to sales</h2>
+        <h2 class="h4">Start right now</h2>
         <p><a href="/docs/">Self-hosted</a> or <a href="/cloud/">Cloud</a>, you can start your analysis today without waiting and talking.</p>
       </div>
       <div class="col-lg-5">
