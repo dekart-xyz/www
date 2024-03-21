@@ -61,8 +61,8 @@
     <div class="row justify-content-center">
       <div class="col-md-12 col-lg-10 col-xl-8">
         <h2 class="mt-3 text-center">Blog</h2>
-        {{ range (where .Site.RegularPages.ByDate "Section" "blog" ) -}}
-        <div class="card">
+        {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "blog" ) -}}
+        <div class="card mb-5">
           <div class="card-body">
             <h2 class="h3"><a class="stretched-link text-body" href="{{ .Permalink }}">{{ .Params.title }}</a></h2>
             <p>{{ .Params.lead | safeHTML }}</p>
@@ -70,6 +70,8 @@
           </div>
         </div>
         {{ end -}}
+        <div class="text-center">
+          <a href="/blog/">More posts</a>
       </div>
     </div>
   </div>
