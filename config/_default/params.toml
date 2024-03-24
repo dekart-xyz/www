@@ -3,11 +3,11 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "Advanced WebGL Geospatial Analytics"
-description = "Open-source WebGL-powered map visualization and spatial analytics for modern data warehouses."
+titleAddition = "Map Analytics for BigQuery and Snowflake"
+description = "Open-source, WebGL-powered map analytics for BigQuery and Snowflake."
 
 ## Open Graph + Twitter Cards
-images = ["dekart-social-preview-0-12.png"]
+images = ["dekart-social-preview-0-16.png"]
 twitterCreator = "delfrrr"
 ogLocale = "en_US"
 
