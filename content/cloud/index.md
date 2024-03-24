@@ -8,7 +8,7 @@ type: "html-content"
 
 <article class="pb-5">
   <div class="pb-3 text-center">
-    <h1 class="cloud-title">Introducing Dekart Cloud.</h1>
+    <h1 class="cloud-title">Introducing Dekart Cloud</h1>
     <p class="lead">
       Secure, worry-free Dekart instance at the cost of hosting it yourself on AWS or Google Cloud.
     </p>
