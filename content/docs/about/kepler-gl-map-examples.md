@@ -1,16 +1,19 @@
 ---
-title: "Examples with Public Datasets"
-description: "Learn how to use BigQuery SQL to visualize spatial datasets"
+title: "Kepler.gl map examples"
+description: "Map examples with public datasets"
 lead: ""
 date: 2024-05-21T07:13:05+02:00
 lastmod: 2024-05-21T07:13:05+02:00
 images: []
+menu:
+  docs:
+    parent: "about"
 weight: 999
 toc: true
-canonical: https://dekart.xyz/docs/about/kepler-gl-map-examples/
+canonical: ""
 ---
 
-Learn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.
+Learn how to use Dekart and BigQuery SQL to create kepler.gl visualizations. Below are some examples with public datasets.
 
 ## Large datasets
 
