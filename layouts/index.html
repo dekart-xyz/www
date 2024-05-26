@@ -10,14 +10,14 @@
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
         -moz-text-fill-color: transparent;
-    ">{{ .Title }}</h1>
+    ">Create and host kepler.gl maps</h1>
     </div>
     <div class="col-lg-9 col-xl-9 text-center">
-      <p class="lead">{{ .Params.lead | safeHTML }}</p>
+      <p class="lead">Connect directly to your cloud database to generate GPU-powered map visualizations from SQL queries. Share maps with live updates and collaboration.</p>
     </div>
     <div class="col-lg-9 col-xl-8 text-center mt-4">
-      <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/" role="button">Start Free with BigQuery</a></p>
-          <p><a target="_blank" href="/docs/about/public-dataset-examples/">Pubic Datasets Examples</a></p>
+      <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/" role="button">Get Started</a></p>
+          <p><a target="_blank" href="/docs/about/kepler-gl-map-examples/">Kepler.gl maps examples</a></p>
     </div>
     <div class="center-block">
       {{ $image := .Page.Resources.GetMatch ("*covid-population-density-germany.png*") -}}
@@ -118,15 +118,15 @@
     <div class="row justify-content-center text-left">
       <div class="col-lg-5">
         <h2 class="h4">Managed or self-hosted</h2>
-        <p>Unlike premium-priced CARTO Builder, Dekart offers cost-efficient <a href="/cloud/">cloud</a> and <a target="_blank" href="https://github.com/dekart-xyz/dekart">open-source</a> options.</p>
+        <p>Unlike premium-priced CARTO Builder, Dekart offers cost-efficient <a href="/cloud/">cloud</a> and <a target="_blank" href="https://github.com/dekart-xyz/dekart">open-source</a> options to meet the need of every kepler.gl user.</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">Build for <a href="https://kepler.gl">kepler.gl</a> users</h2>
-        <p>Dekart speedups map creation and sharing, leveraging kepler.gl GPU-powered visualization for large datasets.</p>
+        <h2 class="h4">Keeping data secured</h2>
+        <p>With direct connection and <a href="/docs/cloud/cloud-security-faq/">passthrough authentication</a>, Dekart enables you to create kepler.gl maps without copying sensitive from your cloud database. Dekart gives you full control of access to it.</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">Keep maps updated</h2>
-        <p>Create maps from SQL queries and keep them in sync with your database data.</p>
+        <h2 class="h4">Keep map updated</h2>
+        <p>Create kepler.gl map from SQL queries and keep it in sync with your database data. With efficient and secure caching, your map is updated without re-running query jobs at each map view.</p>
       </div>
     </div>
   </div>

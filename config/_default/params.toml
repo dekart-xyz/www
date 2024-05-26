@@ -3,8 +3,8 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "Create and share kepler.gl maps"
-description = "Connect directly to your database to generate GPU-powered map visualization from SQL queries, with live updates and collaboration."
+titleAddition = "Create and host kepler.gl maps"
+description = "Connect directly to your cloud database to generate GPU-powered map visualizations from SQL queries. Share maps with live updates and collaboration."
 
 ## Open Graph + Twitter Cards
 images = ["dekart-social-preview-0-16.png"]
