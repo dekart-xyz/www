@@ -77,7 +77,7 @@ Postgres can be used as a data source for Dekart. Do not confuse with Dekart's P
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_POSTGRES_DATA_CONNECTION` <br/><small class="badge badge-info">version &gt;= 0.16</small>     | Postgres DB to be used as data source  <br> *Example*: `postgres://user:password@host:port/db`|
+| `DEKART_POSTGRES_DATASOURCE_CONNECTION` <br/><small class="badge badge-info">version &gt;= 0.16</small>     | Postgres DB to be used as data source  <br> *Example*: `postgres://user:password@host:port/db`|
 
 
 ## File upload
