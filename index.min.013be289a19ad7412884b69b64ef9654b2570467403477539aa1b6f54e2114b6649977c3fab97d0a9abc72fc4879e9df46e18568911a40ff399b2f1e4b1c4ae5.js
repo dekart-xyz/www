@@ -961,14 +961,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:9,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"Kepler.gl map examples",description:"Map examples with public datasets",content:`\u003cp\u003eLearn how to use Dekart and BigQuery SQL to create kepler.gl visualizations. Below are some examples with public datasets.\u003c/p\u003e
-\u003ch2 id="large-datasets"\u003eLarge datasets\u003c/h2\u003e
-\u003cp\u003eExplore large datasets with millions of rows and visualize them on a map\u003c/p\u003e
-\u003cul\u003e
-\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/8f2da1e3-9769-4654-abb8-983afd2a2795"\u003eAll (400k) Toronto Buildings (100Mb)\u003c/a\u003e\u003c/li\u003e
-\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/f63fb537-800e-48f6-8c18-8d542a0fed30"\u003e1M points (30Mb)\u003c/a\u003e\u003c/li\u003e
-\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/b818f41a-5bd2-4b3b-87b8-4797a390a2a6"\u003eAll ramps in Illinois \u003c/a\u003e\u003c/li\u003e
-\u003c/ul\u003e
+`},{id:9,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"Kepler.gl maps examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
 \u003ch2 id="population-density"\u003ePopulation density\u003c/h2\u003e
 \u003cp\u003eVisualize population density anywhere in the world and at any level of detail\u003c/p\u003e
 \u003cul\u003e
@@ -976,19 +969,32 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/a70515ee-ecbb-4aac-8ce1-cf508483e2dc/source"\u003eEU Population Density\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/f4c55a02-88a1-4a38-a8ab-48a6237dfee9/source"\u003eBerlin Population Density\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
+\u003ch2 id="overture-maps"\u003eOverture Maps\u003c/h2\u003e
+\u003cp\u003eExamples creating kepler.gl maps from Overture Data in BigQuery public dataset\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/15540f2b-2411-44a4-92b5-206a9bee5753"\u003eOverture Maps: All Nevada roads\u003c/a\u003e\u003c/li\u003e
+\u003c/ul\u003e
 \u003ch2 id="openstreetmap"\u003eOpenStreetMap\u003c/h2\u003e
-\u003cp\u003eExport OpenStreetMap data\u003c/p\u003e
+\u003cp\u003eExamples of extracting and creating kepler.gl maps from OpenStreetMap data in BigQuery public dataset\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/e539b5f6-cec2-45d5-97b3-d5bf541a9389"\u003eAll German schools from OSM data\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://dekart.xyz/blog/admin-boundaries-in-bigquery-public-datasets/"\u003eAdmin Boundaries\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/556330cb-e7ba-4e34-89df-5644cd0ec8b2"\u003eAll roads in Nevada excluding parking and service roads (26Mb)\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/b2f2e1b3-78ec-42d9-9cc6-c38a2a57f72e"\u003eEvery parking lot in Nevada from the OSM\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/ec7f842a-73f3-4710-a5e8-a2e2d8f63c55/source"\u003eUS States Borders\u003c/a\u003e\u003c/li\u003e
+\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/5825b784-cd3c-4030-b3c5-94a8f4dd47b0"\u003eUkrainian Schools vs Russian Invasion\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
 \u003ch2 id="geospatial-analytics"\u003eGeospatial analytics\u003c/h2\u003e
-\u003cp\u003ePerform geospatial analytics with Spatial SQL\u003c/p\u003e
+\u003cp\u003ePerform geospatial analytics with Spatial SQL and Kepler.gl\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="keplergl-maps-with-large-datasets"\u003eKepler.gl maps with large datasets\u003c/h2\u003e
+\u003cp\u003eBenchmarking Kepler.gl with large datasets\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/8f2da1e3-9769-4654-abb8-983afd2a2795"\u003eAll (400k) Toronto Buildings (100Mb)\u003c/a\u003e\u003c/li\u003e
+\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/f63fb537-800e-48f6-8c18-8d542a0fed30"\u003e1M points (30Mb)\u003c/a\u003e\u003c/li\u003e
+\u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/b818f41a-5bd2-4b3b-87b8-4797a390a2a6"\u003eAll ramps in Illinois \u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
 `},{id:10,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:11,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
 \u003ctable\u003e
