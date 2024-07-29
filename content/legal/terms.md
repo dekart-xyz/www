@@ -9,7 +9,7 @@ images: []
 
 # Terms of Service for Dekart Cloud SaaS
 
-(german version below)
+(German version below)
 
 ## 1. Scope and User Eligibility
 
@@ -17,11 +17,11 @@ These Terms of Service (Terms) apply to the use of Dekart Cloud SaaS services. R
 
 ## 2. Service Description
 
-Dekart Cloud SaaS provides data visualization for modern data platforms. Users can connect their BigQuery databases, query data using SQL, visualize the results, and share them via Dekart Cloud.
+Dekart Cloud SaaS provides data visualization for modern data platforms. Users can connect their databases, including BigQuery and Snowflake, query data using SQL, visualize the results, and share them via Dekart Cloud. Users can also publish query result datasets to Dekart's S3 bucket, making them accessible to others with a link. These datasets can be unpublished at any time, which will result in their deletion from the storage.
 
 ## 3. User Responsibilities
 
-Users agree to use the service lawfully, not infringe on the rights of others, and secure their accounts and passwords.
+Users agree to use the service lawfully, not infringe on the rights of others, and secure their accounts and passwords. Users are responsible for the confidentiality and security of their account information, including stored SQL queries and any published datasets.
 
 ## 4. Payment Terms
 
@@ -33,7 +33,7 @@ Users retain ownership of their data. Dekart retains all rights to the service a
 
 ## 6. Privacy and Data Protection
 
-Data collection, use, and protection are in accordance with Dekart's Privacy Policy, compliant with GDPR, CCPA, and other data protection laws.
+Data collection, use, and protection are in accordance with Dekart's Privacy Policy, compliant with GDPR, CCPA, and other data protection laws. For the new Snowflake connector, data is not stored by Dekart, but user credentials are stored securely in Cloud SQL with AES-256 encryption. The encryption key is stored securely in Google's Secret Manager.
 
 ## 7. Service Availability and Support
 
@@ -67,60 +67,61 @@ Users agree to comply with all applicable export and re-export control laws and 
 
 Feedback and contributions from users are welcome. By providing feedback, users grant Dekart a perpetual, irrevocable, royalty-free license to use and incorporate such feedback into the service.
 
+
 # Allgemeine Geschäftsbedingungen (AGB) für Dekart Cloud SaaS
 
 ## 1. Geltungsbereich und Nutzerberechtigung
 
-Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für die Nutzung der Dekart Cloud SaaS-Dienste. Die Registrierung ist nur mit einer gültigen E-Mail-Adresse möglich und erlaubt die Nutzung durch eine einzelne Person oder eine durch diese Person vertretene Entität.
+Diese Nutzungsbedingungen (Bedingungen) gelten für die Nutzung der Dekart Cloud SaaS-Dienste. Die Registrierung erfordert eine gültige E-Mail-Adresse und erlaubt die Nutzung durch eine Einzelperson oder eine von dieser Person vertretene juristische Person.
 
-## 2. Dienstleistungsbeschreibung
+## 2. Dienstbeschreibung
 
-Dekart Cloud SaaS bietet Datenvisualisierung für moderne Datenplattformen. Nutzer können ihre BigQuery-Datenbanken verbinden, Daten über SQL abfragen, die Ergebnisse visualisieren und über Dekart Cloud teilen.
+Dekart Cloud SaaS bietet Datenvisualisierung für moderne Datenplattformen. Nutzer können ihre Datenbanken, einschließlich BigQuery und Snowflake, verbinden, Daten mittels SQL abfragen, die Ergebnisse visualisieren und über Dekart Cloud teilen. Nutzer können auch Abfrageergebnisse in Dekarts S3-Bucket veröffentlichen, wodurch diese mit einem Link für andere zugänglich werden. Diese Datensätze können jederzeit entfernt werden, was zu ihrer Löschung aus dem Speicher führt.
 
-## 3. Nutzerverantwortung
+## 3. Nutzerverantwortlichkeiten
 
-Die Nutzer verpflichten sich, den Dienst gesetzeskonform zu nutzen, keine Rechte Dritter zu verletzen und ihre Konten sowie Passwörter sicher zu verwahren.
+Nutzer verpflichten sich, den Dienst rechtmäßig zu nutzen, keine Rechte Dritter zu verletzen und ihre Konten sowie Passwörter zu sichern. Nutzer sind verantwortlich für die Vertraulichkeit und Sicherheit ihrer Kontoinformationen, einschließlich gespeicherter SQL-Abfragen und veröffentlichter Datensätze.
 
 ## 4. Zahlungsbedingungen
 
-Die Gebühren richten sich nach den auf der Dekart-Website detailliert aufgeführten Abonnementplänen. Zahlungen können über gängige Kreditkarten und andere Online-Zahlungsmethoden erfolgen. Abonnements verlängern sich automatisch, sofern nicht gekündigt. Erstattungen und Stornierungen unterliegen den zum Zeitpunkt des Kaufs dargelegten Bedingungen.
+Die Gebühren basieren auf den auf der Dekart-Website angegebenen Abonnementplänen. Zahlungen können mit den wichtigsten Kreditkarten und anderen Online-Zahlungsmethoden erfolgen. Abonnements verlängern sich automatisch, es sei denn, sie werden gekündigt. Rückerstattungen und Kündigungen unterliegen den zum Zeitpunkt des Kaufs geltenden Bedingungen.
 
-## 5. Urheberrechte und geistiges Eigentum
+## 5. Urheberrechte
 
-Die Nutzer behalten das Eigentum an ihren Daten. Dekart behält alle Rechte an dem Dienst und seinen Inhalten, Funktionen und Funktionalitäten.
+Die Nutzer behalten das Eigentum an ihren Daten. Dekart behält alle Rechte an dem Dienst sowie dessen ursprünglichen Inhalten, Funktionen und Merkmalen.
 
 ## 6. Datenschutz und Datensicherheit
 
-Die Datenerhebung, -nutzung und -schutz erfolgen gemäß der Datenschutzrichtlinie von Dekart, die mit der DSGVO, dem CCPA und anderen Datenschutzgesetzen übereinstimmt.
+Die Datenerhebung, -nutzung und -schutz erfolgen gemäß der Dekart-Datenschutzrichtlinie, die mit der DSGVO, dem CCPA und anderen Datenschutzgesetzen konform ist. Für den neuen Snowflake-Connector werden keine Daten von Dekart gespeichert, aber die Nutzeranmeldedaten werden sicher in Cloud SQL mit AES-256-Verschlüsselung gespeichert. Der Verschlüsselungsschlüssel wird sicher im Google Secret Manager aufbewahrt.
 
 ## 7. Verfügbarkeit des Dienstes und Support
 
-Dekart strebt eine hohe Verfügbarkeit des Dienstes an, garantiert jedoch keine ununterbrochene Dienstleistung. Support wird über verschiedene Kanäle, einschließlich E-Mail und einem Community-Slack-Kanal, bereitgestellt.
+Dekart strebt eine hohe Verfügbarkeit des Dienstes an, garantiert jedoch keine unterbrechungsfreie Bereitstellung. Support wird über verschiedene Kanäle, einschließlich E-Mail und einem Community-Slack-Kanal, angeboten.
 
-## 8. Änderung der AGB und des Dienstes
+## 8. Änderung der Bedingungen und des Dienstes
 
-Dekart behält sich das Recht vor, die AGB und den Dienst zu ändern. Über wesentliche Änderungen werden Nutzer über die Dienstschnittstelle oder per E-Mail informiert.
+Dekart behält sich das Recht vor, die Bedingungen und den Dienst selbst zu ändern. Nutzer werden über wesentliche Änderungen über die Benutzeroberfläche des Dienstes oder per E-Mail informiert.
 
-## 9. Kündigung und Aussetzung
+## 9. Kündigung und Sperrung
 
-Konten können bei Verstößen gegen die AGB, einschließlich rechtswidriger Nutzung oder Nichtzahlung von Gebühren, gekündigt oder ausgesetzt werden. Nach einer Kündigung können Nutzerdaten gelöscht oder gemäß gesetzlichen Anforderungen aufbewahrt werden.
+Konten können bei Verstößen gegen die Bedingungen, einschließlich rechtswidriger Nutzung oder Nichtzahlung von Gebühren, gekündigt oder gesperrt werden. Nach Kündigung können Nutzerdaten gemäß den gesetzlichen Anforderungen gelöscht oder aufbewahrt werden.
 
-## 10. Haftung und Haftungsausschluss
+## 10. Haftung und Gewährleistungsausschluss
 
-Dekart stellt den Dienst "wie besehen" und "wie verfügbar" ohne jegliche Gewährleistung zur Verfügung. Die Haftung für direkte Schäden ist auf den vom Nutzer in den letzten 12 Monaten gezahlten Betrag begrenzt.
+Dekart stellt den Dienst auf einer "as is" und "as available" Basis ohne jegliche Gewährleistungen bereit. Die Haftung für direkte Schäden ist auf den Betrag beschränkt, den der Nutzer in den letzten 12 Monaten gezahlt hat.
 
 ## 11. Streitbeilegung
 
-Streitigkeiten werden durch bindende Schiedsverfahren gemäß den Schiedsregeln des Deutschen Instituts für Schiedsgerichtsbarkeit gelöst. Es gilt deutsches Recht.
+Streitigkeiten werden durch verbindliche Schiedsverfahren gemäß den Schiedsregeln des Deutschen Instituts für Schiedsgerichtsbarkeit beigelegt. Die Gesetze Deutschlands gelten für diese Bedingungen.
 
-## 12. Notfall- und Missbrauchshandhabung
+## 12. Notfall- und Missbrauchsbehandlung
 
-Dekart behält sich das Recht vor, alle notwendigen Maßnahmen zum Schutz der Integrität und Sicherheit des Dienstes und seiner Nutzer im Falle eines Notfalls oder Missbrauchs zu ergreifen.
+Dekart behält sich das Recht vor, alle notwendigen Maßnahmen zu ergreifen, um die Integrität und Sicherheit des Dienstes und seiner Nutzer im Falle eines Notfalls oder Missbrauchs zu schützen.
 
 ## 13. Exportkontrolle
 
-Die Nutzer verpflichten sich, alle geltenden Export- und Reexportkontrollgesetze und -vorschriften einzuhalten. Der Dienst darf nicht in oder von Personen oder Entitäten in embargierten Ländern oder auf Sanktionslisten genutzt werden.
+Nutzer verpflichten sich, alle anwendbaren Export- und Reexportkontrollgesetze und -vorschriften einzuhalten. Der Dienst darf nicht von Personen oder Organisationen in Embargoländern oder auf Sanktionslisten verwendet werden.
 
 ## 14. Feedback und Beiträge
 
-Feedback und Beiträge der Nutzer sind willkommen. Durch die Bereitstellung von Feedback räumen die Nutzer Dekart eine unbefristete, unwiderrufliche, gebührenfreie Lizenz ein, dieses Feedback in den Dienst zu integrieren.
+Feedback und Beiträge von Nutzern sind willkommen. Durch das Einreichen von Feedback gewähren die Nutzer Dekart eine unbefristete, unwiderrufliche, lizenzgebührenfreie Lizenz zur Nutzung und Integration dieses Feedbacks in den Dienst.
