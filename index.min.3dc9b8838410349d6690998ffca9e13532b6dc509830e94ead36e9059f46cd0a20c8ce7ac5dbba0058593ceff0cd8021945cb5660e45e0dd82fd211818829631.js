@@ -1453,7 +1453,8 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/playground" role="button"\u003eGo to BigQuery Playground\u003c/a\u003e\u003c/p\u003e
 `},{id:14,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
-\u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
+⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
 \u003chr/\u003e
 \u003cp class="lead text-left"\u003e\u003cb\u003e🏰 Self-hosted\u003c/b\u003e. You host the Dekart instance (open-source, MIT License) on your Google Cloud, AWS account or your server.
 \u003cp\u003e👉 \u003ca href="/docs/"\u003eDocumentation\u003c/a\u003e.\u003c/p\u003e
@@ -1461,8 +1462,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ch2 id="requirements"\u003eRequirements\u003c/h2\u003e
 \u003cp\u003e✨\u003cstrong\u003eDekart Cloud\u003c/strong\u003e:\u003c/p\u003e
 \u003cul\u003e
-\u003cli\u003eGoogle Cloud project with BigQuery and Google Cloud Storage enabled\u003c/li\u003e
-\u003cli\u003eGoogle Cloud Storage bucket to store query cache\u003c/li\u003e
+\u003cli\u003eGoogle BigQuery or Snowflake data source\u003c/li\u003e
 \u003c/ul\u003e
 \u003cp\u003e\u003csmall\u003e⚙️ \u003ca href="https://cloud.dekart.xyz"\u003eConfigure\u003c/a\u003e\u003c/small\u003e\u003c/p\u003e
 \u003cp\u003e🏰 \u003cstrong\u003eSelf-hosted\u003c/strong\u003e\u003c/p\u003e
