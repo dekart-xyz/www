@@ -3,11 +3,11 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "Advanced WebGL Geospatial Analytics"
-description = "Open-source WebGL-powered map visualization and spatial analytics for modern data warehouses."
+titleAddition = "Connect Kepler.gl to Your Cloud Data."
+description = "Integrate kepler.gl with BigQuery, Snowflake, and other cloud databases. Create immersive GPU-powered map visualizations using Geospatial SQL. Share cloud-based maps securely, with live updates and collaboration."
 
 ## Open Graph + Twitter Cards
-images = ["dekart-social-preview-0-12.png"]
+images = ["dekart-social-preview-0-16.png"]
 twitterCreator = "delfrrr"
 ogLocale = "en_US"
 

@@ -32,7 +32,12 @@
 [[main]]
   name = "Login"
   url = "https://cloud.dekart.xyz/"
-  weight = 8
+  weight = 6
+
+[[main]]
+  name = "Pricing"
+  url = "/cloud"
+  weight = 7
 
 [[main]]
   name = "Playground"

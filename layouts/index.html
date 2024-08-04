@@ -10,12 +10,15 @@
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
         -moz-text-fill-color: transparent;
-    ">{{ .Title }}</h1>
+    ">Connect Kepler.gl to Your Cloud Data.</h1>
     </div>
-    <div class="col-lg-9 col-xl-9 text-center">
-      <p class="lead">{{ .Params.lead | safeHTML }}</p>
+    <div class="col-lg-12 text-center">
+      <p class="lead">Integrate kepler.gl with BigQuery, Snowflake, and other cloud databases. Create immersive GPU-powered map visualizations using Geospatial SQL. Share cloud-based maps securely, with live updates and collaboration.</p>
     </div>
-    <!-- <div class="center-block"><img class="mw-100" src="/images/screen.png" alt="Dekart Screenshot: Visualizing Chicago Crime Dataset Hosted on BigQuery"/></div> -->
+    <div class="col-lg-9 col-xl-8 text-center mt-4">
+      <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/" role="button">Get Started</a></p>
+          <p><a target="_blank" href="/docs/about/kepler-gl-map-examples/">Kepler.gl maps examples</a></p>
+    </div>
     <div class="center-block">
       {{ $image := .Page.Resources.GetMatch ("*covid-population-density-germany.png*") -}}
       {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
@@ -37,19 +40,16 @@
       {{ $imgSrcSet = (delimit $imgSrcSet ",") -}}
 
       <figure class="main">
-        <a href="https://play.dekart.xyz/reports/40ab609f-30cb-47ac-9394-e807f5795cc6/source" target="_blank"
+        <a href="https://cloud.dekart.xyz/reports/bef92772-5ad8-4b6a-8d94-72f45f44bf92/source" target="_blank"
           title="COVID vs Population Density in Germany on Dekart BigQuery Playground"><img class="img-fluid lazyload"
             data-sizes="auto" src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}"
             height="{{ $image.Height }}" alt="{{ $alt }}"></a>
         <noscript><img class="img-fluid" sizes="100vw" srcset="{{ $imgSrcSet }}" src="{{ $image.Permalink }}"
             width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}"></noscript>
       </figure>
-
     </div>
     <div class="col-lg-9 col-xl-8 text-center">
-      <p class="mt-2"><a class="btn btn-primary btn-lg" href="/docs/about/playground/" role="button">BigQuery Live
-          Demo</a></p>
-          <p><a target="_blank" href="https://github.com/dekart-xyz/dekart/releases/tag/v0.16.0">Latest open-source release 0.16.0</a></p>
+      <p><a target="_blank" href="https://github.com/dekart-xyz/dekart/releases/tag/v0.16.0">Latest open-source release 0.16.0</a></p>
     </div>
   </div>
 </section>
@@ -61,8 +61,8 @@
     <div class="row justify-content-center">
       <div class="col-md-12 col-lg-10 col-xl-8">
         <h2 class="mt-3 text-center">Blog</h2>
-        {{ range (where .Site.RegularPages.ByDate "Section" "blog" ) -}}
-        <div class="card">
+        {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "blog" ) -}}
+        <div class="card mb-5">
           <div class="card-body">
             <h2 class="h3"><a class="stretched-link text-body" href="{{ .Permalink }}">{{ .Params.title }}</a></h2>
             <p>{{ .Params.lead | safeHTML }}</p>
@@ -70,6 +70,8 @@
           </div>
         </div>
         {{ end -}}
+        <div class="text-center">
+          <a href="/blog/">More posts</a>
       </div>
     </div>
   </div>
@@ -83,29 +85,29 @@
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/bigquery.svg" alt="BigQuery">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#bigquery">BigQuery</a></div>
-          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/" title="Configure in Dekart Cloud" target="_blank">Configure</a></div>
+          <div class="h5 connector">BigQuery</div>
+          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections" title="Configure in Dekart Cloud" target="_blank">Configure in Cloud</a></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/snowflake.svg" alt="snowflake">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#snowflake">Snowflake</a></div>
-          <div class="configure-in-cloud"><small>Self-hosted only</small></div>
+          <div class="h5 connector">Snowflake</div>
+          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections" title="Configure in Dekart Cloud" target="_blank">Configure in Cloud</a></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/athena.svg" alt="AWS Athena">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#aws-athena">Athena</a></div>
-          <div class="configure-in-cloud"><small>Self-hosted only</small></div>
+          <div class="h5 connector">Athena</div>
+          <div class="configure-in-cloud"><small><a href="/docs/configuration/environment-variables/#aws-athena">Self-hosted only</a></small></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/postgres.svg" alt="Postgres">
-          <div class="h5 connector"><a href="/docs/configuration/environment-variables/#postgres-as-a-data-source">Postgres</a></div>
-          <div class="configure-in-cloud"><small>Self-hosted only</small></div>
+          <div class="h5 connector">Postgres</div>
+          <div class="configure-in-cloud"><small><a href="/docs/configuration/environment-variables/#postgres-as-a-data-source">Self-hosted only</a></small></div>
         </div>
       </div>
     </div>
@@ -115,16 +117,16 @@
   <div class="container">
     <div class="row justify-content-center text-left">
       <div class="col-lg-5">
-        <h2 class="h4">Raw data insights</h2>
-        <p>With WebGL rendering and advanced caching you don't need to worry much about data sampling and aggregation.</p>
+        <h2 class="h4">Managed or Self-Hosted</h2>
+        <p>Unlike premium-priced CARTO Builder, Dekart offers cost-efficient <a href="/cloud/">cloud</a> and <a target="_blank" href="https://github.com/dekart-xyz/dekart">open-source</a> options to meet the needs of every kepler.gl user.</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">Never talk to sales</h2>
-        <p><a href="/docs/">Self-hosted</a> or <a href="/cloud/">Cloud</a>, you can start your analysis today without waiting and talking.</p>
+        <h2 class="h4">Keeping Data Secure</h2>
+        <p>With direct connection and <a href="/docs/cloud/cloud-security-faq/">passthrough authentication</a>, Dekart allows you to create kepler.gl maps without copying sensitive data from your cloud database.</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">Live collaboration</h2>
-        <p>Easy to share Dekart maps updated live when multiple users are working together.</p>
+        <h2 class="h4">Keep Maps Updated</h2>
+        <p>Create kepler.gl maps from SQL queries and keep them in sync with your database. Efficient and secure caching ensures your maps update without re-running query jobs for each view.</p>
       </div>
     </div>
   </div>

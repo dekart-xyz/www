@@ -5,8 +5,8 @@
       <h1 class="text-center">{{ .Title }}</h1>
       <div class="text-center">{{ .Content }}</div>
 			<div class="card-list">
-				{{ range .Data.Pages -}}	
-					<div class="card">
+				{{ range .Data.Pages -}}
+					<div class="card mb-5">
 						<div class="card-body">
 							<h2 class="h3"><a class="stretched-link text-body" href="{{ .Permalink }}">{{ .Params.title }}</a></h2>
 							<p>{{ .Params.lead | safeHTML }}</p>
