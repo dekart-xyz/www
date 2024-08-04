@@ -15,8 +15,7 @@ Dekart XYZ UG (haftungsbeschränkt)
 Rosenthaler Str. 72A
 10119 Berlin
 Germany
-Tel.: +49 152 3898 2763
-Email: nadiia.moiseienko@gmail.com
+Email: support@dekart.xyz
 
 Managing Director:
 Nadiia Moiseienko
@@ -47,8 +46,7 @@ Dekart XYZ UG (haftungsbeschränkt)
 Rosenthaler Str. 72A
 10119 Berlin
 Deutschland
-Tel.: +49 152 3898 2763
-E-Mail: nadiia.moiseienko@gmail.com
+E-Mail: support@dekart.xyz
 Geschäftsführerin:
 Nadiia Moiseienko
 </pre>
