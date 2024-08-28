@@ -5,7 +5,7 @@ lead: ""
 date: 2024-08-28T07:26:19+02:00
 lastmod: 2024-08-28T07:26:19+02:00
 draft: false
-images: []
+images: ["77dc6f7f-c91c-4099-8dc3-8f043d46cdfb.png"]
 menu:
   docs:
     parent: "about"
