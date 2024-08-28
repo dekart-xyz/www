@@ -25,9 +25,10 @@ Visualize population density anywhere in the world and at any level of detail
 
 
 ## Overture Maps
-Examples creating kepler.gl maps from Overture Data in BigQuery public dataset
 
-* [Overture Maps: All Nevada roads](https://cloud.dekart.xyz/reports/15540f2b-2411-44a4-92b5-206a9bee5753)
+Examples of Kepler.gl maps created using Overture Data in BigQuery, focusing on geospatial visualizations from the segment, division_area, land_use, and place tables.
+
+👉 [Overture Map Example](/docs/about/overture-maps-examples/)
 
 ## OpenStreetMap
 
