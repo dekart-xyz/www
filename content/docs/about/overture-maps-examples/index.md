@@ -3,7 +3,7 @@ title: "Overture Maps Examples"
 description: "Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart."
 lead: ""
 date: 2024-08-28T07:26:19+02:00
-lastmod: 2024-08-28T07:26:19+02:00
+lastmod: 2024-09-23T07:26:19+02:00
 draft: false
 images: ["77dc6f7f-c91c-4099-8dc3-8f043d46cdfb.png"]
 menu:
@@ -183,6 +183,54 @@ ORDER BY total_road_length_km DESC;
 
 {{< try-query-cloud report="eb5b25bf-4c62-44bc-9e69-f0257134e3f8" >}}
 
+### Joining GPS probes with road geometry
+
+{{< img src="8693cbeb-8369-4f38-91a4-5638589998e5.png" cloud="8693cbeb-8369-4f38-91a4-5638589998e5" >}}
+
+```sql
+-- Step 1: Generate H3 indexes for road geometries
+WITH brandenburg_gate AS (
+  SELECT ST_GEOGPOINT(13.3777, 52.5163) AS location
+),
+road_segments AS (
+  SELECT id, geometry
+  FROM `bigquery-public-data.overture_maps.segment`
+  WHERE ST_DISTANCE(geometry, (SELECT location FROM brandenburg_gate)) <= 10000
+  AND subtype = 'road'
+),
+road_h3_cells AS (
+  SELECT id AS road_id,
+         geometry,  -- Include geometry in the result
+         bqcarto.h3.ST_ASH3(ST_LINEINTERPOLATEPOINT(geometry, ratio), 12) AS h3_index
+  FROM road_segments,
+  UNNEST(GENERATE_ARRAY(0, 1, 0.01)) AS ratio -- Generate H3 for road geometries
+),
+
+-- Step 2: Generate H3 indexes for dekart-dev.strava.streams points
+strava_h3_cells AS (
+  SELECT bqcarto.h3.LONGLAT_ASH3(lng, lat, 12) AS h3_index, velocity_smooth
+  FROM `dekart-dev.strava.streams`
+  WHERE ST_DISTANCE(
+    ST_GEOGPOINT(lng, lat), (SELECT location FROM brandenburg_gate)
+  ) <= 10000
+)
+
+-- Step 3: Join road geometries with strava points based on H3 index
+SELECT
+  r.road_id,
+  ANY_VALUE(r.geometry) AS geometry,  -- Use ANY_VALUE() to select a representative geometry
+  COUNT(s.h3_index) AS num_strava_points,
+  AVG(s.velocity_smooth) AS avg_velocity_smooth,
+  MAX(s.velocity_smooth) AS max_velocity_smooth
+FROM road_h3_cells r
+LEFT JOIN strava_h3_cells s
+ON r.h3_index = s.h3_index
+GROUP BY r.road_id;
+
+```
+{{< try-query-cloud report="8693cbeb-8369-4f38-91a4-5638589998e5" >}}
+
+
 ## Division Area
 
 The Overture Maps division_area table contains boundary polygons for administrative areas, such as cities, countries, and neighborhoods, along with related attributes like subtype, population, and country codes​.
@@ -336,3 +384,26 @@ WHERE (p.categories.primary LIKE "%charging%" OR p.categories.primary LIKE "%ev%
 AND ST_WITHIN(p.geometry, lv.geometry)
 ```
 {{< try-query-cloud report="72781fb6-8bc5-4c41-839f-66f5bcf7c122" >}}
+
+### UK pubs density
+
+{{< img src="3205a875-b5d7-4458-a0b9-74fdeb49a44b.png" cloud="3205a875-b5d7-4458-a0b9-74fdeb49a44b" >}}
+
+```sql
+WITH uk_boundary AS (
+  SELECT geometry
+  FROM `bigquery-public-data.overture_maps.division_area`
+  WHERE LOWER(country) = 'gb' AND subtype = 'country' AND class = 'land'
+),
+pubs AS (
+  SELECT p.id, p.geometry, p.names.primary
+  FROM `bigquery-public-data.overture_maps.place` AS p, uk_boundary
+  WHERE p.categories.primary = 'pub'
+  AND ST_WITHIN(p.geometry, uk_boundary.geometry)
+)
+SELECT bqcarto.h3.ST_ASH3(p.geometry, 8) AS h3_index, COUNT(p.id) AS pub_count
+FROM pubs AS p
+GROUP BY h3_index
+ORDER BY pub_count DESC
+```
+{{< try-query-cloud report="3205a875-b5d7-4458-a0b9-74fdeb49a44b" >}}
