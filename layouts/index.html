@@ -16,14 +16,14 @@
       <p class="lead">Integrate kepler.gl with BigQuery, Snowflake, and other cloud databases. Create immersive GPU-powered map visualizations using Geospatial SQL. Share cloud-based maps securely, with live updates and collaboration.</p>
     </div>
     <div class="col-lg-9 col-xl-8 text-center mt-4">
-      <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/" role="button">Get Started</a></p>
-          <p><a target="_blank" href="/docs/about/kepler-gl-map-examples/">Kepler.gl maps examples</a></p>
+      <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/?ref=create-workspace" role="button">Create free Workspace</a></p>
+          <p><a href="/docs/about/overture-maps-examples/">Public datasets examples</a></p>
     </div>
     <div class="center-block">
-      {{ $image := .Page.Resources.GetMatch ("*covid-population-density-germany.png*") -}}
+      {{ $image := .Page.Resources.GetMatch ("*all-nevada-roads.png*") -}}
       {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
 
-      {{ $alt := "Dekart Example: COVID and Population Density Map in Germany using BigQuery Public Datasets" -}}
+      {{ $alt := "Dekart Example: All Nevada Roads from free Overture Maps dataset" -}}
       {{ $imgSrc := "" -}}
       {{ $imgSrcSet := slice -}}
 
@@ -40,16 +40,13 @@
       {{ $imgSrcSet = (delimit $imgSrcSet ",") -}}
 
       <figure class="main">
-        <a href="https://cloud.dekart.xyz/reports/bef92772-5ad8-4b6a-8d94-72f45f44bf92/source" target="_blank"
-          title="COVID vs Population Density in Germany on Dekart BigQuery Playground"><img class="img-fluid lazyload"
+        <a href="https://cloud.dekart.xyz/reports/15540f2b-2411-44a4-92b5-206a9bee5753/source" target="_blank"
+          title="All Nevada Roads from free Overture Maps dataset"><img class="img-fluid lazyload"
             data-sizes="auto" src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}"
             height="{{ $image.Height }}" alt="{{ $alt }}"></a>
         <noscript><img class="img-fluid" sizes="100vw" srcset="{{ $imgSrcSet }}" src="{{ $image.Permalink }}"
             width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}"></noscript>
       </figure>
-    </div>
-    <div class="col-lg-9 col-xl-8 text-center">
-      <p><a target="_blank" href="https://github.com/dekart-xyz/dekart/releases/tag/v0.17.0">Latest open-source release 0.17.0</a></p>
     </div>
   </div>
 </section>
@@ -86,14 +83,14 @@
         <div class="text-center">
           <img class="connector" src="/bigquery.svg" alt="BigQuery">
           <div class="h5 connector">BigQuery</div>
-          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections" title="Configure in Dekart Cloud" target="_blank">Configure in Cloud</a></div>
+          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections?ref=dekart-xyz-connect" title="Configure in Dekart Cloud" target="_blank">Connect</a></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/snowflake.svg" alt="snowflake">
           <div class="h5 connector">Snowflake</div>
-          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections" title="Configure in Dekart Cloud" target="_blank">Configure in Cloud</a></div>
+          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" title="Run in Snowpark" target="_blank">Run in Snowpark</a></div>
         </div>
       </div>
       <div class="col-sm">
