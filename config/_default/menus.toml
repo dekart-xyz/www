@@ -23,6 +23,12 @@
   url = "/docs/cloud/"
 
 [[docs]]
+  name = "Snowpark"
+  weight = 1
+  identifier = "snowflake-snowpark"
+  url = "/docs/snowflake-snowpark/"
+
+[[docs]]
   name = "About"
   weight = 1
   identifier = "about"
