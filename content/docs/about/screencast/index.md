@@ -10,9 +10,6 @@ menu:
 
 ---
 
-{{< img-simple src="screencast.gif" caption="Querying Chicago Crime Dataset from BigQuery Public Data" >}}
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/JutQ4E879H0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
-<div class="text-center">
-      <p class="mt-5"><a class="btn btn-primary" href="/docs/about/playground/" role="button">Try Live on Playground</a></p>
-      <p><a href="/docs/about/your-datasets/">Use with Private Datasets</a></p>
-    </div>
+<p><a class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/" role="button">Create free Workspace</a></p>
