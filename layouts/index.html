@@ -2,7 +2,7 @@
 <section class="section container-fluid mt-n3 pb-3">
   <div class="row justify-content-center">
     <div class="col-lg-12 text-center">
-      <h1 class="mt-0" style="
+      <h1 class="mt-0 display-3" style="
         background-color: white;
         background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
         background-size: 100%;
@@ -10,10 +10,13 @@
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
         -moz-text-fill-color: transparent;
-    ">Connect Kepler.gl to Your Cloud Data.</h1>
+    ">Connect Kepler.gl to <span class="d-inline-block">Your Cloud Data</span></h1>
     </div>
     <div class="col-lg-12 text-center">
-      <p class="lead">Integrate kepler.gl with BigQuery, Snowflake, and other cloud databases. Create immersive GPU-powered map visualizations using Geospatial SQL. Share cloud-based maps securely, with live updates and collaboration.</p>
+      <p class="lead">
+        <span class="d-inline-block">Integrate Kepler.gl with BigQuery, Snowflake, Athena and Postgres.</span>
+        <span class="d-inline-block">Create and share maps instantly with SQL, without any ETL pipelines involved. </span>
+      </p>
     </div>
     <div class="col-lg-9 col-xl-8 text-center mt-4">
       <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/?ref=create-workspace" role="button">Create free Workspace</a></p>
@@ -75,36 +78,47 @@
 </section>
 {{ end }}
 {{ define "sidebar-prefooter" }}
-<section class="section section-featured mt-3 bg-light py-4">
+<section class="section section-featured mt-3 bg-light py-5">
   <div class="container">
-    <h2 class="h3 mt-0 mb-5 text-center">Connectors</h2>
+    <!-- <h2 class="h3 mt-0 mb-5 text-center">Connectors</h2> -->
     <div class="row justify-content-center g-4">
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/bigquery.svg" alt="BigQuery">
           <div class="h5 connector">BigQuery</div>
-          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections?ref=dekart-xyz-connect" title="Configure in Dekart Cloud" target="_blank">Connect</a></div>
+          <div class="configure-in-cloud">
+            <a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections?ref=dekart-xyz-connect" title="Connect instantly in Dekart Cloud" target="_blank">Cloud</a>
+            <a class="btn btn-secondary btn-sm" href="/docs/configuration/environment-variables/#bigquery" title="Configure in Dekart Cloud" target="_blank">Self-hosted</a>
+          </div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/snowflake.svg" alt="snowflake">
           <div class="h5 connector">Snowflake</div>
-          <div class="configure-in-cloud"><a class="btn btn-info btn-sm" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" title="Run in Snowpark" target="_blank">Run in Snowpark</a></div>
+          <div class="configure-in-cloud">
+            <a class="btn btn-primary btn-sm" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" title="Run instantly in your Snowflake account" target="_blank">Snowpark</a>
+            <a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections?ref=dekart-xyz-connect" title="Connect instantly in Dekart Cloud" target="_blank">Cloud</a>
+            <a class="btn btn-secondary btn-sm" href="/docs/configuration/environment-variables/#snowflake" title="Self-hosted" target="_blank">Self-hosted</a>
+          </div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/athena.svg" alt="AWS Athena">
           <div class="h5 connector">Athena</div>
-          <div class="configure-in-cloud"><small><a href="/docs/configuration/environment-variables/#aws-athena">Self-hosted only</a></small></div>
+          <div class="configure-in-cloud">
+            <a class="btn btn-secondary btn-sm" href="/docs/configuration/environment-variables/#aws-athena" title="Self-hosted" target="_blank">Self-hosted</a>
+          </div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center">
           <img class="connector" src="/postgres.svg" alt="Postgres">
           <div class="h5 connector">Postgres</div>
-          <div class="configure-in-cloud"><small><a href="/docs/configuration/environment-variables/#postgres-as-a-data-source">Self-hosted only</a></small></div>
+          <div class="configure-in-cloud">
+            <a class="btn btn-secondary btn-sm" href="/docs/configuration/environment-variables/#postgres-as-a-data-source" title="Self-hosted" target="_blank">Self-hosted</a>
+          </div>
         </div>
       </div>
     </div>
