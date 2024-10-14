@@ -5,7 +5,7 @@ lead: ""
 date: 2024-08-28T07:26:19+02:00
 lastmod: 2024-09-23T07:26:19+02:00
 draft: false
-images: ["b33117ab-567d-4f86-877a-3dee828f8a81.png"]
+images: ["f392b7ab-b64a-43f3-b100-650eb7b8fdef.png"]
 menu:
   docs:
     parent: "about"
@@ -18,6 +18,39 @@ canonical: ""
 Collection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.
 
 ## Overture Maps
+
+### Nevada Roads by Speed and Class
+
+{{< img src="f392b7ab-b64a-43f3-b100-650eb7b8fdef.png" cloud="f392b7ab-b64a-43f3-b100-650eb7b8fdef">}}
+
+```sql
+-- Step 1: Get the geometry of Nevada
+WITH nevada_geometry AS (
+  SELECT
+    geometry
+  FROM
+    OVERTURE_MAPS__DIVISIONS.CARTO.DIVISION_AREA
+  WHERE
+    country = 'US'
+    AND region = 'US-NV'
+    AND subtype = 'region'
+)
+
+-- Step 2: Select roads within Nevada with non-empty speed limits
+SELECT
+  ST_ASWKT(s.geometry) AS geometry,
+  s.class,
+  s.SPEED_LIMITS:list[0].element.max_speed.value::STRING AS speed_limit
+FROM
+  OVERTURE_MAPS__TRANSPORTATION.CARTO.SEGMENT AS s,
+  nevada_geometry AS ng
+WHERE
+  s.subtype = 'road'
+  AND s.class NOT IN ('track', 'driveway', 'path', 'footway', 'sidewalk', 'pedestrian', 'cycleway', 'steps', 'crosswalk', 'bridleway', 'alley')
+  AND ST_WITHIN(s.geometry, ng.geometry)
+```
+{{< try-query-cloud report="f392b7ab-b64a-43f3-b100-650eb7b8fdef" >}}
+
 
 ### UK EV charging stations density
 
