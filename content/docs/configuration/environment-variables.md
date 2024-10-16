@@ -15,7 +15,7 @@ images: []
 | Name        | Description           |
 | ------------- | ------------- |
 | `DEKART_MAPBOX_TOKEN`      | <a href="https://docs.mapbox.com/help/how-mapbox-works/access-tokens/">Mapbox Token</a> to show a map|
-| `DEKART_POSTGRES_DB`      | Database name. Dekart needs Postgres Database to store query meta information. <br> *Example*: `dekart`|
+| `DEKART_POSTGRES_DB`      | Database name. Dekart needs Postgres Database to store query meta information. Alternatively SQLite can be used, see bellow. <br> *Example*: `dekart`|
 | `DEKART_POSTGRES_HOST`      | *Example*: `localhost`|
 | `DEKART_POSTGRES_PORT`      | *Example*: `5432`|
 | `DEKART_POSTGRES_USER`      | *Example*: `postgres`|
@@ -26,6 +26,7 @@ images: []
 | `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li><li>`SNOWFLAKE` Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. <small class="badge badge-info">version &gt;= 0.17</small></li></ul>|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul>|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
+| `DEKART_SQLITE_DB_PATH=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
 
 
 ## AWS
@@ -70,6 +71,8 @@ Required to query BigQuery and use Cloud Storage
 | `DEKART_SNOWFLAKE_ACCOUNT_ID` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | <a target="_blank" href="https://docs.snowflake.com/en/user-guide/admin-account-identifier#using-an-account-name-as-an-identifier">Snowflake Account Identifier</a>  <br> *Example*: `orgname-account_name`|
 | `DEKART_SNOWFLAKE_USER` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user with default warehouse configured  <br> *Example*: `example_user`|
 | `DEKART_SNOWFLAKE_PASSWORD` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user password  <br> *Example*: `******`|
+| `DEKART_SNOWFLAKE_STAGE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a>     | Persist Dekart application state on Snowflake stage. Work with `DEKART_SQLITE_DB_PATH`  <br> *Example*: `app_public.app_state_stage`|
+| `DEKART_REQUIRE_SNOWFLAKE_CONTEXT=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a>     | Authorize user using `Sf-Context-Current-User` header. Used in Snowpark environment. <br> *Example*: `1`|
 
 ## Postgres (as a data source)
 

@@ -1,5 +1,5 @@
 ---
-title: "Overture Maps Examples"
+title: "BigQuery Overture Maps Examples"
 description: "Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart."
 lead: ""
 date: 2024-08-28T07:26:19+02:00
@@ -8,7 +8,8 @@ draft: false
 images: ["77dc6f7f-c91c-4099-8dc3-8f043d46cdfb.png"]
 menu:
   docs:
-    parent: "about"
+    parent: "examples"
+    name: "BigQuery Overture Maps"
 weight: 999
 toc: true
 canonical: ""

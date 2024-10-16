@@ -1,13 +1,13 @@
 ---
-title: "Kepler.gl maps examples"
+title: "BigQuery Kepler.gl Maps Examples"
 description: "Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data"
-lead: ""
 date: 2024-05-21T07:13:05+02:00
 lastmod: 2024-05-21T07:13:05+02:00
 images: []
 menu:
   docs:
-    parent: "about"
+    parent: "examples"
+    name: "BigQuery Public Datasets"
 weight: 999
 toc: true
 canonical: ""

@@ -6,9 +6,6 @@ lastmod: 2021-02-21T09:17:56+01:00
 draft: false
 toc: false
 images: []
-menu:
-  docs:
-    parent: "about"
 
 ---
 
