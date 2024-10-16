@@ -34,6 +34,12 @@
   identifier = "about"
   url = "/docs/about/"
 
+[[docs]]
+  name = "Map Examples"
+  weight = 1
+  identifier = "examples"
+  url = "/docs/about/"
+
 
 [[main]]
   name = "Login"

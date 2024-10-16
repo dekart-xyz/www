@@ -8,13 +8,13 @@ type: "html-content"
 
 <article class="pb-5">
   <div class="pb-3">
-    <h1 class="cloud-title display-3"><span>You Host It</span></h1>
+    <h1 class="cloud-title display-3"><span>Your Data. Your Rules.</span></h1>
     <p class="lead text-left">
       <span class="btn-group d-inline-block mr-3">
         <a href="/cloud/" class="btn btn-outline-info">Cloud</a><span class="btn btn-info" role="button">Self-Hosted</span>
       </span>
       <span class="d-inline-block">
-        <mark>Run Dekart on your own setup.</mark>
+        <mark>You host it. Run Dekart on your own setup.</mark>
       </span>
     </p>
   </div>
@@ -61,7 +61,7 @@ type: "html-content"
                 <li class="small mb-2">Access to the Premium Codebase on GitHub</li>
                 <li class="small mb-2">Monthly updates</li>
                 <li class="small mb-2">Slack support</li>
-                <li class="small mb-2">&nbsp;</li>
+                <li class="small mb-2"><a href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz" target="_blank">Snowpark Application Access</a></li>
               </ul>
               <p class="text-center mb-0"><span class="badge badge-success">Most Popular</span></p>
             </div>
@@ -91,10 +91,10 @@ type: "html-content"
       </div>
     </div>
     <div class="text-center pt-4 mb-4">
+      <p>Unlock insider discounts and learn about our roadmap.</p>
       <p>
         <a class="btn btn-primary btn-lg" href="https://calendly.com/vladi-dekart/30min" role="button">Book a Call</a>
       </p>
-      <p>Unlock insider discounts and learn about our roadmap.</p>
     </div>
     <div class="d-flex flex-column align-items-center">
       <div class="col-xl-10">
@@ -105,11 +105,12 @@ type: "html-content"
         <p>Run Dekart inside your Snowflake account.</p>
         <h4>Run Without Postgres</h4>
         <p>Run Dekart as a single Docker instance without dependency on Postgres. The Dekart application state is automatically saved and restored from Snowflake stages, S3 (coming soon), and GCP (coming soon) buckets.</p>
-        <h4 class="text-muted">User Management (Coming Soon)</h4>
+        <h2>Get New Features First</h2>
+        <h4>User Management <span class="badge badge-primary">October 2024</span></h4>
         <p>Assign admin, editor, or viewer permissions to users. Manage who has access to PII data and database connections.</p>
-        <h4 class="text-muted">Kepler.gl v3 Support (Coming Soon)</h4>
+        <h4>Kepler.gl v3 Support  <span class="badge badge-primary">November 2024</span></h4>
         <p>Get all the features of the new Kepler.gl version, including 3D tiles support.</p>
-        <h4 class="text-muted">Faster Data Loading with Apache Arrow</h4>
+        <h4>Faster Data Loading with Apache Arrow <span class="badge badge-primary">November 2024</span></h4>
         <p>Use Apache Arrow to transfer more data to the client, enabling larger and faster map visualizations.</p>
       </div>
     </div>

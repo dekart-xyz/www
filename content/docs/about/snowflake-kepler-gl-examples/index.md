@@ -1,6 +1,6 @@
 ---
-title: "Snowflake Kepler.gl Examples"
-description: "Collection of Kepler.gl maps created with Snowflake public dataset using SQL."
+title: "Snowflake Kepler.gl Maps Examples"
+description: "Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL."
 lead: ""
 date: 2024-08-28T07:26:19+02:00
 lastmod: 2024-09-23T07:26:19+02:00
@@ -8,7 +8,8 @@ draft: false
 images: ["f392b7ab-b64a-43f3-b100-650eb7b8fdef.png"]
 menu:
   docs:
-    parent: "about"
+    parent: "examples"
+    name: "Snowflake Free Datasets"
 weight: 999
 toc: true
 canonical: ""
