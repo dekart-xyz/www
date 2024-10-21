@@ -73,8 +73,8 @@ type: "html-content"
           <div class="card">
             <div class="bg-light p-4 dekart-cloud-price-top">
               <a class="btn btn-sm btn-dark">Partner</a>
-              <h3 class="font-weight-light text-muted">$58,800/year</h3>
-              <p class="card-text text-muted font-weight-bold">We Customize It For You</p>
+              <h3 class="font-weight-light">$58,800/year</h3>
+              <p class="card-text font-weight-bold">We Customize It For You</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
@@ -91,7 +91,7 @@ type: "html-content"
       </div>
     </div>
     <div class="text-center pt-4 mb-4">
-      <p>Unlock insider discounts and learn about our roadmap.</p>
+      <p>💡 Unlock insider discounts and learn about our roadmap.</p>
       <p>
         <a class="btn btn-primary btn-lg" href="https://calendly.com/vladi-dekart/30min" role="button">Book a Call</a>
       </p>
