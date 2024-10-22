@@ -991,7 +991,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_WITHIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eng\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:77dc6f7f-c91c-4099-8dc3-8f043d46cdfb]%20%200xc001dec380%20%3cnil%3e%20try-query-cloud%20true%201%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%201694%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/77dc6f7f-c91c-4099-8dc3-8f043d46cdfb/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1034,7 +1034,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eclass\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;primary\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;secondary\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;tertiary\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e);\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:410b857a-aad1-4f05-8ddd-551d0f0fe650]%20%200xc001dec5c0%20%3cnil%3e%20try-query-cloud%20true%203%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%202360%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/410b857a-aad1-4f05-8ddd-551d0f0fe650/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1087,7 +1087,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eclass\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;primary\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;secondary\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;tertiary\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;trunk\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;motorway\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:db0e26c2-00b0-4f6b-8f21-a26ab312f9e1]%20%200xc001dec740%20%3cnil%3e%20try-query-cloud%20true%205%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%203226%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/db0e26c2-00b0-4f6b-8f21-a26ab312f9e1/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1149,7 +1149,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etotal_road_length_km\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:a4e308a3-b2e8-4183-bfd6-b68866209f50]%20%200xc00114ecc0%20%3cnil%3e%20try-query-cloud%20true%207%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%204942%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/a4e308a3-b2e8-4183-bfd6-b68866209f50/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1211,7 +1211,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etotal_road_length_km\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:eb5b25bf-4c62-44bc-9e69-f0257134e3f8]%20%200xc000b4ec00%20%3cnil%3e%20try-query-cloud%20true%209%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%206588%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/eb5b25bf-4c62-44bc-9e69-f0257134e3f8/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1280,7 +1280,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eroad_id\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:8693cbeb-8369-4f38-91a4-5638589998e5]%20%200xc000b4ee00%20%3cnil%3e%20try-query-cloud%20true%2011%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%208163%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/8693cbeb-8369-4f38-91a4-5638589998e5/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1317,7 +1317,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecountry\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;DE\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:5f7144cd-24f0-4698-ba7e-a63e872a4659]%20%200xc00114f180%20%3cnil%3e%20try-query-cloud%20true%2013%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%208767%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/5f7144cd-24f0-4698-ba7e-a63e872a4659/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1361,7 +1361,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003esubtype\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:ffbe0a05-7794-465c-ab5b-de54d69cdb38]%20%200xc000b4f100%20%3cnil%3e%20try-query-cloud%20true%2015%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%209308%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/ffbe0a05-7794-465c-ab5b-de54d69cdb38/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1399,7 +1399,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eLOWER\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eclass\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;playground\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:34d0ba2c-0fd5-4323-a677-d5b05b65d86d]%20%200xc000b4f440%20%3cnil%3e%20try-query-cloud%20true%2017%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%2010123%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/34d0ba2c-0fd5-4323-a677-d5b05b65d86d/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1443,7 +1443,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esubtype\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;locality\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- Ensure we are selecting a city or locality
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:8cb1566f-0237-4d99-9cc4-bdd70859763a]%20%200xc000b4f900%20%3cnil%3e%20try-query-cloud%20true%2019%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%2010667%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/8cb1566f-0237-4d99-9cc4-bdd70859763a/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1486,7 +1486,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eLOWER\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003el\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eclass\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;school\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:f0941a67-350f-4a80-a9d0-27594f2f853d]%20%200xc00114f680%20%3cnil%3e%20try-query-cloud%20true%2021%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%2011288%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/f0941a67-350f-4a80-a9d0-27594f2f853d/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1542,7 +1542,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eh3_cell\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:af836766-9ec4-40fc-afbe-fc6b32d6593b]%20%200xc00114f880%20%3cnil%3e%20try-query-cloud%20true%2023%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%2012197%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/af836766-9ec4-40fc-afbe-fc6b32d6593b/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1585,7 +1585,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_WITHIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elv\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:72781fb6-8bc5-4c41-839f-66f5bcf7c122]%20%200xc00114fb00%20%3cnil%3e%20try-query-cloud%20true%2025%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%2012901%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/72781fb6-8bc5-4c41-839f-66f5bcf7c122/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1631,7 +1631,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003epub_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:3205a875-b5d7-4458-a0b9-74fdeb49a44b]%20%200xc00114fc00%20%3cnil%3e%20try-query-cloud%20true%2027%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%2013629%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/3205a875-b5d7-4458-a0b9-74fdeb49a44b/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
@@ -1688,7 +1688,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_WITHIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eng\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
-        \u003ca href="https://cloud.dekart.xyz/reports/%7bmap[report:f392b7ab-b64a-43f3-b100-650eb7b8fdef]%20%200xc00114fdc0%20%3cnil%3e%20try-query-cloud%20true%201%20%20%7b0%20%7b0%200%7d%7d%20%20%7b0%20%7b0%200%7d%7d%201392%20%7b%200%200%200%7d%20%3cnil%3e%7d?ref=dekart-xyz-open-editor" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+        \u003ca href='https://cloud.dekart.xyz/reports/f392b7ab-b64a-43f3-b100-650eb7b8fdef/source?ref=dekart-xyz-open-editor' target="_blank" class="btn btn-outline-primary btn-sm"\u003e
             Open query in editor
           \u003c/a\u003e
 
