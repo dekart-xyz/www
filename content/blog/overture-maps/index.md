@@ -2,8 +2,8 @@
 title: "Why We Stopped using OpenStreetMap and switched to Overture Maps"
 description: "Faster Queries, Seamless Integration, and Real-Time Mapping with Overturen Maps"
 lead: "Faster Queries, Seamless Integration, and Real-Time Mapping with Overturen Maps"
-date: 2021-06-28T06:59:51Z
-lastmod: 2021-06-28T06:59:51Z
+date: 2024-06-28T06:59:51Z
+lastmod: 2024-06-28T06:59:51Z
 draft: false
 weight: 50
 images: ["1716710901364.jpeg"]
