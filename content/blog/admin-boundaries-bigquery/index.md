@@ -3,7 +3,7 @@ title: "Admin Boundaries in BigQuery Public Datasets"
 description: "Fetch Countries, States, Zip codes and City Districts Geography from BigQuery Public Datasets"
 lead: "Fetch Countries, States, Zip codes and City Districts Geography from BigQuery Public Datasets"
 date: 2021-03-28T06:59:51Z
-lastmod: 2021-03-28T06:59:51Z
+lastmod: 2021-11-05T06:59:51Z
 draft: false
 weight: 50
 images: ["all-us-zipcodes-large.png"]
@@ -41,7 +41,9 @@ Here are some SQL examples of how you can do it with tips and tricks:
 
 This example shows how to fetch country borders from <a href="https://wiki.openstreetmap.org/wiki/BigQuery_dataset" target="_blank">BigQuery hosted OSM dataset</a>.
 
-{{< img src="world-countries-borders.png"  caption="World Countries Borders example from OSM" report="03483cdc-9e29-4d79-804b-23bdd2fcd07a" >}}
+{{< img src="world-countries-borders.png"  caption="World Countries Borders example from OSM"  cloud="aeb7ea70-f261-43a9-92ca-28586a31d666" >}}
+
+
 
 ```sql
 SELECT
@@ -80,7 +82,7 @@ WHERE ('boundary', 'administrative') IN (
       FROM UNNEST(all_tags)
     )
 ```
-{{< try-query report="03483cdc-9e29-4d79-804b-23bdd2fcd07a" >}}
+{{< try-query-cloud report="aeb7ea70-f261-43a9-92ca-28586a31d666" >}}
 
 Explanations:
 * all OSM geometries (multipolygons) are in `planet_features_multipolygons` table which is available for free for every user of BigQuery.
@@ -94,7 +96,7 @@ Explanations:
 
 Using the same method you can go down to the state level. Here is a query for the fifty states, the District of Columbia, and the five permanently inhabited territories of the United States.
 
-{{< img src="us-borders-osm-bigquery.png"  caption="US States Borders including DC and territories" report="a12bd8b7-8b48-48a3-b8dc-48edbbef29ec" >}}
+{{< img src="us-borders-osm-bigquery.png"  caption="US States Borders including DC and territories" cloud="82b1aa65-8110-4ca6-a0cc-0c62a8336b23" >}}
 
 ```sql
 SELECT
@@ -129,7 +131,7 @@ WHERE
       WHERE key = 'ISO3166-2'
     )
 ```
-{{< try-query report="a12bd8b7-8b48-48a3-b8dc-48edbbef29ec" >}}
+{{< try-query-cloud report="82b1aa65-8110-4ca6-a0cc-0c62a8336b23" >}}
 
 Explanations:
 
@@ -140,7 +142,7 @@ Explanations:
 
 Can you go beyond state level? Absolutely. You can get city borders and even city district borders. And not just in the US. For this example, I fetched city districts for Berlin, Germany.
 
-{{< img src="germany-berlin-city-districts.png" report="2eb93751-368b-4ee0-9933-91bbcb5a433b"  caption="US States Borders including DC and territories." >}}
+{{< img src="germany-berlin-city-districts.png" cloud="a346a6ad-d58d-424a-9cba-d2db6b1812e7"  caption="US States Borders including DC and territories." >}}
 
 
 ```sql
@@ -170,7 +172,7 @@ WHERE
       FROM UNNEST(all_tags)
     )
 ```
-{{< try-query report="2eb93751-368b-4ee0-9933-91bbcb5a433b" >}}
+{{< try-query-cloud report="a346a6ad-d58d-424a-9cba-d2db6b1812e7" >}}
 
 
 So how does one knows what tags to filter for? I started by googling something like `OSM Berlin Mitte` (one of the districts) and found something [like this](https://www.openstreetmap.org/relation/16566) on the OSM web site. I then played with SQL on [Dekart Playground](/docs/about/playground/) until I found the right filtering options.
@@ -189,7 +191,7 @@ OSM Dataset is not the only source of useful geometry references. There are more
 
 Another common way to reference data is by ZIP codes. BigQuery Public Datasets has a table for it. In this example we fetch ZIP Codes around Seattle.
 
-{{< img src="us-zip-codes-bigquery.png" report="5b8ace27-8f97-41d7-93c6-cf8369048dca"  caption="Fetching US ZIP codes geometries around Seattle" >}}
+{{< img src="us-zip-codes-bigquery.png" cloud="e3391c53-b535-433e-b28c-949985fe420f"  caption="Fetching US ZIP codes geometries around Seattle" >}}
 
 ```sql
 SELECT zipcode_geom
@@ -205,14 +207,14 @@ WHERE
       10000
     )
 ```
-{{< try-query report="5b8ace27-8f97-41d7-93c6-cf8369048dca" >}}
+{{< try-query-cloud report="e3391c53-b535-433e-b28c-949985fe420f" >}}
 
 Explanations:
 
 * then main trick here is to use `ST_DWITHIN` which validates distances between geometries.
 * `zipcode_area` table has precalculated centroid coordinates `longitude, latitude`; to be more precise (although much slower), we could use `ST_GEOGFROMTEXT(zipcode_geom)`.
 
-Of course you can fetch all geometries, but mind the size when visualizing. This is Dekart [visualization of all US ZIP Codes (40Mb)](https://play.dekart.xyz/reports/3e012bad-751b-4740-b225-0d78fde7be30).
+Of course you can fetch all geometries, but mind the size when visualizing. This is Dekart [visualization of all US ZIP Codes (40Mb)](https://cloud.dekart.xyz/reports/4bb90b22-2374-4677-9ce6-2bec28760c27/source).
 
 {{< img-simple src="zoom-in-us-zip-codes.gif"  caption="US ZIP codes geometries with Dekart" >}}
 
@@ -220,4 +222,4 @@ Of course you can fetch all geometries, but mind the size when visualizing. This
 
 * If your data is in BigQuery, you need your reference geometries (like Admin Boundaries) in BigQuery to leverage the full power of BigQuery SQL (including GIS functions).
 * You can get various useful Reference Geometries from [BigQuery Public Datasets](https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset) to later join them with your private datasets for analysis.
-* All examples have links to Dekart Playground where you can [query and visualize GIS data from any BigQuery Public dataset](/docs/about/playground/); Dekart is an open-source GIS Visualization tool you can deploy to your cloud and [use with your data](http://localhost:1313/docs/about/your-datasets/).
+* All examples have links to Dekart Playground where you can [query and visualize GIS data from any BigQuery Public dataset](/docs/about/playground/); Dekart is an open-source GIS Visualization tool you can deploy to your cloud and [use with your data](/docs/about/your-datasets/).

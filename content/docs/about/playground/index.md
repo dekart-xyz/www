@@ -12,25 +12,32 @@ menu:
 
 ---
 
-Try Dekart in <a target="_blank" href="https://cloud.dekart.xyz/playground">Playground Mode</a> with one of many <a target="_blank" href="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" role="button">Public Datasets</a> available on BigQuery.
+Create Kepler.gl Maps with [BigQuery Public Datasets](/docs/about/kepler-gl-map-examples/) in seconds using SQL.
 
-<a class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/playground" role="button">Go to BigQuery Playground</a>
+<mark>Premium alternative to BigQuery GeoViz.</mark>
+
+<p><a class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button">Create Workspace</a></p>
+
 
 ## Quick Start
 
-{{< img-simple src="screencast.gif" alt="Screencast" >}}
-
-1. Go to <a target="_blank" href="https://cloud.dekart.xyz/playground">cloud.dekart.xyz/playground</a>
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/qwOqLm3i7Ik" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 
-2. Authorize with Gmail Account. Dekart Playground access only your email to store Maps you created on Playground. Emails are not used for any marketing purposes. You are not charge for anything.
+1. Go to <a target="_blank" href="https://cloud.dekart.xyz/workspace">cloud.dekart.xyz</a>
 
 
-3. Click Create Report
+2. Authorize with Google Account.
 
-{{< img src="quick-start-1.png" alt="Create Report" >}}
+3. Create free workspace
 
-4. Type example query (uses [Chicago Crime Data](https://console.cloud.google.com/marketplace/product/city-of-chicago-public-data/chicago-crime?project=dekart-playground&folder=&organizationId=))
+4. Create BigQuery connection.
+
+5. Grant access to BigQuery. Passthrough authentication is used, no tokens are stored on our side. No data is copied or stored.
+
+6. Select BigQuery Project ID.
+
+7. Type example query (uses Chicago Crime Data)
 
 ```SQL
 SELECT
@@ -43,14 +50,14 @@ from `bigquery-public-data.chicago_crime.crime`
 WHERE  Rand() < 5 / 100.0
 ```
 
-5. Run query (click Execute button)
+8. Run query (click Execute button)
 
 {{< img src="quick-start-2.png"  alt="Report Edit" >}}
 
-6. Style a map (see [Kepler Docs](https://docs.kepler.gl/docs/user-guides) for details)
+9. Style a map (see [Kepler Docs](https://docs.kepler.gl/docs/user-guides) for details)
 
 {{< img src="quick-start-3.png" alt="Style Visualization" >}}
 
-7. Now you can save and share you beautiful Map!
+10. Now you can save and share you beautiful Map!
 
-<a class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/playground" role="button">Go to BigQuery Playground</a>
+<p><a class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button">Create Workspace</a></p>
