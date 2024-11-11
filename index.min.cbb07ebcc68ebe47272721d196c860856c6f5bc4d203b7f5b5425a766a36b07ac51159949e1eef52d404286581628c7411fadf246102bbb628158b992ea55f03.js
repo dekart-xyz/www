@@ -938,6 +938,9 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
 \u003c/code\u003e\u003c/pre\u003e`},{id:8,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"BigQuery Overture Maps Examples",description:"Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.\u003c/p\u003e
+\u003cdiv class="gpt" \u003e
+  \u003cp\u003eAll examples are created with \u003cb\u003eOverture Maps GPT\u003c/b\u003e\u003c/p\u003e\u003cp\u003e\u003ca href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt" class="btn btn-outline-primary" target="_blank"\u003eGet it Free\u003c/a\u003e\u003c/p\u003e
+\u003c/div\u003e
 \u003ch2 id="segment"\u003eSegment\u003c/h2\u003e
 \u003cp\u003eThe Overture Maps \u003ccode\u003esegment\u003c/code\u003e table represents paths, roads, and transportation segments, storing their geospatial data as LineStrings along with attributes like class, surface, speed limits, and access restrictions​.\u003c/p\u003e
 \u003ch3 id="nevada-roads-by-speed-and-class"\u003eNevada Roads by Speed and Class\u003c/h3\u003e
