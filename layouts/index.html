@@ -20,10 +20,10 @@
     </div>
     <div class="col-lg-9 col-xl-8 text-center mt-4">
       <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/?ref=create-workspace" role="button">Create free Workspace</a></p>
-          <p><a href="/docs/about/overture-maps-examples/">Public datasets examples</a></p>
+          <p><a href="/docs/about/overture-maps-examples/">Map examples</a></p>
     </div>
     <div class="center-block">
-      {{ $image := .Page.Resources.GetMatch ("*all-nevada-roads.png*") -}}
+      {{ $image := .Page.Resources.GetMatch ("*berlin-roads.png*") -}}
       {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
 
       {{ $alt := "Dekart Example: All Nevada Roads from free Overture Maps dataset" -}}
@@ -43,8 +43,8 @@
       {{ $imgSrcSet = (delimit $imgSrcSet ",") -}}
 
       <figure class="main">
-        <a href="https://cloud.dekart.xyz/reports/15540f2b-2411-44a4-92b5-206a9bee5753/source" target="_blank"
-          title="All Nevada Roads from free Overture Maps dataset"><img class="img-fluid lazyload"
+        <a href="https://cloud.dekart.xyz/reports/410b857a-aad1-4f05-8ddd-551d0f0fe650/source" target="_blank"
+          title="Berlin Roads from free Overture Maps dataset"><img class="img-fluid lazyload"
             data-sizes="auto" src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}"
             height="{{ $image.Height }}" alt="{{ $alt }}"></a>
         <noscript><img class="img-fluid" sizes="100vw" srcset="{{ $imgSrcSet }}" src="{{ $image.Permalink }}"
