@@ -1,7 +1,7 @@
 ---
 title: "Why We Stopped using OpenStreetMap and switched to Overture Maps"
-description: "Faster Queries, Seamless Integration, and Real-Time Mapping with Overturen Maps"
-lead: "Faster Queries, Seamless Integration, and Real-Time Mapping with Overturen Maps"
+description: "Efficient way to access and work with spatial data in the cloud."
+lead: "Efficient way to access and work with spatial data in the cloud."
 date: 2024-06-28T06:59:51Z
 lastmod: 2024-06-28T06:59:51Z
 draft: false
@@ -12,11 +12,13 @@ contributors: ["Vladi"]
 
 {{< img src="1716710901364.jpeg"  caption="Switching from OSM to Overture Maps" class="wide" >}}
 
-We didn’t want to talk about Overture Maps until we tested it ourselves. Now we have, and here's why it became the clear choice for our geospatial data needs, especially in mobility projects.
+*Disclaimer: This article is about OpenStreetMap BigQuery Public Dataset and Overture Maps on BigQuery. Unintentionally this article raised concerns in OSM community. Clarifying edits where added to the article.*
 
-### The Problem with OpenStreetMap (OSM)
+*Note: Overture Maps dataset is based on OpenStreetMap data plus other sources. It is not a replacement for OpenStreetMap, but rather a more efficient way to access and work with spatial data in the cloud.*
 
-For years, **OpenStreetMap (OSM)** was the go-to for spatial data in tools like **BigQuery**. It was reliable enough—until it wasn’t. The **OSM dataset hasn’t been updated in two years**, forcing companies to maintain their own exports and creating unnecessary overhead.
+### The Problem with OpenStreetMap (edit: BigQuery Public dataset)
+
+For years, **OpenStreetMap (edit: BigQuery Public dataset)** was the go-to for spatial data in **BigQuery**. It was reliable enough—until it wasn’t. The **OSM (edit: BigQuery Public) dataset hasn’t been updated in two years**, forcing companies to maintain their own exports and creating unnecessary overhead.
 
 If you’ve used OSM, you know how cumbersome it can be to load massive map files, only to end up with stale data. That was the turning point for us. We needed something faster and more reliable.
 
@@ -80,7 +82,7 @@ We’ve put together a [collection of SQL queries and interactive maps](https://
 
 ### Key Takeaways
 
-**Why did we stop using OpenStreetMap and switch to Overture Maps?**
+**Why did we switch to Overture Maps?**
 
 1. **Speed**: Querying maps directly in BigQuery and Snowflake is far faster than loading static files.
 2. **Flexibility**: You can join your internal data with Overture’s high-quality map data using SQL, without the need for data exports or transformations.
