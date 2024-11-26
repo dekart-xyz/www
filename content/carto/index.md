@@ -8,7 +8,7 @@ type: "html-content"
 
 <article class="pb-5">
 <div class="pt-5">
-  <h1 class="cloud-title display-2 text-center mt-0 mb-4"><span>Maps for you Data Team</span></h1>
+  <h1 class="cloud-title display-2 text-center mt-0 mb-4"><span>Maps for your Data Team</span></h1>
   <div class="lead text-center mb-4 py-1 row justify-content-center">
     <div class="text-center lead col-lg-10">Dekart is <mark>lightweight alternative to CARTO</mark> for BigQuery and Snowflake users. You will create maps instantly with SQL without moving data and share your insights with immersive up-to-date maps.</div>
   </div>
