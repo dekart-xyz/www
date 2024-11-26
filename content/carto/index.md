@@ -42,7 +42,7 @@ type: "html-content"
       <p class="lead">Watch short demo video</p>
 <p><iframe width="840" height="472" src="https://www.youtube.com/embed/qwOqLm3i7Ik" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 <div class="text-center">
-  <p><a class="btn btn-primary" href="http://cloud.dekart.xyz/workspace??ref=carto-alternative-2" role="button">Create Free Workspace</a> <a class="btn btn-outline-primary" href="/docs/about/overture-maps-examples/" target="_blank">Start with Example</a></p>
+  <p><a class="btn btn-primary" href="http://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Create Free Workspace</a> <a class="btn btn-outline-primary" href="/docs/about/overture-maps-examples/" target="_blank">Start with Example</a></p>
   <p></p>
 </div>
     </div>
