@@ -43,18 +43,13 @@
 
 [[main]]
   name = "Login"
-  url = "https://cloud.dekart.xyz/"
+  url = "https://cloud.dekart.xyz/?ref=login"
   weight = 6
 
 [[main]]
   name = "Pricing"
   url = "/cloud"
   weight = 7
-
-[[main]]
-  name = "Playground"
-  url = "/docs/about/playground/"
-  weight = 8
 
 [[main]]
   name = "Docs"
