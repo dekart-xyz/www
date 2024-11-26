@@ -32,7 +32,7 @@ type: "html-content"
     <p>Dekart and CARTO both leverage the industry-leading Kepler.gl and deck.gl libraries for stunning, high-performance maps.</p>
     <!-- item -->
     <h4>Faster Data Connectors</h4>
-    <p>Built with contributions from Google and Snowflake experts, Dekart data connectors use multithreading and multiple caching technics to fetch data faster and cheaper.</p>
+    <p>Built with contributions from Google and Snowflake experts, Dekart data connectors use multithreading and multiple caching techniques to fetch data faster and cheaper.</p>
   </div>
 </div>
 
