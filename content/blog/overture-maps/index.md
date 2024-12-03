@@ -5,7 +5,7 @@ lead: "Efficient way to access and work with spatial data in the cloud."
 date: 2024-06-28T06:59:51Z
 lastmod: 2024-06-28T06:59:51Z
 draft: false
-weight: 50
+weight: 1
 images: ["1716710901364.jpeg"]
 contributors: ["Vladi"]
 ---
