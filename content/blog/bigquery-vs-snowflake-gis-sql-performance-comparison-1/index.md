@@ -56,9 +56,9 @@ WHERE subtype = 'road'
 <table class="table">
 <thead>
 <tr>
-<th>Query/db</th>
+<th>Database</th>
 <th>Duration</th>
-<th>Bites Scanned</th>
+<th>Bytes Scanned</th>
 <th>Cost</th>
 </tr>
 </thead>
