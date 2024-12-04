@@ -145,6 +145,18 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 | `DEKART_REQUIRE_AMAZON_OIDC`      |  Enables users authorization. Requires users to be authenticated and `x-amzn-oidc-data` to be passed from Load Balancer. Requires `AWS_REGION`. <br> *Example value*: `1`|
 
 
+## User Management
+
+Starting from <a href="/self-hosted/"><small class="badge badge-primary">premium 0.17.3</small></a> Dekart supports user management and workspaces. By default, Dekart creates a Default Workspace and assigns all users to it. Users can create their own workspaces and invite other users to collaborate.
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_ALLOW_WORKSPACE_CREATION`  <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.3</small></a> |  Let users create their own workspaces. When disabled only Default Workspace will be created <br> *Example value*: `1`|
+| `DEKART_DEFAULT_WORKSPACE_ADMIN` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.3</small></a> |  Email of the user who will be default workspace admin. <br> *Example value*: `admin@example.com` |
+| `DEKART_DEFAULT_WORKSPACE_ROLE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.3</small></a> |  Default workspace role. Possible values: `admin`, `editor`, `viewer`. If no `DEKART_DEFAULT_WORKSPACE_ADMIN` provided, default is `admin`. If provided default is `viewer`  <br> *Example value*: `viewer`|
+
+
+
 
 ## User Experience
 
