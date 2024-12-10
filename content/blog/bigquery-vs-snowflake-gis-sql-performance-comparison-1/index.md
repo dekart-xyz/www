@@ -102,7 +102,11 @@ DESCRIBE SEARCH OPTIMIZATION ON OVERTURE_MAPS__TRANSPORTATION.CARTO.SEGMENT;
 -- empty result
 ```
 
-However, when I leave only ST_CONTAINS in the filter, Snowflake scans only 60% of the table, and I keep seeing Search Optimization Access node in the query planner. So it appears that Search Optimization is applied to my query.
+However, when I leave only ST_CONTAINS in the filter, Snowflake scans only 60% of the table, and I keep seeing Search Optimization Access node in the query planner.
+
+*Update 2024–12–08*: After reaching out to the Snowflake dev team over LinkedIn, they confirmed that Snowflake Search Optimization was not applied in my query because of Enterprise Account limitations on a dataset publisher side.
+
+This means that at the moment, no one can have search optimization for GIS queries on the official Overture Maps dataset in Snowflake.
 
 ### Bigger warehouse size
 
