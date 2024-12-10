@@ -961,7 +961,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/77dc6f7f-c91c-4099-8dc3-8f043d46cdfb?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/77dc6f7f-c91c-4099-8dc3-8f043d46cdfb/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1017,7 +1017,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/410b857a-aad1-4f05-8ddd-551d0f0fe650?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/410b857a-aad1-4f05-8ddd-551d0f0fe650/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1060,7 +1060,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/db0e26c2-00b0-4f6b-8f21-a26ab312f9e1?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/db0e26c2-00b0-4f6b-8f21-a26ab312f9e1/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1113,7 +1113,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/a4e308a3-b2e8-4183-bfd6-b68866209f50?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/a4e308a3-b2e8-4183-bfd6-b68866209f50/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1175,7 +1175,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/eb5b25bf-4c62-44bc-9e69-f0257134e3f8?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/eb5b25bf-4c62-44bc-9e69-f0257134e3f8/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1237,7 +1237,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/8693cbeb-8369-4f38-91a4-5638589998e5?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/8693cbeb-8369-4f38-91a4-5638589998e5/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1308,7 +1308,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/5f7144cd-24f0-4698-ba7e-a63e872a4659?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/5f7144cd-24f0-4698-ba7e-a63e872a4659/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1344,7 +1344,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/ffbe0a05-7794-465c-ab5b-de54d69cdb38?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/ffbe0a05-7794-465c-ab5b-de54d69cdb38/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1390,7 +1390,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/34d0ba2c-0fd5-4323-a677-d5b05b65d86d?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/34d0ba2c-0fd5-4323-a677-d5b05b65d86d/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1425,7 +1425,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/8cb1566f-0237-4d99-9cc4-bdd70859763a?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/8cb1566f-0237-4d99-9cc4-bdd70859763a/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1469,7 +1469,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/f0941a67-350f-4a80-a9d0-27594f2f853d?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/f0941a67-350f-4a80-a9d0-27594f2f853d/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1514,7 +1514,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/af836766-9ec4-40fc-afbe-fc6b32d6593b?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/af836766-9ec4-40fc-afbe-fc6b32d6593b/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1568,7 +1568,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/72781fb6-8bc5-4c41-839f-66f5bcf7c122?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/72781fb6-8bc5-4c41-839f-66f5bcf7c122/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1611,7 +1611,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/3205a875-b5d7-4458-a0b9-74fdeb49a44b?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/3205a875-b5d7-4458-a0b9-74fdeb49a44b/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1659,7 +1659,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/f392b7ab-b64a-43f3-b100-650eb7b8fdef?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/f392b7ab-b64a-43f3-b100-650eb7b8fdef/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1775,7 +1775,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   
   
   \u003cp class="view-on-map"\u003e
-  \u003ca href="https://cloud.dekart.xyz/reports/a70515ee-ecbb-4aac-8ce1-cf508483e2dc?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  \u003ca href="https://cloud.dekart.xyz/reports/a70515ee-ecbb-4aac-8ce1-cf508483e2dc/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
     View interactive map
   \u003c/a\u003e
   \u003c/p\u003e
@@ -1852,7 +1852,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/b099fbd3-d0ae-4636-aa44-217c0bac53f6?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/b099fbd3-d0ae-4636-aa44-217c0bac53f6/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1905,7 +1905,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/f4c55a02-88a1-4a38-a8ab-48a6237dfee9?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/f4c55a02-88a1-4a38-a8ab-48a6237dfee9/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -1987,7 +1987,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/e539b5f6-cec2-45d5-97b3-d5bf541a9389?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/e539b5f6-cec2-45d5-97b3-d5bf541a9389/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2049,7 +2049,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/556330cb-e7ba-4e34-89df-5644cd0ec8b2?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/556330cb-e7ba-4e34-89df-5644cd0ec8b2/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2110,7 +2110,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/b2f2e1b3-78ec-42d9-9cc6-c38a2a57f72e?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/b2f2e1b3-78ec-42d9-9cc6-c38a2a57f72e/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2173,7 +2173,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/ec7f842a-73f3-4710-a5e8-a2e2d8f63c55?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/ec7f842a-73f3-4710-a5e8-a2e2d8f63c55/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2235,7 +2235,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/5825b784-cd3c-4030-b3c5-94a8f4dd47b0?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/5825b784-cd3c-4030-b3c5-94a8f4dd47b0/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2301,7 +2301,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2376,7 +2376,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/8f2da1e3-9769-4654-abb8-983afd2a2795?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/8f2da1e3-9769-4654-abb8-983afd2a2795/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2417,7 +2417,7 @@ SELECT planet_features.geometry
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/f63fb537-800e-48f6-8c18-8d542a0fed30?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/f63fb537-800e-48f6-8c18-8d542a0fed30/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
@@ -2454,7 +2454,7 @@ SELECT planet_features.geometry
 
 
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/b818f41a-5bd2-4b3b-87b8-4797a390a2a6?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/b818f41a-5bd2-4b3b-87b8-4797a390a2a6/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
