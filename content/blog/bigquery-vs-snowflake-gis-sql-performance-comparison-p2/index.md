@@ -66,7 +66,7 @@ WHERE s.subtype = 'road'
 <tr>
 <th>Query/db</th>
 <th>Duration</th>
-<th>Bites Scanned</th>
+<th>Bytes Scanned</th>
 <th>Cost</th>
 </tr>
 </thead>
