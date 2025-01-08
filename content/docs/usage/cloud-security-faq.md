@@ -4,6 +4,9 @@ description: "Why Dekart Cloud is Secure"
 date: 2021-02-22T07:48:05+01:00
 lastmod: 2021-02-22T07:48:05+01:00
 draft: false
+menu:
+  docs:
+    parent: "usage"
 images: []
 canonical: "/docs/usage/cloud-security-faq/"
 ---
@@ -26,7 +29,7 @@ These permissions are necessary for Dekart to run queries and store results in y
 
 ### How will my data be used and protected?
 
-SQL queries and their results are stored in Google Cloud Storage bucket *provided by you!* We never store tokens, and query results in Dekart Cloud backend. Nobody at Dekart can access your BigQuery data or Google Cloud Storage bucket.
+SQL queries and their results are stored in Google Cloud Storage bucket *provided by you!* We never store tokens or query results in the Dekart Cloud backend. Nobody at Dekart can access your BigQuery data or Google Cloud Storage bucket.
 
 ### Can I revoke Dekart's access if I change my mind?
 
