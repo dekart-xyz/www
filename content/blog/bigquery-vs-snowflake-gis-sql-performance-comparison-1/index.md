@@ -70,13 +70,32 @@ WHERE subtype = 'road'
 <td>$0.002515</td>
 </tr>
 <tr>
-<td>Snowflake</td>
+<td>[outdated] Snowflake</td>
 <td>1m 17s</td>
 <td>63.61GB</td>
 <td>$0.0556</td>
 </tr>
+<tr>
+<td>Snowflake with Search Optimization</td>
+<td>3.9s</td>
+<td>364MB</td>
+<td>$0.002527</td>
+</tr>
 </tbody>
 </table>
+
+#### *Update 2024–12–08*
+
+After reaching out to the Snowflake dev team over LinkedIn, they confirmed that Snowflake Search Optimization was not applied in my query because of Enterprise Account limitations on a dataset publisher side.
+
+This means that at the moment, no one can have search optimization for GIS queries on the official Overture Maps dataset in Snowflake.
+
+#### *Update 2025–01–08*
+
+After reading this article, Snowflake team made Search Optimization available for all users on the Overture Maps dataset.
+
+Updates results added to the table.
+
 
 ### Query plans
 
@@ -85,35 +104,13 @@ WHERE subtype = 'road'
 ## Key insights
 
 - BigQuery reads only a small portion of the table, leveraging clustering and geospatial partitioning effectively.
-- Snowflake reads ~80% of the table, with 89% of query time spent on Remote Disk I/O.
+- Without Search Optimization Snowflake scans the whole table
+- With Search Optimization, Snowflake is as efficient as BigQuery.
 
-In this test, BigQuery is much faster and cheaper than Snowflake.
+In this test, after Snowflake Search Optimization was applied, the performance of both platforms was similar.
 
-## Feature Gap
+## What’s next?
 
-### Snowflake Search Optimization
+Check the next post where we compare platform in more realistic examples where geometry is not constant.
 
-In theory, the Snowflake search optimization service should improve the performance of queries with predicates that use geospatial functions with GEOGRAPHY objects. This feature requires Enterprise Edition according to the documentation. It has also required to be applied to the column.
-
-I, tried to verify if feature is configured on dataset:
-
-```sql
-DESCRIBE SEARCH OPTIMIZATION ON OVERTURE_MAPS__TRANSPORTATION.CARTO.SEGMENT;
--- empty result
-```
-
-However, when I leave only ST_CONTAINS in the filter, Snowflake scans only 60% of the table, and I keep seeing Search Optimization Access node in the query planner.
-
-*Update 2024–12–08*: After reaching out to the Snowflake dev team over LinkedIn, they confirmed that Snowflake Search Optimization was not applied in my query because of Enterprise Account limitations on a dataset publisher side.
-
-This means that at the moment, no one can have search optimization for GIS queries on the official Overture Maps dataset in Snowflake.
-
-### Bigger warehouse size
-
-Will execution time become better with a bigger warehouse size on Snowflake? With 89% of the query time being Remote Disk I/O, it probably will not improve more than 10%.
-
-## What is next?
-
-While this difference between BigQuery and Snowflake seems astonishing, in the next post we will look at more realistic examples where geometry is not constant and comparison between databases is closer.
-
-This article will be updated with feedback and links to other tests.
+→ [Compare and optimize BigQuery and Snowflake performance on GIS queries. Part 2](http://localhost:1313/blog/compare-and-optimize-bigquery-and-snowflake-performance-on-gis-queries.-part-2./)
