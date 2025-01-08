@@ -17,10 +17,10 @@
   url = "/docs/configuration/"
 
 [[docs]]
-  name = "Dekart Cloud"
-  weight = 3
-  identifier = "cloud"
-  url = "/docs/cloud/"
+  name = "Usage"
+  weight = 2
+  identifier = "usage"
+  url = "/docs/usage/"
 
 [[docs]]
   name = "Snowpark"

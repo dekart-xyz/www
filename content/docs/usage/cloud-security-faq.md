@@ -4,6 +4,9 @@ description: "Why Dekart Cloud is Secure"
 date: 2021-02-22T07:48:05+01:00
 lastmod: 2021-02-22T07:48:05+01:00
 draft: false
+menu:
+  docs:
+    parent: "usage"
 images: []
 canonical: "/docs/usage/cloud-security-faq/"
 ---
