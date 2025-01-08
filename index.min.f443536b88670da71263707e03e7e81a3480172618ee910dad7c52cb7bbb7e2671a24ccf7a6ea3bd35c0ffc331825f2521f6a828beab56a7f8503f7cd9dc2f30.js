@@ -2919,7 +2919,78 @@ SELECT planet_features.geometry
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:15,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:15,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+\u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
+\u003chr\u003e
+\u003ch2 id="syntax-for-query-parameters"\u003eSyntax for Query Parameters\u003c/h2\u003e
+\u003cp\u003eQuery parameters are wrapped in double curly braces (\u003ccode\u003e{{parameter_name}}\u003c/code\u003e) and can be used in your SQL queries. For example:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edivision_area\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eregion\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="err"\u003e{{\u003c/span\u003e\u003cspan class="n"\u003eregion\u003c/span\u003e\u003cspan class="err"\u003e}}\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esubtype\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;region\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eIn this query:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003e{{region}}\u003c/code\u003e is a query parameter that the user can set dynamically.\u003c/li\u003e
+\u003cli\u003eSQL logic adjusts based on the value provided for the parameter.\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="setting-default-values"\u003eSetting Default Values\u003c/h2\u003e
+\u003cp\u003eYou can define default values for query parameters. This is useful when a user doesn\u0026rsquo;t provide input for a parameter.\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_512x0_resize_box_3.png 512w"
+    width="1360"
+    height="1080"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value.png" width="1360" height="1080" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003ch2 id="making-parameters-optional"\u003eMaking Parameters Optional\u003c/h2\u003e
+\u003cp\u003eTo make a parameter optional:\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eUse SQL logic to handle cases where the parameter is not provided.\u003c/li\u003e
+\u003cli\u003eCombine conditions in your query to handle \u0026ldquo;all data\u0026rdquo; when a parameter is empty.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eFor instance:
+Example:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edivision_area\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e        \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="err"\u003e{{\u003c/span\u003e\u003cspan class="n"\u003eregion\u003c/span\u003e\u003cspan class="err"\u003e}}\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;ALL\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecountry\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;FR\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e        \u003c/span\u003e\u003cspan class="k"\u003eOR\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eregion\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;FR-\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e||\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="err"\u003e{{\u003c/span\u003e\u003cspan class="n"\u003eregion\u003c/span\u003e\u003cspan class="err"\u003e}}\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esubtype\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;region\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cul\u003e
+\u003cli\u003eThe default value \u003ccode\u003e'ALL'\u003c/code\u003e ensures that if no value is entered, all regions are shown.\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="sharing-reports-with-query-parameters"\u003eSharing Reports with Query Parameters\u003c/h2\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_512x0_resize_box_3.png 512w"
+    width="2719"
+    height="1300"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/usage/query-parameters/share-with-query-params_hu1768cf18cfb2b73ebd889af841247c40_881108_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/usage/query-parameters/share-with-query-params.png" width="2719" height="1300" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
+\u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
+\u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
+`},{id:16,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -2940,7 +3011,28 @@ SELECT planet_features.geometry
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:16,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:17,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+\u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
+
+* **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
+
+* **Compliance Friendly**: We comply with [Google API Services User Data Policy](https://cloud.google.com/terms/services) and verified by Google's Trust \u0026 Safety team. --\u003e
+\u003ch3 id="what-permissions-am-i-granting-to-dekart-and-why-are-they-necessary"\u003eWhat permissions am I granting to Dekart, and why are they necessary?\u003c/h3\u003e
+\u003cp\u003eYou are granting Dekart the following scopes:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003ehttps://www.googleapis.com/auth/bigquery\u003c/code\u003e this scope grants Dekart the ability to manage user data in Google BigQuery, encompassing actions like running queries, managing datasets, and configuring settings.\u003c/li\u003e
+\u003cli\u003e\u003ccode\u003ehttps://www.googleapis.com/auth/devstorage.read_write\u003c/code\u003e this scope allows Dekart to read and write user data in Google Cloud Storage, enabling it to manage files and potentially other data storage elements.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eThese permissions are necessary for Dekart to run queries and store results in your Google Cloud Storage bucket.\u003c/p\u003e
+\u003ch3 id="how-will-my-data-be-used-and-protected"\u003eHow will my data be used and protected?\u003c/h3\u003e
+\u003cp\u003eSQL queries and their results are stored in Google Cloud Storage bucket \u003cem\u003eprovided by you!\u003c/em\u003e We never store tokens or query results in the Dekart Cloud backend. Nobody at Dekart can access your BigQuery data or Google Cloud Storage bucket.\u003c/p\u003e
+\u003ch3 id="can-i-revoke-dekarts-access-if-i-change-my-mind"\u003eCan I revoke Dekart\u0026rsquo;s access if I change my mind?\u003c/h3\u003e
+\u003cp\u003eYes, you can revoke Dekart\u0026rsquo;s access to your Google Cloud resources by signing out of Dekart Cloud. This will remove Dekart\u0026rsquo;s access to your Google Cloud resources and prevent Dekart from running queries or storing results in your Google Cloud Storage bucket.\u003c/p\u003e
+\u003ch3 id="does-dekart-comply-with-data-protection-regulations"\u003eDoes Dekart comply with data protection regulations?\u003c/h3\u003e
+\u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
+\u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
+\u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
+`},{id:18,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -3018,7 +3110,7 @@ SELECT planet_features.geometry
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:17,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:19,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -3045,7 +3137,7 @@ SELECT planet_features.geometry
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:18,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:19,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
+`},{id:20,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:21,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/qwOqLm3i7Ik" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 `}];e.add(n),userinput.addEventListener("input",s,!0),suggestions.addEventListener("click",o,!0);function s(){var n,i=this.value,s=e.search(i,5),o=suggestions.childNodes,r=0,c=s.length;for(suggestions.classList.remove("d-none"),s.forEach(function(e){n=document.createElement("div"),n.innerHTML="<a href><span></span><span></span></a>",a=n.querySelector("a"),t=n.querySelector("span:first-child"),d=n.querySelector("span:nth-child(2)"),a.href=e.href,t.textContent=e.title,d.textContent=e.description,suggestions.appendChild(n)});o.length>c;)suggestions.removeChild(o[r])}function o(){for(;suggestions.lastChild;)suggestions.removeChild(suggestions.lastChild);return!1}})()
