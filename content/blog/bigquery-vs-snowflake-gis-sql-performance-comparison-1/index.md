@@ -84,7 +84,7 @@ WHERE subtype = 'road'
 </tbody>
 </table>
 
-#### *Update 2024–12–08*
+#### *Update: 2024-12-08*
 
 After reaching out to the Snowflake dev team over LinkedIn, they confirmed that Snowflake Search Optimization was not applied in my query because of Enterprise Account limitations on a dataset publisher side.
 
