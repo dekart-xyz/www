@@ -111,6 +111,6 @@ In this test, after Snowflake Search Optimization was applied, the performance o
 
 ## What’s next?
 
-Check the next post where we compare platform in more realistic examples where geometry is not constant.
+Check the next post where we compare platforms in more realistic examples where geometry is not constant.
 
 → [Compare and optimize BigQuery and Snowflake performance on GIS queries. Part 2](http://localhost:1313/blog/compare-and-optimize-bigquery-and-snowflake-performance-on-gis-queries.-part-2./)
