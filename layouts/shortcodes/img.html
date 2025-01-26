@@ -33,10 +33,16 @@
 <p class="view-on-map"><a href="https://play.dekart.xyz/reports/{{ . }}" target="_blank">view on a map</a></p>
 {{ end }}
 {{ with .Get "cloud" }}
-<!-- <p class="view-on-map"><a href="https://cloud.dekart.xyz/reports/{{ . }}" target="_blank">View on Dekart</a></p> -->
 <p class="view-on-map">
 <a href="https://cloud.dekart.xyz/reports/{{ . }}/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm">
   View interactive map
+</a>
+</p>
+{{ end }}
+{{ with .Get "template" }}
+<p class="view-on-map-template">
+<a href="https://cloud.dekart.xyz/reports/{{ . }}/source?ref=dekart-xyz-view-template" target="_blank" class="btn btn-outline-primary btn-sm">
+  → Use This Template
 </a>
 </p>
 {{ end }}
