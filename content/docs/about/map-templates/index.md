@@ -1,6 +1,6 @@
 ---
 title: "Reusable Map Templates"
-description: "Collection of reusable Dekart Maps for you analytics projects"
+description: "Collection of reusable Dekart Maps for your analytics projects"
 lead: ""
 date: 2025-01-26T07:26:19+02:00
 lastmod: 2025-01-26T07:26:19+02:00
