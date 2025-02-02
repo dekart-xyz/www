@@ -62,3 +62,33 @@ clipboard.on('error', function(e) {
     }
 }
 )();
+
+// https://plausible.io/docs/custom-event-goals
+window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) }
+
+function track (event, data) {
+  if (window.plausible) {
+      window.plausible(event, data)
+  }
+}
+
+
+// code which reads ?ref=[referral] from entry URL and calls trackEvent('referral', [referral]) when link is clicked
+(function() {
+        var links = document.querySelectorAll('a');
+        links.forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (!href) {
+                return;
+            }
+            var urlParams = new URLSearchParams(link.search);
+            var ref = urlParams.get('ref');
+            if (!ref) {
+                return;
+            }
+            link.addEventListener('click', function() {
+                track(ref);
+            });
+        });
+}
+)();
