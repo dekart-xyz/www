@@ -26,7 +26,6 @@ If you choose to connect with your **Google account**:
 
 You must have at following roles in the BigQuery project you want to query:
  -  `BigQuery Data Viewer`
- -   `BigQuery Data Viewer`
  -    `BigQuery Job User`
  -    `BigQuery Read Session User`
  -    `Storage Object User`
