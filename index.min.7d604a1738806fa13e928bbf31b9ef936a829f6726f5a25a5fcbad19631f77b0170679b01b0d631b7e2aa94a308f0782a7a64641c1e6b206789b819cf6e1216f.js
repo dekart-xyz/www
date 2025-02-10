@@ -941,6 +941,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
 \u003c/code\u003e\u003c/pre\u003e`},{id:8,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003ch2 id="what-is-a-map-template"\u003eWhat is a Map Template?\u003c/h2\u003e
 \u003cp\u003eA Map Template is a reusable Dekart Map that you can use as a starting point for your analytics projects. Each Map Template is designed to help you quickly visualize your data and answer common business questions. Map Templates utilize Dekart\u0026rsquo;s query parameters to make it easy to customize the map to your specific needs.\u003c/p\u003e
+\u003ch2 id="templates"\u003eTemplates\u003c/h2\u003e
 \u003ch3 id="osm-vs-overture-maps--compare-bike-lane-coverage"\u003eOSM vs Overture Maps – Compare Bike Lane Coverage\u003c/h3\u003e
 \u003cfigure\u003e
   \u003cimg
@@ -966,6 +967,32 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 \u003cp\u003eThis template lets you visualize and compare bike lane coverage in any city by pulling data from both OpenStreetMap (OSM) and Overture Maps. Simply choose a city (and country code) to see which streets have dedicated cycle paths—and whether certain lane tags (like cycleway:left) appear in one dataset but not the other. It’s ideal for data analysts, urban planners, or anyone curious about how well bike lanes are mapped in their area.\u003c/p\u003e
+\u003cp\u003eRequires: \u003csmall class="badge badge-info"\u003eBigQuery Account\u003c/small\u003e\u003c/p\u003e
+\u003ch3 id="city-boundaries-by-name--resolve-duplicate-cities"\u003eCity Boundaries by Name – Resolve Duplicate Cities\u003c/h3\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_512x0_resize_box_3.png 512w"
+    width="2342"
+    height="1802"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848_hucb2b0f385e888dc1271fc0ecd3189f92_1178907_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/map-templates/a75befda-e8d9-4771-b644-a2f2e6d44848.png" width="2342" height="1802" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp class="view-on-map-template"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/a75befda-e8d9-4771-b644-a2f2e6d44848/source?ref=dekart-xyz-view-template" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  → Use This Template
+\u003c/a\u003e
+\u003c/p\u003e
+
+
+\u003cp\u003eThis template queries city boundaries from the Overture Maps dataset in BigQuery—even if multiple cities share the same name. It fetches all matching boundaries, counts the Points of Interest (POIs) in each, and returns the boundary with the highest POI count as the “most relevant” city. Perfect for data analysts and data scientists who need accurate location context without diving into specialized GIS tools.\u003c/p\u003e
 \u003cp\u003eRequires: \u003csmall class="badge badge-info"\u003eBigQuery Account\u003c/small\u003e\u003c/p\u003e
 `},{id:9,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"BigQuery Overture Maps Examples",description:"Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.\u003c/p\u003e
 \u003cdiv class="gpt" \u003e
