@@ -22,8 +22,7 @@ For all Docker-based deployments, update the docker tag, for example `dekartxyz/
 
 **`dekartxyz/dekart:0.17` -> `dekartxyz/dekart:0.18`**
 
-**Note:** when authentication enabled, all current users and maps will be migrated to "Default" workspace. You can manage and rename via UX afterwords.
-
+**Note:** when authentication enabled, all current users and maps will be migrated to "Default" workspace. You can manage and rename via UX afterwards.
 To fine-tune workspace permissions and default roles, we’ve added following configuration variables
 
 - **`DEKART_ALLOW_WORKSPACE_CREATION`**
