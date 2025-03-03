@@ -22,11 +22,38 @@ images: []
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
 |`DEKART_POSTGRES_URL` <br><small class="badge badge-info">version &gt;= 0.13</small> | Alternatively to specify `DEKART_POSTGRES_DB`, `DEKART_POSTGRES_HOST`, `DEKART_POSTGRES_PORT`, `DEKART_POSTGRES_USER`, `DEKART_POSTGRES_PASSWORD`, configure PostgreSQL by passing the connection string. If both specified `DEKART_POSTGRES_URL` is used. <br/> *Example*: `postgres://user:pass@hostname:5432/dekart?sslmode=verify-full`|
-|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li><li>`PG` Postgres <small class="badge badge-info">version &gt;= 0.16</small></li></ul>|
-| `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li><li>`SNOWFLAKE` Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. <small class="badge badge-info">version &gt;= 0.17</small></li></ul>|
+|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li><li>`PG` Postgres <small class="badge badge-info">version &gt;= 0.18</small></li><li>`USER` Users can configure connections in UX <small class="badge badge-info">version &gt;= 0.18</small></li><li>`CH` ClickHouse <small class="badge badge-info">version &gt;= 0.18</small></li></ul>|
+| `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li><li>`SNOWFLAKE` Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. <small class="badge badge-info">version &gt;= 0.17</small></li><li>`USER` Users can configure connections in UX <small class="badge badge-info">version &gt;= 0.18</small></li></ul>|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul>|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
-| `DEKART_SQLITE_DB_PATH=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
+| `DEKART_SQLITE_DB_PATH=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> <br/><small class="badge badge-info">version &gt;= 0.18</small> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
+| `DEKART_STREAM_TIMEOUT` <br/><small class="badge badge-info">version &gt;= 0.18</small> | Timeout in seconds for streaming backend updates. Default value is 50 seconds. Usefull when you you Gateway has shorter timeout and you see Gateway Timeout errors. <br> *Example*: `50`|
+## Data Encryption
+
+<small class="badge badge-info">version &gt;= 0.18</small>
+
+Dekart supports data encryption at rest for storing credentials. Required for configuring Snowflake and BigQuery JSON Key via UX. To enable data encryption, set the following environment variables:
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_DATA_ENCRYPTION_KEY`      | Google Secret Manager key to encrypt sensitive data. <br> *Example*: `projects/121212121212/secrets/dekart-data-encoding-key/versions/1`|
+
+Steps to Generate & Set the Key:
+
+1. Generate a Secure 256‐Bit Key
+   Use a command like:
+   ```bash
+   openssl rand -base64 32
+   ```
+   This produces a base64‐encoded, 32‐byte key.
+
+2. Add key to Google Secret Manager
+
+3. Set the Environment Variable:
+   ```bash
+   DEKART_DATA_ENCRYPTION_KEY=projects/121212121212/secrets/dekart-data-encoding-key/versions/1
+   ```
+
 
 
 ## AWS
@@ -62,7 +89,7 @@ Required to query BigQuery and use Cloud Storage
 | ------------- | ------------- |
 | `DEKART_BIGQUERY_PROJECT_ID`      | Unique identifier for your Google Cloud project with BigQuery API Enabled. <br> *Example*: `my-project` <br><br><small class="badge badge-info">version &gt;= 0.15</small> If value is empty, users will be able to define project ID via UI.|
 | `DEKART_BIGQUERY_MAX_BYTES_BILLED` <br/><small class="badge badge-info">version &gt;= 0.7</small>    | Sets `maximumBytesBilled` in BigQuery Job Configuration to implement  <a href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed">Best Practices for Controlling Query Cost</a>.<br> If not set warning message will appear in logs.|
-| `DEKART_GCP_EXTRA_OAUTH_SCOPES` <br/><small class="badge badge-info">version &gt;= 0.14</small>    | Set additional scopes for the GCP OAuth token when connecting to BigQuery.<br> The value is interpreted as a comma-delimited list.<br> E.g., in order to query a BigQuery table backed by a Google Sheet in Google Drive, the value needs to be set to `https://www.googleapis.com/auth/drive`. |
+| `DEKART_GCP_EXTRA_OAUTH_SCOPES` <br/><small class="badge badge-info">version &gt;= 0.14</small> <br/>OAuth token support from <small class="badge badge-info">version &gt;= 0.18</small>    | Set additional scopes for the GCP OAuth token when connecting to BigQuery.<br> The value is interpreted as a comma-delimited list.<br> E.g., in order to query a BigQuery table backed by a Google Sheet in Google Drive, the value needs to be set to `https://www.googleapis.com/auth/drive`. |
 
 ## Snowflake
 
@@ -71,8 +98,8 @@ Required to query BigQuery and use Cloud Storage
 | `DEKART_SNOWFLAKE_ACCOUNT_ID` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | <a target="_blank" href="https://docs.snowflake.com/en/user-guide/admin-account-identifier#using-an-account-name-as-an-identifier">Snowflake Account Identifier</a>  <br> *Example*: `orgname-account_name`|
 | `DEKART_SNOWFLAKE_USER` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user with default warehouse configured  <br> *Example*: `example_user`|
 | `DEKART_SNOWFLAKE_PASSWORD` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user password  <br> *Example*: `******`|
-| `DEKART_SNOWFLAKE_STAGE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a>     | Persist Dekart application state on Snowflake stage. Work with `DEKART_SQLITE_DB_PATH`  <br> *Example*: `app_public.app_state_stage`|
-| `DEKART_REQUIRE_SNOWFLAKE_CONTEXT=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a>     | Authorize user using `Sf-Context-Current-User` header. Used in Snowpark environment. <br> *Example*: `1`|
+| `DEKART_SNOWFLAKE_STAGE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>    | Persist Dekart application state on Snowflake stage. Work with `DEKART_SQLITE_DB_PATH`  <br> *Example*: `app_public.app_state_stage`|
+| `DEKART_REQUIRE_SNOWFLAKE_CONTEXT=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>     | Authorize user using `Sf-Context-Current-User` header. Used in Snowpark environment. <br> *Example*: `1`|
 
 ## Postgres (as a data source)
 
@@ -81,6 +108,17 @@ Postgres can be used as a data source for Dekart. Do not confuse with Dekart's P
 | Name        | Description           |
 | ------------- | ------------- |
 | `DEKART_POSTGRES_DATASOURCE_CONNECTION` <br/><small class="badge badge-info">version &gt;= 0.16</small>     | Postgres DB to be used as data source  <br> *Example*: `postgres://user:password@host:port/db`|
+
+## ClickHouse
+
+<small class="badge badge-info">version &gt;= 0.18</small>
+
+ClickHouse can be used as a data source for Dekart.
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_CLICKHOUSE_DATA_CONNECTION`  <br/><small class="badge badge-info">version &gt;= 0.18</small>     | ClickHouse connection string in DSN format. <br> *Example*: `clickhouse://user:password@host:port/database`|
+| `DEKART_CLICKHOUSE_S3_OUTPUT_LOCATION` <br/><small class="badge badge-info">version &gt;= 0.18</small> | S3 bucket path where query results are stored. <br> *Example*: `bucket-name/optional-prefix`|
 
 
 ## File upload
@@ -145,6 +183,18 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 | `DEKART_REQUIRE_AMAZON_OIDC`      |  Enables users authorization. Requires users to be authenticated and `x-amzn-oidc-data` to be passed from Load Balancer. Requires `AWS_REGION`. <br> *Example value*: `1`|
 
 
+## Workspaces
+
+<small class="badge badge-info">version &gt;= 0.18</small>
+
+Dekart supports multiple workspaces. Each workspace can have its own set of reports, queries, and users. By default, all users are added to the `Default` workspace. To configure workspace management, set the following environment variables:
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_ALLOW_WORKSPACE_CREATION` <br/><small class="badge badge-info">version &gt;= 0.18</small>     |  When set to `1`, users can create new workspaces. Set to empty, new users will be automatically added to the `Default` workspace. <br> *Example value*: `1`|
+| `DEKART_DEFAULT_WORKSPACE_ADMIN`   <br/><small class="badge badge-info">version &gt;= 0.18</small>   |  Email that designates a default admin for the `Default` workspace. When not provided, all new users will be Admin. When provided, all users will be viewers, unless specified differently with `DEKART_DEFAULT_WORKSPACE_ROLE`. <br> *Example value*: `admin@email.com`
+| `DEKART_DEFAULT_WORKSPACE_ROLE`  <br/><small class="badge badge-info">version &gt;= 0.18</small>    |  Role assigned by default to new users (e.g., `viewer`, `editor`, `admin`). Requires `DEKART_DEFAULT_WORKSPACE_ADMIN` to be specified. <br> *Example value*: `viewer`|
+
 
 ## User Experience
 
@@ -167,4 +217,5 @@ Do not change for production
 | `DEKART_LOG_DEBUG`      |  Set Dekart log level to debug <br> *Example value*: `1`|
 | `DEKART_LOG_PRETTY`      |  Print pretty colorful logs in console. By default Dekart formats logs as JSON <br> *Example value*: `1`|
 | `DEKART_STATIC_FILES`      |  *Example value*: `./build`|
+| `DEKART_DEV_QUERY_CACHE_DEADLINE` <br/><small class="badge badge-info">version &gt;= 0.18</small> | Set the cache deadline for queries in development mode. This is useful when debug BigQuery or Snowflake cache expiration <br> *Example*: `1m`|
 
