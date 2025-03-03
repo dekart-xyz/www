@@ -27,7 +27,7 @@ images: []
 | `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul>|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
 | `DEKART_SQLITE_DB_PATH=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> <br/><small class="badge badge-info">version &gt;= 0.18</small> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
-| `DEKART_STREAM_TIMEOUT` <br/><small class="badge badge-info">version &gt;= 0.18</small> | Timeout in seconds for streaming backend updates. Default value is 50 seconds. Usefull when you you Gateway has shorter timeout and you see Gateway Timeout errors. <br> *Example*: `50`|
+| `DEKART_STREAM_TIMEOUT` <br/><small class="badge badge-info">version &gt;= 0.18</small> | Timeout in seconds for streaming backend updates. Default value is 50 seconds. Useful when your Gateway has a shorter timeout and you see Gateway Timeout errors. <br> *Example*: `50`|
 ## Data Encryption
 
 <small class="badge badge-info">version &gt;= 0.18</small>
