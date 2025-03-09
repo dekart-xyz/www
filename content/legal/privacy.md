@@ -2,14 +2,13 @@
 title: "Dekart Cloud Privacy Policy"
 description: ""
 date: 2021-02-19T08:17:44+01:00
-lastmod: 2021-02-19T08:17:44+01:00
+lastmod: 2025-03-09T08:17:44+01:00
 draft: false
 images: []
 ---
 
 # Dekart Cloud Privacy Policy
-
-Effective Date: 2024-03-10
+Last Updated: 2025-03-09
 
 This Privacy Policy outlines how Dekart XYZ UG (haftungsbeschränkt) (“Dekart Cloud,” “we,” “us,” or “our”) manages your data in compliance with the General Data Protection Regulation (GDPR) and other relevant laws. By accessing or using our services, you acknowledge that you have read this policy and understand your rights.
 
@@ -48,6 +47,24 @@ Your data is hosted within the EU and is not transferred internationally without
 ## Use of Your Information
 
 Your information is used to provide our services, communicate with you, and for marketing purposes. We strive to improve our offerings based on the data we collect.
+
+### Service Communications & Email List
+
+We may use your email address to send you updates about new features, library updates, and platform improvements. These emails are part of our commitment to keeping you informed about changes relevant to your use of Dekart. These communications:
+
+* Are sent under our legitimate interest in maintaining service engagement.
+* Include an unsubscribe link in every email, allowing you to opt out anytime.
+
+If you prefer not to receive these updates, you can unsubscribe directly from any email or send a request to support@dekart.xyz.
+
+### Public Map Viewing & Email Visibility
+
+If you view a public map while logged in, your email address may be visible to the map’s author. This feature is designed to help map authors understand engagement with their visualizations.
+
+* Who can see your email? Only the author of the public map you are viewing.
+* How is this information used? Map authors may use this data for analytics, engagement insights, and marketing purposes. Dekart Cloud is not responsible for how individual map authors utilize this information.
+* How to opt out? If you do not wish to share your email in this way, you can send an opt-out request to support@dekart.xyz.
+
 
 ## Access to Your Information
 
