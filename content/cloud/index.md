@@ -44,8 +44,8 @@ type: "html-content"
           <ul class="list-unstyled dekart-cloud-price-bottom">
             <li class="small mb-2">Everything from Personal</li>
             <li class="small mb-2">Unlimited Map Viewers</li>
+            <li class="small mb-2">Contact Public Map Viewers</li>
             <li class="small mb-2">Manage User Access</li>
-            <li class="small mb-2">Slack Support</li>
           </ul>
         </div>
       </div>
@@ -63,8 +63,8 @@ type: "html-content"
           <ul class="list-unstyled dekart-cloud-price-bottom">
             <li class="small mb-2">Everything from Personal</li>
             <li class="small mb-2">Unlimited Map Viewers and Editors</li>
+            <li class="small mb-2">Contact Public Map Viewers</li>
             <li class="small mb-2">Manage User Access</li>
-            <li class="small mb-2">Slack Support</li>
           </ul>
         </div>
       </div>
