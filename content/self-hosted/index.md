@@ -54,7 +54,7 @@ type: "html-content"
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
-                <li class="small mb-2">Everything from open-source</a>
+                <li class="small mb-2">Everything from open-source</li>
                 <li class="small mb-2">
                   <a target="_blank" href="/legal/dekart-premium-terms/">Lifetime commercial license</a>
                 </li>
