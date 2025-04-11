@@ -2943,6 +2943,10 @@ Use a command like:\u003c/p\u003e
 \u003ctd\u003eSnowflake user password  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e******\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_PRIVATE_KEY\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18.4\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eThe private key required for authenticating with Snowflake using the JWT (JSON Web Token) authentication method. This key must be in PKCS#8 format and base64-encoded.  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003eMIIEv...\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_STAGE\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.17.2\u003c/small\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18.1\u003c/small\u003e\u003c/td\u003e
 \u003ctd\u003ePersist Dekart application state on Snowflake stage. Work with \u003ccode\u003eDEKART_SQLITE_DB_PATH\u003c/code\u003e  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003eapp_public.app_state_stage\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
@@ -2952,7 +2956,31 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="postgres-as-a-data-source"\u003ePostgres (as a data source)\u003c/h2\u003e
+\u003ch3 id="configuring-snowflake-private-key-authentication"\u003eConfiguring Snowflake Private Key Authentication\u003c/h3\u003e
+\u003ch4 id="step-1-generate-a-key-pair"\u003eStep 1: Generate a Key Pair\u003c/h4\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eGenerate a Private Key\u003c/strong\u003e: Use OpenSSL to generate a private key in PKCS#8 format.
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eopenssl genrsa \u003cspan class="m"\u003e2048\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8 -nocrypt
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eGenerate a Public Key\u003c/strong\u003e: Extract the public key from the private key.
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eopenssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch4 id="step-2-assign-the-public-key-to-a-snowflake-user"\u003eStep 2: Assign the Public Key to a Snowflake User\u003c/h4\u003e
+\u003cul\u003e
+\u003cli\u003eLog into Snowflake with a user that has the necessary permissions.\u003c/li\u003e
+\u003cli\u003eAssign the public key to the user using the following SQL command:
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eALTER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eUSER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eexample_user\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSET\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eRSA_PUBLIC_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;MIIBIj...\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch4 id="step-3-set-the-environment-variable"\u003eStep 3: Set the Environment Variable\u003c/h4\u003e
+\u003cul\u003e
+\u003cli\u003eSet the \u003ccode\u003eDEKART_SNOWFLAKE_PRIVATE_KEY\u003c/code\u003e environment variable with the base64-encoded private key.\u003c/li\u003e
+\u003cli\u003eThe private key must be base64-encoded without the \u003ccode\u003e-----BEGIN PRIVATE KEY-----\u003c/code\u003e and \u003ccode\u003e-----END PRIVATE KEY-----\u003c/code\u003e markers.\u003c/li\u003e
+\u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="postgres-as-a-data-source"\u003ePostgres (as a data source)\u003c/h2\u003e
 \u003cp\u003ePostgres can be used as a data source for Dekart. Do not confuse with Dekart\u0026rsquo;s Postgres database, which is used to store query meta information.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
