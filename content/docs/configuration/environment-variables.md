@@ -98,8 +98,37 @@ Required to query BigQuery and use Cloud Storage
 | `DEKART_SNOWFLAKE_ACCOUNT_ID` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | <a target="_blank" href="https://docs.snowflake.com/en/user-guide/admin-account-identifier#using-an-account-name-as-an-identifier">Snowflake Account Identifier</a>  <br> *Example*: `orgname-account_name`|
 | `DEKART_SNOWFLAKE_USER` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user with default warehouse configured  <br> *Example*: `example_user`|
 | `DEKART_SNOWFLAKE_PASSWORD` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user password  <br> *Example*: `******`|
+| `DEKART_SNOWFLAKE_PRIVATE_KEY` <br/><small class="badge badge-info">version &gt;= 0.18.4</small>     | The private key required for authenticating with Snowflake using the JWT (JSON Web Token) authentication method. This key must be in PKCS#8 format and base64-encoded.  <br> *Example*: `MIIEv...`|
 | `DEKART_SNOWFLAKE_STAGE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>    | Persist Dekart application state on Snowflake stage. Work with `DEKART_SQLITE_DB_PATH`  <br> *Example*: `app_public.app_state_stage`|
 | `DEKART_REQUIRE_SNOWFLAKE_CONTEXT=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>     | Authorize user using `Sf-Context-Current-User` header. Used in Snowpark environment. <br> *Example*: `1`|
+
+### Configuring Snowflake Private Key Authentication
+
+ #### Step 1: Generate a Key Pair
+ - **Generate a Private Key**: Use OpenSSL to generate a private key in PKCS#8 format.
+   ```bash
+   openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8 -nocrypt
+   ```
+ - **Generate a Public Key**: Extract the public key from the private key.
+   ```bash
+   openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+   ```
+
+ #### Step 2: Assign the Public Key to a Snowflake User
+ - Log into Snowflake with a user that has the necessary permissions.
+ - Assign the public key to the user using the following SQL command:
+   ```sql
+   ALTER USER example_user SET RSA_PUBLIC_KEY='MIIBIj...';
+   ```
+ #### Step 3: Set the Environment Variable
+ - Set the `DEKART_SNOWFLAKE_PRIVATE_KEY` environment variable with the base64-encoded private key.
+ - The private key must be base64-encoded without the `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----` markers.
+ - Remove all newlines from the base64-encoded string.
+ ```bash
+ cat rsa_key.p8 | sed '/-----BEGIN PRIVATE KEY-----/d' | sed '/-----END PRIVATE KEY-----/d' | tr -d '\n'
+ ```
+
+
 
 ## Postgres (as a data source)
 
