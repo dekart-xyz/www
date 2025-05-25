@@ -19,7 +19,7 @@ canonical: ""
 Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.
 
 <div class="gpt" >
-  <p>All examples are created with <b>Overture Maps GPT</b></p><p><a href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt" class="btn btn-outline-primary" target="_blank">Get it Free</a></p>
+  <p>All examples are created with <b>Overture Maps GPT</b></p><p><a href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt?ref=gpt-link" class="btn btn-outline-primary" target="_blank">Get it Free</a></p>
 </div>
 
 ## Segment

@@ -39,6 +39,13 @@
 </a>
 </p>
 {{ end }}
+{{ with .Get "cloudsql" }}
+<p class="view-on-map">
+<a href="https://cloud.dekart.xyz/reports/{{ . }}/source?ref=view-map-and-data" target="_blank" class="btn btn-outline-primary btn-sm">
+  View map and data
+</a>
+</p>
+{{ end }}
 {{ with .Get "template" }}
 <p class="view-on-map-template">
 <a href="https://cloud.dekart.xyz/reports/{{ . }}/source?ref=dekart-xyz-view-template" target="_blank" class="btn btn-outline-primary btn-sm">
