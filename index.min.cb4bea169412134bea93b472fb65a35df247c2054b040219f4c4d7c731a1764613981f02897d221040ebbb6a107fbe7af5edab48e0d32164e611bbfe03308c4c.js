@@ -818,6 +818,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003c/a\u003e\u003c/p\u003e
 \u003ch3 id="client"\u003eClient\u003c/h3\u003e
 \u003cp\u003eDekart Client is based on \u003ca href="https://create-react-app.dev/docs/getting-started"\u003eCreate React App\u003c/a\u003e project setup, javascript Redux application utilizing Actions and Store. Components are build on top of \u003ca href="https://ant.design/components/overview/"\u003eAnd Design\u003c/a\u003e components framework.\u003c/p\u003e
@@ -859,6 +860,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/contributing/architecture-overview/making-query_hu7febaf73035dc81d89fbd4cc14e5461a_156921_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/contributing/architecture-overview/making-query_hu7febaf73035dc81d89fbd4cc14e5461a_156921_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/contributing/architecture-overview/making-query_hu7febaf73035dc81d89fbd4cc14e5461a_156921_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/contributing/architecture-overview/making-query_hu7febaf73035dc81d89fbd4cc14e5461a_156921_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/contributing/architecture-overview/making-query.png" width="2134" height="770" alt="BigQuery Query Flow"\u003e\u003c/noscript\u003e
   \u003cfigcaption class="figure-caption"\u003eClick for big picture\u003c/figcaption\u003e
 \u003c/figure\u003e
+
 
 
 
@@ -962,7 +964,289 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:8,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003ch2 id="what-is-a-map-template"\u003eWhat is a Map Template?\u003c/h2\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:8,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
+\u003ch3 id="how-to-use-these-maps"\u003eHow to Use These Maps\u003c/h3\u003e
+\u003cp\u003eTo use these maps, you can:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eOpen the provided links to view the maps in Dekart.\u003c/li\u003e
+\u003cli\u003eFork the maps to your own Dekart workspace.\u003c/li\u003e
+\u003cli\u003eCustomize the underlying SQL queries to fit your specific data needs.\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="electric-vehicle-ownership-affinity-index"\u003eElectric Vehicle Ownership Affinity Index\u003c/h3\u003e
+\u003cp\u003e\u003cem\u003eDataset provided by Echo Analytics.\u003c/em\u003e\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_512x0_resize_box_3.png 512w"
+    width="3216"
+    height="2080"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6_hu66578941326ae447ba92d5cb30a6526c_3351260_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/ev-charging-analytics/ad09c66c-9389-4810-bc61-09258d2b3ee6.png" width="3216" height="2080" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/ad09c66c-9389-4810-bc61-09258d2b3ee6/source?ref=view-map-and-data" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  View map and data
+\u003c/a\u003e
+\u003c/p\u003e
+
+
+
+\u003cp\u003eThis map visualizes \u003cem\u003eelectric vehicle (EV) adoption\u003c/em\u003e in France using the \u003cstrong\u003eEV Affinity Index\u003c/strong\u003e, which shows how concentrated EV ownership is in each postcode compared to national and regional averages.\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eDarker green\u003c/strong\u003e = Above-average adoption\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eLighter green/white\u003c/strong\u003e = Below-average adoption\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eData sources (Google BigQuery):\u003c/strong\u003e\u003c/p\u003e
+\u003cp\u003e• \u003cem\u003eEV Ownership – Echo Analytics\u003c/em\u003e
+\u003ccode\u003edekart-data-samples.echo_analytics.electric_vehicle_owners\u003c/code\u003e
+– \u003ccode\u003epostcode\u003c/code\u003e, \u003ccode\u003eaffinity_index_nation\u003c/code\u003e, \u003ccode\u003eaffinity_index_region\u003c/code\u003e\u003c/p\u003e
+\u003cp\u003e• \u003cem\u003eGeolocation – Overture Maps\u003c/em\u003e
+\u003ccode\u003ebigquery-public-data.overture_maps.address\u003c/code\u003e
+– \u003ccode\u003epostcode\u003c/code\u003e, \u003ccode\u003egeometry\u003c/code\u003e\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eJoining process:\u003c/strong\u003e\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eFilter relevant postcodes from EV dataset\u003c/li\u003e
+\u003cli\u003eGet coordinates from Overture Maps\u003c/li\u003e
+\u003cli\u003eJoin on \u003ccode\u003epostcode\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eSample 4% for performance using \u003ccode\u003eRAND() \u0026lt;= 0.04\u003c/code\u003e\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003e\u003cstrong\u003eHow to interpret the map:\u003c/strong\u003e\u003c/p\u003e
+\u003cp\u003e• \u003cstrong\u003eAffinity Index \u0026gt; 1.19\u003c/strong\u003e → High EV adoption (ideal for expanding charging networks)
+• \u003cstrong\u003e0.75 – 1.19\u003c/strong\u003e → Average adoption
+• \u003cstrong\u003e\u0026lt; 0.75\u003c/strong\u003e → Low adoption (could signal access or infrastructure challenges)\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eUse cases:\u003c/strong\u003e\u003c/p\u003e
+\u003cp\u003e• Plan EV charging infrastructure
+• Target high-affinity areas for EV marketing
+• Guide policy or incentives in low-adoption regions\u003c/p\u003e
+\u003ch3 id="ev-charging-demand-vs-supply"\u003eEV Charging Demand vs Supply\u003c/h3\u003e
+\u003cp\u003e\u003cem\u003eDataset provided by Data Appeal.\u003c/em\u003e\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_512x0_resize_box_3.png 512w"
+    width="3216"
+    height="2080"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a_hu66578941326ae447ba92d5cb30a6526c_2449435_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/ev-charging-analytics/4945121f-c277-474f-a9bb-3420292b466a.png" width="3216" height="2080" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/4945121f-c277-474f-a9bb-3420292b466a/source?ref=view-map-and-data" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  View map and data
+\u003c/a\u003e
+\u003c/p\u003e
+
+
+
+\u003cp\u003eThis map reveals the \u003cem\u003espatial gap between charging demand and existing EV charger locations\u003c/em\u003e in central Paris, using \u003cstrong\u003ePOI-based demand signals\u003c/strong\u003e from Data Appeal.\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eOrange points\u003c/strong\u003e = EV charging stations (\u003ccode\u003evehicle_charging_station\u003c/code\u003e)\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eCyan points\u003c/strong\u003e = All other POIs (for density and land-use context)\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eExtruded hexagons\u003c/strong\u003e = Aggregated \u003cem\u003eEV-relevant demand\u003c/em\u003e, based on:
+\u003ccode\u003eev_relevance_popularity = popularity * category_weight\u003c/code\u003e
+\u003cem\u003e(Weights reflect how likely a POI type supports charging — e.g., higher for gyms/cafés, lower for banks.)\u003c/em\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eHexagon colors\u003c/strong\u003e show the demand-to-supply ratio:
+\u003ccode\u003erelevance_per_charger = SUM(ev_relevance_popularity) / (COUNT(chargers) + 1)\u003c/code\u003e
+This highlights areas with \u003cem\u003ehigh EV activity but few existing chargers\u003c/em\u003e.\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eWhy this matters:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eCombines human behavior (POI popularity) with real charger locations\u003c/li\u003e
+\u003cli\u003eHighlights \u0026ldquo;opportunity charging zones\u0026rdquo; — where people dwell and could charge\u003c/li\u003e
+\u003cli\u003eUses H3 hexagons (~100m) for granular urban planning\u003c/li\u003e
+\u003cli\u003eCategory weights are based on actual EV user behavior and EU mobility studies\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eData sources:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003edekart-data-samples.datappeal_2.poi_data\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003e\u003ccode\u003edekart-data-samples.datappeal_2.poi_characterization\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003ePOI category weights (custom, based on research)\u003c/li\u003e
+\u003cli\u003eH3 indexing via \u003ccode\u003ebqcarto.h3.LONGLAT_ASH3\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eUse cases:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eIdentify underserved high-demand areas for new chargers\u003c/li\u003e
+\u003cli\u003eModel demand from urban amenities\u003c/li\u003e
+\u003cli\u003eLayer with EV adoption or grid data for planning\u003c/li\u003e
+\u003cli\u003eTrack shifts in demand/supply over time\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="ev-charging-competition-analysis"\u003eEV Charging Competition Analysis\u003c/h3\u003e
+\u003cp\u003e\u003cem\u003eDataset provided by MyTraffic.\u003c/em\u003e\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_512x0_resize_box_3.png 512w"
+    width="3216"
+    height="2080"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242_hu66578941326ae447ba92d5cb30a6526c_1985728_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/ev-charging-analytics/1966a88e-4afc-4747-88cf-13db220be242.png" width="3216" height="2080" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/1966a88e-4afc-4747-88cf-13db220be242/source?ref=view-map-and-data" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  View map and data
+\u003c/a\u003e
+\u003c/p\u003e
+
+
+
+\u003cp\u003eThis map shows the \u003cem\u003espatial distribution of EV chargers\u003c/em\u003e in Paris using \u003cstrong\u003eMyTraffic data\u003c/strong\u003e, visualized with \u003cstrong\u003eH3 hexagons\u003c/strong\u003e to analyze charger density and brand dominance.\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eDarker hexagons\u003c/strong\u003e = Higher charger density\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003ePoint symbols\u003c/strong\u003e = Individual stations by brand, size, or power\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eLayer descriptions:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cem\u003eCharger Density (H3)\u003c/em\u003e – Charging points per km²\u003c/li\u003e
+\u003cli\u003e\u003cem\u003eTop Brand (H3)\u003c/em\u003e – Most common brand in each hex\u003c/li\u003e
+\u003cli\u003e\u003cem\u003eBy Brand (Points)\u003c/em\u003e – Station locations grouped by provider\u003c/li\u003e
+\u003cli\u003e\u003cem\u003eBy Count (Points)\u003c/em\u003e – Sized by number of ports\u003c/li\u003e
+\u003cli\u003e\u003cem\u003eBy Power (Points)\u003c/em\u003e – Sized by maximum charging power\u003c/li\u003e
+\u003cli\u003e\u003cem\u003eParis (GeoJSON)\u003c/em\u003e – City boundary reference\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eKey insights:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eHigh charger density in central Paris\u003c/strong\u003e\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eBrand competition varies by area\u003c/strong\u003e, showing localized leadership\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003ePeripheral areas\u003c/strong\u003e show gaps with potential for expansion\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eData sources:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003eMyTraffic EV charging data\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eH3 processing via Snowflake\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eUse cases:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eSpot underserved zones for network growth\u003c/li\u003e
+\u003cli\u003eBenchmark charger brands by geography\u003c/li\u003e
+\u003cli\u003eGuide investment or partnership strategies\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="ev-charger-proximity-analysis-uk-highways"\u003eEV Charger Proximity Analysis (UK Highways)\u003c/h3\u003e
+\u003cp\u003e\u003cem\u003eDataset from Overture Maps.\u003c/em\u003e\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_512x0_resize_box_3.png 512w"
+    width="4032"
+    height="2302"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81_hu0ddbb4de5879976c9feeaba6bf7a7891_2345589_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/ev-charging-analytics/b33117ab-567d-4f86-877a-3dee828f8a81.png" width="4032" height="2302" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/b33117ab-567d-4f86-877a-3dee828f8a81/source?ref=view-map-and-data" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  View map and data
+\u003c/a\u003e
+\u003c/p\u003e
+
+
+
+\u003cp\u003eThis map shows \u003cem\u003eEV charger density along major UK roads\u003c/em\u003e, highlighting how many charging stations are within 50 km of each motorway or trunk segment.\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eDarker lines\u003c/strong\u003e = More nearby chargers
+\u003cstrong\u003eLighter lines\u003c/strong\u003e = Fewer or none\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eWhat’s measured:\u003c/strong\u003e
+Each road segment is scored by the \u003cstrong\u003enumber of EV charging stations\u003c/strong\u003e located within a 50 km radius.\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eHow it works:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eDefines the UK boundary using Overture Maps divisions\u003c/li\u003e
+\u003cli\u003eSelects \u003cem\u003emotorways\u003c/em\u003e and \u003cem\u003etrunk roads\u003c/em\u003e only\u003c/li\u003e
+\u003cli\u003eFilters POIs categorized as EV charging stations\u003c/li\u003e
+\u003cli\u003eCounts stations within 50 km of each road segment\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eData sources:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003eOVERTURE_MAPS__DIVISIONS.CARTO.DIVISION_AREA\u003c/code\u003e – UK boundary\u003c/li\u003e
+\u003cli\u003e\u003ccode\u003eOVERTURE_MAPS__TRANSPORTATION.CARTO.SEGMENT\u003c/code\u003e – Road geometry and metadata\u003c/li\u003e
+\u003cli\u003e\u003ccode\u003eOVERTURE_MAPS__PLACES.CARTO.PLACE\u003c/code\u003e – Charging station locations\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eUse cases:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eIdentify highway segments underserved by EV infrastructure\u003c/li\u003e
+\u003cli\u003eGuide national charging network expansion\u003c/li\u003e
+\u003cli\u003eSupport EV readiness assessments across transport corridors\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="ev-charging-density--by-country-overture-maps--h3"\u003eEV Charging Density – by Country (Overture Maps + H3)\u003c/h3\u003e
+\u003cp\u003e\u003cem\u003eDataset from Overture Maps.\u003c/em\u003e\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_512x0_resize_box_3.png 512w"
+    width="4032"
+    height="2302"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778_hu9e4e5efda51617e47a32bbfd60ee4292_2113901_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/ev-charging-analytics/25ffca56-bf81-45e2-8d8b-03be637f3778.png" width="4032" height="2302" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/98071bc3-1707-43ee-9d67-041d7c89fcb9/source?ref=view-map-and-data" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  View map and data
+\u003c/a\u003e
+\u003c/p\u003e
+
+
+
+\u003cp\u003eThis map shows \u003cem\u003ethe distribution of EV charging stations\u003c/em\u003e within a selected country using \u003cstrong\u003eH3 hexagons\u003c/strong\u003e for spatial aggregation.\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eTaller hexagons\u003c/strong\u003e = More EV charging stations
+\u003cstrong\u003eDarker stroke colors\u003c/strong\u003e = Country boundary for geographic context\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eWhat’s measured:\u003c/strong\u003e
+EV charging stations are counted within \u003cstrong\u003eH3 hexagons\u003c/strong\u003e (resolution 7 ≈ 1 km²) based on POI data. Results are sorted by station density.\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eHow it works:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eFilters country boundaries from \u003ccode\u003eoverture_maps.division_area\u003c/code\u003e using a country code\u003c/li\u003e
+\u003cli\u003eSelects POIs categorized as EV charging stations\u003c/li\u003e
+\u003cli\u003eApplies \u003ccode\u003eST_WITHIN()\u003c/code\u003e to include only stations inside the country\u003c/li\u003e
+\u003cli\u003eAggregates station counts into H3 cells via \u003ccode\u003ebqcarto.h3.ST_ASH3()\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eOrders by density for analysis or visualization\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eData sources:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003ebigquery-public-data.overture_maps.division_area\u003c/code\u003e – Country geometry\u003c/li\u003e
+\u003cli\u003e\u003ccode\u003ebigquery-public-data.overture_maps.place\u003c/code\u003e – Charging station locations\u003c/li\u003e
+\u003cli\u003eH3 spatial indexing via \u003ccode\u003ebqcarto.h3.ST_ASH3\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eUse cases:\u003c/strong\u003e\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eCompare charging infrastructure density across regions\u003c/li\u003e
+\u003cli\u003eIdentify high- and low-coverage areas within a country\u003c/li\u003e
+\u003cli\u003eSupport infrastructure planning and investment decisions\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003cstrong\u003eTo run for another country:\u003c/strong\u003e
+Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO code (e.g., \u003ccode\u003eDE\u003c/code\u003e, \u003ccode\u003eFR\u003c/code\u003e, \u003ccode\u003eIT\u003c/code\u003e)\u003c/p\u003e
+\u003ch2 id="want-to-build-similar-maps"\u003eWant to build similar maps?\u003c/h2\u003e
+\u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://calendly.com/vladi-dekart/30min?ref=book-ev-charging-demo" role="button"\u003eBook a free demo\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003e\u003cem\u003eBook a free demo\u003c/em\u003e: we’ll walk you through the process, help customize your data, and show how to spin off maps in minutes.\u003c/p\u003e
+`},{id:9,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003ch2 id="what-is-a-map-template"\u003eWhat is a Map Template?\u003c/h2\u003e
 \u003cp\u003eA Map Template is a reusable Dekart Map that you can use as a starting point for your analytics projects. Each Map Template is designed to help you quickly visualize your data and answer common business questions. Map Templates utilize Dekart\u0026rsquo;s query parameters to make it easy to customize the map to your specific needs.\u003c/p\u003e
 \u003ch2 id="templates"\u003eTemplates\u003c/h2\u003e
 \u003ch3 id="osm-vs-overture-maps--compare-bike-lane-coverage"\u003eOSM vs Overture Maps – Compare Bike Lane Coverage\u003c/h3\u003e
@@ -979,6 +1263,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/map-templates/62130325-9fc7-4687-ac05-52f6b7513502_huc0563c5f6ac939a1614c238afd308de4_2022917_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/map-templates/62130325-9fc7-4687-ac05-52f6b7513502_huc0563c5f6ac939a1614c238afd308de4_2022917_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/map-templates/62130325-9fc7-4687-ac05-52f6b7513502_huc0563c5f6ac939a1614c238afd308de4_2022917_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/map-templates/62130325-9fc7-4687-ac05-52f6b7513502_huc0563c5f6ac939a1614c238afd308de4_2022917_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/map-templates/62130325-9fc7-4687-ac05-52f6b7513502.png" width="2768" height="2036" \u003e\u003c/noscript\u003e
   
 \u003c/figure\u003e
+
 
 
 
@@ -1008,6 +1293,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cp class="view-on-map-template"\u003e
 \u003ca href="https://cloud.dekart.xyz/reports/a75befda-e8d9-4771-b644-a2f2e6d44848/source?ref=dekart-xyz-view-template" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
   → Use This Template
@@ -1017,9 +1303,9 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 \u003cp\u003eThis template queries city boundaries from the Overture Maps dataset in BigQuery—even if multiple cities share the same name. It fetches all matching boundaries, counts the Points of Interest (POIs) in each, and returns the boundary with the highest POI count as the “most relevant” city. Perfect for data analysts and data scientists who need accurate location context without diving into specialized GIS tools.\u003c/p\u003e
 \u003cp\u003eRequires: \u003csmall class="badge badge-info"\u003eBigQuery Account\u003c/small\u003e\u003c/p\u003e
-`},{id:9,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"BigQuery Overture Maps Examples",description:"Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.\u003c/p\u003e
+`},{id:10,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"BigQuery Overture Maps Examples",description:"Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.\u003c/p\u003e
 \u003cdiv class="gpt" \u003e
-  \u003cp\u003eAll examples are created with \u003cb\u003eOverture Maps GPT\u003c/b\u003e\u003c/p\u003e\u003cp\u003e\u003ca href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt" class="btn btn-outline-primary" target="_blank"\u003eGet it Free\u003c/a\u003e\u003c/p\u003e
+  \u003cp\u003eAll examples are created with \u003cb\u003eOverture Maps GPT\u003c/b\u003e\u003c/p\u003e\u003cp\u003e\u003ca href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt?ref=gpt-link" class="btn btn-outline-primary" target="_blank"\u003eGet it Free\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
 \u003ch2 id="segment"\u003eSegment\u003c/h2\u003e
 \u003cp\u003eThe Overture Maps \u003ccode\u003esegment\u003c/code\u003e table represents paths, roads, and transportation segments, storing their geospatial data as LineStrings along with attributes like class, surface, speed limits, and access restrictions​.\u003c/p\u003e
@@ -1044,6 +1330,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1103,6 +1390,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eberlin_boundary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edivision_area\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1143,6 +1431,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1196,6 +1485,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1261,6 +1551,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecountry_boundaries\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="c1"\u003e-- Define the boundaries for the US
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecountry\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1320,6 +1611,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1394,6 +1686,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eid\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003enames\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esubtype\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecountry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eregion\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edivision_area\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003enames\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eprimary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;Berlin\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1427,6 +1720,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1476,6 +1770,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eid\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esubtype\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eclass\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esurface\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003elevel\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eland_use\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_WITHIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_GEOGFROMTEXT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;POLYGON((13.08835 52.33826, 13.76116 52.33826, 13.76116 52.67551, 13.08835 52.67551, 13.08835 52.33826))\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1508,6 +1803,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1555,6 +1851,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eukraine_boundary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edivision_area\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1597,6 +1894,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1654,6 +1952,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elas_vegas_boundary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edivision_area\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1697,6 +1996,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003euk_boundary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edivision_area\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1719,7 +2019,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:10,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
+`},{id:11,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
 \u003ch2 id="overture-maps"\u003eOverture Maps\u003c/h2\u003e
 \u003ch3 id="nevada-roads-by-speed-and-class"\u003eNevada Roads by Speed and Class\u003c/h3\u003e
 \u003cfigure\u003e
@@ -1742,6 +2042,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -1795,6 +2096,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- Step 1: Define the UK boundary as a geographic region
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003euk_boundary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eGEOMETRY\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1835,7 +2137,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eroad_segments\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003echarging_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eID\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eroad_id\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- Join with the previous result set to match road details with charging station counts
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:11,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:12,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
 \u003ch2 id="population-density"\u003ePopulation density\u003c/h2\u003e
 \u003cp\u003eVisualize population density anywhere in the world and at any level of detail\u003c/p\u003e
 \u003ch3 id="eu-population-density"\u003eEU Population Density\u003c/h3\u003e
@@ -1859,6 +2161,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
     View interactive map
   \u003c/a\u003e
   \u003c/p\u003e
+  
   
   
 
@@ -1939,6 +2242,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003ewith\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elatest\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eas\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003emax\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003elast_updated\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eas\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elast_updated\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1989,6 +2293,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -2074,6 +2379,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003ewith\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecountry\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eas\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="n"\u003eST_SIMPLIFY\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1000\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eas\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
@@ -2136,6 +2442,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- Create a CTE (Common Table Expression) named \u0026#39;boundary\u0026#39; to define the geographical boundaries for Nevada (US-NV)
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eboundary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_SIMPLIFY\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1000\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eas\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
@@ -2194,6 +2501,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -2260,6 +2568,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="c1"\u003e-- getting name from all_tags nested struct
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
@@ -2319,6 +2628,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -2385,6 +2695,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
   View interactive map
 \u003c/a\u003e
 \u003c/p\u003e
+
 
 
 
@@ -2463,6 +2774,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 
 
 
+
 \u003cpre tabindex="0"\u003e\u003ccode\u003eWITH bounding_area as (SELECT geometry from \`bigquery-public-data.geo_openstreetmap.planet_features\`
         WHERE feature_type=\u0026#34;multipolygons\u0026#34;
            AND (\u0026#39;name:en\u0026#39;, \u0026#39;Toronto\u0026#39;) in (SELECT (key, value) from unnest(all_tags))
@@ -2504,6 +2816,7 @@ SELECT planet_features.geometry
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003edistrict\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003elatitude\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
@@ -2541,6 +2854,7 @@ SELECT planet_features.geometry
 
 
 
+
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeo_us_roads\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eall_roads_17\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ewhere\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003emtfcc_feature_class_code\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;S1630\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp class="playground-link"\u003e
     
@@ -2549,7 +2863,7 @@ SELECT planet_features.geometry
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:12,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
+`},{id:13,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
 \u003ch2 id="large-datasets"\u003eLarge datasets\u003c/h2\u003e
 \u003cp\u003eExplore large datasets with millions of rows and visualize them on a map\u003c/p\u003e
 \u003cul\u003e
@@ -2578,7 +2892,7 @@ SELECT planet_features.geometry
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:13,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
+`},{id:14,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
 \u003ch2 id="step-1-generate-a-key-pair"\u003eStep 1: Generate a Key Pair\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003e\u003cstrong\u003eGenerate a Private Key\u003c/strong\u003e: Use OpenSSL to generate a private key in PKCS#8 format.
@@ -2602,7 +2916,7 @@ SELECT planet_features.geometry
 \u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:14,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:15,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003e\u003cstrong\u003eGoogle Account (OAuth Pass-Through)\u003c/strong\u003e\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eService Account Key (JSON)\u003c/strong\u003e\u003c/li\u003e
@@ -2696,7 +3010,7 @@ SELECT planet_features.geometry
 \u003cli\u003eContact us in \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eEmail us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:15,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:16,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
+`},{id:16,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:17,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/KusNayeGFaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" role="button"\u003eGet it instantly in Snowflake Marketplace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-how-dekart-works"\u003e💡 How Dekart Works\u003c/h2\u003e
@@ -2755,7 +3069,7 @@ SELECT planet_features.geometry
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:17,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
+`},{id:18,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -3233,7 +3547,7 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:18,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
+`},{id:19,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
 \u003ch2 id="what-permissions-is-dekart-requesting-and-why-are-they-necessary"\u003eWhat permissions is Dekart requesting, and why are they necessary?\u003c/h2\u003e
 \u003cp\u003eDekart implements BigQuery passthrough authentication (OAuth 2.0 Token Pass-Through) and requests the following permissions:\u003c/p\u003e
 \u003cul\u003e
@@ -3264,7 +3578,7 @@ Use a command like:\u003c/p\u003e
 \u003c!-- If you have any questions or issues about Dekart Cloud, please contact us via email at [support@dekart.xyz](mailto:support@dekart.xyz) or via [Slack](https://slack.dekart.xyz/). --\u003e
 \u003ch2 id="read-more"\u003eRead more\u003c/h2\u003e
 \u003cp\u003e👉 \u003ca href="/legal/privacy/"\u003eDekart Cloud Privacy Policy\u003c/a\u003e\u003c/p\u003e
-`},{id:19,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+`},{id:20,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
 \u003chr\u003e
@@ -3294,6 +3608,7 @@ Use a command like:\u003c/p\u003e
   \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value_hu86ead51af7811c6fafe8b8a848e10af1_203076_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/usage/query-parameters/setting-default-query-parameter-value.png" width="1360" height="1080" \u003e\u003c/noscript\u003e
   
 \u003c/figure\u003e
+
 
 
 
@@ -3334,10 +3649,11 @@ Example:\u003c/p\u003e
 
 
 
+
 \u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
 \u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
 \u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
-`},{id:20,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:21,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -3358,7 +3674,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:21,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:22,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -3379,7 +3695,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:22,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:23,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -3435,6 +3751,7 @@ Example:\u003c/p\u003e
 
 
 
+
 \u003col start="9"\u003e
 \u003cli\u003eStyle a map (see \u003ca href="https://docs.kepler.gl/docs/user-guides"\u003eKepler Docs\u003c/a\u003e for details)\u003c/li\u003e
 \u003c/ol\u003e
@@ -3455,11 +3772,12 @@ Example:\u003c/p\u003e
 
 
 
+
 \u003col start="10"\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:23,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:24,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -3486,7 +3804,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:24,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:25,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
+`},{id:25,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:26,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/qwOqLm3i7Ik" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 `}];e.add(n),userinput.addEventListener("input",s,!0),suggestions.addEventListener("click",o,!0);function s(){var n,i=this.value,s=e.search(i,5),o=suggestions.childNodes,r=0,c=s.length;for(suggestions.classList.remove("d-none"),s.forEach(function(e){n=document.createElement("div"),n.innerHTML="<a href><span></span><span></span></a>",a=n.querySelector("a"),t=n.querySelector("span:first-child"),d=n.querySelector("span:nth-child(2)"),a.href=e.href,t.textContent=e.title,d.textContent=e.description,suggestions.appendChild(n)});o.length>c;)suggestions.removeChild(o[r])}function o(){for(;suggestions.lastChild;)suggestions.removeChild(suggestions.lastChild);return!1}})()
