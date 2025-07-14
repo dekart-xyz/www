@@ -3,7 +3,7 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "SQL to Map Instantly | Visualize BigQuery, Snowflake & Wherobots Data."
+titleAddition = "SQL to Map Instantly - Visualize BigQuery, Snowflake & Wherobots Data."
 description = "We took Kepler.gl, and connected it to your data warehouse. Now you can type SQL and get beautiful, up-to-date maps ready to share with your team."
 
 ## Open Graph + Twitter Cards
