@@ -3,11 +3,11 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "Connect Kepler.gl to Your Cloud Data."
-description = "Integrate kepler.gl with BigQuery, Snowflake, and other cloud databases. Create immersive GPU-powered map visualizations using Geospatial SQL. Share cloud-based maps securely, with live updates and collaboration."
+titleAddition = "SQL to Map Instantly - Visualize BigQuery, Snowflake & Wherobots Data."
+description = "We took Kepler.gl, and connected it to your data warehouse. Now you can type SQL and get beautiful, up-to-date maps ready to share with your team."
 
 ## Open Graph + Twitter Cards
-images = ["dekart-social-preview-0-16.png"]
+images = ["dekart-social-preview-0-18.png"]
 twitterCreator = "delfrrr"
 ogLocale = "en_US"
 
