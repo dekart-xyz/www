@@ -69,7 +69,7 @@ Costs only accrue when you run queries; no hidden charges from Dekart beyond the
 
 ### How are my credentials stored?
 
-Dekart uses encryption key to to store credentials in internal database. Secrets are never exposed in the UI or logs.
+Dekart uses an encryption key to store credentials in the internal database. Secrets are never exposed in the UI or logs.
 
 ### What data does Dekart store?
 Dekart stores:
