@@ -61,7 +61,7 @@ That’s it, fast iteration, no waiting.
 
 * Use Dekart’s data source settings to **point to your Wherobots Cloud** (host, database, credentials)
 * The connector implements websockets client for Wherobots SQL API
-* Once connected, your can type Sedona SQL queries directly in Dekart’s SQL editor
+* Once connected, you can type Sedona SQL queries directly in Dekart’s SQL editor
 
 ### How do I control Dekart’s usage of Wherobots?
 
@@ -90,7 +90,7 @@ However when you publish maps, Dekart will store the map data in its internal bu
 1. Sign up or log into Dekart.
 2. Add a new data source: enter your **Wherobots connection info**.
 3. Create a new “map” → paste your Sedona SQL → click **Execute**.
-4. Voila, he map appears, ready to style and share.
+4. Voila, the map appears, ready to style and share.
 
 
 ### Is this open source? Can I contribute or extend it?
