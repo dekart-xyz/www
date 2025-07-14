@@ -15,7 +15,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 
 <p><iframe width="560" height="315" src="https://www.youtube.com/embed/RY9H76V_qVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
-<p><a class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tuttorial-top" role="button">Start free with Dekart + Wherobots</a></p>
+<p><a class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tutorial-top" role="button">Start free with Dekart + Wherobots</a></p>
 
 
 ## WHAT is this connector?
