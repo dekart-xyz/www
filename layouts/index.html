@@ -10,20 +10,27 @@
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
         -moz-text-fill-color: transparent;
-    ">Connect Kepler.gl to <span class="d-inline-block">Your Cloud Data</span></h1>
+    ">SQL to Map. <span class="d-inline-block">Instantly.</span></h1>
     </div>
     <div class="col-lg-12 text-center">
       <p class="lead">
-        <span class="d-inline-block">Integrate Kepler.gl with BigQuery, Snowflake, Athena and Postgres.</span>
-        <span class="d-inline-block">Create and share maps instantly with SQL, without any ETL pipelines involved. </span>
+        <span class="d-inline-block">We took <em class="fst-italic">Kepler.gl</em>, and connected it to your data
+          warehouse. Now you can type SQL and get beautiful, up-to-date maps ready to share with your team.</span>
+      </p>
+      <p>
+        <em class="d-inline-block mark">Light alternative to CARTO</em>
       </p>
     </div>
     <div class="col-lg-9 col-xl-8 text-center mt-4">
-      <p class="mt-2"><a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/?ref=create-workspace" role="button">Create free Workspace</a></p>
-          <p><a href="/docs/about/overture-maps-examples/">Map examples</a></p>
+      <p class="mt-2">
+        <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/?ref=start-free"
+          role="button">Start Free</a>
+        <a class="btn btn-outline-primary btn-lg d-inline-block mb-2"
+          href="https://calendly.com/vladi-dekart/30min?ref=book-demo" role="button">Book a Demo</a>
+      </p>
     </div>
     <div class="center-block">
-      {{ $image := .Page.Resources.GetMatch ("*berlin-roads.png*") -}}
+      {{ $image := .Page.Resources.GetMatch ("*berlin-roads-2.png*") -}}
       {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
 
       {{ $alt := "Dekart Example: All Nevada Roads from free Overture Maps dataset" -}}
@@ -44,13 +51,21 @@
 
       <figure class="main">
         <a href="https://cloud.dekart.xyz/reports/410b857a-aad1-4f05-8ddd-551d0f0fe650/source" target="_blank"
-          title="Berlin Roads from free Overture Maps dataset"><img class="img-fluid lazyload"
-            data-sizes="auto" src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}"
+          title="Berlin Roads from free Overture Maps dataset"><img class="img-fluid lazyload" data-sizes="auto"
+            src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}"
             height="{{ $image.Height }}" alt="{{ $alt }}"></a>
         <noscript><img class="img-fluid" sizes="100vw" srcset="{{ $imgSrcSet }}" src="{{ $image.Permalink }}"
             width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}"></noscript>
       </figure>
     </div>
+    <div class="col-lg-9 col-xl-8 text-center">
+      <p class="">
+        <a
+          href="https://cloud.dekart.xyz/reports/410b857a-aad1-4f05-8ddd-551d0f0fe650/source?ref=live-map-example-home-page"
+          role="button">Live Map Example</a>
+      </p>
+    </div>
+
   </div>
 </section>
 {{ end }}
@@ -72,9 +87,9 @@
         {{ end -}}
         <div class="text-center">
           <a href="/blog/">More posts</a>
+        </div>
       </div>
     </div>
-  </div>
 </section>
 {{ end }}
 {{ define "sidebar-prefooter" }}
@@ -85,62 +100,42 @@
       <div class="col-sm">
         <div class="text-center mb-5">
           <img class="connector" src="/bigquery.svg" alt="BigQuery">
-          <div class="h5 connector">BigQuery</div>
-          <div class="configure-in-cloud">
-            <a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections?ref=dekart-xyz-connect" title="Connect instantly in Dekart Cloud" target="_blank">Cloud</a>
-            <a class="btn btn-secondary btn-sm" href="/self-hosted/" title="Configure in Dekart Cloud" target="_blank">Self-hosted</a>
-          </div>
+          <div class="h5 connector"><a href="/docs/usage/choose-bigquery-connection-method/">BigQuery</a></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center mb-5">
           <img class="connector" src="/snowflake.svg" alt="snowflake">
-          <div class="h5 connector">Snowflake</div>
-          <div class="configure-in-cloud">
-            <a class="btn btn-primary btn-sm" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" title="Run instantly in your Snowflake account" target="_blank">Snowpark</a>
-            <a class="btn btn-info btn-sm" href="https://cloud.dekart.xyz/connections?ref=dekart-xyz-connect" title="Connect instantly in Dekart Cloud" target="_blank">Cloud</a>
-            <a class="btn btn-secondary btn-sm" href="/self-hosted/" title="Self-hosted" target="_blank">Self-hosted</a>
-          </div>
+          <div class="h5 connector"><a href="/docs/usage/snowflake-private-key/">Snowflake</a></div>
         </div>
       </div>
       <div class="col-sm">
         <div class="text-center mb-5">
-          <img class="connector" src="/athena.svg" alt="AWS Athena">
-          <div class="h5 connector">Athena</div>
-          <div class="configure-in-cloud">
-            <a class="btn btn-secondary btn-sm" href="/self-hosted/" title="Self-hosted" target="_blank">Self-hosted</a>
-          </div>
+          <img class="connector" src="/wherobots.svg" alt="Wherobots">
+          <div class="h5 connector"><a href="/docs/usage/wherobots-sql-tutorial/">Wherobots</a></div>
         </div>
       </div>
-      <div class="col-sm">
-        <div class="text-center">
-          <img class="connector" src="/postgres.svg" alt="Postgres">
-          <div class="h5 connector">Postgres</div>
-          <div class="configure-in-cloud">
-            <a class="btn btn-secondary btn-sm" href="/self-hosted/" title="Self-hosted" target="_blank">Self-hosted</a>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class="row justify-content-center g-4">
+      <a class="btn btn-outline-primary" href="https://cloud.dekart.xyz/?ref=connect-your-data" role="button">Connect
+        Your Data</a>
+
     </div>
   </div>
 </section>
-<section class="section section-sm">
-  <div class="container">
-    <div class="row justify-content-center text-left">
-      <div class="col-lg-5">
-        <h2 class="h4">No ETL and Custom Apps</h2>
-        <p>Maintaining ETL pipelines and building custom mapping apps is a time-sucking, resource-draining process. Every time you need a map update, your stakeholders are left waiting.
-          </p><p>With Dekart, you can create and share an up-to-date map in <a href="/docs/about/screencast/">30 seconds</a>.</p>
-      </div>
-      <div class="col-lg-5">
-        <h2 class="h4">Use What You Know — SQL</h2>
-        <p> Dekart lets you create sophisticated maps with SQL, so you can leverage your existing knowledge.</p><p>Get started fast with our <a href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt">custom free GPT</a> and examples using <a href="/docs/about/overture-maps-examples/">BigQuery</a> and <a href="/docs/about/snowflake-kepler-gl-examples/">Snowflake</a> with Public Map Datasets. </p>
-      </div>
-      <div class="col-lg-5">
-        <h2 class="h4">Keep It Simple</h2>
-        <p>Run your entire geospatial workflow inside your existing cloud database—no need to move data or build infrastructure. Utilize capabilities you already have, like free Map Data and GIS SQL Functions. </p><p> With Dekart adding the final piece – Kepler.gl visualization.</p>
+<section class="section section-sm container-fluid">
+  <div class="text-center d-flex flex-column align-items-center">
+    <h2>No database? No problem!</h2>
+    <p class="lead">You can create maps with file upload too.</p>
+    <!-- <p><iframe src="https://www.youtube.com/embed/UJdKENJis2Y" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe></p> -->
+    <div class="container mb-4" style="max-width: 900px;">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UJdKENJis2Y" allowfullscreen></iframe>
       </div>
     </div>
+  </div>
   </div>
 </section>
 {{ end }}

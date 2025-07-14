@@ -30,7 +30,7 @@
 
 [[docs]]
   name = "About"
-  weight = 1
+  weight = 0
   identifier = "about"
   url = "/docs/about/"
 
@@ -41,10 +41,12 @@
   url = "/docs/about/"
 
 
+
 [[main]]
-  name = "Login"
-  url = "https://cloud.dekart.xyz/?ref=login"
-  weight = 6
+  name = "Examples"
+  url = "/docs/about/overture-maps-examples/"
+  weight = 8
+
 
 [[main]]
   name = "Pricing"
@@ -61,10 +63,6 @@
   url = "https://github.com/dekart-xyz/dekart"
   weight = 15
 
-[[main]]
-  name = "Slack"
-  url = "https://slack.dekart.xyz"
-  weight = 15
 
 #[[main]]
 #  name = "Blog"
