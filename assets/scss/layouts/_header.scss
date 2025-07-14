@@ -97,6 +97,12 @@
 }
 }
 
+@include media-breakpoint-down(md) {
+.navbar-login {
+  display: none;
+}
+}
+
 @include media-breakpoint-up(md) {
 
   .navbar-brand {
