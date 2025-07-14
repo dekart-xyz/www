@@ -2916,7 +2916,97 @@ SELECT planet_features.geometry
 \u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:15,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:15,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherebots SQL Tutorial",description:"Learn how to use Dekart's Wherebots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
+This video shows you how to plug your queries directly into Dekart and instantly visualize your results on shareable maps.\u003c/p\u003e
+\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/RY9H76V_qVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+\u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tutorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
+\u003ch2 id="what-is-this-connector"\u003eWHAT is this connector?\u003c/h2\u003e
+\u003ch3 id="what-does-the-dekart-connector-to-wherobots-actually-do"\u003eWhat does the Dekart connector to Wherobots actually do?\u003c/h3\u003e
+\u003cp\u003eThe \u003cstrong\u003eDekart connector\u003c/strong\u003e establishes a seamless bridge between your Wherobots data warehouse (powered by Apache Sedona) and the Dekart mapping interface. It allows you to run live Sedona SQL queries and display the results directly as interactive map layers, powered by Kepler.gl.\u003c/p\u003e
+\u003ch3 id="how-does-it-enhance-my-current-wherobotssedona-workflow"\u003eHow does it enhance my current Wherobots/Sedona workflow?\u003c/h3\u003e
+\u003cp\u003eInstead of exporting data and building dashboards manually, you can now \u003cstrong\u003evisualize spatial query results instantly\u003c/strong\u003e, iterate faster on analysis, and maintain consistency using the live SQL-to-map pipeline. It turns your usual Wherobots → Sedona → export flow into Wherobots → SQL → Dekart → live map.\u003c/p\u003e
+\u003ch3 id="is-this-for-visualization-only-or-can-i-interact-with-data-too"\u003eIs this for visualization only, or can I interact with data too?\u003c/h3\u003e
+\u003cp\u003ePrimarily, it’s for \u003cstrong\u003einteractive visualization\u003c/strong\u003e, drop a SQL query into Dekart, view the map instantly, and share it with a link. You’re not just viewing static outputs; you can pan, zoom, filter, and overlay live layers from multiple queries or datasets.\u003c/p\u003e
+\u003ch2 id="why-should-i-care"\u003eWHY should I care?\u003c/h2\u003e
+\u003ch3 id="i-already-use-wherobots-or-apache-sedona-which-benefits-does-dekart-add"\u003eI already use Wherobots or Apache Sedona, which benefits does Dekart add?\u003c/h3\u003e
+\u003cp\u003eDekart provides an \u003cstrong\u003einstant visual layer\u003c/strong\u003e directly over your spatial SQL results. It removes the friction of manual exports, dashboard setup, or Python/JS development. You get a polished, interactive map with zero extra steps.\u003c/p\u003e
+\u003ch3 id="why-is-this-better-than-building-custom-dashboards-or-using-other-tools"\u003eWhy is this better than building custom dashboards or using other tools?\u003c/h3\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eNo coding required\u003c/strong\u003e, beyond the SQL.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eSpeed\u003c/strong\u003e: See map results in under a minute.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eFlexibility\u003c/strong\u003e: Layer multiple queries, styling, CSV uploads, etc.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eOpen source \u0026amp; lightweight\u003c/strong\u003e: Built with React + Go, easier to deploy or tailor than enterprise GIS tools (\u003ca href="https://github.com/dekart-xyz/dekart?" title="dekart-xyz/dekart: Open-source backend for Kepler.gl - GitHub"\u003eGitHub\u003c/a\u003e).\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="how-fast-can-i-go-from-query-to-map"\u003eHow fast can I go from query to map?\u003c/h3\u003e
+\u003cp\u003e🎯 Typically under 5 minutes:\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eConnect to Wherobots\u003c/li\u003e
+\u003cli\u003ePaste/write your Sedona SQL\u003c/li\u003e
+\u003cli\u003eClick \u003cstrong\u003eExecute\u003c/strong\u003e → map appears instantly\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eThat’s it, fast iteration, no waiting.\u003c/p\u003e
+\u003ch2 id="how-does-it-work"\u003eHOW does it work?\u003c/h2\u003e
+\u003ch3 id="how-do-i-connect-dekart-to-wherobots"\u003eHow do I connect Dekart to Wherobots?\u003c/h3\u003e
+\u003cul\u003e
+\u003cli\u003eUse Dekart’s data source settings to \u003cstrong\u003epoint to your Wherobots Cloud\u003c/strong\u003e (host, database, credentials)\u003c/li\u003e
+\u003cli\u003eThe connector implements websockets client for Wherobots SQL API\u003c/li\u003e
+\u003cli\u003eOnce connected, you can type Sedona SQL queries directly in Dekart’s SQL editor\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="how-do-i-control-dekarts-usage-of-wherobots"\u003eHow do I control Dekart’s usage of Wherobots?\u003c/h3\u003e
+\u003cp\u003eCosts only accrue when you run queries; no hidden charges from Dekart beyond the compute actually used in Wherobots.\u003c/p\u003e
+\u003ch3 id="how-are-my-credentials-stored"\u003eHow are my credentials stored?\u003c/h3\u003e
+\u003cp\u003eDekart uses an encryption key to store credentials in the internal database. Secrets are never exposed in the UI or logs.\u003c/p\u003e
+\u003ch3 id="what-data-does-dekart-store"\u003eWhat data does Dekart store?\u003c/h3\u003e
+\u003cp\u003eDekart stores:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eYour Wherobots connection settings (encrypted)\u003c/li\u003e
+\u003cli\u003eSQL queries you run\u003c/li\u003e
+\u003cli\u003eMap styles and configurations\u003c/li\u003e
+\u003cli\u003eMap metadata (like titles, descriptions)\u003c/li\u003e
+\u003cli\u003eUser preferences (like last used queries, map settings)\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eDekart does not store data from Wherobots be default, and utilizes Wherobots persisted query results to load data for maps.\u003c/p\u003e
+\u003cp\u003eHowever when you publish maps, Dekart will store the map data in its internal bucket, so that it can be shared with other users.\u003c/p\u003e
+\u003ch2 id="what-do-i-do-next"\u003eWHAT do I do next?\u003c/h2\u003e
+\u003ch3 id="how-do-i-try-this-with-my-own-data"\u003eHow do I try this with my own data?\u003c/h3\u003e
+\u003col\u003e
+\u003cli\u003eSign up or log into Dekart.\u003c/li\u003e
+\u003cli\u003eAdd a new data source: enter your \u003cstrong\u003eWherobots connection info\u003c/strong\u003e.\u003c/li\u003e
+\u003cli\u003eCreate a new “map” → paste your Sedona SQL → click \u003cstrong\u003eExecute\u003c/strong\u003e.\u003c/li\u003e
+\u003cli\u003eVoila, the map appears, ready to style and share.\u003c/li\u003e
+\u003c/ol\u003e
+\u003ch3 id="is-this-open-source-can-i-contribute-or-extend-it"\u003eIs this open source? Can I contribute or extend it?\u003c/h3\u003e
+\u003cp\u003eYes! Dekart is open source under \u003cstrong\u003eAGPL‑3.0\u003c/strong\u003e (\u003ca href="https://github.com/dekart-xyz/dekart?" title="dekart-xyz/dekart: Open-source backend for Kepler.gl - GitHub"\u003eGitHub\u003c/a\u003e). You’re welcome to explore the code, self-host via Docker, file issues on GitHub, or suggest enhancements through Discussions .\u003c/p\u003e
+\u003ch3 id="tldr-summary"\u003eTL;DR Summary\u003c/h3\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eFeature\u003c/th\u003e
+\u003cth\u003eWhat it means\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eLive SQL → Map\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eRun Sedona queries, instantly visualize in Dekart\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eInteractive\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003ePan, zoom, filter, layer CSV or additional queries\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eQuick setup\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eConnect, paste SQL, click ,  under 5 minutes to insight\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eOpen \u0026amp; flexible\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eSelf‑hostable, customizable, and community‑driven\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003e\u003cstrong\u003eReady to try it yourself?\u003c/strong\u003e Click \u003cstrong\u003e“Start free with Dekart + Wherobots”\u003c/strong\u003e above, connect your source, paste your SQL, and see your data come alive.\u003c/p\u003e
+\u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tuttorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
+`},{id:16,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003e\u003cstrong\u003eGoogle Account (OAuth Pass-Through)\u003c/strong\u003e\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eService Account Key (JSON)\u003c/strong\u003e\u003c/li\u003e
@@ -3010,7 +3100,7 @@ SELECT planet_features.geometry
 \u003cli\u003eContact us in \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eEmail us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:16,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:17,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
+`},{id:17,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:18,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/KusNayeGFaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" role="button"\u003eGet it instantly in Snowflake Marketplace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-how-dekart-works"\u003e💡 How Dekart Works\u003c/h2\u003e
@@ -3069,7 +3159,7 @@ SELECT planet_features.geometry
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:18,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
+`},{id:19,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -3547,7 +3637,7 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:19,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
+`},{id:20,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
 \u003ch2 id="what-permissions-is-dekart-requesting-and-why-are-they-necessary"\u003eWhat permissions is Dekart requesting, and why are they necessary?\u003c/h2\u003e
 \u003cp\u003eDekart implements BigQuery passthrough authentication (OAuth 2.0 Token Pass-Through) and requests the following permissions:\u003c/p\u003e
 \u003cul\u003e
@@ -3578,7 +3668,7 @@ Use a command like:\u003c/p\u003e
 \u003c!-- If you have any questions or issues about Dekart Cloud, please contact us via email at [support@dekart.xyz](mailto:support@dekart.xyz) or via [Slack](https://slack.dekart.xyz/). --\u003e
 \u003ch2 id="read-more"\u003eRead more\u003c/h2\u003e
 \u003cp\u003e👉 \u003ca href="/legal/privacy/"\u003eDekart Cloud Privacy Policy\u003c/a\u003e\u003c/p\u003e
-`},{id:20,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+`},{id:21,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
 \u003chr\u003e
@@ -3653,7 +3743,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
 \u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
 \u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
-`},{id:21,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:22,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -3674,7 +3764,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:22,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:23,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -3695,7 +3785,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:23,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:24,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -3777,7 +3867,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:24,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:25,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -3804,7 +3894,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:25,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:26,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
+`},{id:26,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:27,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/qwOqLm3i7Ik" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 `}];e.add(n),userinput.addEventListener("input",s,!0),suggestions.addEventListener("click",o,!0);function s(){var n,i=this.value,s=e.search(i,5),o=suggestions.childNodes,r=0,c=s.length;for(suggestions.classList.remove("d-none"),s.forEach(function(e){n=document.createElement("div"),n.innerHTML="<a href><span></span><span></span></a>",a=n.querySelector("a"),t=n.querySelector("span:first-child"),d=n.querySelector("span:nth-child(2)"),a.href=e.href,t.textContent=e.title,d.textContent=e.description,suggestions.appendChild(n)});o.length>c;)suggestions.removeChild(o[r])}function o(){for(;suggestions.lastChild;)suggestions.removeChild(suggestions.lastChild);return!1}})()
