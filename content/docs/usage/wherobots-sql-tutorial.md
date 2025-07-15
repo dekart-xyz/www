@@ -1,6 +1,6 @@
 ---
-title: "Wherebots SQL Tutorial"
-description: "Learn how to use Dekart's Wherebots SQL to analyze and visualize geospatial data."
+title: "Wherobots SQL Tutorial"
+description: "Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data."
 date: 2025-04-22T07:48:05+01:00
 lastmod: 2025-04-22T07:48:05+01:00
 draft: false
