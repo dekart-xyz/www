@@ -10,7 +10,17 @@ menu:
 images: []
 ---
 
+## Help with Setup
+
+Need help configuring Dekart? We're here to assist you. Reach out for guidance or troubleshooting!
+
+<a class="btn btn-primary btn" target="_blank" href="https://calendly.com/vladi-dekart/30min" role="button">
+  📅 Book Free Setup Session
+</a>
+
+
 ## Main configuration
+
 
 | Name        | Description           |
 | ------------- | ------------- |

@@ -12,13 +12,22 @@ menu:
     parent: "self-hosting"
 ---
 
-<p><div class="alert alert-primary" role="alert">
-Before you begin: it is always recommended to back up your Postgres database before upgrading Dekart. On the first run, Dekart applies migrations to the database and you won't be able to downgrade.
-</div></p>
+## Before you begin
 
-For all Docker-based deployments, update the docker tag, for example `dekartxyz/dekart:0.17` -> `dekartxyz/dekart:0.18`
+* Back up your Postgres database before upgrading Dekart. On the first run, Dekart applies migrations to the database and you won't be able to downgrade.
+
+* Do not skip version when upgrading. For example, never go from `0.17 → 0.19`
+
+
 
 ## Migration instructions
+
+Update the docker tag.
+
+**`dekartxyz/dekart:0.18` -> `dekartxyz/dekart:0.19`**
+
+You must now explicitly set both `DEKART_STORAGE` and `DEKART_DATASOURCE`.
+Dekart 0.19 will refuse to start if these two variables are not set.
 
 **`dekartxyz/dekart:0.17` -> `dekartxyz/dekart:0.18`**
 
