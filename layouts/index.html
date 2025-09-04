@@ -30,6 +30,95 @@
       </p>
     </div>
     <div class="center-block">
+      <style>
+        .center-block { width: 100%; flex: 0 0 100%; }
+        .browser-window {
+          width: 100%;
+          max-width: 1100px;
+          margin: 0 auto 2rem auto;
+          background: #ffffff;
+          border-radius: 16px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15),
+                      0 28px 40px rgba(0, 0, 0, 0.15);
+          display: block;
+        }
+        .browser-content {
+          width: 100%;
+          position: relative;
+          overflow: hidden;
+          border-radius: 8px;
+          background: white;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          /* Match cropped browser window from video: 1672×1040 */
+          aspect-ratio: 1670 / 1034;
+          min-height: 200px;
+        }
+        .browser-content video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: auto;
+          transform-origin: 0 0;
+          /* translate first, then scale so offsets are independent of zoom */
+          transform: translate(var(--video-x-pct, 0%), var(--video-y-pct, 0%))
+                     scale(var(--video-scale, 1));
+          will-change: transform;
+        }
+        @media (max-width: 576px) {
+          .browser-window { padding: 8px; border-radius: 14px; }
+          .browser-content { border-radius: 10px; }
+        }
+      </style>
+      <div class="browser-window" style="--video-x: 0px; --video-y: 0px; --video-scale: 1;">
+        <div class="browser-content">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source src="/main-page-screencast-4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <script>
+        (function () {
+          var wrapper = document.currentScript.previousElementSibling; // .browser-window
+          if (!wrapper) return;
+          var content = wrapper.querySelector('.browser-content');
+          var video = content && content.querySelector('video');
+          if (!video) return;
+
+          function applyOffsets() {
+            if (!video.videoWidth || !video.videoHeight) return;
+            var styles = getComputedStyle(wrapper);
+            var ox = parseFloat(styles.getPropertyValue('--video-x')) || 0; // px
+            var oy = parseFloat(styles.getPropertyValue('--video-y')) || 0; // px
+            var xPct = (ox / video.videoWidth) * 100;
+            var yPct = (oy / video.videoHeight) * 100;
+            wrapper.style.setProperty('--video-x-pct', xPct + '%');
+            wrapper.style.setProperty('--video-y-pct', yPct + '%');
+
+            // Ensure video covers frame after translation (no black bands)
+            var scaleX = 1 + Math.abs(ox) / video.videoWidth;
+            var scaleY = 1 + Math.abs(oy) / video.videoHeight;
+            var autoScale = Math.max(scaleX, scaleY, 1);
+            // Only override if not explicitly set by author to a number > auto
+            var currentScale = parseFloat(styles.getPropertyValue('--video-scale'));
+            if (!currentScale || currentScale < autoScale) {
+              wrapper.style.setProperty('--video-scale', String(autoScale));
+            }
+          }
+
+          video.addEventListener('loadedmetadata', applyOffsets, { once: true });
+          // In case metadata already loaded (cache)
+          if (video.readyState >= 1) applyOffsets();
+        })();
+      </script>
+    </div>
+    <div class="center-block">
       {{ $image := .Page.Resources.GetMatch ("*berlin-roads-2.png*") -}}
       {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
 
