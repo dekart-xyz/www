@@ -84,3 +84,80 @@
   .cloud-main-video-browser-window { padding: 8px; border-radius: 14px; }
   .cloud-main-video-browser-content { border-radius: 10px; }
 }
+
+// Animated logo stripe styles
+.logo-stripe-container {
+  overflow: hidden;
+  width: 100%;
+  margin: 2rem 0;
+  background-color: white;
+  padding: 1rem 0;
+  position: relative;
+}
+
+.logo-stripe-container::before,
+.logo-stripe-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-stripe-container::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.logo-stripe-container::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+.logo-stripe-wrapper {
+  display: flex;
+  animation: scroll-right-to-left 30s linear infinite;
+  width: max-content;
+}
+
+.logo-item {
+  flex-shrink: 0;
+  margin-right: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 150px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.logo-item:hover {
+  opacity: 1;
+}
+
+.logo-item img {
+  max-height: 60px;
+  max-width: 140px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.logo-item:hover img {
+  filter: grayscale(0%);
+}
+
+@keyframes scroll-right-to-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

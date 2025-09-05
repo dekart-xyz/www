@@ -44,34 +44,24 @@
         </div>
       </div>
     </div>
-    <div class="center-block">
-      {{ $image := .Page.Resources.GetMatch ("*berlin-roads-2.png*") -}}
-      {{ $lqip := $image.Resize $.Site.Params.lqipWidth -}}
-
-      {{ $alt := "Dekart Example: All Nevada Roads from free Overture Maps dataset" -}}
-      {{ $imgSrc := "" -}}
-      {{ $imgSrcSet := slice -}}
-
-      {{ $widths := $.Site.Params.landscapePhotoWidths -}}
-      {{ if gt $image.Height $image.Width -}}
-      {{ $widths = $.Site.Params.portraitPhotoWidths -}}
-      {{ end -}}
-
-      {{ range $widths -}}
-      {{ $srcUrl := (printf "%dx" . | $image.Resize).Permalink -}}
-      {{ if eq $imgSrc "" -}}{{ $imgSrc = $srcUrl -}}{{ end -}}
-      {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $srcUrl .) -}}
-      {{ end -}}
-      {{ $imgSrcSet = (delimit $imgSrcSet ",") -}}
-
-      <figure class="main">
-        <a href="https://cloud.dekart.xyz/reports/410b857a-aad1-4f05-8ddd-551d0f0fe650/source" target="_blank"
-          title="Berlin Roads from free Overture Maps dataset"><img class="img-fluid lazyload" data-sizes="auto"
-            src="{{ $lqip.Permalink }}" data-srcset="{{ $imgSrcSet }}" width="{{ $image.Width }}"
-            height="{{ $image.Height }}" alt="{{ $alt }}"></a>
-        <noscript><img class="img-fluid" sizes="100vw" srcset="{{ $imgSrcSet }}" src="{{ $image.Permalink }}"
-            width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}"></noscript>
-      </figure>
+    <!-- Animated Logo Stripe -->
+    <div class="logo-stripe-container">
+      <div class="logo-stripe-wrapper">
+        {{ range (readDir "static/images/community-logos") }}
+          {{ if ne .Name ".DS_Store" }}
+            <div class="logo-item">
+              <img src="/images/community-logos/{{ .Name }}" alt="{{ replace .Name ".png" "" | title }}" loading="lazy">
+            </div>
+          {{ end }}
+        {{ end }}
+        {{ range (readDir "static/images/community-logos") }}
+          {{ if ne .Name ".DS_Store" }}
+            <div class="logo-item">
+              <img src="/images/community-logos/{{ .Name }}" alt="{{ replace .Name ".png" "" | title }}" loading="lazy">
+            </div>
+          {{ end }}
+        {{ end }}
+      </div>
     </div>
     <div class="col-lg-9 col-xl-8 text-center">
       <p class="">
