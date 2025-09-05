@@ -45,7 +45,7 @@
       </div>
     </div>
     <!-- Animated Logo Stripe -->
-    <div class="logo-stripe-container">
+    <a class="logo-stripe-container" href="https://slack.dekart.xyz/" title="Join our Slack Community of users and contributors">
       <div class="logo-stripe-wrapper">
         {{ range (readDir "static/images/community-logos") }}
           {{ if ne .Name ".DS_Store" }}
@@ -62,7 +62,7 @@
           {{ end }}
         {{ end }}
       </div>
-    </div>
+    </a>
     <div class="col-lg-9 col-xl-8 text-center">
       <p class="">
         <a
