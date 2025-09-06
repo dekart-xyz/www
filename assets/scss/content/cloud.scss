@@ -80,10 +80,6 @@
   height: 100%;
   object-fit: cover;
 }
-@media (max-width: 576px) {
-  .cloud-main-video-browser-window { padding: 8px; border-radius: 14px; }
-  .cloud-main-video-browser-content { border-radius: 10px; }
-}
 
 // Animated logo stripe styles
 .logo-stripe-container {
@@ -281,6 +277,9 @@
   justify-content: center;
 }
 
+a.glassmorphism-card {
+  text-decoration: none;
+}
 
 .glassmorphism-card .connector {
   color: #2c3e50 !important;
