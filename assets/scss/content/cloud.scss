@@ -252,6 +252,12 @@
   position: relative;
   z-index: 2;
   height: 400px;
+  @media (max-width:  767.98px) {
+    height: 450px;
+  }
+  @media (max-width:  576px) {
+    height: 525px;
+  }
   display: flex;
   align-items: center;
   justify-content: center;
