@@ -1,3 +1,112 @@
+// LinkedIn-style Testimonial Card
+.linkedin-testimonial-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+
+    // Mobile adjustments - make cards wider
+    @media (max-width: 991.98px) {
+        max-width: none;
+        margin: 0;
+        width: 100%;
+    }
+
+    // Responsive adjustments for horizontal layout
+    @media (min-width: 992px) {
+        max-width: none;
+        margin: 0;
+    }
+}
+
+.linkedin-header {
+    display: flex;
+    align-items: center;
+    padding: 16px 16px 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.linkedin-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.linkedin-author-info {
+    flex: 1;
+
+    .linkedin-name {
+        font-weight: 600;
+        color: #000;
+        margin: 0 0 2px 0;
+        line-height: 1.2;
+    }
+
+    .linkedin-title {
+        color: #666;
+        margin: 0 0 2px 0;
+        line-height: 1.2;
+    }
+
+    .linkedin-company {
+        // font-size: 12px;
+        color: #666;
+        margin: 0;
+        line-height: 1.2;
+    }
+}
+
+.linkedin-content {
+    padding: 12px 16px;
+
+    p {
+        line-height: 1.4;
+        color: #000;
+        margin: 0 0 12px 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.linkedin-footer {
+    padding: 8px 16px 16px 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.linkedin-read-more {
+    color: #0077b5;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+        color: #005885;
+        text-decoration: underline;
+    }
+}
+
+// Testimonial Cards Styles (Legacy - keeping for reference)
+.testimonial-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+}
+
+
 .cloud-prices div {
     background-size: contain;
     background-repeat: no-repeat;
@@ -321,4 +430,29 @@ a.glassmorphism-card {
 
 .connector-cards-container .glassmorphism-card {
   flex: 0 0 auto;
+}
+
+// Testimonial section responsive adjustments
+@media (min-width: 992px) {
+  .testimonial-section .row {
+    gap: 1rem;
+  }
+
+  .testimonial-section .col-lg-6 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .testimonial-section .col-12 {
+    margin-bottom: 1.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .testimonial-section .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 }
