@@ -43,36 +43,26 @@
 
 
 [[main]]
-  name = "Examples"
-  url = "/docs/about/overture-maps-examples/"
-  weight = 8
-
-
-[[main]]
   name = "Pricing"
   url = "/cloud"
   weight = 7
 
 [[main]]
-  name = "Docs"
-  url = "/docs/"
+  name = "Self-Hosting"
+  url = "/self-hosted/"
+  weight = 8
+
+[[main]]
+  name = "Examples"
+  url = "/docs/about/overture-maps-examples/"
   weight = 9
 
 [[main]]
-  name = "GitHub"
-  url = "https://github.com/dekart-xyz/dekart"
-  weight = 15
+  name = "🛟 Ask in Slack"
+  url = "https://slack.dekart.xyz"
+  weight = 10
 
 
-#[[main]]
-#  name = "Blog"
-#  url = "/blog/"
-#  weight = 20
-
-#[[main]]
-#  name = "Contribute 💜"
-#  url = "/support-project"
-#  weight = 21
 
 # [[social]]
 #   name = "Twitter"
