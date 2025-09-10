@@ -16,11 +16,24 @@ toc: true
 
 This curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.
 
-### How to Use These Maps
-To use these maps, you can:
-* Open the provided links to view the maps in Dekart.
-* Fork the maps to your own Dekart workspace.
-* Customize the underlying SQL queries to fit your specific data needs.
+### Where EV Drivers Risk Running Empty
+
+*Map created by DLP Labs*
+
+{{< img src="c440beac-5858-43b6-8ce2-5773e976485c.png" cloudsql="c440beac-5858-43b6-8ce2-5773e976485c" >}}
+
+This map highlights where EV drivers risk running empty — locations where Teslas dropped below 25% state of charge (SoC) while more than 30 km from their “home base.”
+
+The dataset is built from DLP Connected Tesla telemetry (May 21–June 18, 2025). For each vehicle, the primary anchor (where most trips begin) is identified, then low-SoC events away from that anchor are aggregated into H3 hexagons.
+
+Each hex includes key fields:
+- **vehicleId_nunique** – unique vehicles observed with low SoC
+- **trip_count** – number of low-SoC trips (>30 km from anchor)
+- **soc_ffill_min / 50 / 90** – min, median, and 90th percentile SoC observed
+- **EV registrations & coverage** – regional EV counts and estimated % captured
+
+This lets charging operators spot demand hotspots, quantify risk, and prioritize investments in locations where drivers most need support.
+
 
 ### Electric Vehicle Ownership Affinity Index
 
