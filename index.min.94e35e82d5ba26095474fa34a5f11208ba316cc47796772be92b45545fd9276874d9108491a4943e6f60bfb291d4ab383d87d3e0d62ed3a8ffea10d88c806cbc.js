@@ -974,13 +974,42 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
 \u003c/code\u003e\u003c/pre\u003e`},{id:8,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
-\u003ch3 id="how-to-use-these-maps"\u003eHow to Use These Maps\u003c/h3\u003e
-\u003cp\u003eTo use these maps, you can:\u003c/p\u003e
+\u003ch3 id="where-ev-drivers-risk-running-empty"\u003eWhere EV Drivers Risk Running Empty\u003c/h3\u003e
+\u003cp\u003e\u003cem\u003eMap created by DLP Labs\u003c/em\u003e\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_512x0_resize_box_3.png 512w"
+    width="3044"
+    height="1986"
+    
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c_hu03fbf7de7ccfee414ca0fd713f2d8c1b_1341189_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/about/ev-charging-analytics/c440beac-5858-43b6-8ce2-5773e976485c.png" width="3044" height="1986" \u003e\u003c/noscript\u003e
+  
+\u003c/figure\u003e
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/c440beac-5858-43b6-8ce2-5773e976485c/source?ref=view-map-and-data" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  View map and data
+\u003c/a\u003e
+\u003c/p\u003e
+
+
+
+\u003cp\u003eThis map highlights where EV drivers risk running empty — locations where Teslas dropped below 25% state of charge (SoC) while more than 30 km from their “home base.”\u003c/p\u003e
+\u003cp\u003eThe dataset is built from DLP Connected Tesla telemetry (May 21–June 18, 2025). For each vehicle, the primary anchor (where most trips begin) is identified, then low-SoC events away from that anchor are aggregated into H3 hexagons.\u003c/p\u003e
+\u003cp\u003eEach hex includes key fields:\u003c/p\u003e
 \u003cul\u003e
-\u003cli\u003eOpen the provided links to view the maps in Dekart.\u003c/li\u003e
-\u003cli\u003eFork the maps to your own Dekart workspace.\u003c/li\u003e
-\u003cli\u003eCustomize the underlying SQL queries to fit your specific data needs.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003evehicleId_nunique\u003c/strong\u003e – unique vehicles observed with low SoC\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003etrip_count\u003c/strong\u003e – number of low-SoC trips (\u0026gt;30 km from anchor)\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003esoc_ffill_min / 50 / 90\u003c/strong\u003e – min, median, and 90th percentile SoC observed\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eEV registrations \u0026amp; coverage\u003c/strong\u003e – regional EV counts and estimated % captured\u003c/li\u003e
 \u003c/ul\u003e
+\u003cp\u003eThis lets charging operators spot demand hotspots, quantify risk, and prioritize investments in locations where drivers most need support.\u003c/p\u003e
 \u003ch3 id="electric-vehicle-ownership-affinity-index"\u003eElectric Vehicle Ownership Affinity Index\u003c/h3\u003e
 \u003cp\u003e\u003cem\u003eDataset provided by Echo Analytics.\u003c/em\u003e\u003c/p\u003e
 \u003cfigure\u003e
