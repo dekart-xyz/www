@@ -1,0 +1,16 @@
+{{/*
+  Video Tutorials Section Shortcode
+
+  Usage: {{< video-tutorials-section >}}
+  Or with parameters: {{< video-tutorials-section title="Custom Videos" >}}
+*/}}
+
+{{ partial "main/video-tutorials-section.html" (dict
+  "title" (.Get "title" | default "Learn by Watching")
+  "subtitle" (.Get "subtitle" | default "Short tutorials showing how to create and share maps with Dekart.")
+  "videos" (slice
+    (dict "youtube_id" "_2ryUu43XRo" "title" "Video Tutorial 1" "alt" "Video Tutorial 1")
+    (dict "youtube_id" "UJdKENJis2Y" "title" "Video Tutorial 3" "alt" "Video Tutorial 3")
+    (dict "youtube_id" "GS2Xbl77RpM" "title" "Video Tutorial 2" "alt" "Video Tutorial 2")
+  )
+) }}

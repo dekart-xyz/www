@@ -96,10 +96,6 @@ type: "html-content"
         <a class="btn btn-primary btn-lg" href="https://calendly.com/vladi-dekart/30min" role="button">Book a Call</a>
       </p>
     </div>
-    <section class="container-fluid">
-      <div class="row">
-      {{< animated-logo-stripe logos_dir="static/images/community-logos" link_url="https://slack.dekart.xyz/" link_title="Join our Slack Community of users and contributors" animation_duration="30" >}}
-      </div>
-    </section>
     {{< testimonials-section title="What Our Users Say" >}}
+    {{< video-tutorials-section title="Learn by Watching" subtitle="Short tutorials showing how to create and share maps with Dekart." >}}
 </article>
