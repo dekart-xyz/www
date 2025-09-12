@@ -1,0 +1,33 @@
+{{/*
+  Animated Logo Stripe Component
+
+  Parameters:
+  - logos_dir: Directory containing logo images (default: "static/images/community-logos")
+  - link_url: URL to link to (default: "https://slack.dekart.xyz/")
+  - link_title: Title attribute for link (default: "Join our Slack Community of users and contributors")
+  - animation_duration: Animation duration in seconds (default: 30)
+*/}}
+
+{{ $logosDir := .logos_dir | default "static/images/community-logos" }}
+{{ $linkUrl := .link_url | default "https://slack.dekart.xyz/" }}
+{{ $linkTitle := .link_title | default "Join our Slack Community of users and contributors" }}
+{{ $animationDuration := .animation_duration | default 30 }}
+
+<a class="dekart-logos" href="{{ $linkUrl }}" title="{{ $linkTitle }}">
+  <div class="dekart-logos-track" style="animation-duration: {{ $animationDuration }}s;">
+    {{ range (readDir $logosDir) }}
+      {{ if ne .Name ".DS_Store" }}
+        <div class="dekart-logo">
+          <img src="/images/community-logos/{{ .Name }}" alt="{{ replace .Name ".png" "" | title }}" loading="lazy">
+        </div>
+      {{ end }}
+    {{ end }}
+    {{ range (readDir $logosDir) }}
+      {{ if ne .Name ".DS_Store" }}
+        <div class="dekart-logo">
+          <img src="/images/community-logos/{{ .Name }}" alt="{{ replace .Name ".png" "" | title }}" loading="lazy">
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+</a>

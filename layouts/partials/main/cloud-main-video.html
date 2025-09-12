@@ -1,0 +1,35 @@
+{{/*
+  Cloud Main Video Component
+
+  Parameters:
+  - video_src: Path to video file (default: "/main-page-screencast-4.mp4")
+  - poster_src: Path to poster image (default: "/main-page-screencast-4.png")
+  - autoplay: Enable autoplay (default: true)
+  - muted: Mute video (default: true)
+  - loop: Loop video (default: true)
+  - playsinline: Enable playsinline (default: true)
+*/}}
+
+{{ $videoSrc := .video_src | default "/main-page-screencast-4.mp4" }}
+{{ $posterSrc := .poster_src | default "/main-page-screencast-4.png" }}
+{{ $autoplay := .autoplay | default true }}
+{{ $muted := .muted | default true }}
+{{ $loop := .loop | default true }}
+{{ $playsinline := .playsinline | default true }}
+
+<div class="center-block dekart-video-container mt-3">
+  <div class="dekart-video-window">
+    <div class="dekart-video-content">
+      <video
+        {{ if $autoplay }}autoplay{{ end }}
+        {{ if $muted }}muted{{ end }}
+        {{ if $loop }}loop{{ end }}
+        {{ if $playsinline }}playsinline{{ end }}
+        poster="{{ $posterSrc }}"
+      >
+        <source src="{{ $videoSrc }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>

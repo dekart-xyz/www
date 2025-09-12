@@ -1,0 +1,43 @@
+{{/*
+  Map Examples Section Component
+
+  Parameters:
+  - title: Section title (default: "Map Examples")
+  - examples_dir: Directory containing example images (default: "static/images/map-examples")
+  - connectors: Array of connector objects with name, icon, and link
+*/}}
+
+{{ $title := .title | default "Map Examples" }}
+{{ $examplesDir := .examples_dir | default "static/images/map-examples" }}
+{{ $connectors := .connectors | default (slice
+  (dict "name" "BigQuery" "icon" "/bigquery.svg" "link" "/docs/about/overture-maps-examples/")
+  (dict "name" "Snowflake" "icon" "/snowflake.svg" "link" "/docs/about/snowflake-kepler-gl-examples/")
+  (dict "name" "Wherobots" "icon" "/wherobots.svg" "link" "/docs/usage/wherobots-sql-tutorial/")
+) }}
+
+<section class="section section-featured mt-3 py-1 dekart-maps">
+  <h2 class="h3 text-center map-examples-title">{{ $title }}</h2>
+  <div class="container-fluid">
+    <div class="dekart-maps-bg">
+      {{ range (readDir $examplesDir) }}
+        {{ if ne .Name ".DS_Store" }}
+          <div class="dekart-map" data-index="{{ .Name }}">
+            <img src="/images/map-examples/{{ .Name }}" alt="Map Example" loading="lazy">
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+    <div class="dekart-maps-overlay">
+      <div class="container">
+        <div class="dekart-connectors">
+          {{ range $connectors }}
+            <a class="dekart-card" href="{{ .link }}">
+              <img class="dekart-connector" src="{{ .icon }}" alt="{{ .name }}">
+              <div class="h5 dekart-connector">{{ .name }}</div>
+            </a>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
