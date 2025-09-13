@@ -23,22 +23,19 @@ type: "html-content"
       <div class="col text-center">
         <div class="m-2">
           <div class="card d-block">
-            <div class="bg-light p-4 dekart-cloud-price-top">
-              <a href="https://github.com/dekart-xyz/dekart" class="btn btn-sm btn-outline-dark font-weight-bold">AGPL License</a>
-              <h3 class="font-weight-light">
+            <div class="bg-light dekart-cloud-price-top">
+              <a href="https://github.com/dekart-xyz/dekart" class="btn btn-outline-dark">Open-Source</a>
+              <h3>
                 <a href="https://github.com/dekart-xyz/dekart">Free on GitHub</a>
               </h3>
-              <p class="card-text font-weight-bold">to get started now</p>
+              <p class="card-text">for small teams who just started</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
-                <li class="small mb-2">Single Docker deployment</li>
-                <li class="small mb-2">Support for BigQuery, Snowflake and more</li>
-                <li class="small mb-2">Create maps with SQL</li>
-                <li class="small mb-2">Shareable map links</li>
-                <li class="small mb-2">Copyleft license</li>
-                <li class="small mb-2">&nbsp;</li>
-                <li class="small mb-2">&nbsp;</li>
+                <li class="mb-2">Single Docker deployment</li>
+                <li class="mb-2">Connect to BigQuery, Snowflake, and more</li>
+                <li class="mb-2">Create and share maps with SQL</li>
+                <li class="mb-2">Copyleft (AGPL) license</li>
               </ul>
             </div>
           </div>
@@ -47,22 +44,19 @@ type: "html-content"
       <div class="col text-center">
         <div class="m-2">
           <div class="card">
-            <div class="bg-light p-4 dekart-cloud-price-top">
-              <a href="http://cloud.dekart.xyz?ref=create-workspace-pricing" class="btn btn-sm btn-primary font-weight-bold">Premium</a>
-              <h3 class="font-weight-light">$5,880/year</h3>
-              <p class="card-text font-weight-bold">for enterprise security</p>
+            <div class="bg-light dekart-cloud-price-top">
+              <a href="https://calendly.com/vladi-dekart/30min?ref=premium-pricing" class="btn btn-primary">Premium</a>
+              <h3>$5,880/year</h3>
+              <p class="card-text">enterprise security and support</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
-                <li class="small mb-2">Google SSO</li>
-                <li class="small mb-2">Auto-scale beyond single Docker</li>
-                <li class="small mb-2">Passthrough authentication with BigQuery</li>
-                <li class="small mb-2">Slack support</li>
-                <li class="small mb-2">Access to the Premium Codebase on GitHub</li>
-                <li class="small mb-2">Lead capture from public maps</li>
-                <li class="small mb-2">
-                  <a target="_blank" href="/legal/dekart-premium-terms/">Lifetime commercial license</a>
-                </li>
+                <li class="mb-2">Google SSO & passthrough authentication for secure team access</li>
+                <li class="mb-2">Fine-grained access controls to protect sensitive data</li>
+                <li class="mb-2">Priority Slack support directly from the Dekart team</li>
+                <li class="mb-2">Access to the private Premium codebase on GitHub</li>
+                <li class="mb-2">Lead capture from public maps</li>
+                <li class="mb-2">Lifetime commercial license</li>
               </ul>
             </div>
           </div>
@@ -71,20 +65,18 @@ type: "html-content"
       <div class="col text-center">
         <div class="m-2">
           <div class="card">
-            <div class="bg-light p-4 dekart-cloud-price-top">
-              <a class="btn btn-sm btn-dark">Custom</a>
-              <h3 class="font-weight-light">$58,800/year</h3>
-              <p class="card-text font-weight-bold">for custom integrations</p>
+            <div class="bg-light dekart-cloud-price-top">
+              <a class="btn btn-dark">White Label</a>
+              <h3>$58,800/year</h3>
+              <p class="card-text">for scalability, and integration</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
-                <li class="small mb-2">Everything in Premium</li>
-                <li class="small mb-2">300 hours for custom development</li>
-                <li class="small mb-2">&nbsp;</li>
-                <li class="small mb-2">&nbsp;</li>
-                <li class="small mb-2">&nbsp;</li>
-                <li class="small mb-2">&nbsp;</li>
-                <li class="small mb-2">&nbsp;</li>
+                <li class="mb-2">Everything in Premium</li>
+                <li class="mb-2">Auto-scale beyond single Docker</li>
+                <li class="mb-2">Custom database connectors & SSO integrations</li>
+                <li class="mb-2">White-label deployment with your branding</li>
+                <li class="mb-2">300 hours of custom development included</li>
               </ul>
             </div>
           </div>
@@ -120,12 +112,12 @@ type: "html-content"
               <th scope="col" class="text-center">
                 <div class="dekart-plan-header">
                   <div class="dekart-plan-name font-weight-bold">Premium</div>
-                  <a href="http://cloud.dekart.xyz?ref=create-workspace-pricing" class="btn btn-sm btn-primary">Contuct Us</a>
+                  <a href="http://cloud.dekart.xyz?ref=create-workspace-pricing" class="btn btn-sm btn-primary">Contact Us</a>
                 </div>
               </th>
               <th scope="col" class="text-center">
                 <div class="dekart-plan-header">
-                  <div class="dekart-plan-name font-weight-bold">Custom</div>
+                  <div class="dekart-plan-name font-weight-bold">White Label</div>
                   <a href="https://calendly.com/vladi-dekart/30min" class="btn btn-sm btn-dark">Contact Us</a>
                 </div>
               </th>
@@ -175,7 +167,13 @@ type: "html-content"
               <td class="text-center"><i class="dekart-checkmark"></i></td>
             </tr>
             <tr>
-              <td class="dekart-feature-name">Passthrough authentication with BigQuery</td>
+              <td class="dekart-feature-name">Pass-through authentication</td>
+              <td class="text-center"><i class="dekart-dash"></i></td>
+              <td class="text-center"><i class="dekart-checkmark"></i></td>
+              <td class="text-center"><i class="dekart-checkmark"></i></td>
+            </tr>
+            <tr>
+              <td class="dekart-feature-name">Fine-grained control over data access</td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -187,7 +185,7 @@ type: "html-content"
               <td class="text-center"><i class="dekart-checkmark"></i></td>
             </tr>
             <tr>
-              <td class="dekart-feature-name">Access to Premium Codebase</td>
+              <td class="dekart-feature-name">Access to Premium codebase</td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -215,6 +213,24 @@ type: "html-content"
             </tr>
             <tr>
               <td class="dekart-feature-name">Auto-scale beyond single Docker</td>
+              <td class="text-center"><i class="dekart-dash"></i></td>
+              <td class="text-center"><i class="dekart-dash"></i></td>
+              <td class="text-center"><i class="dekart-checkmark"></i></td>
+            </tr>
+            <tr>
+              <td class="dekart-feature-name">Custom database connectors</td>
+              <td class="text-center"><i class="dekart-dash"></i></td>
+              <td class="text-center"><i class="dekart-dash"></i></td>
+              <td class="text-center"><i class="dekart-checkmark"></i></td>
+            </tr>
+            <tr>
+              <td class="dekart-feature-name">Custom SSO integration</td>
+              <td class="text-center"><i class="dekart-dash"></i></td>
+              <td class="text-center"><i class="dekart-dash"></i></td>
+              <td class="text-center"><i class="dekart-checkmark"></i></td>
+            </tr>
+            <tr>
+              <td class="dekart-feature-name">Custom branding & white-label deployment</td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>

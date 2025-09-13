@@ -16,17 +16,17 @@ type: "html-content"
   <div class="col text-center">
     <div class="m-3">
       <div class="card d-block">
-        <div class="bg-light p-4 dekart-cloud-price-top">
-          <a href="http://cloud.dekart.xyz/workspace?ref=create-workspace-pricing" class="btn btn-sm btn-outline-info font-weight-bold">Personal</a>
-          <h3 class="font-weight-light">Free</h3>
-          <p class="card-text font-weight-bold">Single-person use</p>
+        <div class="bg-light dekart-cloud-price-top">
+          <a href="http://cloud.dekart.xyz/workspace?ref=create-workspace-pricing" class="btn btn-outline-info">Personal</a>
+          <h3>Free</h3>
+          <p class="card-text">Single-person use</p>
         </div>
         <div class="card-body text-left">
-          <ul class="list-unstyled dekart-cloud-price-bottom">
-            <li class="small mb-2">Google SSO</li>
-            <li class="small mb-2">BigQuery Connector</li>
-            <li class="small mb-2">Snowflake Connector</li>
-            <li class="small mb-2">Publish Maps</li>
+          <ul class="list-unstyled">
+            <li class="mb-2">Google SSO</li>
+            <li class="mb-2">BigQuery Connector</li>
+            <li class="mb-2">Snowflake Connector</li>
+            <li class="mb-2">Publish Maps</li>
           </ul>
         </div>
       </div>
@@ -35,17 +35,17 @@ type: "html-content"
   <div class="col text-center">
     <div class="m-3">
       <div class="card">
-        <div class="bg-light p-4 dekart-cloud-price-top">
-          <a class="btn btn-sm btn-outline-primary">Grow</a>
-          <h3 class="font-weight-light">$49/month</h3>
-          <p class="card-text font-weight-bold">Per editor and admin</p>
+        <div class="bg-light dekart-cloud-price-top">
+          <a class="btn btn-outline-primary">Grow</a>
+          <h3>$49/month</h3>
+          <p class="card-text">Per editor and admin</p>
           </div>
         <div class="card-body text-left">
-          <ul class="list-unstyled dekart-cloud-price-bottom">
-            <li class="small mb-2">Everything from Personal</li>
-            <li class="small mb-2">Unlimited Map Viewers</li>
-            <li class="small mb-2">Contact Public Map Viewers</li>
-            <li class="small mb-2">Manage User Access</li>
+          <ul class="list-unstyled">
+            <li class="mb-2">Everything from Personal</li>
+            <li class="mb-2">Unlimited Map Viewers</li>
+            <li class="mb-2">Contact Public Map Viewers</li>
+            <li class="mb-2">Manage User Access</li>
           </ul>
         </div>
       </div>
@@ -54,17 +54,17 @@ type: "html-content"
   <div class="col text-center">
     <div class="m-3">
       <div class="card">
-        <div class="bg-light p-4 dekart-cloud-price-top">
-          <a class="btn btn-sm btn-outline-dark">Max</a>
-          <h3 class="font-weight-light text-muted">$490/month</h3>
-          <p class="card-text text-muted font-weight-bold">Unlimited Users</p>
+        <div class="bg-light dekart-cloud-price-top">
+          <a class="btn btn-outline-dark">Max</a>
+          <h3>$490/month</h3>
+          <p class="card-text text-muted">Unlimited Users</p>
           </div>
         <div class="card-body text-left">
-          <ul class="list-unstyled dekart-cloud-price-bottom">
-            <li class="small mb-2">Everything from Personal</li>
-            <li class="small mb-2">Unlimited Map Viewers and Editors</li>
-            <li class="small mb-2">Contact Public Map Viewers</li>
-            <li class="small mb-2">Manage User Access</li>
+          <ul class="list-unstyled">
+            <li class="mb-2">Everything from Personal</li>
+            <li class="mb-2">Unlimited Map Viewers and Editors</li>
+            <li class="mb-2">Contact Public Map Viewers</li>
+            <li class="mb-2">Manage User Access</li>
           </ul>
         </div>
       </div>
