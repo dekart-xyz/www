@@ -73,7 +73,7 @@ type: "html-content"
                 <li class="mb-2">High availability</li>
                 <li class="mb-2">Custom integrations</li>
                 <li class="mb-2">Your branding and SSO</li>
-                <li class="mb-2">300 hours custom dev included</li>
+                <li class="mb-2">250 hours custom dev included</li>
               </ul>
             </div>
           </div>
@@ -216,7 +216,7 @@ type: "html-content"
             </tr>
             <tr>
               <td class="dekart-feature-name">
-                300 hours for custom development
+                250 hours for custom development
                 <br>
                 <small class="text-muted">Engineering time from Dekart’s core team to build features and integrations for you.</small>
               </td>
