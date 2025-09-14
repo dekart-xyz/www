@@ -115,18 +115,6 @@ type: "html-content"
             <tr>
               <td class="dekart-feature-name">
                 Single Docker deployment
-                <br>
-                <small class="text-muted">Deploy everything with one command using Docker Compose</small>
-              </td>
-              <td class="text-center"><i class="dekart-checkmark"></i></td>
-              <td class="text-center"><i class="dekart-checkmark"></i></td>
-              <td class="text-center"><i class="dekart-checkmark"></i></td>
-            </tr>
-            <tr>
-              <td class="dekart-feature-name">
-                Database connectors
-                <br>
-                <small class="text-muted">Connect directly to your Bigquery, Snowflake, Wherobots, Amazon Athen and Postgres database</small>
               </td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -136,7 +124,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Create maps with SQL
                 <br>
-                <small class="text-muted">Write SQL queries to visualize your data as interactive maps</small>
+                <small class="text-muted">Query BigQuery, Snowflake, Wherobots, or Postgres directly and turn results into live maps.</small>
               </td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -146,7 +134,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Shareable map links
                 <br>
-                <small class="text-muted">Generate public or private links to share your maps with team members</small>
+                <small class="text-muted">Share maps via secure public or private links with teammates or stakeholders.</small>
               </td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -155,8 +143,6 @@ type: "html-content"
             <tr>
               <td class="dekart-feature-name">
                 License
-                <br>
-                <small class="text-muted">Open source vs commercial licensing terms for your use case</small>
               </td>
               <td class="text-center">Copyleft (AGPL)</td>
               <td class="text-center">Lifetime Commercial</td>
@@ -167,9 +153,9 @@ type: "html-content"
             </tr>
             <tr>
               <td class="dekart-feature-name">
-                Google SSO
+                SSO
                 <br>
-                <small class="text-muted">Single sign-on authentication using Google Workspace accounts</small>
+                <small class="text-muted">Secure single sign-on with Google OAuth, IAP, or Amazon Cognito.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -179,7 +165,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Fine-grained control over data access
                 <br>
-                <small class="text-muted">Set permissions for users, groups, and data sources</small>
+                <small class="text-muted">Use passthrough authentication in BigQuery or Snowflake for precise, per-user and column data permissions.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -189,7 +175,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Slack support
                 <br>
-                <small class="text-muted">Dedicated Slack channel for technical support and assistance</small>
+                <small class="text-muted">Direct access to Dekart team via a private Slack channel.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -199,7 +185,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Access to Premium codebase on GitHub
                 <br>
-                <small class="text-muted">Private repository with additional enterprise features and source code</small>
+                <small class="text-muted">Full GitHub repo access for security review and the ability to fork your own version.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -207,9 +193,9 @@ type: "html-content"
             </tr>
             <tr>
               <td class="dekart-feature-name">
-                Lead capture from public maps
+                Map anallytics
                 <br>
-                <small class="text-muted">Collect visitor information when they interact with your public maps</small>
+                <small class="text-muted">Track views, engagement, and leads from your shared maps.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -219,7 +205,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Lifetime commercial license
                 <br>
-                <small class="text-muted">Use Dekart commercially without restrictions or recurring fees</small>
+                <small class="text-muted">Unlimited rights to copy, modify, and use Dekart Premium with no recurring license fees.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
@@ -232,7 +218,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 300 hours for custom development
                 <br>
-                <small class="text-muted">Dedicated engineering time for custom features and integrations</small>
+                <small class="text-muted">Engineering time from Dekart’s core team to build features and integrations for you.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-dash"></i></td>
@@ -242,7 +228,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Auto-scale beyond single Docker
                 <br>
-                <small class="text-muted">Horizontal scaling and high availability deployment architecture</small>
+                <small class="text-muted">Deploy with horizontal scaling and high availability for large workloads.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-dash"></i></td>
@@ -252,7 +238,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Custom database connectors
                 <br>
-                <small class="text-muted">Build integrations with your specific databases and data sources</small>
+                <small class="text-muted">Connect Dekart to your unique databases and data sources.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-dash"></i></td>
@@ -262,7 +248,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Custom SSO integration
                 <br>
-                <small class="text-muted">Integrate with your organization's identity provider (SAML, OIDC, etc.)</small>
+                <small class="text-muted">Integrate with enterprise identity providers (SAML, OIDC, etc.).</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-dash"></i></td>
@@ -272,7 +258,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 Custom branding & white-label deployment
                 <br>
-                <small class="text-muted">Replace logos, colors, and domain to match your brand identity</small>
+                <small class="text-muted">Your logos, colors, and domain – a fully branded mapping platform.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-dash"></i></td>
