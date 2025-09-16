@@ -6,7 +6,7 @@ lastmod: 2021-02-22T07:48:05+01:00
 draft: false
 menu:
   docs:
-    parent: "configuration"
+    parent: "self-hosting"
 images: []
 ---
 
@@ -32,8 +32,8 @@ Need help configuring Dekart? We're here to assist you. Reach out for guidance o
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
 |`DEKART_POSTGRES_URL` <br><small class="badge badge-info">version &gt;= 0.13</small> | Alternatively to specify `DEKART_POSTGRES_DB`, `DEKART_POSTGRES_HOST`, `DEKART_POSTGRES_PORT`, `DEKART_POSTGRES_USER`, `DEKART_POSTGRES_PASSWORD`, configure PostgreSQL by passing the connection string. If both specified `DEKART_POSTGRES_URL` is used. <br/> *Example*: `postgres://user:pass@hostname:5432/dekart?sslmode=verify-full`|
-|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li><li>`PG` Postgres <small class="badge badge-info">version &gt;= 0.18</small></li><li>`USER` Users can configure connections in UX <small class="badge badge-info">version &gt;= 0.18</small></li><li>`CH` ClickHouse <small class="badge badge-info">version &gt;= 0.18</small></li></ul>|
-| `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li><li>`SNOWFLAKE` Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. <small class="badge badge-info">version &gt;= 0.17</small></li><li>`USER` Users can configure connections in UX <small class="badge badge-primary">premium &gt;= 0.18</small></li></ul>|
+|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li><li>`PG` Postgres <small class="badge badge-info">version &gt;= 0.18</small></li><li>`USER` Users can configure connections in UX <a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a></li><li>`CH` ClickHouse <small class="badge badge-info">version &gt;= 0.18</small></li></ul>|
+| `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li><li>`SNOWFLAKE` Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. <small class="badge badge-info">version &gt;= 0.17</small></li><li>`USER` Users can configure connections in UX <a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a></li></ul>|
 | `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul>|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
 | `DEKART_SQLITE_DB_PATH=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
@@ -168,7 +168,7 @@ Starting from version 0.10 Dekart supports file upload. File upload is disabled 
 | ------------- | ------------- |
 | `DEKART_ALLOW_FILE_UPLOAD` <br/><small class="badge badge-info">version &gt;= 0.10</small> | Enable file upload <br> *Example value*: `1`|
 
-## User authorization via Google OAuth 2.0 flow
+## 👑 User authorization via Google OAuth 2.0 flow
 
 Dekart can authorize users via Google OAuth 2.0 and use users' credentials to access BigQuery and Cloud Storage. When this option is enabled, Dekart does not require a service account and `GOOGLE_APPLICATION_CREDENTIALS` to be set. The user token is retrieved from Google OAuth 2.0 flow and stored in only in the browser memory. When the page is refreshed, the token is retrieved again. User short-lived token is then passed via Authorization header Dekart backend to access BigQuery and Cloud Storage.
 
@@ -196,7 +196,7 @@ Creating Google OAuth 2.0 Client ID and Client Secret:
 2. Create [OAuth 2.0 Client ID](https://console.cloud.google.com/apis/credentials) with `Web application` type
 3. Add `https://your-dekart-url.com/api/v1/authenticate` to `Authorized redirect URIs`
 
-## User authorization via Google IAP
+## 👑 User authorization via Google IAP
 
 Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto">claims provided by Google IAP</a> and authorize users to:
 
@@ -208,7 +208,7 @@ Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signe
 | `DEKART_REQUIRE_IAP` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium</small></a>     |  Enables validation Google IAP JWT. Required users to be authenticated. ENables user management policies. <br> *Example value*: `1`|
 | `DEKART_IAP_JWT_AUD` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium</small></a>     |  Signed Header JWT Audience (`aud`). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. [See details](https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload).  <br> *Example value*: `/projects/PROJECT_NUMBER/apps/PROJECT_ID`|
 
-## User authorization via Amazon Load Balancer
+## 👑 User authorization via Amazon Load Balancer
 
 Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html">claims provided by Amazon Load Balancer</a> and authorize users to:
 
@@ -222,7 +222,7 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 | `DEKART_REQUIRE_AMAZON_OIDC` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium</small></a>     |  Enables users authorization. Requires users to be authenticated and `x-amzn-oidc-data` to be passed from Load Balancer. Requires `AWS_REGION`. <br> *Example value*: `1`|
 
 
-## Workspaces
+## 👑 Workspaces
 
 <a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>
 

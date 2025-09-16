@@ -4,9 +4,6 @@ description: "Example of deploying Dekart to Amazon Elastic Container Service (E
 draft: false
 weight: 2
 images: []
-menu:
-  docs:
-    parent: "self-hosting"
 ---
 
 ## Prerequisites
@@ -605,7 +602,7 @@ resource "aws_ecs_cluster" "dekart" {
 
 Finally, ECS service configuration. For cost efficiency, we launch this service using FARGATE. Currently, Dekart does not support horizontal scaling, so we need to set `desired_count = 1`.
 
-Because we avoid creating NAT and proxy query results through it, we need to put task in the public subnet. Task also needs a public IP address in order to make outbound requests like fetch docker image. However, as it is part of the private security group, inbound traffic is not allowed to the task. The only way to access it is via load balancer. 
+Because we avoid creating NAT and proxy query results through it, we need to put task in the public subnet. Task also needs a public IP address in order to make outbound requests like fetch docker image. However, as it is part of the private security group, inbound traffic is not allowed to the task. The only way to access it is via load balancer.
 
 ```
 resource "aws_ecs_service" "dekart" {
