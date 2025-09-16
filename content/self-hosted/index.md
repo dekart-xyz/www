@@ -271,10 +271,10 @@ type: "html-content"
     <!-- Call-to-Action Banner -->
     <div class="dekart-cta-banner m-2">
       <div class="row justify-content-between align-items-center">
-        <div class="col-md-10">
+        <div class="col-16 col-xl-10 mb-3 mb-xl-0">
           <h3 class="mt-0">Ready to deploy Dekart in your team?</h3>
         </div>
-        <div class="col-md-6 text-md-right">
+        <div class="col-16 col-xl-6 text-xl-right">
           <a class="btn btn-outline-dark btn-lg" href="https://calendly.com/vladi-dekart/deploy-dekart?ref=calendly-deploy" role="button">Deploy Dekart</a>
           <a class="btn btn-dark btn-lg" href="https://cloud.dekart.xyz/?ref=start-free-from-self-host" role="button">Start Free</a>
         </div>

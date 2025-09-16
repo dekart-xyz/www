@@ -1,0 +1,55 @@
+{{/*
+  CTA Banner Shortcode
+
+  Usage: {{< cta-banner >}}
+  Or with parameters:
+  {{< cta-banner
+    header="Ready to deploy Dekart in your team?"
+    button_text="Deploy Dekart"
+    button_link="https://calendly.com/vladi-dekart/deploy-dekart"
+    style="premium"
+  >}}
+
+  Or with template:
+  {{< cta-banner template="premium" >}}
+
+  Available styles: default, premium
+*/}}
+
+{{ $template := .Get "template" }}
+{{ $header := .Get "header" }}
+{{ $buttonText := .Get "button_text" }}
+{{ $buttonLink := .Get "button_link" }}
+{{ $style := .Get "style" }}
+
+{{ if eq $template "premium" }}
+  {{ $header = "Dekart Premium feature" }}
+  {{ $buttonText = "View Plans" }}
+  {{ $buttonLink = "/self-hosted" }}
+  {{ $style = "premium" }}
+{{ else }}
+  {{ $header = $header | default "Ready to get started?" }}
+  {{ $buttonText = $buttonText | default "Get Started" }}
+  {{ $buttonLink = $buttonLink | default "#" }}
+  {{ $style = $style | default "default" }}
+{{ end }}
+
+{{ $bannerClass := "dekart-cta-banner" }}
+{{ $bannerStyle := "" }}
+
+{{ if eq $style "premium" }}
+  {{ $bannerClass = "dekart-cta-banner-premium" }}
+  {{ $bannerStyle = "background-color: rgb(204, 229, 255);" }}
+{{ end }}
+
+<!-- Call-to-Action Banner -->
+<div class="{{ $bannerClass }} p-3 mb-3" {{ if $bannerStyle }}style="{{ $bannerStyle }}"{{ end }}>
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-10 text-sm-center text-md-left">
+      {{ $header }}
+    </div>
+    <div class="col-md-6 text-md-right">
+      <a class="btn btn-outline-dark" href="{{ $buttonLink }}" role="button">{{ $buttonText }}</a>
+    </div>
+  </div>
+</div>

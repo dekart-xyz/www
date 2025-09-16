@@ -170,6 +170,8 @@ Starting from version 0.10 Dekart supports file upload. File upload is disabled 
 
 ## 👑 User authorization via Google OAuth 2.0 flow
 
+{{< cta-banner template="premium" >}}
+
 Dekart can authorize users via Google OAuth 2.0 and use users' credentials to access BigQuery and Cloud Storage. When this option is enabled, Dekart does not require a service account and `GOOGLE_APPLICATION_CREDENTIALS` to be set. The user token is retrieved from Google OAuth 2.0 flow and stored in only in the browser memory. When the page is refreshed, the token is retrieved again. User short-lived token is then passed via Authorization header Dekart backend to access BigQuery and Cloud Storage.
 
 No token is stored in the Dekart backend, database, or logs.
@@ -198,6 +200,9 @@ Creating Google OAuth 2.0 Client ID and Client Secret:
 
 ## 👑 User authorization via Google IAP
 
+{{< cta-banner template="premium" >}}
+
+
 Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto">claims provided by Google IAP</a> and authorize users to:
 
 * list and edit only their own reports
@@ -209,6 +214,9 @@ Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signe
 | `DEKART_IAP_JWT_AUD` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium</small></a>     |  Signed Header JWT Audience (`aud`). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. [See details](https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload).  <br> *Example value*: `/projects/PROJECT_NUMBER/apps/PROJECT_ID`|
 
 ## 👑 User authorization via Amazon Load Balancer
+
+{{< cta-banner template="premium" >}}
+
 
 Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html">claims provided by Amazon Load Balancer</a> and authorize users to:
 
@@ -224,7 +232,7 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 
 ## 👑 Workspaces
 
-<a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>
+{{< cta-banner template="premium" >}}
 
 Dekart supports multiple workspaces. Each workspace can have its own set of reports, queries, and users. By default, all users are added to the `Default` workspace. To configure workspace management, set the following environment variables:
 
@@ -232,7 +240,7 @@ Dekart supports multiple workspaces. Each workspace can have its own set of repo
 | ------------- | ------------- |
 | `DEKART_ALLOW_WORKSPACE_CREATION` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>     |  When set to `1`, users can create new workspaces. Set to empty, new users will be automatically added to the `Default` workspace. <br> *Example value*: `1`|
 | `DEKART_DEFAULT_WORKSPACE_ADMIN` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>   |  Email that designates a default admin for the `Default` workspace. When not provided, all new users will be Admin. When provided, all users will be viewers, unless specified differently with `DEKART_DEFAULT_WORKSPACE_ROLE`. <br> *Example value*: `admin@email.com`
-| `DEKART_DEFAULT_WORKSPACE_ROLE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>    |  Role assigned by default to new users (e.g., `viewer`, `editor`, `admin`). Requires `DEKART_DEFAULT_WORKSPACE_ADMIN` to be specified. <br> *Example value*: `viewer`|
+| `DEKART_DEFAULT_WORKSPACE_ROLE` <br/><a href="/self-hosted/"><small class="badge badge-grey">premium &gt;= 0.18</small></a>    |  Role assigned by default to new users (e.g., `viewer`, `editor`, `admin`). Requires `DEKART_DEFAULT_WORKSPACE_ADMIN` to be specified. <br> *Example value*: `viewer`|
 
 
 ## User Experience
