@@ -27,6 +27,11 @@
   {{ $buttonText = "View Plans" }}
   {{ $buttonLink = "/self-hosted" }}
   {{ $style = "premium" }}
+{{ else if eq $template "deployment-templates" }}
+  {{ $header = "Save time. Get ready-to-use configs for <b>AWS</b> and <b>Google Cloud</b>" }}
+  {{ $buttonText = "Request Access" }}
+  {{ $buttonLink = "https://mailchi.mp/team/request-self-hosting-documentation?ref=deployment-templates" }}
+  {{ $style = "default" }}
 {{ else }}
   {{ $header = $header | default "Ready to get started?" }}
   {{ $buttonText = $buttonText | default "Get Started" }}
@@ -46,7 +51,7 @@
 <div class="{{ $bannerClass }} p-3 mb-3" {{ if $bannerStyle }}style="{{ $bannerStyle }}"{{ end }}>
   <div class="row justify-content-between align-items-center">
     <div class="col-md-10 text-sm-center text-md-left">
-      {{ $header }}
+      {{ $header | safeHTML }}
     </div>
     <div class="col-md-6 text-md-right">
       <a class="btn btn-outline-dark" href="{{ $buttonLink }}" role="button">{{ $buttonText }}</a>
