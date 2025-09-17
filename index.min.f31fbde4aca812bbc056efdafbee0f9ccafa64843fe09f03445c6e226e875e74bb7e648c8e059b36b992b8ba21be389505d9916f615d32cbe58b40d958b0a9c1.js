@@ -587,7 +587,39 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003cli\u003edefine required variables, see \u003ccode\u003e./variables.tf\u003c/code\u003e for details\u003c/li\u003e
 \u003cli\u003erun \u003ccode\u003eterraform apply\u003c/code\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:2,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Running Dekart for BigQuery as in Docker",content:`\u003ch2 id="requirements"\u003eRequirements\u003c/h2\u003e
+`},{id:2,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Running Dekart for BigQuery as in Docker",content:`
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+\u003cdiv class="dekart-cta-banner p-3 mb-3" \u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Save time. Get ready-to-use configs for \u003cb\u003eAWS\u003c/b\u003e and \u003cb\u003eGoogle Cloud\u003c/b\u003e
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="https://mailchi.mp/team/request-self-hosting-documentation?ref=deployment-templates" role="button"\u003eRequest Access\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
+\u003ch2 id="requirements"\u003eRequirements\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Storage or AWS S3 bucket for storing cache\u003c/li\u003e
 \u003cli\u003ePostgreSQL or similar (Cloud SQL, Amazon RDS, etc)\u003c/li\u003e
@@ -679,7 +711,39 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003cli\u003eRun with \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile"\u003eMakefile\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eSee details on \u003ca href="/docs/configuration/environment-variables"\u003eenvironment variables\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:3,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart locally with docker-compose",content:`\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
+`},{id:3,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart locally with docker-compose",content:`
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+\u003cdiv class="dekart-cta-banner p-3 mb-3" \u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Save time. Get ready-to-use configs for \u003cb\u003eAWS\u003c/b\u003e and \u003cb\u003eGoogle Cloud\u003c/b\u003e
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="https://mailchi.mp/team/request-self-hosting-documentation?ref=deployment-templates" role="button"\u003eRequest Access\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
+\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
 \u003ch3 id="prerequisites"\u003ePrerequisites\u003c/h3\u003e
 \u003cul\u003e
 \u003cli\u003eAWS Account\u003c/li\u003e
@@ -759,7 +823,39 @@ AWS_SECRET_ACCESS_KEY=
 \u003cli\u003eRun\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up dekart-snowflake
-\u003c/code\u003e\u003c/pre\u003e`},{id:4,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`\u003ch2 id="before-you-begin"\u003eBefore you begin\u003c/h2\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:4,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+\u003cdiv class="dekart-cta-banner p-3 mb-3" \u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Save time. Get ready-to-use configs for \u003cb\u003eAWS\u003c/b\u003e and \u003cb\u003eGoogle Cloud\u003c/b\u003e
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="https://mailchi.mp/team/request-self-hosting-documentation?ref=deployment-templates" role="button"\u003eRequest Access\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
+\u003ch2 id="before-you-begin"\u003eBefore you begin\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003e
 \u003cp\u003eBack up your Postgres database before upgrading Dekart. On the first run, Dekart applies migrations to the database and you won\u0026rsquo;t be able to downgrade.\u003c/p\u003e
@@ -3197,11 +3293,38 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:19,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="help-with-setup"\u003eHelp with Setup\u003c/h2\u003e
-\u003cp\u003eNeed help configuring Dekart? We\u0026rsquo;re here to assist you. Reach out for guidance or troubleshooting!\u003c/p\u003e
-\u003ca class="btn btn-primary btn" target="_blank" href="https://calendly.com/vladi-dekart/30min" role="button"\u003e
-  📅 Book Free Setup Session
-\u003c/a\u003e
+`},{id:19,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+\u003cdiv class="dekart-cta-banner p-3 mb-3" \u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Save time. Get ready-to-use configs for \u003cb\u003eAWS\u003c/b\u003e and \u003cb\u003eGoogle Cloud\u003c/b\u003e
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="https://mailchi.mp/team/request-self-hosting-documentation?ref=deployment-templates" role="button"\u003eRequest Access\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
 \u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -3245,11 +3368,11 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_DATASOURCE=BQ\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eWhich datasource to use: \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery, default\u003c/li\u003e\u003cli\u003e\u003ccode\u003eATHENA\u003c/code\u003e AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Snowflake \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Postgres \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eCH\u003c/code\u003e ClickHouse \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
+\u003ctd\u003eWhich datasource to use: \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery, default\u003c/li\u003e\u003cli\u003e\u003ccode\u003eATHENA\u003c/code\u003e AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Snowflake \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Postgres \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.17.2\u003c/small\u003e\u003c/a\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eCH\u003c/code\u003e ClickHouse \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_STORAGE=GCS\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eWhich storage backend to use for storing queries and query results \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eGCS\u003c/code\u003e Google Cloud Storage, default, works only with BigQuery data source\u003c/li\u003e\u003cli\u003e\u003ccode\u003eS3\u003c/code\u003e AWS S3, works with BigQuery and AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.17\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
+\u003ctd\u003eWhich storage backend to use for storing queries and query results \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eGCS\u003c/code\u003e Google Cloud Storage, default, works only with BigQuery data source\u003c/li\u003e\u003cli\u003e\u003ccode\u003eS3\u003c/code\u003e AWS S3, works with BigQuery and AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.17\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.18\u003c/small\u003e\u003c/a\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e\u003c/td\u003e
@@ -3260,7 +3383,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003ctd\u003eCORS Origin to be allowed by Dekart backend and set in \u003ccode\u003eAccess-Control-Allow-Origin\u003c/code\u003e header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003ehttps://dekart.example.com\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_SQLITE_DB_PATH=\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.17.2\u003c/small\u003e\u003c/a\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_SQLITE_DB_PATH=\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.17.2\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eDekart will use SQLite database instead of Postgres to store query meta information. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e./dekart.db\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
@@ -3270,7 +3393,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003c/tbody\u003e
 \u003c/table\u003e
 \u003ch2 id="data-encryption"\u003eData Encryption\u003c/h2\u003e
-\u003cp\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/p\u003e
+\u003cp\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.18\u003c/small\u003e\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eDekart supports data encryption at rest for storing credentials. Required for configuring Snowflake and BigQuery JSON Key via UX. To enable data encryption, set the following environment variables:\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -3504,7 +3627,42 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="user-authorization-via-google-oauth-20-flow"\u003eUser authorization via Google OAuth 2.0 flow\u003c/h2\u003e
+\u003ch2 id="-user-authorization-via-google-oauth-20-flow"\u003e👑 User authorization via Google OAuth 2.0 flow\u003c/h2\u003e
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+  
+  
+
+
+
+\u003cdiv class="dekart-cta-banner-premium p-3 mb-3" style="ZgotmplZ"\u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Dekart Premium feature
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="/self-hosted" role="button"\u003eView Plans\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
 \u003cp\u003eDekart can authorize users via Google OAuth 2.0 and use users\u0026rsquo; credentials to access BigQuery and Cloud Storage. When this option is enabled, Dekart does not require a service account and \u003ccode\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/code\u003e to be set. The user token is retrieved from Google OAuth 2.0 flow and stored in only in the browser memory. When the page is refreshed, the token is retrieved again. User short-lived token is then passed via Authorization header Dekart backend to access BigQuery and Cloud Storage.\u003c/p\u003e
 \u003cp\u003eNo token is stored in the Dekart backend, database, or logs.\u003c/p\u003e
 \u003cp\u003eEach user needs to have access to BigQuery and Cloud Storage with following permissions:\u003c/p\u003e
@@ -3524,15 +3682,15 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_GOOGLE_OAUTH\u003c/code\u003e  \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_GOOGLE_OAUTH\u003c/code\u003e  \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.15\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eEnables Google OAuth 2.0 flow. Requires users to be authenticated. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_CLIENT_ID\u003c/code\u003e\u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_CLIENT_ID\u003c/code\u003e\u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.15\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eGoogle OAuth 2.0 Client ID. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1234567890-abcde.apps.googleusercontent.com\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_SECRET\u003c/code\u003e\u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_SECRET\u003c/code\u003e\u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.15\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eGoogle OAuth 2.0 Client Secret. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e******\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
@@ -3543,7 +3701,42 @@ Use a command like:\u003c/p\u003e
 \u003cli\u003eCreate \u003ca href="https://console.cloud.google.com/apis/credentials"\u003eOAuth 2.0 Client ID\u003c/a\u003e with \u003ccode\u003eWeb application\u003c/code\u003e type\u003c/li\u003e
 \u003cli\u003eAdd \u003ccode\u003ehttps://your-dekart-url.com/api/v1/authenticate\u003c/code\u003e to \u003ccode\u003eAuthorized redirect URIs\u003c/code\u003e\u003c/li\u003e
 \u003c/ol\u003e
-\u003ch2 id="user-authorization-via-google-iap"\u003eUser authorization via Google IAP\u003c/h2\u003e
+\u003ch2 id="-user-authorization-via-google-iap"\u003e👑 User authorization via Google IAP\u003c/h2\u003e
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+  
+  
+
+
+
+\u003cdiv class="dekart-cta-banner-premium p-3 mb-3" style="ZgotmplZ"\u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Dekart Premium feature
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="/self-hosted" role="button"\u003eView Plans\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
 \u003cp\u003eDekart can read \u003ca target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto"\u003eclaims provided by Google IAP\u003c/a\u003e and authorize users to:\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003elist and edit only their own reports\u003c/li\u003e
@@ -3558,16 +3751,51 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_IAP\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_IAP\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eEnables validation Google IAP JWT. Required users to be authenticated. ENables user management policies. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_IAP_JWT_AUD\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_IAP_JWT_AUD\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eSigned Header JWT Audience (\u003ccode\u003eaud\u003c/code\u003e). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. \u003ca href="https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload"\u003eSee details\u003c/a\u003e.  \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e/projects/PROJECT_NUMBER/apps/PROJECT_ID\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="user-authorization-via-amazon-load-balancer"\u003eUser authorization via Amazon Load Balancer\u003c/h2\u003e
+\u003ch2 id="-user-authorization-via-amazon-load-balancer"\u003e👑 User authorization via Amazon Load Balancer\u003c/h2\u003e
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+  
+  
+
+
+
+\u003cdiv class="dekart-cta-banner-premium p-3 mb-3" style="ZgotmplZ"\u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Dekart Premium feature
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="/self-hosted" role="button"\u003eView Plans\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
 \u003cp\u003eDekart can read \u003ca target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html"\u003eclaims provided by Amazon Load Balancer\u003c/a\u003e and authorize users to:\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003elist and edit only their reports\u003c/li\u003e
@@ -3583,13 +3811,47 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eEnables users authorization. Requires users to be authenticated and \u003ccode\u003ex-amzn-oidc-data\u003c/code\u003e to be passed from Load Balancer. Requires \u003ccode\u003eAWS_REGION\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="workspaces"\u003eWorkspaces\u003c/h2\u003e
-\u003cp\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/p\u003e
+\u003ch2 id="-workspaces"\u003e👑 Workspaces\u003c/h2\u003e
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+  
+  
+
+
+
+\u003cdiv class="dekart-cta-banner-premium p-3 mb-3" style="ZgotmplZ"\u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Dekart Premium feature
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="/self-hosted" role="button"\u003eView Plans\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
 \u003cp\u003eDekart supports multiple workspaces. Each workspace can have its own set of reports, queries, and users. By default, all users are added to the \u003ccode\u003eDefault\u003c/code\u003e workspace. To configure workspace management, set the following environment variables:\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -3600,15 +3862,15 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_ALLOW_WORKSPACE_CREATION\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_ALLOW_WORKSPACE_CREATION\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.18\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eWhen set to \u003ccode\u003e1\u003c/code\u003e, users can create new workspaces. Set to empty, new users will be automatically added to the \u003ccode\u003eDefault\u003c/code\u003e workspace. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ADMIN\u003c/code\u003e   \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ADMIN\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.18\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eEmail that designates a default admin for the \u003ccode\u003eDefault\u003c/code\u003e workspace. When not provided, all new users will be Admin. When provided, all users will be viewers, unless specified differently with \u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ROLE\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eadmin@email.com\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ROLE\u003c/code\u003e  \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ROLE\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-grey"\u003epremium \u0026gt;= 0.18\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
 \u003ctd\u003eRole assigned by default to new users (e.g., \u003ccode\u003eviewer\u003c/code\u003e, \u003ccode\u003eeditor\u003c/code\u003e, \u003ccode\u003eadmin\u003c/code\u003e). Requires \u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ADMIN\u003c/code\u003e to be specified. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eviewer\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
@@ -3938,6 +4200,6 @@ Example:\u003c/p\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
 `},{id:26,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:27,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
-\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/qwOqLm3i7Ik" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/_2ryUu43XRo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 `}];e.add(n),userinput.addEventListener("input",s,!0),suggestions.addEventListener("click",o,!0);function s(){var n,i=this.value,s=e.search(i,5),o=suggestions.childNodes,r=0,c=s.length;for(suggestions.classList.remove("d-none"),s.forEach(function(e){n=document.createElement("div"),n.innerHTML="<a href><span></span><span></span></a>",a=n.querySelector("a"),t=n.querySelector("span:first-child"),d=n.querySelector("span:nth-child(2)"),a.href=e.href,t.textContent=e.title,d.textContent=e.description,suggestions.appendChild(n)});o.length>c;)suggestions.removeChild(o[r])}function o(){for(;suggestions.lastChild;)suggestions.removeChild(suggestions.lastChild);return!1}})()
