@@ -1,0 +1,162 @@
+// Map Examples Section Component Styles
+.dekart-maps {
+  position: relative;
+  overflow: hidden;
+  background: #f8f9fa;
+  min-height: 600px;
+}
+
+.dekart-maps-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.dekart-map {
+  position: absolute;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  width: 600px;
+  height: 400px;
+}
+
+// Main focus map - largest and most prominent
+.dekart-map:nth-child(1) {
+  transform: translate(0px, 0px) rotate(0deg) scale(1);
+  z-index: 7;
+  opacity: 1;
+  filter: none;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+// Left stack - 3 maps visible, progressively less shifted
+.dekart-map:nth-child(2) {
+  transform: translate(-80px, 0px) rotate(0deg) scale(0.9);
+  z-index: 6;
+}
+.dekart-map:nth-child(3) {
+  transform: translate(-160px, 0px) rotate(0deg) scale(0.8);
+  z-index: 5;
+}
+.dekart-map:nth-child(4) {
+  transform: translate(-240px, 0px) rotate(0deg) scale(0.7);
+  z-index: 4;
+}
+
+// Right stack - 3 maps visible, progressively less shifted
+.dekart-map:nth-child(5) {
+  transform: translate(80px, 0px) rotate(0deg) scale(0.9);
+  z-index: 6;
+}
+.dekart-map:nth-child(6) {
+  transform: translate(160px, 0px) rotate(0deg) scale(0.8);
+  z-index: 5;
+}
+.dekart-map:nth-child(7) {
+  transform: translate(240px, 0px) rotate(0deg) scale(0.7);
+  z-index: 4;
+}
+
+.dekart-map img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.4s ease;
+}
+
+.dekart-map.highlighted {
+  opacity: 1;
+  transform: rotate(0deg) scale(1.1);
+  z-index: 10;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.dekart-map.highlighted img {
+  filter: brightness(1.2) contrast(1.1);
+}
+
+.dekart-maps-overlay {
+  position: relative;
+  z-index: 2;
+  height: 400px;
+  @media (max-width:  767.98px) {
+    height: 450px;
+  }
+  @media (max-width:  576px) {
+    height: 525px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dekart-card {
+  background: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+a.dekart-card {
+  text-decoration: none;
+}
+
+.dekart-card .dekart-connector {
+  color: #2c3e50 !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.dekart-card img.dekart-connector {
+  filter: none;
+  transition: all 0.3s ease;
+  height: 64px;
+  width: 64px;
+}
+
+.dekart-card:hover .dekart-connector {
+  color: #1a252f;
+  text-shadow: none;
+}
+
+// Enhanced hover effects for glassmorphism cards
+.dekart-card:hover {
+  box-shadow: 0 25px 50px rgba(255, 255, 255, 0.25);
+}
+
+.dekart-card:hover img.dekart-connector {
+  transform: scale(1.05);
+}
+
+.dekart-connectors {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dekart-connectors .dekart-card {
+  flex: 0 0 auto;
+}

@@ -12,6 +12,10 @@ menu:
     parent: "self-hosting"
 ---
 
+
+{{< cta-banner template="deployment-templates" >}}
+
+
 ## Requirements
 
 * Google Cloud Storage or AWS S3 bucket for storing cache

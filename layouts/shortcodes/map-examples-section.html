@@ -1,0 +1,42 @@
+{{/*
+  Map Examples Section Shortcode
+
+  Usage: {{< map-examples-section >}}
+  Or with parameters: {{< map-examples-section title="Custom Maps" >}}
+*/}}
+
+{{ $title := .Get "title" | default "Map Examples" }}
+{{ $examplesDir := .Get "examples_dir" | default "static/images/map-examples" }}
+
+<section class="section section-featured mt-3 py-1 dekart-maps">
+  <h2 class="h3 text-center map-examples-title">{{ $title }}</h2>
+  <div class="container-fluid">
+    <div class="dekart-maps-bg">
+      {{ range (readDir $examplesDir) }}
+        {{ if ne .Name ".DS_Store" }}
+          <div class="dekart-map" data-index="{{ .Name }}">
+            <img src="/images/map-examples/{{ .Name }}" alt="Map Example" loading="lazy">
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+    <div class="dekart-maps-overlay">
+      <div class="container">
+        <div class="dekart-connectors">
+          <a class="dekart-card" href="/docs/about/overture-maps-examples/">
+            <img class="dekart-connector" src="/bigquery.svg" alt="BigQuery">
+            <div class="h5 dekart-connector">BigQuery</div>
+          </a>
+          <a class="dekart-card" href="/docs/about/snowflake-kepler-gl-examples/">
+            <img class="dekart-connector" src="/snowflake.svg" alt="Snowflake">
+            <div class="h5 dekart-connector">Snowflake</div>
+          </a>
+          <a class="dekart-card" href="/docs/usage/wherobots-sql-tutorial/">
+            <img class="dekart-connector" src="/wherobots.svg" alt="Wherobots">
+            <div class="h5 dekart-connector">Wherobots</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

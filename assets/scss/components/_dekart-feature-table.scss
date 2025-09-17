@@ -1,0 +1,133 @@
+// Dekart Feature Table Styles
+.dekart-feature-table-container {
+  .dekart-feature-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid $gray-300;
+    border-radius: 0.375rem;
+    overflow: hidden;
+
+    th, td {
+      border: none;
+      padding: 1rem;
+      vertical-align: middle;
+    }
+
+    thead {
+      th {
+        background-color: $gray-100;
+        border-bottom: 2px solid $gray-300;
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background-color: $gray-100;
+        }
+
+        &:nth-child(odd) {
+          background-color: $white;
+        }
+      }
+    }
+  }
+
+  .dekart-feature-header {
+    text-align: left;
+    color: $gray-900;
+  }
+
+  .dekart-plan-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .dekart-plan-name {
+      color: $gray-900;
+      margin-bottom: 0.25rem;
+    }
+
+    .btn {
+      font-size: $font-size-sm;
+      padding: 0.375rem 0.75rem;
+      white-space: nowrap;
+    }
+  }
+
+  .dekart-category-header {
+    background-color: $gray-900 !important;
+
+    .dekart-category-title {
+      color: $white;
+      text-align: center;
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  .dekart-feature-name {
+    color: $gray-700;
+    padding-left: 1.5rem;
+  }
+
+  // Checkmark icon styling using primary blue color
+  .dekart-checkmark {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: $primary; // Using the main blue color from variables
+    border-radius: 50%;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 5px;
+      width: 6px;
+      height: 8px;
+      border: solid $white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  // Dash icon styling using gray color
+  .dekart-dash {
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background-color: $gray-500;
+    border-radius: 1px;
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .dekart-plan-header {
+      .btn {
+        font-size: $font-size-sm;
+        padding: 0.25rem 0.5rem;
+      }
+    }
+
+    .dekart-feature-name {
+      padding-left: 1rem;
+    }
+
+    th, td {
+      padding: 0.75rem 0.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .dekart-plan-header {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    th, td {
+      padding: 0.5rem 0.25rem;
+    }
+  }
+}

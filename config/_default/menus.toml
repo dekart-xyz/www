@@ -11,22 +11,10 @@
   url = "/docs/self-hosting/"
 
 [[docs]]
-  name = "Configuration"
-  weight = 2
-  identifier = "configuration"
-  url = "/docs/configuration/"
-
-[[docs]]
   name = "Usage"
   weight = 2
   identifier = "usage"
   url = "/docs/usage/"
-
-[[docs]]
-  name = "Snowpark"
-  weight = 1
-  identifier = "snowflake-snowpark"
-  url = "/docs/snowflake-snowpark/"
 
 [[docs]]
   name = "About"

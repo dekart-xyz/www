@@ -11,6 +11,9 @@ menu:
   docs:
     parent: "self-hosting"
 ---
+
+{{< cta-banner template="deployment-templates" >}}
+
 ## AWS Athena
 
 ### Prerequisites

@@ -1,0 +1,44 @@
+{{/*
+  Video Tutorials Section Component
+
+  Parameters:
+  - title: Section title (default: "Learn by Watching")
+  - subtitle: Section subtitle (default: "Short tutorials showing how to create and share maps with Dekart.")
+  - videos: Array of video objects with youtube_id, title, and alt text
+*/}}
+
+{{ $title := .title | default "Learn by Watching" }}
+{{ $subtitle := .subtitle | default "Short tutorials showing how to create and share maps with Dekart." }}
+{{ $videos := .videos | default (slice
+  (dict "youtube_id" "_2ryUu43XRo" "title" "Video Tutorial 1" "alt" "Video Tutorial 1")
+  (dict "youtube_id" "UJdKENJis2Y" "title" "Video Tutorial 3" "alt" "Video Tutorial 3")
+  (dict "youtube_id" "GS2Xbl77RpM" "title" "Video Tutorial 2" "alt" "Video Tutorial 2")
+) }}
+
+<!-- video tutorials -->
+<section class="section section-sm container-fluid dekart-videos">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="text-center mb-2">
+        <h2 class="fw-bold">{{ $title }}</h2>
+        <p class="text-muted">{{ $subtitle }}</p>
+      </div>
+    </div>
+    <div class="row g-0 justify-content-center">
+      {{ range $videos }}
+        <div class="col-xl-5 col-lg-12 col-md-12 mb-5 p-3">
+          <div class="dekart-video">
+            <a href="https://www.youtube.com/watch?v={{ .youtube_id }}" target="_blank" rel="noopener noreferrer">
+              <div class="dekart-video-thumb">
+                <img src="https://img.youtube.com/vi/{{ .youtube_id }}/maxresdefault.jpg" alt="{{ .alt }}" class="img-fluid">
+                <div class="dekart-play">
+                  <div class="dekart-play-icon"></div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

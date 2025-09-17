@@ -12,6 +12,8 @@ menu:
     parent: "self-hosting"
 ---
 
+{{< cta-banner template="deployment-templates" >}}
+
 ## Before you begin
 
 * Back up your Postgres database before upgrading Dekart. On the first run, Dekart applies migrations to the database and you won't be able to downgrade.

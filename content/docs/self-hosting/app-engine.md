@@ -6,9 +6,6 @@ lastmod: 2021-02-22T08:24:45+01:00
 draft: false
 weight: 1
 images: []
-menu:
-  docs:
-    parent: "self-hosting"
 ---
 
 ## Prerequisites

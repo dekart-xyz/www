@@ -4,9 +4,6 @@ description: "Why Dekart Cloud is Secure"
 date: 2021-02-22T07:48:05+01:00
 lastmod: 2021-02-22T07:48:05+01:00
 draft: false
-menu:
-  docs:
-    parent: "snowflake-snowpark"
 images: []
 ---
 

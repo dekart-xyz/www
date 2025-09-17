@@ -1,0 +1,30 @@
+{{/*
+  Cloud Main Video Shortcode
+
+  Usage: {{< cloud-main-video >}}
+  Or with parameters: {{< cloud-main-video video_src="/custom-video.mp4" >}}
+*/}}
+
+{{ $videoSrc := .Get "video_src" | default "/main-page-screencast-4.mp4" }}
+{{ $posterSrc := .Get "poster_src" | default "/main-page-screencast-4.png" }}
+{{ $autoplay := .Get "autoplay" | default true }}
+{{ $muted := .Get "muted" | default true }}
+{{ $loop := .Get "loop" | default true }}
+{{ $playsinline := .Get "playsinline" | default true }}
+
+<div class="center-block dekart-video-container mt-3">
+  <div class="dekart-video-window">
+    <div class="dekart-video-content">
+      <video
+        {{ if $autoplay }}autoplay{{ end }}
+        {{ if $muted }}muted{{ end }}
+        {{ if $loop }}loop{{ end }}
+        {{ if $playsinline }}playsinline{{ end }}
+        poster="{{ $posterSrc }}"
+      >
+        <source src="{{ $videoSrc }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>

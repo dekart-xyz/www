@@ -1,0 +1,124 @@
+// Dekart Pricing Section Styles (works for both cloud and self-hosted pages)
+#pricing {
+  .card {
+    border: 1px solid $gray-300;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    height: 100%;
+
+    .dekart-cloud-price-top {
+      background-color: $gray-100;
+      border-bottom: 2px solid $gray-300;
+      padding: 1.5rem;
+
+      .btn {
+        padding: 0.3rem 1rem;
+        font-size: $font-size-sm;
+      }
+
+      h3 {
+        color: $gray-900;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+
+        a {
+          color: inherit;
+          text-decoration: none;
+
+          &:hover {
+            color: $primary;
+            text-decoration: none;
+          }
+        }
+      }
+
+      .card-text {
+        color: $gray-700;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      background-color: $white;
+
+      ul {
+        margin-bottom: 0;
+
+        li {
+          color: $gray-700;
+          margin-bottom: 0.75rem;
+          padding-left: 0;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          a {
+            color: $primary;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .m-2, .m-3 {
+    margin: 0.75rem !important;
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .card {
+      .dekart-cloud-price-top {
+        padding: 1.25rem;
+
+        h3 {
+          font-size: 1.25rem;
+        }
+      }
+
+      .card-body {
+        padding: 1.25rem;
+      }
+    }
+
+    .m-2, .m-3 {
+      margin: 0.5rem !important;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .card {
+      .dekart-cloud-price-top {
+        padding: 1rem;
+
+        h3 {
+          font-size: 1.125rem;
+        }
+
+        .btn {
+          font-size: 0.75rem;
+          padding: 0.375rem 0.75rem;
+        }
+      }
+
+      .card-body {
+        padding: 1rem;
+
+        ul li {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    .m-2, .m-3 {
+      margin: 0.25rem !important;
+    }
+  }
+}
