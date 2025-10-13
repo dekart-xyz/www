@@ -1,3 +1,29 @@
 {
-  "version": "0.5.0"
+  "version": "0.5.0",
+  "testimonials": [
+    {
+      "name": "Daniel Lewis",
+      "title": "Distinguished Data Scientist",
+      "company": "Geotab",
+      "photo": "/daniel-lewis.jpg",
+      "content": [
+        "Over the last year we have been migrating our geospatial data visualization out of jupyter notebooks and various ad-hoc tools onto the Dekart.",
+        "Sharing investigations and results with other teams at the company is seamless and I have one-stop-shop for all of my saved maps.",
+        "The feedback from the rest of the data science team has been unanimously positive."
+      ],
+      "linkedin_url": "https://www.linkedin.com/posts/djlewis173_at-geotab-we-are-dealing-with-data-at-scale-activity-7336539605539688450-2o7S?utm_source=share&utm_medium=member_desktop&rcm=ACoAAANU9nQBE52GpF43RbBUpnSWTebGev0XZWM"
+    },
+    {
+      "name": "Laetitia Jumel",
+      "title": "VP of Data",
+      "company": "Electra",
+      "photo": "/laetitia-jumel.jpg",
+      "content": [
+        "Visualizing data on maps can be super effective to understand local dynamics. For communication, maps never disappoint.",
+        "We are really glad to have found a tool that connects to our data warehouse and allows us to handle geospatial data at scale and very easily.",
+        "I made this map with one SQL query and took just a few minutes to ensure that it looks good!"
+      ],
+      "linkedin_url": "https://www.linkedin.com/posts/laetitiajumel_visualizing-data-on-maps-can-be-super-effective-activity-7254439233237434368-6lXQ/?utm_source=share&utm_medium=member_desktop"
+    }
+  ]
 }

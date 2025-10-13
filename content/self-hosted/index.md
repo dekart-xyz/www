@@ -65,15 +65,17 @@ type: "html-content"
           <div class="card">
             <div class="bg-light dekart-cloud-price-top">
               <a class="btn btn-dark" href="https://calendly.com/vladi-dekart/dekart-white-label?ref=calendly-white-label">White Label</a>
-              <h3>$58,800/year</h3>
+              <h3>
+                <a href="https://calendly.com/vladi-dekart/dekart-white-label?ref=calendly-white-label">Contact us</a>
+              </h3>
               <p class="card-text">For scalability, and integration</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
                 <li class="mb-2">High availability</li>
-                <li class="mb-2">Custom integrations</li>
                 <li class="mb-2">Your branding and SSO</li>
-                <li class="mb-2">250 hours custom dev included</li>
+                <li class="mb-2">Custom integrations</li>
+                <li class="mb-2">&nbsp;</li>
               </ul>
             </div>
           </div>
@@ -213,16 +215,6 @@ type: "html-content"
             </tr>
             <tr class="dekart-category-header">
               <td colspan="4" class="dekart-category-title font-weight-bold">Custom Development</td>
-            </tr>
-            <tr>
-              <td class="dekart-feature-name">
-                250 hours for custom development
-                <br>
-                <small class="text-muted">Engineering time from Dekart’s core team to build features and integrations for you.</small>
-              </td>
-              <td class="text-center"><i class="dekart-dash"></i></td>
-              <td class="text-center"><i class="dekart-dash"></i></td>
-              <td class="text-center"><i class="dekart-checkmark"></i></td>
             </tr>
             <tr>
               <td class="dekart-feature-name">

@@ -23,10 +23,11 @@ type: "html-content"
         </div>
         <div class="card-body text-left">
           <ul class="list-unstyled">
-            <li class="mb-2">Google SSO</li>
-            <li class="mb-2">BigQuery Connector</li>
-            <li class="mb-2">Snowflake Connector</li>
-            <li class="mb-2">Publish Maps</li>
+            <li class="mb-2">Unlimited Private Maps</li>
+            <li class="mb-2">Unlimited Connectors</li>
+            <li class="mb-2">1 Shared Map</li>
+            <li class="mb-2">&nbsp;</li>
+            <li class="mb-2">&nbsp;</li>
           </ul>
         </div>
       </div>
@@ -38,14 +39,15 @@ type: "html-content"
         <div class="bg-light dekart-cloud-price-top">
           <a class="btn btn-outline-primary">Grow</a>
           <h3>$49/month</h3>
-          <p class="card-text">Per editor and admin</p>
+          <p class="card-text">Per editor or admin</p>
           </div>
         <div class="card-body text-left">
           <ul class="list-unstyled">
             <li class="mb-2">Everything from Personal</li>
-            <li class="mb-2">Unlimited Map Viewers</li>
-            <li class="mb-2">Contact Public Map Viewers</li>
-            <li class="mb-2">Manage User Access</li>
+            <li class="mb-2">Unlimited Shared Maps</li>
+            <li class="mb-2">Unlimited Viewers</li>
+            <li class="mb-2">Manage Access</li>
+            <li class="mb-2">Capture viewers emails</li>
           </ul>
         </div>
       </div>
@@ -57,14 +59,15 @@ type: "html-content"
         <div class="bg-light dekart-cloud-price-top">
           <a class="btn btn-outline-dark">Max</a>
           <h3>$490/month</h3>
-          <p class="card-text text-muted">Unlimited Users</p>
+          <p class="card-text text-muted">Unlimited</p>
           </div>
         <div class="card-body text-left">
           <ul class="list-unstyled">
-            <li class="mb-2">Everything from Personal</li>
-            <li class="mb-2">Unlimited Map Viewers and Editors</li>
-            <li class="mb-2">Contact Public Map Viewers</li>
-            <li class="mb-2">Manage User Access</li>
+            <li class="mb-2">Everything from Grow</li>
+            <li class="mb-2">Unlimited Editors</li>
+            <li class="mb-2">Unlimited Admins</li>
+            <li class="mb-2">&nbsp;</li>
+            <li class="mb-2">&nbsp;</li>
           </ul>
         </div>
       </div>
@@ -72,18 +75,8 @@ type: "html-content"
   </div>
 </div>
 <div class="text-center pt-4 mb-4">
-    <p><a class="btn btn-primary btn-lg" href="http://cloud.dekart.xyz/workspace?ref=create-workspace-pricing" role="button">Create Free Workspace</a></p>
-    <p>No credit card required</p>
-  </div>
-  <div>
-    <div class="text-center d-flex flex-column align-items-center">
-      <h2><mark>It takes literally 30 seconds to create a map.</mark></h2>
-      <p class="lead">Watch the step-by-step walkthrough</p>
-<p><iframe width="840" height="472" src="https://www.youtube.com/embed/JutQ4E879H0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
-    </div>
-  </div>
-  <div class="text-center">
-    <h3>Not sure yet?</h3>
-    <p class="lead"><a target="_blank" href="https://calendly.com/vladi-dekart/30min">Book a call with the Dekart team</a> — Unlock insider discounts and learn about our roadmap.</p>
-  </div>
+  <p><a class="btn btn-primary btn-lg" href="http://cloud.dekart.xyz/workspace?ref=start-free-pricing" role="button">Start Free</a></p>
+</div>
+    {{< testimonials-section title="What Our Users Say" >}}
+    {{< video-tutorials-section title="See It Yourself" subtitle="Check our videos on YouTube" >}}
 </article>
