@@ -28,7 +28,7 @@
       {{ range $videos }}
         <div class="col-xl-5 col-lg-12 col-md-12 mb-5 p-3">
           <div class="dekart-video">
-            <a href="https://www.youtube.com/watch?v={{ .youtube_id }}" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.youtube.com/watch?v={{ .youtube_id }}&ref=video-tutorials-section-{{ .youtube_id }}" target="_blank" rel="noopener noreferrer">
               <div class="dekart-video-thumb">
                 <img src="https://img.youtube.com/vi/{{ .youtube_id }}/maxresdefault.jpg" alt="{{ .alt }}" class="img-fluid">
                 <div class="dekart-play">
