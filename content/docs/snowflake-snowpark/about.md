@@ -65,6 +65,65 @@ GRANT IMPORTED PRIVILEGES ON DATABASE OVERTURE_MAPS__PLACES TO APPLICATION DEKAR
 
 💡 Please note that app name could be changed during the installation process.
 
+## 💾 Backup and Restore
+
+Dekart stores its state on Snowflake Stage every 5 minutes and keeps 7 days of history. This section explains how to backup and restore this state.
+
+### Backing Up State
+
+To backup the Dekart application state, follow these steps:
+
+```SQL
+-- as ACCOUNTADMIN
+
+-- List backup files to verify they exist
+LIST @DEKART.APP_PUBLIC.APP_STATE_STAGE;
+
+-- Create example database for copying backup
+CREATE DATABASE DEKART_MIGRATE;
+
+CREATE SCHEMA DEKART_MIGRATE.APP_PUBLIC;
+
+CREATE STAGE DEKART_MIGRATE.APP_PUBLIC.APP_STATE_STAGE;
+
+-- Copy backup files
+COPY FILES
+  INTO @DEKART_MIGRATE.APP_PUBLIC.APP_STATE_STAGE
+  FROM @DEKART.APP_PUBLIC.APP_STATE_STAGE;
+
+-- Verify backup was saved
+LIST @DEKART_MIGRATE.APP_PUBLIC.APP_STATE_STAGE;
+```
+
+### Restoring State
+
+To restore the state to a new Dekart installation:
+
+1. Uninstall the old app
+2. Install the marketplace app version (do **not** activate it yet)
+3. Grant permissions so the activate button becomes visible, then run:
+
+```SQL
+-- Copy backup files back to the new app stage
+COPY FILES
+  INTO @DEKART.APP_PUBLIC.APP_STATE_STAGE
+  FROM @DEKART_MIGRATE.APP_PUBLIC.APP_STATE_STAGE;
+
+-- Verify files were copied
+LIST @DEKART.APP_PUBLIC.APP_STATE_STAGE;
+```
+
+4. Press **Activate** button
+5. Grant permissions to the new app (example):
+
+```SQL
+GRANT IMPORTED PRIVILEGES ON DATABASE OVERTURE_MAPS__PLACES TO APPLICATION DEKART;
+```
+
+All maps should now be migrated to the new instance.
+
+💡 **Note**: Depending on share type, the app name can be `DEKART` or `DEKART__WEBGL_MAPS_FOR_SNOWFLAKE`. Adjust the commands accordingly.
+
 ## 🛟 Support
 
 * [Get support in Slack Community](https://slack.dekart.xyz/)

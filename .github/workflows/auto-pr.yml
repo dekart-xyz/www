@@ -1,0 +1,78 @@
+name: Auto Create Pull Request
+
+on:
+  push:
+    branches:
+      - '**'  # Triggers on push to any branch
+    # branches-ignore is not allowed together with wildcards in branches.
+    # We use an if condition for jobs instead (see job's if)
+jobs:
+  create-pr:
+    if: |
+      github.ref_type == 'branch' &&
+      github.ref_name != 'main' &&
+      github.ref_name != 'master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if PR exists
+        id: check-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          # Get repository owner and name
+          REPO_OWNER=$(echo "${{ github.repository }}" | cut -d'/' -f1)
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+
+          # Check if PR already exists for this branch
+          EXISTING_PR=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/pulls?head=$REPO_OWNER:$BRANCH_NAME&state=open" \
+            | jq -r '.[0].number // empty')
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+            echo "pr_number=$EXISTING_PR" >> $GITHUB_OUTPUT
+            echo "Pull Request #$EXISTING_PR already exists for branch $BRANCH_NAME"
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+            echo "No existing PR found for branch $BRANCH_NAME"
+          fi
+
+      - name: Create Pull Request
+        if: steps.check-pr.outputs.pr_exists == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          REPO_OWNER=$(echo "${{ github.repository }}" | cut -d'/' -f1)
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+
+          # Create PR
+          RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/pulls" \
+            -d "{
+              \"title\": \"PR: $BRANCH_NAME\",
+              \"body\": \"This PR was automatically created when branch \`$BRANCH_NAME\` was pushed.\n\nCreated by GitHub Actions workflow.\",
+              \"head\": \"$BRANCH_NAME\",
+              \"base\": \"main\"
+            }")
+
+          PR_NUMBER=$(echo "$RESPONSE" | jq -r '.number // empty')
+          PR_URL=$(echo "$RESPONSE" | jq -r '.html_url // empty')
+
+          if [ -n "$PR_NUMBER" ]; then
+            echo "✅ Pull Request #$PR_NUMBER created successfully: $PR_URL"
+          else
+            echo "❌ Failed to create PR"
+            echo "$RESPONSE" | jq '.'
+            exit 1
+          fi
+
