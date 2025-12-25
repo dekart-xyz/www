@@ -10,7 +10,7 @@ type: "html-content"
 <article class="pb-5">
   <section class="section container-fluid mt-n3 pb-3">
     <div class="row justify-content-center">
-      <div class="col-lg-12 text-center">
+      <div class="col-lg-16 text-center">
         <h1 class="mt-0 display-3" style="
           background-color: white;
           background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
