@@ -28,7 +28,7 @@ type: "html-content"
             role="button">Book a call</a>
         </p>
       </div>
-      {{< cloud-main-video video_src="/data-providers-hero-2.mp4" poster_src="/data-providers-hero-2.png" >}}
+      {{< cloud-main-video video_src="/data-providers-hero-2.mp4" poster_src="/data-providers-hero-2.png" aspect_ratio="1765/1080" >}}
     </div>
   </section>
 
