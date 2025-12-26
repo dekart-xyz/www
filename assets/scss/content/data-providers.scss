@@ -1,0 +1,38 @@
+.data-providers-hero-title {
+  background-color: white;
+  background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+.data-providers-subtitle {
+  font-weight: normal;
+}
+
+.data-provider-card-link {
+  .card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  &:hover .card {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-img-top {
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+  }
+}
+
+.sales-issues-paragraph {
+  font-size: 1.3rem;
+  opacity: 0.7;
+  line-height: 1.2;
+}
+

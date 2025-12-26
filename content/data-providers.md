@@ -11,20 +11,12 @@ type: "html-content"
   <section class="section container-fluid mt-n3 pb-3">
     <div class="row justify-content-center">
       <div class="col-lg-16 text-center">
-        <h1 class="mt-0 display-3" style="
-          background-color: white;
-          background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
-          background-size: 100%;
-          -webkit-background-clip: text;
-          -moz-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          -moz-text-fill-color: transparent;
-        ">
+        <h1 class="mt-0 display-3 data-providers-hero-title">
           Your instant sales engineer
         </h1>
       </div>
       <div class="col-lg-12 text-center my-4">
-        <p class="my-3 h4" style="font-weight: normal;">
+        <p class="my-3 h4 data-providers-subtitle">
           <span class="d-inline-block">
             Close location data sales faster with instant, self-service data samples and demos, so your prospects never have to wait
           </span>
@@ -62,41 +54,35 @@ type: "html-content"
   </section>
 
   <section class="section container pt-4 pb-0">
-    <style>
-      .data-provider-card-link:hover .card {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-      }
-    </style>
     <div class="row justify-content-center">
       <div class="col-lg-16">
         <h2 class="display-4 mb-2 text-center">Maps built by data providers</h2>
         <p class="text-center mb-5">Read their stories on LinkedIn</p>
         <div class="row justify-content-center">
-          <div class="col-12 col-md-6 col-lg-5 mb-4">
+          <div class="col-16 col-md-6 col-lg-5 mb-4">
             <a href="https://www.linkedin.com/placeholder-link-1" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-body data-provider-card-link">
-              <div class="card h-100" style="transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;">
-                <img src="/data-providers-echo-analytics.png" alt="Echo Analytics LinkedIn Carousel" class="card-img-top w-100" style="height: auto; max-height: 500px; object-fit: contain;">
+              <div class="card h-100">
+                <img src="/data-providers-echo-analytics.png" alt="Echo Analytics LinkedIn Carousel" class="card-img-top w-100">
                 <div class="card-body d-flex flex-column pt-3">
                   <h5 class="card-title mb-0 mt-0">Echo Analytics</h5>
                 </div>
               </div>
             </a>
           </div>
-          <div class="col-12 col-md-6 col-lg-5 mb-4">
+          <div class="col-16 col-md-6 col-lg-5 mb-4">
             <a href="https://www.linkedin.com/placeholder-link-2" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-body data-provider-card-link">
-              <div class="card h-100" style="transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;">
-                <img src="/data-providers-data-appeal.png" alt="Data Appeal LinkedIn Carousel" class="card-img-top w-100" style="height: auto; max-height: 500px; object-fit: contain;">
+              <div class="card h-100">
+                <img src="/data-providers-data-appeal.png" alt="Data Appeal LinkedIn Carousel" class="card-img-top w-100">
                 <div class="card-body d-flex flex-column pt-3">
                   <h5 class="card-title mb-0 mt-0">Data Appeal</h5>
                 </div>
               </div>
             </a>
           </div>
-          <div class="col-12 col-md-6 col-lg-5 mb-4">
+          <div class="col-16 col-md-6 col-lg-5 mb-4">
             <a href="https://www.linkedin.com/placeholder-link-3" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-body data-provider-card-link">
-              <div class="card h-100" style="transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;">
-                <img src="/data-providers-xavvy.png" alt="Xavvy LinkedIn Carousel" class="card-img-top w-100" style="height: auto; max-height: 500px; object-fit: contain;">
+              <div class="card h-100">
+                <img src="/data-providers-xavvy.png" alt="Xavvy LinkedIn Carousel" class="card-img-top w-100">
                 <div class="card-body d-flex flex-column pt-3">
                   <h5 class="card-title mb-0 mt-0">Xavvy</h5>
                 </div>
@@ -131,13 +117,6 @@ type: "html-content"
   </section>
 
   <section class="section container-fluid pt-0 pb-5">
-    <style>
-      .sales-issues-paragraph {
-        font-size: 1.3rem;
-        opacity: 0.7;
-        line-height: 1.2;
-      }
-    </style>
     <div class="row justify-content-center">
       <div class="col-lg-12">
         <h2 class="display-4">

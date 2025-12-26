@@ -1,9 +1,13 @@
 var suggestions = document.getElementById('suggestions');
 var userinput = document.getElementById('userinput');
 
-document.addEventListener('keydown', inputFocus);
+if (userinput) {
+  document.addEventListener('keydown', inputFocus);
+}
 
 function inputFocus(e) {
+
+  if (!userinput) return;
 
   if (e.keyCode === 191 ) {
     e.preventDefault();
@@ -12,29 +16,37 @@ function inputFocus(e) {
 
   if (e.keyCode === 27 ) {
     userinput.blur();
-    suggestions.classList.add('d-none');
+    if (suggestions) {
+      suggestions.classList.add('d-none');
+    }
   }
 
 }
 
-document.addEventListener('click', function(event) {
+if (suggestions) {
+  document.addEventListener('click', function(event) {
 
-  var isClickInsideElement = suggestions.contains(event.target);
+    var isClickInsideElement = suggestions.contains(event.target);
 
-  if (!isClickInsideElement) {
-    suggestions.classList.add('d-none');
-  }
+    if (!isClickInsideElement) {
+      suggestions.classList.add('d-none');
+    }
 
-});
+  });
+}
 
 /*
 Source:
   - https://dev.to/shubhamprakash/trap-focus-using-javascript-6a3
 */
 
-document.addEventListener('keydown',suggestionFocus);
+if (suggestions) {
+  document.addEventListener('keydown',suggestionFocus);
+}
 
 function suggestionFocus(e){
+
+  if (!suggestions) return;
 
   const focusableSuggestions= suggestions.querySelectorAll('a');
   const focusable= [...focusableSuggestions];
@@ -96,10 +108,16 @@ Source:
 
   index.add(docs);
 
-  userinput.addEventListener('input', show_results, true);
-  suggestions.addEventListener('click', accept_suggestion, true);
+  if (userinput) {
+    userinput.addEventListener('input', show_results, true);
+  }
+  if (suggestions) {
+    suggestions.addEventListener('click', accept_suggestion, true);
+  }
 
   function show_results(){
+
+    if (!suggestions) return;
 
     var value = this.value;
     var results = index.search(value, 5);
@@ -134,6 +152,8 @@ Source:
   }
 
   function accept_suggestion(){
+
+      if (!suggestions) return false;
 
       while(suggestions.lastChild){
 
