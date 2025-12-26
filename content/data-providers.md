@@ -20,13 +20,13 @@ type: "html-content"
           -webkit-text-fill-color: transparent;
           -moz-text-fill-color: transparent;
         ">
-          Close deals faster without engineering</span>
+          Your instant sales engineer
         </h1>
       </div>
       <div class="col-lg-12 text-center my-4">
         <p class="my-3 h4" style="font-weight: normal;">
           <span class="d-inline-block">
-            Unblock location data sales with instant, self-service data samples and demos, so your engineering team can focus on higher leverage projects
+            Close location data sales faster with instant, self-service data samples and demos, so your prospects never have to wait
           </span>
         </p>
       </div>
@@ -46,15 +46,15 @@ type: "html-content"
         <ul class="list-unstyled">
           <li class="lead text-left mb-3 d-flex">
             <span class="mr-2">→</span>
-            <span>Engineering has full control over data access and sample retention.</span>
+            <span>Engineering has full control over data access and sample retention</span>
           </li>
           <li class="lead text-left mb-3 d-flex">
             <span class="mr-2">→</span>
-            <span>The sales team has a clear understanding of what's in each sample to avoid embarrassing mistakes.</span>
+            <span>The sales team has a clarity on each data sample to avoid embarrassing mistakes</span>
           </li>
           <li class="lead text-left mb-3 d-flex">
             <span class="mr-2">→</span>
-            <span>Built with input from 5 data providers to address their biggest issues.</span>
+            <span>Built for data provider sales to address their biggest pains</span>
           </li>
         </ul>
       </div>
@@ -110,7 +110,7 @@ type: "html-content"
 
   <section class="section container pt-0 pb-0">
     <div class="row justify-content-center">
-      <div class="col-lg-16">
+      <div class="col-lg-12">
         <h2 class="display-4 mb-4">How it works</h2>
         <ol class="pl-3">
           <li class="mb-3">
@@ -139,7 +139,7 @@ type: "html-content"
       }
     </style>
     <div class="row justify-content-center">
-      <div class="col-lg-16">
+      <div class="col-lg-12">
         <h2 class="display-4">
           Data sales can be hard
         </h2>
