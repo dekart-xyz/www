@@ -41,15 +41,15 @@ images: ["dekart-for-data-providers-preview.png"]
         <ol class="pl-3">
           <li class="mb-3">
             <strong>Connect your data.</strong>
-            We help you to connect any SQL, REST and Cloud Storage. Your engineering team can configure column based access, limits and storage retention to have full control over data.
+            We help you connect to any SQL, REST, and Cloud Storage. Your engineering team can configure column-based access, limits and storage retention to have full control over data.
           </li>
           <li class="mb-3">
-            <strong>Build sample with AI.</strong>
-            Sales team can fetch data sampes with text prompt, create maps and generate documentation without waiting for engineering support.
+            <strong>Build samples with AI.</strong>
+            Sales team can fetch data samples with a text prompt, create maps and generate documentation without waiting for engineering support.
           </li>
           <li class="mb-3">
             <strong>Share samples with clients.</strong>
-            Sales can download CSV sample or share map with a link and track who opened it on customer side. With data automatically visualized, sales know what exactly was sent and avoid embarrassing mistakes.
+            Sales can download CSV samples or share a map with a link and track who opened it on the customer side. With data automatically visualized, sales know exactly what was sent and avoid embarrassing mistakes.
           </li>
         </ol>
       </div>
