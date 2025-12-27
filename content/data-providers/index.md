@@ -5,6 +5,7 @@ date: 2025-12-23T00:00:00+00:00
 lastmod: 2025-12-23T00:00:00+00:00
 draft: false
 type: "html-content"
+images: ["dekart-for-data-providers-preview.png"]
 ---
 
 <article class="pb-5">
@@ -28,7 +29,7 @@ type: "html-content"
             role="button">Book a call</a>
         </p>
       </div>
-      {{< cloud-main-video video_src="/data-provider-ai-demo-2.mp4" poster_src="/data-providers-hero-2.png" aspect_ratio="1770/1080" >}}
+      {{< cloud-main-video video_src="/data-provider-ai-demo-2.mp4" poster_src="/data-provider-ai-demo-2.png" aspect_ratio="1770/1080" >}}
     </div>
   </section>
 
@@ -104,7 +105,7 @@ type: "html-content"
           Data sales can be hard
         </h2>
         <p class="sales-issues-paragraph">
-          Every client wants a slightly different thing. If we decide on a sample today, they wait a week. Engineering gets interrupted by sales requests. We had to go back and forth three or four times to fix samples. Momentum dies after the first call. Priorities change on the buyer side. Deals silently stall without explicit rejection. We don’t know if they even opened the file.
+          Every client wants a slightly different thing. If we decide on a sample today, they wait a week. Engineering gets interrupted by sales requests. We had to go back and forth three or four times to fix samples. Momentum dies after the first call. Priorities change on the buyer side. Deals silently stall without explicit rejection. We don't know if they even opened the file.
         </p>
         <p class="sales-issues-paragraph">
           It should not be this way 💙
@@ -124,3 +125,4 @@ type: "html-content"
     </div>
   </section>
 </article>
+
