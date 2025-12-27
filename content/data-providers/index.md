@@ -25,7 +25,7 @@ images: ["dekart-for-data-providers-preview.png"]
       </div>
       <div class="col-lg-9 col-xl-8 text-center">
         <p class="mt-2">
-          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/?ref=data-providers"
+          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://calendly.com/vladi-dekart/dekart-for-data-providers?ref=data-providers-book-a-call-1"
             role="button">Book a call</a>
         </p>
       </div>
@@ -55,7 +55,7 @@ images: ["dekart-for-data-providers-preview.png"]
     </div>
   </section>
 
-  <section class="section container pt-4 pb-0">
+  <section class="section container pt-0 pb-0">
     <div class="row justify-content-center">
       <div class="col-lg-12">
         <h2 class="display-4 mb-2">Maps built by data providers</h2>
@@ -98,7 +98,7 @@ images: ["dekart-for-data-providers-preview.png"]
     </div>
   </section>
 
-  <section class="section container-fluid pt-0 pb-5">
+  <section class="section container-fluid pt-0 pb-0">
     <div class="row justify-content-center">
       <div class="col-lg-12">
         <h2 class="display-4">
@@ -114,11 +114,11 @@ images: ["dekart-for-data-providers-preview.png"]
     </div>
   </section>
 
-  <section class="section container-fluid pt-0 pb-0">
+  <section class="section container-fluid pt-5 pb-0">
     <div class="row justify-content-center">
       <div class="col-lg-12 text-center">
         <p class="mt-2">
-          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/?ref=data-providers"
+          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://calendly.com/vladi-dekart/dekart-for-data-providers?ref=data-providers-book-a-call-2"
             role="button">Book a call</a>
         </p>
       </div>
