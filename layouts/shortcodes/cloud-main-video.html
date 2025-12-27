@@ -3,6 +3,7 @@
 
   Usage: {{< cloud-main-video >}}
   Or with parameters: {{< cloud-main-video video_src="/custom-video.mp4" >}}
+  Or with aspect ratio: {{< cloud-main-video aspect_ratio="16/9" >}}
 */}}
 
 {{ $videoSrc := .Get "video_src" | default "/main-page-screencast-4.mp4" }}
@@ -11,10 +12,15 @@
 {{ $muted := .Get "muted" | default true }}
 {{ $loop := .Get "loop" | default true }}
 {{ $playsinline := .Get "playsinline" | default true }}
+{{ $aspectRatio := .Get "aspect_ratio" }}
 
 <div class="center-block dekart-video-container mt-3">
   <div class="dekart-video-window">
+    {{ if $aspectRatio }}
+    <div class="dekart-video-content" style="aspect-ratio: {{ $aspectRatio | safeCSS }} !important;">
+    {{ else }}
     <div class="dekart-video-content">
+    {{ end }}
       <video
         {{ if $autoplay }}autoplay{{ end }}
         {{ if $muted }}muted{{ end }}
