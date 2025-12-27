@@ -5,6 +5,7 @@ date: 2025-12-23T00:00:00+00:00
 lastmod: 2025-12-23T00:00:00+00:00
 draft: false
 type: "html-content"
+book_a_demo_url: "https://calendly.com/vladi-dekart/dekart-for-data-providers?ref=data-providers-book-a-call-3"
 images: ["dekart-for-data-providers-preview.png"]
 ---
 
@@ -26,7 +27,7 @@ images: ["dekart-for-data-providers-preview.png"]
       <div class="col-lg-9 col-xl-8 text-center">
         <p class="mt-2">
           <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://calendly.com/vladi-dekart/dekart-for-data-providers?ref=data-providers-book-a-call-1"
-            role="button">Book a call</a>
+            role="button">Book a Call</a>
         </p>
       </div>
       {{< cloud-main-video video_src="/data-provider-ai-demo-2.mp4" poster_src="/data-provider-ai-demo-2.png" aspect_ratio="1770/1080" >}}
@@ -119,7 +120,7 @@ images: ["dekart-for-data-providers-preview.png"]
       <div class="col-lg-12 text-center">
         <p class="mt-2">
           <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://calendly.com/vladi-dekart/dekart-for-data-providers?ref=data-providers-book-a-call-2"
-            role="button">Book a call</a>
+            role="button">Book a Call</a>
         </p>
       </div>
     </div>
