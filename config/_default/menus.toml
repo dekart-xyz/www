@@ -48,8 +48,12 @@
 [[main]]
   name = "🛟 Ask in Slack"
   url = "https://slack.dekart.xyz"
-  weight = 10
+  weight = 11
 
+[[main]]
+  name = "Data Providers"
+  url = "/data-sales-demos/"
+  weight = 10
 
 
 # [[social]]
