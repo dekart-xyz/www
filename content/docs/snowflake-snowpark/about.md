@@ -5,6 +5,11 @@ date: 2021-02-22T07:48:05+01:00
 lastmod: 2021-02-22T07:48:05+01:00
 draft: false
 images: []
+menu:
+  docs:
+    parent: "self-hosting"
+    name: "Deploy to Snowflake"
+
 ---
 
 **Dekart** enables you to create powerful **Kepler.gl** visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.
@@ -17,7 +22,7 @@ images: []
 
 - **Single Docker Container**: Dekart runs efficiently as a single container within the Snowpark Container Service, requiring minimal setup.
 - **State Management**: All Dekart's state is securely stored on `dekart.app_public.app_state_stage`, which includes 7 days of backups. When the application is uninstalled, the associated stage is also deleted.
-- **Data Warehouse**: Dekart uses a dedicated `dw_dekart` data warehouse for executing and storing SQL queries.
+- **Data Warehouse**: Dekart uses by default the `WH_DEKART` data warehouse for executing and storing SQL queries. You can [change](/docs/snowflake-snowpark/about/#change-data-warehouse-for-dekart) it to your preference.
 - **Query Results**: Query data is loaded from Snowflake's persisted query results. If the query results expire, Dekart will automatically rerun the query to refresh the map data.
 
   **Recommended limits**:
@@ -64,6 +69,43 @@ GRANT IMPORTED PRIVILEGES ON DATABASE OVERTURE_MAPS__PLACES TO APPLICATION DEKAR
 4. Go to Dekart application, create a new report click *Start with sample query* to test it.
 
 💡 Please note that app name could be changed during the installation process.
+
+## 🛠️ Compute and cost control
+
+Dekart allows you to change parameters of the compute pool and data warehouse.
+
+### Change compute pool settings for Dekart
+
+Dekart runs its Snowpark Container Service in a compute pool (default name:  `DEKART_CP`). You can configure the compute pool to your preference. Note that Dekart does not support more than 1 node.
+
+```
+ALTER COMPUTE POOL DEKART_CP
+  SET
+    MIN_NODES         = 1,       -- minimum nodes when active
+    MAX_NODES         = 1,       -- maximum nodes under load
+    AUTO_RESUME       = TRUE,    -- start automatically when needed
+    AUTO_SUSPEND_SECS = 300;     -- suspend after 300s idle
+```
+
+### Change data warehouse for Dekart
+
+Dekart executes all SQL queries on a Snowflake warehouse (default name:  `WH_DEKART` ). You can adjust its settings:
+
+```
+ALTER WAREHOUSE WH_DEKART
+  SET
+    WAREHOUSE_SIZE = 'XSMALL',   -- XS / S / M / L, etc.
+    AUTO_SUSPEND   = 60,         -- seconds of inactivity
+    AUTO_RESUME    = TRUE;
+```
+
+You can also point Dekart to a different warehouse:
+
+```
+USE APPLICATION DEKART;
+USE SCHEMA app_public;
+CALL v1.set_query_warehouse('MY_WH');
+```
 
 ## 💾 Backup and Restore
 
