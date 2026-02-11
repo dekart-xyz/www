@@ -3246,7 +3246,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cp\u003e\u003cstrong\u003eState Management\u003c/strong\u003e: All Dekart\u0026rsquo;s state is securely stored on \u003ccode\u003edekart.app_public.app_state_stage\u003c/code\u003e, which includes 7 days of backups. When the application is uninstalled, the associated stage is also deleted.\u003c/p\u003e
 \u003c/li\u003e
 \u003cli\u003e
-\u003cp\u003e\u003cstrong\u003eData Warehouse\u003c/strong\u003e: Dekart uses a dedicated \u003ccode\u003edw_dekart\u003c/code\u003e data warehouse for executing and storing SQL queries.\u003c/p\u003e
+\u003cp\u003e\u003cstrong\u003eData Warehouse\u003c/strong\u003e: Dekart uses by default the \u003ccode\u003eWH_DEKART\u003c/code\u003e data warehouse for executing and storing SQL queries. You can \u003ca href="/docs/snowflake-snowpark/about/#change-data-warehouse-for-dekart"\u003echange\u003c/a\u003e it to your preference.\u003c/p\u003e
 \u003c/li\u003e
 \u003cli\u003e
 \u003cp\u003e\u003cstrong\u003eQuery Results\u003c/strong\u003e: Query data is loaded from Snowflake\u0026rsquo;s persisted query results. If the query results expire, Dekart will automatically rerun the query to refresh the map data.\u003c/p\u003e
@@ -3286,7 +3286,28 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eGo to Dekart application, create a new report click \u003cem\u003eStart with sample query\u003c/em\u003e to test it.\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e💡 Please note that app name could be changed during the installation process.\u003c/p\u003e
-\u003ch2 id="-backup-and-restore"\u003e💾 Backup and Restore\u003c/h2\u003e
+\u003ch2 id="-compute-and-cost-control"\u003e🛠️ Compute and cost control\u003c/h2\u003e
+\u003cp\u003eDekart allows you to change parameters of the compute pool and data warehouse.\u003c/p\u003e
+\u003ch3 id="change-compute-pool-settings-for-dekart"\u003eChange compute pool settings for Dekart\u003c/h3\u003e
+\u003cp\u003eDekart runs its Snowpark Container Service in a compute pool (default name:  \u003ccode\u003eDEKART_CP\u003c/code\u003e). You can configure the compute pool to your preference. Note that Dekart does not support more than 1 node.\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eALTER COMPUTE POOL DEKART_CP
+  SET
+    MIN_NODES         = 1,       -- minimum nodes when active
+    MAX_NODES         = 1,       -- maximum nodes under load
+    AUTO_RESUME       = TRUE,    -- start automatically when needed
+    AUTO_SUSPEND_SECS = 300;     -- suspend after 300s idle
+\u003c/code\u003e\u003c/pre\u003e\u003ch3 id="change-data-warehouse-for-dekart"\u003eChange data warehouse for Dekart\u003c/h3\u003e
+\u003cp\u003eDekart executes all SQL queries on a Snowflake warehouse (default name:  \u003ccode\u003eWH_DEKART\u003c/code\u003e ). You can adjust its settings:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eALTER WAREHOUSE WH_DEKART
+  SET
+    WAREHOUSE_SIZE = \u0026#39;XSMALL\u0026#39;,   -- XS / S / M / L, etc.
+    AUTO_SUSPEND   = 60,         -- seconds of inactivity
+    AUTO_RESUME    = TRUE;
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eYou can also point Dekart to a different warehouse:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eUSE APPLICATION DEKART;
+USE SCHEMA app_public;
+CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
+\u003c/code\u003e\u003c/pre\u003e\u003ch2 id="-backup-and-restore"\u003e💾 Backup and Restore\u003c/h2\u003e
 \u003cp\u003eDekart stores its state on Snowflake Stage every 5 minutes and keeps 7 days of history. This section explains how to backup and restore this state.\u003c/p\u003e
 \u003ch3 id="backing-up-state"\u003eBacking Up State\u003c/h3\u003e
 \u003cp\u003eTo backup the Dekart application state, follow these steps:\u003c/p\u003e
