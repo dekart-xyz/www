@@ -1,6 +1,7 @@
 ---
 title: "Kepler.gl + DuckDB (WASM): configuration and custom SQL UI"
 description: "Minimal steps to enable DuckDB-WASM in a Kepler.gl app and run DuckDB SQL from a custom UI so results show up as a new layer."
+lead: "Enable DuckDB-WASM in Kepler.gl and run DuckDB SQL from a custom UI so results show up as a new dataset and auto-create a layer."
 date: 2026-02-23T00:00:00Z
 lastmod: 2026-02-23T00:00:00Z
 draft: false
@@ -11,6 +12,11 @@ This document describes the minimal steps to:
 
 1) enable DuckDB-WASM inside a Kepler.gl app, and
 2) run DuckDB SQL from a **custom UI** (your own editor + Run button) so the result is added to Kepler as a new dataset and **auto-creates a layer**.
+
+This is based on Kepler’s DuckDB docs:
+- `duckdb-integration-design.md`
+- `duckdb-dataset-ingestion.md`
+- `duckdb-custom-sql-editor-integration.md`
 
 ---
 
@@ -63,8 +69,8 @@ Notes:
 
 - On dataset import/update, it creates (or replaces) a **DuckDB table named after the dataset label**.
 - It can ingest **rows**, **GeoJSON** (via `ST_READ(..., keep_wkb=TRUE)`), or **Arrow** (via `insertArrowTable`), and it loads DuckDB’s `spatial` extension when needed.
-- After ingestion, it runs a generated `SELECT` that **casts types for Kepler** (geometry → WKB, bigint/decimal → double, etc.) and returns an **Arrow table**.
-- Kepler UI then uses Arrow `fields + cols` (and **no JS `rows`**), while DuckDB remains the source-of-truth for SQL.
+- After ingestion, it runs a generated `SELECT` that casts types for Kepler (geometry → WKB, bigint/decimal → double, etc.) and returns an Arrow table.
+- Kepler UI then uses Arrow `fields + cols` (and no JS `rows`), while DuckDB remains the source-of-truth for SQL.
 
 ---
 
