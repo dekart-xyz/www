@@ -1,7 +1,6 @@
 ---
 title: "Kepler.gl + DuckDB (WASM): configuration and custom SQL UI"
 description: "Minimal steps to enable DuckDB-WASM in a Kepler.gl app and run DuckDB SQL from a custom UI so results show up as a new layer."
-lead: "Enable DuckDB-WASM in Kepler.gl and run DuckDB SQL from a custom UI so results show up as a new dataset and auto-create a layer."
 date: 2026-02-23T00:00:00Z
 lastmod: 2026-02-23T00:00:00Z
 draft: false
@@ -11,14 +10,8 @@ contributors: ["Vladi"]
 This document describes the minimal steps to:
 
 1) enable DuckDB-WASM inside a Kepler.gl app, and
-2) run DuckDB SQL from a **custom UI** (your own editor + Run button) so the result is added to Kepler as a new dataset and **auto-creates a layer**.
+2) run DuckDB SQL from a custom UI (your own editor + Run button) so the result is added to Kepler as a new dataset and auto-creates a layer.
 
-This is based on Kepler’s DuckDB docs:
-- `duckdb-integration-design.md`
-- `duckdb-dataset-ingestion.md`
-- `duckdb-custom-sql-editor-integration.md`
-
----
 
 ## 1) Install dependencies
 
@@ -26,7 +19,6 @@ This is based on Kepler’s DuckDB docs:
 npm install @kepler.gl/duckdb
 ```
 
----
 
 ## 2) Configure Kepler (required)
 
@@ -62,17 +54,16 @@ Notes:
 
 - DuckDB runs in-browser via `@duckdb/duckdb-wasm` inside a Web Worker (the adapter selects the right WASM bundle and initializes the worker).
 - Kepler switches its dataset storage path by swapping the table class to `KeplerGlDuckDbTable` via `initApplicationConfig`.
-- Query results are passed to Kepler as **Apache Arrow** (`info.format = 'arrow'`) to avoid materializing large result sets into JS arrays.
+- Query results are passed to Kepler as Apache Arrow (`info.format = 'arrow'`) to avoid materializing large result sets into JS arrays.
 - The SQL Panel path typically casts types for compatibility (e.g. geometry → WKB; bigint/decimal → double) and attaches GeoArrow metadata for geometry columns.
 
 ### `KeplerGlDuckDbTable` (what it actually changes)
 
-- On dataset import/update, it creates (or replaces) a **DuckDB table named after the dataset label**.
-- It can ingest **rows**, **GeoJSON** (via `ST_READ(..., keep_wkb=TRUE)`), or **Arrow** (via `insertArrowTable`), and it loads DuckDB’s `spatial` extension when needed.
+- On dataset import/update, it creates (or replaces) a DuckDB table named after the dataset label.
+- It can ingest rows, GeoJSON (via `ST_READ(..., keep_wkb=TRUE)`), or Arrow (via `insertArrowTable`), and it loads DuckDB’s `spatial` extension when needed.
 - After ingestion, it runs a generated `SELECT` that casts types for Kepler (geometry → WKB, bigint/decimal → double, etc.) and returns an Arrow table.
 - Kepler UI then uses Arrow `fields + cols` (and no JS `rows`), while DuckDB remains the source-of-truth for SQL.
 
----
 
 ## 3) Run DuckDB SQL from a custom UI and add the result to Kepler
 
@@ -160,8 +151,6 @@ export async function runDuckDbSqlAndAddToMap ({ sql, label, dispatch }) {
 What happens after `addDataToMap`:
 - Kepler adds the dataset to state.
 - If `options.autoCreateLayers !== false`, Kepler auto-creates a layer based on columns.
-
----
 
 
 ## 4) Pitfalls / workarounds
