@@ -113,3 +113,30 @@ AWS_SECRET_ACCESS_KEY=
 ```
 docker-compose  --env-file .env up dekart-snowflake
 ```
+
+## Premium v0.21: OIDC reverse proxy (Keycloak)
+
+<a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.21</small></a>
+
+Use this mode when authentication is handled by reverse proxy (for example oauth2-proxy + Keycloak), and Dekart validates JWT from `X-Forwarded-Access-Token`.
+
+### Steps
+
+1. Configure OIDC env vars in your runtime:
+
+```
+DEKART_REQUIRE_OIDC=1
+DEKART_OIDC_JWKS_URL=
+DEKART_OIDC_ISSUER=
+DEKART_OIDC_AUDIENCE=
+```
+
+2. Start services with OIDC profile (from Dekart repo):
+
+```
+docker compose --env-file .env.oidc --profile oidc up db adminer keycloak oauth2-proxy
+```
+
+3. See full setup details:
+
+- [Keycloak OIDC Reverse Proxy](/docs/self-hosting/keycloak-reverse-proxy/)
