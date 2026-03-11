@@ -823,7 +823,28 @@ AWS_SECRET_ACCESS_KEY=
 \u003cli\u003eRun\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003edocker-compose  --env-file .env up dekart-snowflake
-\u003c/code\u003e\u003c/pre\u003e`},{id:4,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`
+\u003c/code\u003e\u003c/pre\u003e\u003ch2 id="premium-v021-oidc-reverse-proxy-keycloak"\u003ePremium v0.21: OIDC reverse proxy (Keycloak)\u003c/h2\u003e
+\u003cp\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.21\u003c/small\u003e\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eUse this mode when authentication is handled by reverse proxy (for example oauth2-proxy + Keycloak), and Dekart validates JWT from \u003ccode\u003eX-Forwarded-Access-Token\u003c/code\u003e.\u003c/p\u003e
+\u003ch3 id="steps-3"\u003eSteps\u003c/h3\u003e
+\u003col\u003e
+\u003cli\u003eConfigure OIDC env vars in your runtime:\u003c/li\u003e
+\u003c/ol\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003eDEKART_REQUIRE_OIDC=1
+DEKART_OIDC_JWKS_URL=
+DEKART_OIDC_ISSUER=
+DEKART_OIDC_AUDIENCE=
+\u003c/code\u003e\u003c/pre\u003e\u003col start="2"\u003e
+\u003cli\u003eStart services with OIDC profile (from Dekart repo):\u003c/li\u003e
+\u003c/ol\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003edocker compose --env-file .env.oidc --profile oidc up db adminer keycloak oauth2-proxy
+\u003c/code\u003e\u003c/pre\u003e\u003col start="3"\u003e
+\u003cli\u003eSee full setup details:\u003c/li\u003e
+\u003c/ol\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ca href="/docs/self-hosting/keycloak-reverse-proxy/"\u003eKeycloak OIDC Reverse Proxy\u003c/a\u003e\u003c/li\u003e
+\u003c/ul\u003e
+`},{id:4,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`
 
 
 
@@ -3140,7 +3161,153 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003c/table\u003e
 \u003cp\u003e\u003cstrong\u003eReady to try it yourself?\u003c/strong\u003e Click \u003cstrong\u003e“Start free with Dekart + Wherobots”\u003c/strong\u003e above, connect your source, paste your SQL, and see your data come alive.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tuttorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
-`},{id:16,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
+`},{id:16,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres + OIDC Setup",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+  
+  
+
+
+
+\u003cdiv class="dekart-cta-banner-premium p-3 mb-3" style="ZgotmplZ"\u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Dekart Premium feature
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="/self-hosted" role="button"\u003eView Plans\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
+\u003cp\u003eThis page documents the recommended Premium \u003ccode\u003ev0.21+\u003c/code\u003e setup pattern when:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eauthentication is handled by Keycloak behind a reverse proxy\u003c/li\u003e
+\u003cli\u003edata source is Postgres\u003c/li\u003e
+\u003cli\u003equery result storage is Postgres replay mode (\u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e)\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="overall-setup-model"\u003eOverall setup model\u003c/h2\u003e
+\u003ch3 id="oidc-authentication-model"\u003eOIDC authentication model\u003c/h3\u003e
+\u003cul\u003e
+\u003cli\u003eKeycloak (or another OIDC provider) handles login and session.\u003c/li\u003e
+\u003cli\u003eReverse proxy forwards JWT to Dekart in \u003ccode\u003eX-Forwarded-Access-Token\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eDekart validates JWT against JWKS and authorizes by \u003ccode\u003eemail\u003c/code\u003e claim.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eRequired env:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_REQUIRE_OIDC\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e1\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_OIDC_JWKS_URL\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u0026lt;jwks_uri\u0026gt;
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_OIDC_ISSUER\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u0026lt;issuer\u0026gt;
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_OIDC_AUDIENCE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u0026lt;client_id_or_expected_aud\u0026gt;
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="postgres-datasource-model"\u003ePostgres datasource model\u003c/h3\u003e
+\u003cp\u003eUse Postgres as the query engine:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ePG
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003epostgres://\u0026lt;user\u0026gt;:\u0026lt;pass\u0026gt;@\u0026lt;host\u0026gt;:5432/\u0026lt;db\u0026gt;?sslmode\u003cspan class="o"\u003e=\u003c/span\u003edisable
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="postgres-roles-metadata-db-vs-datasource-db"\u003ePostgres roles: metadata DB vs datasource DB\u003c/h3\u003e
+\u003cp\u003eDekart uses Postgres in two different roles:\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003e
+\u003cp\u003eMetadata database (always required):\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003estores Dekart app state (reports, queries, users, workspaces, permissions)\u003c/li\u003e
+\u003cli\u003econfigured by \u003ccode\u003eDEKART_POSTGRES_HOST\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_PORT\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_DB\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_USER\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_PASSWORD\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003c/li\u003e
+\u003cli\u003e
+\u003cp\u003eDatasource database (when \u003ccode\u003eDEKART_DATASOURCE=PG\u003c/code\u003e):\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003estores your business/geospatial tables queried by users\u003c/li\u003e
+\u003cli\u003econfigured by \u003ccode\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eThese can be:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003ethe same Postgres instance (different databases/schemas recommended), or\u003c/li\u003e
+\u003cli\u003edifferent Postgres instances (common for stricter isolation).\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="postgres-storage-model-dekart_storagepg"\u003ePostgres storage model (\u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e)\u003c/h3\u003e
+\u003cp\u003eUse replay-based storage in Postgres (no object bucket path):\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ePG
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eNotes:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e and file upload are incompatible.\u003c/li\u003e
+\u003cli\u003ePublic publishing is not supported in this mode.\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="example"\u003eExample\u003c/h2\u003e
+\u003cp\u003eExample values:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eKeycloak public URL: \u003ccode\u003ehttps://auth.example.com/realms/dekart\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eInternal Keycloak URL from Dekart/proxy network: \u003ccode\u003ehttp://keycloak:8080/realms/dekart\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eDekart public URL behind proxy: \u003ccode\u003ehttps://dekart.example.com\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003ePostgres host: \u003ccode\u003epostgres.internal\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch3 id="dekart-env-snippet"\u003eDekart env snippet\u003c/h3\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-yaml" data-lang="yaml"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nt"\u003eenvironment\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_PORT\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;8080\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;\${DEKART_MAPBOX_TOKEN}\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;\${DEKART_POSTGRES_HOST}\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;\${DEKART_POSTGRES_PORT}\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_DB\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;\${DEKART_POSTGRES_DB}\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_USER\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;\${DEKART_POSTGRES_USER}\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;\${DEKART_POSTGRES_PASSWORD}\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;PG\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;postgres://app_user:app_password@postgres.internal:5432/app_geo?sslmode=require\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;PG\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_REQUIRE_OIDC\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;1\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_OIDC_JWKS_URL\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;http://keycloak:8080/realms/dekart/protocol/openid-connect/certs\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_OIDC_ISSUER\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;https://auth.example.com/realms/dekart\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_OIDC_AUDIENCE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;oauth2-proxy\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;https://dekart.example.com\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="oauth2-proxy-env-snippet"\u003eoauth2-proxy env snippet\u003c/h3\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-yaml" data-lang="yaml"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nt"\u003eenvironment\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_PROVIDER\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;keycloak-oidc\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_OIDC_ISSUER_URL\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;https://auth.example.com/realms/dekart\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_CLIENT_ID\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;oauth2-proxy\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_CLIENT_SECRET\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;\${OAUTH2_PROXY_CLIENT_SECRET}\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_REDIRECT_URL\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;https://dekart.example.com/oauth2/callback\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_UPSTREAMS\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;http://dekart:8080\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_PASS_ACCESS_TOKEN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;true\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_REVERSE_PROXY\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;true\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003eOAUTH2_PROXY_EMAIL_DOMAINS\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;*\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="keycloak-client-settings-snippet"\u003eKeycloak client settings snippet\u003c/h3\u003e
+\u003cp\u003eConfigure OIDC client (for example \u003ccode\u003eoauth2-proxy\u003c/code\u003e) with:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eRedirect URI: \u003ccode\u003ehttps://dekart.example.com/oauth2/callback\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eWeb origin: \u003ccode\u003ehttps://dekart.example.com\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eAudience includes \u003ccode\u003eoauth2-proxy\u003c/code\u003e (must match \u003ccode\u003eDEKART_OIDC_AUDIENCE\u003c/code\u003e)\u003c/li\u003e
+\u003cli\u003eToken includes \u003ccode\u003eemail\u003c/code\u003e claim\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="operational-notes"\u003eOperational notes\u003c/h2\u003e
+\u003cul\u003e
+\u003cli\u003eDekart expects JWT in \u003ccode\u003eX-Forwarded-Access-Token\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eProxy must overwrite/strip inbound auth headers before forwarding.\u003c/li\u003e
+\u003cli\u003e\u003ccode\u003eDEKART_REQUIRE_OIDC\u003c/code\u003e is mutually exclusive with Google OAuth, IAP, Amazon OIDC, and Snowflake context auth modes.\u003c/li\u003e
+\u003cli\u003eWith \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e, keep \u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/code\u003e and \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e unset.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eIf you need a local test stack, see the Dekart repository compose profile examples.\u003c/p\u003e
+`},{id:17,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003e\u003cstrong\u003eGoogle Account (OAuth Pass-Through)\u003c/strong\u003e\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eService Account Key (JSON)\u003c/strong\u003e\u003c/li\u003e
@@ -3234,7 +3401,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eContact us in \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eEmail us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:17,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:18,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
+`},{id:18,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:19,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/KusNayeGFaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" role="button"\u003eGet it instantly in Snowflake Marketplace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-how-dekart-works"\u003e💡 How Dekart Works\u003c/h2\u003e
@@ -3358,7 +3525,7 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:19,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`
+`},{id:20,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`
 
 
 
@@ -3437,11 +3604,11 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_STORAGE=GCS\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eWhich storage backend to use for storing queries and query results \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eGCS\u003c/code\u003e Google Cloud Storage, default, works only with BigQuery data source\u003c/li\u003e\u003cli\u003e\u003ccode\u003eS3\u003c/code\u003e AWS S3, works with BigQuery and AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.17\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.18\u003c/small\u003e\u003c/a\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
+\u003ctd\u003eWhich storage backend to use for storing queries and query results \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eGCS\u003c/code\u003e Google Cloud Storage, default, works only with BigQuery data source\u003c/li\u003e\u003cli\u003e\u003ccode\u003eS3\u003c/code\u003e AWS S3, works with BigQuery and AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.17\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.18\u003c/small\u003e\u003c/a\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Query replay storage backed by Postgres (works with Postgres data source only). \u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.21\u003c/small\u003e\u003c/a\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eGoogle Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003edekart-bucket\u003c/code\u003e \u003cbr\u003e\u003cbr\u003e  If value is empty, users will be able to define storage bucket via UI. Supported datasource \u003ccode\u003eDEKART_DATASOURCE\u003c/code\u003e: \u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery from \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
+\u003ctd\u003eGoogle Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003edekart-bucket\u003c/code\u003e \u003cbr\u003e\u003cbr\u003e  If value is empty, users will be able to define storage bucket via UI. Supported datasource \u003ccode\u003eDEKART_DATASOURCE\u003c/code\u003e: \u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery from \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr\u003e\u003cbr\u003eMust be empty when \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e \u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.21\u003c/small\u003e\u003c/a\u003e.\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_CORS_ORIGIN=\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.10\u003c/small\u003e\u003c/td\u003e
@@ -3881,6 +4048,71 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
+\u003ch2 id="-user-authorization-via-oidc-jwt-header-reverse-proxy"\u003e👑 User authorization via OIDC JWT header (reverse proxy)\u003c/h2\u003e
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+  
+  
+
+
+
+\u003cdiv class="dekart-cta-banner-premium p-3 mb-3" style="ZgotmplZ"\u003e
+  \u003cdiv class="row justify-content-between align-items-center"\u003e
+    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
+      Dekart Premium feature
+    \u003c/div\u003e
+    \u003cdiv class="col-md-6 text-md-right"\u003e
+      \u003ca class="btn btn-outline-dark" href="/self-hosted" role="button"\u003eView Plans\u003c/a\u003e
+    \u003c/div\u003e
+  \u003c/div\u003e
+\u003c/div\u003e
+
+\u003cp\u003eDekart can validate JWT tokens forwarded by a trusted reverse proxy (for example oauth2-proxy + Keycloak) and authorize users by \u003ccode\u003eemail\u003c/code\u003e claim.\u003c/p\u003e
+\u003cp\u003eThis mode expects JWT in \u003ccode\u003eX-Forwarded-Access-Token\u003c/code\u003e and is intended for deployments where login/session are handled outside Dekart.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_OIDC\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.21\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
+\u003ctd\u003eEnables OIDC JWT header auth. Mutually exclusive with \u003ccode\u003eDEKART_REQUIRE_GOOGLE_OAUTH\u003c/code\u003e, \u003ccode\u003eDEKART_REQUIRE_IAP\u003c/code\u003e, \u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e, and \u003ccode\u003eDEKART_REQUIRE_SNOWFLAKE_CONTEXT\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_JWKS_URL\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.21\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
+\u003ctd\u003eJWKS endpoint used to verify JWT signatures. Required when \u003ccode\u003eDEKART_REQUIRE_OIDC=1\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://idp.example.com/realms/dekart/protocol/openid-connect/certs\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_ISSUER\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.21\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
+\u003ctd\u003eExpected \u003ccode\u003eiss\u003c/code\u003e claim. Recommended. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://idp.example.com/realms/dekart\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_AUDIENCE\u003c/code\u003e \u003cbr/\u003e\u003ca href="/self-hosted/"\u003e\u003csmall class="badge badge-primary"\u003epremium \u0026gt;= 0.21\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
+\u003ctd\u003eExpected \u003ccode\u003eaud\u003c/code\u003e claim. Optional. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eoauth2-proxy\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eKeycloak reverse proxy setup example: \u003ca href="/docs/self-hosting/keycloak-reverse-proxy/"\u003eKeycloak OIDC Reverse Proxy\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-workspaces"\u003e👑 Workspaces\u003c/h2\u003e
 
 
@@ -4007,7 +4239,7 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:20,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
+`},{id:21,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
 \u003ch2 id="what-permissions-is-dekart-requesting-and-why-are-they-necessary"\u003eWhat permissions is Dekart requesting, and why are they necessary?\u003c/h2\u003e
 \u003cp\u003eDekart implements BigQuery passthrough authentication (OAuth 2.0 Token Pass-Through) and requests the following permissions:\u003c/p\u003e
 \u003cul\u003e
@@ -4038,7 +4270,7 @@ Use a command like:\u003c/p\u003e
 \u003c!-- If you have any questions or issues about Dekart Cloud, please contact us via email at [support@dekart.xyz](mailto:support@dekart.xyz) or via [Slack](https://slack.dekart.xyz/). --\u003e
 \u003ch2 id="read-more"\u003eRead more\u003c/h2\u003e
 \u003cp\u003e👉 \u003ca href="/legal/privacy/"\u003eDekart Cloud Privacy Policy\u003c/a\u003e\u003c/p\u003e
-`},{id:21,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+`},{id:22,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
 \u003chr\u003e
@@ -4113,7 +4345,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
 \u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
 \u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
-`},{id:22,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:23,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -4134,7 +4366,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:23,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:24,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -4155,7 +4387,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:24,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:25,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -4237,7 +4469,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:25,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:26,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -4264,7 +4496,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:26,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:27,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
+`},{id:27,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:28,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/_2ryUu43XRo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 `}];e.add(n),userinput&&userinput.addEventListener("input",s,!0),suggestions&&suggestions.addEventListener("click",o,!0);function s(){if(!suggestions)return;var n,i=this.value,s=e.search(i,5),o=suggestions.childNodes,r=0,c=s.length;for(suggestions.classList.remove("d-none"),s.forEach(function(e){n=document.createElement("div"),n.innerHTML="<a href><span></span><span></span></a>",a=n.querySelector("a"),t=n.querySelector("span:first-child"),d=n.querySelector("span:nth-child(2)"),a.href=e.href,t.textContent=e.title,d.textContent=e.description,suggestions.appendChild(n)});o.length>c;)suggestions.removeChild(o[r])}function o(){if(!suggestions)return!1;for(;suggestions.lastChild;)suggestions.removeChild(suggestions.lastChild);return!1}})()
