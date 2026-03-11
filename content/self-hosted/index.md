@@ -51,7 +51,7 @@ type: "html-content"
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
-                <li class="mb-2">Google SSO</li>
+                <li class="mb-2">OIDC SSO (Keycloak, Google, IAP, Amazon)</li>
                 <li class="mb-2">Fine-graned access controls</li>
                 <li class="mb-2">Premium codebase</li>
                 <li class="mb-2">Slack support</li>
@@ -73,7 +73,7 @@ type: "html-content"
             <div class="card-body text-left">
               <ul class="list-unstyled">
                 <li class="mb-2">High availability</li>
-                <li class="mb-2">Your branding and SSO</li>
+                <li class="mb-2">Your branding and enterprise SSO (OIDC/Keycloak)</li>
                 <li class="mb-2">Custom integrations</li>
                 <li class="mb-2">&nbsp;</li>
               </ul>
@@ -157,7 +157,7 @@ type: "html-content"
               <td class="dekart-feature-name">
                 SSO
                 <br>
-                <small class="text-muted">Secure single sign-on with Google OAuth, IAP, or Amazon Cognito.</small>
+                <small class="text-muted">Secure single sign-on with OIDC (including Keycloak), Google OAuth, IAP, or Amazon Cognito.</small>
               </td>
               <td class="text-center"><i class="dekart-dash"></i></td>
               <td class="text-center"><i class="dekart-checkmark"></i></td>
