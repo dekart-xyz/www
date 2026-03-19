@@ -39,3 +39,26 @@ img.connector {
 div.connector {
   margin-top: 1em;
 }
+
+// Style markdown tables in blog posts
+.content table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    vertical-align: top;
+  }
+
+  thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+  }
+
+  tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
