@@ -587,7 +587,265 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003cli\u003edefine required variables, see \u003ccode\u003e./variables.tf\u003c/code\u003e for details\u003c/li\u003e
 \u003cli\u003erun \u003ccode\u003eterraform apply\u003c/code\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:2,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Running Dekart for BigQuery as in Docker",content:`
+`},{id:2,href:"https://dekart.xyz/docs/knowledge-base/gis-analytics-cost-comparison/",title:"GIS Analytics Cost Comparison",description:"Cost comparison: BigQuery, Snowflake, Wherobots, Cloud SQL PostGIS, and Hetzner PostGIS on the same Overture Maps workload.",content:`\u003ch2 id="summary"\u003eSummary\u003c/h2\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003e#\u003c/th\u003e
+\u003cth\u003eEngine\u003c/th\u003e
+\u003cth\u003eMonthly cost\u003c/th\u003e
+\u003cth\u003eManaged?\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e1\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003eBigQuery\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$400\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eYes\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e2\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003eWherobots\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$410\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eYes\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e3\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003eHetzner PostGIS\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$500\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eNo (self-hosted)\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e4\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003eSnowflake (Small WH)\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$1,000\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eYes\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e5\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003eCloud SQL PostGIS\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$3,500\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003eYes\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="assumptions"\u003eAssumptions\u003c/h2\u003e
+\u003cp\u003eFixed scenario for all engines:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eParameter\u003c/th\u003e
+\u003cth\u003eValue\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eTeam size\u003c/td\u003e
+\u003ctd\u003e10 analysts, 6-8 hours/day\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eQueries per analyst\u003c/td\u003e
+\u003ctd\u003e15/day (analytical + batch)\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eTotal queries\u003c/td\u003e
+\u003ctd\u003e150/day\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eAvg data scanned/query\u003c/td\u003e
+\u003ctd\u003e12 GiB (well-pruned spatial analytics)\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eWorking days\u003c/td\u003e
+\u003ctd\u003e22/month\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eData scanned/month\u003c/td\u003e
+\u003ctd\u003e~39.6 TiB\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eDataset\u003c/td\u003e
+\u003ctd\u003e\u003ca href="https://overturemaps.org/"\u003eOverture Maps\u003c/a\u003e, ~7 TB compressed (Parquet)\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="bigquery---400month"\u003eBigQuery - ~\$400/month\u003c/h2\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eComponent\u003c/th\u003e
+\u003cth\u003eCalculation\u003c/th\u003e
+\u003cth\u003eCost\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eStorage\u003c/td\u003e
+\u003ctd\u003e7 TB x \$0.02/GB/month\u003c/td\u003e
+\u003ctd\u003e\$140\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eQueries (on-demand)\u003c/td\u003e
+\u003ctd\u003e38.6 TiB x \u003ca href="https://cloud.google.com/bigquery/pricing"\u003e\$6.25/TiB\u003c/a\u003e (first 1 TiB free)\u003c/td\u003e
+\u003ctd\u003e\$241\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eTotal\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$400\u003c/strong\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eSee how BigQuery spatial queries look in practice: \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery map examples in Dekart\u003c/a\u003e.\u003c/p\u003e
+\u003ch2 id="wherobots---410month"\u003eWherobots - ~\$410/month\u003c/h2\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eComponent\u003c/th\u003e
+\u003cth\u003eCalculation\u003c/th\u003e
+\u003cth\u003eCost\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eEngine\u003c/td\u003e
+\u003ctd\u003e165 SU-hours x \u003ca href="https://wherobots.com/pricing/"\u003e\$1.50/SU-hour\u003c/a\u003e (US)\u003c/td\u003e
+\u003ctd\u003e\$248\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eStorage (S3)\u003c/td\u003e
+\u003ctd\u003e7,000 GB x \$0.023/GB\u003c/td\u003e
+\u003ctd\u003e\$161\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eTotal\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$410\u003c/strong\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003e1 SU = 32 vCPU Spark/Sedona cluster. 150 queries/day x 3 min each = 7.5 SU-hours/day x 22 days = 165 SU-hours/month. \$300/month minimum on Professional plan.\u003c/p\u003e
+\u003ch2 id="hetzner-postgis---500month"\u003eHetzner PostGIS - ~\$500/month\u003c/h2\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eComponent\u003c/th\u003e
+\u003cth\u003eCalculation\u003c/th\u003e
+\u003cth\u003eCost\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eServer\u003c/td\u003e
+\u003ctd\u003e\u003ca href="https://www.hetzner.com/dedicated-rootserver/ax102"\u003eAX102\u003c/a\u003e: 16 cores, 128 GB DDR5, 2x 1.92 TB NVMe\u003c/td\u003e
+\u003ctd\u003e\$115 (€104)\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eAdditional NVMe\u003c/td\u003e
+\u003ctd\u003e2x 7.68 TB for ~10 TB Postgres data\u003c/td\u003e
+\u003ctd\u003e\$205 (€186)\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eBackups\u003c/td\u003e
+\u003ctd\u003eWAL-G to S3-compatible, ~7-10 TB\u003c/td\u003e
+\u003ctd\u003e\$180\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eTotal\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$500\u003c/strong\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eYou own all ops: upgrades, PostGIS extensions, monitoring, failover, no SLA.\u003c/p\u003e
+\u003ch2 id="snowflake---1000month"\u003eSnowflake - ~\$1,000/month\u003c/h2\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eComponent\u003c/th\u003e
+\u003cth\u003eCalculation\u003c/th\u003e
+\u003cth\u003eCost\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eStorage\u003c/td\u003e
+\u003ctd\u003e7 TB x \$23/TB\u003c/td\u003e
+\u003ctd\u003e\$161\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eCompute\u003c/td\u003e
+\u003ctd\u003e264 credits x \u003ca href="https://www.revefi.com/blog/snowflake-pricing-guide"\u003e\$3/credit\u003c/a\u003e (Enterprise)\u003c/td\u003e
+\u003ctd\u003e\$792\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eTotal\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$1,000\u003c/strong\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eSmall WH = 2 credits/hour. 6 hours/day x 22 days = 132 hours x 2 = 264 credits. Medium WH doubles the cost.\u003c/p\u003e
+\u003cp\u003eSee Snowflake spatial queries in action: \u003ca href="/docs/about/snowflake-kepler-gl-examples/"\u003eSnowflake Kepler.gl map examples\u003c/a\u003e.\u003c/p\u003e
+\u003ch2 id="cloud-sql-postgis---3500month"\u003eCloud SQL PostGIS - ~\$3,500/month\u003c/h2\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eComponent\u003c/th\u003e
+\u003cth\u003eCalculation\u003c/th\u003e
+\u003cth\u003eCost\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eStorage (SSD)\u003c/td\u003e
+\u003ctd\u003e10 TB x \u003ca href="https://cloud.google.com/sql/pricing"\u003e\$0.22/GB\u003c/a\u003e (incl. indexes/bloat)\u003c/td\u003e
+\u003ctd\u003e\$2,200\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eCompute\u003c/td\u003e
+\u003ctd\u003e8 vCPU / 32 GB RAM, 24x7\u003c/td\u003e
+\u003ctd\u003e\$518\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eBackups\u003c/td\u003e
+\u003ctd\u003e10 TB x \$0.08/GB\u003c/td\u003e
+\u003ctd\u003e\$800\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003cstrong\u003eTotal\u003c/strong\u003e\u003c/td\u003e
+\u003ctd\u003e\u003c/td\u003e
+\u003ctd\u003e\u003cstrong\u003e~\$3,500\u003c/strong\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eSSD storage pricing makes Cloud SQL brutal for large datasets. Built for OLTP, not planetary analytics.\u003c/p\u003e
+\u003ch2 id="key-takeaways"\u003eKey takeaways\u003c/h2\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eBigQuery\u003c/strong\u003e is cheapest fully-managed. Pay per bytes scanned - well-clustered tables with partition pruning keep costs low.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eWherobots\u003c/strong\u003e is similar cost, serverless, geo-specialized. Better for heavy spatial joins.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eHetzner\u003c/strong\u003e is cheap raw metal, but you own everything.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eSnowflake\u003c/strong\u003e is ~2.5x more because you pay for warehouse time, not bytes.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eCloud SQL PostGIS\u003c/strong\u003e is 8x more expensive than BigQuery at planet scale.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003ePragmatic architecture: \u003cstrong\u003eBigQuery or Wherobots for planetary analytics\u003c/strong\u003e + small PostGIS for low-latency APIs.\u003c/p\u003e
+\u003ch2 id="caveats"\u003eCaveats\u003c/h2\u003e
+\u003cul\u003e
+\u003cli\u003ePublished list prices, no committed-use discounts applied\u003c/li\u003e
+\u003cli\u003eEgress costs not included\u003c/li\u003e
+\u003cli\u003eHA/replication doubles PostGIS costs\u003c/li\u003e
+\u003cli\u003eQuery pruning efficiency varies - these assume well-optimized spatial queries\u003c/li\u003e
+\u003c/ul\u003e
+\u003ch2 id="try-it-yourself"\u003eTry it yourself\u003c/h2\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ca href="/docs/about/overture-maps-examples/"\u003eOverture Maps examples\u003c/a\u003e - interactive maps built with Dekart on Overture data\u003c/li\u003e
+\u003cli\u003e\u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery map examples\u003c/a\u003e - large-scale datasets visualized\u003c/li\u003e
+\u003cli\u003e\u003ca href="/docs/about/snowflake-kepler-gl-examples/"\u003eSnowflake map examples\u003c/a\u003e - Snowflake spatial queries rendered on a map\u003c/li\u003e
+\u003cli\u003e\u003ca href="/blog/bigquery-vs-snowflake-gis-sql-performance-comparison-1/"\u003eBigQuery vs Snowflake GIS performance\u003c/a\u003e - query speed and cost benchmarks\u003c/li\u003e
+\u003cli\u003e\u003ca href="https://cloud.dekart.xyz"\u003eTry Dekart Cloud free\u003c/a\u003e - paste SQL, get a map\u003c/li\u003e
+\u003c/ul\u003e
+`},{id:3,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Running Dekart for BigQuery as in Docker",content:`
 
 
 
@@ -711,7 +969,7 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003cli\u003eRun with \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/install/docker/Makefile"\u003eMakefile\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eSee details on \u003ca href="/docs/configuration/environment-variables"\u003eenvironment variables\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:3,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart locally with docker-compose",content:`
+`},{id:4,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart locally with docker-compose",content:`
 
 
 
@@ -844,7 +1102,7 @@ DEKART_OIDC_AUDIENCE=
 \u003cul\u003e
 \u003cli\u003e\u003ca href="/docs/self-hosting/keycloak-reverse-proxy/"\u003eKeycloak OIDC Reverse Proxy\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:4,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`
+`},{id:5,href:"https://dekart.xyz/docs/self-hosting/upgrade/",title:"Upgrade to new version",description:"How to upgrade and migration notes",content:`
 
 
 
@@ -927,7 +1185,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cp\u003e\u003cstrong\u003e\u003ccode\u003edekartxyz/dekart:0.11\u003c/code\u003e -\u0026gt; \u003ccode\u003edekartxyz/dekart:0.12\u003c/code\u003e\u003c/strong\u003e\u003c/p\u003e
 \u003cp\u003eConfigure \u003ccode\u003eDEKART_CORS_ORIGIN\u003c/code\u003e environment variable to ensure the security of your instance and prevent warnings in logs.\u003c/p\u003e
 \u003cp\u003eThen redeploy application\u003c/p\u003e
-`},{id:5,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
+`},{id:6,href:"https://dekart.xyz/docs/knowledge-base/",title:"Knowledge Base",description:"Cost comparisons, migration guides, and practical resources for GIS data teams.",content:""},{id:7,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
 \u003cp\u003e\u003ca href="./dekart-architecture-overview.png"\u003e\u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -1002,7 +1260,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eClient requests result by separate HTTP endpoint from server\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003eGoogle IAP (Identity Aware Proxy) is supported to authenticate user requests.\u003c/p\u003e
-`},{id:6,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+`},{id:8,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -1046,7 +1304,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:7,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:9,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -1090,7 +1348,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:8,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:10,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
 \u003ch3 id="where-ev-drivers-risk-running-empty"\u003eWhere EV Drivers Risk Running Empty\u003c/h3\u003e
 \u003cp\u003e\u003cem\u003eMap created by DLP Labs\u003c/em\u003e\u003c/p\u003e
 \u003cfigure\u003e
@@ -1401,7 +1659,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003ch2 id="want-to-build-similar-maps"\u003eWant to build similar maps?\u003c/h2\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://calendly.com/vladi-dekart/30min?ref=book-ev-charging-demo" role="button"\u003eBook a free demo\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e\u003cem\u003eBook a free demo\u003c/em\u003e: we’ll walk you through the process, help customize your data, and show how to spin off maps in minutes.\u003c/p\u003e
-`},{id:9,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003ch2 id="what-is-a-map-template"\u003eWhat is a Map Template?\u003c/h2\u003e
+`},{id:11,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003ch2 id="what-is-a-map-template"\u003eWhat is a Map Template?\u003c/h2\u003e
 \u003cp\u003eA Map Template is a reusable Dekart Map that you can use as a starting point for your analytics projects. Each Map Template is designed to help you quickly visualize your data and answer common business questions. Map Templates utilize Dekart\u0026rsquo;s query parameters to make it easy to customize the map to your specific needs.\u003c/p\u003e
 \u003ch2 id="templates"\u003eTemplates\u003c/h2\u003e
 \u003ch3 id="osm-vs-overture-maps--compare-bike-lane-coverage"\u003eOSM vs Overture Maps – Compare Bike Lane Coverage\u003c/h3\u003e
@@ -1458,7 +1716,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003cp\u003eThis template queries city boundaries from the Overture Maps dataset in BigQuery—even if multiple cities share the same name. It fetches all matching boundaries, counts the Points of Interest (POIs) in each, and returns the boundary with the highest POI count as the “most relevant” city. Perfect for data analysts and data scientists who need accurate location context without diving into specialized GIS tools.\u003c/p\u003e
 \u003cp\u003eRequires: \u003csmall class="badge badge-info"\u003eBigQuery Account\u003c/small\u003e\u003c/p\u003e
-`},{id:10,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"BigQuery Overture Maps Examples",description:"Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.\u003c/p\u003e
+`},{id:12,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"BigQuery Overture Maps Examples",description:"Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.\u003c/p\u003e
 \u003cdiv class="gpt" \u003e
   \u003cp\u003eAll examples are created with \u003cb\u003eOverture Maps GPT\u003c/b\u003e\u003c/p\u003e\u003cp\u003e\u003ca href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt?ref=gpt-link" class="btn btn-outline-primary" target="_blank"\u003eGet it Free\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
@@ -2174,7 +2432,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:11,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
+`},{id:13,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
 \u003ch2 id="overture-maps"\u003eOverture Maps\u003c/h2\u003e
 \u003ch3 id="nevada-roads-by-speed-and-class"\u003eNevada Roads by Speed and Class\u003c/h3\u003e
 \u003cfigure\u003e
@@ -2292,7 +2550,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eroad_segments\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003echarging_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eID\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eroad_id\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- Join with the previous result set to match road details with charging station counts
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:12,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:14,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
 \u003ch2 id="population-density"\u003ePopulation density\u003c/h2\u003e
 \u003cp\u003eVisualize population density anywhere in the world and at any level of detail\u003c/p\u003e
 \u003ch3 id="eu-population-density"\u003eEU Population Density\u003c/h3\u003e
@@ -3018,7 +3276,7 @@ SELECT planet_features.geometry
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:13,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
+`},{id:15,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
 \u003ch2 id="large-datasets"\u003eLarge datasets\u003c/h2\u003e
 \u003cp\u003eExplore large datasets with millions of rows and visualize them on a map\u003c/p\u003e
 \u003cul\u003e
@@ -3047,7 +3305,7 @@ SELECT planet_features.geometry
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:14,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
+`},{id:16,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
 \u003ch2 id="step-1-generate-a-key-pair"\u003eStep 1: Generate a Key Pair\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003e\u003cstrong\u003eGenerate a Private Key\u003c/strong\u003e: Use OpenSSL to generate a private key in PKCS#8 format.
@@ -3071,7 +3329,7 @@ SELECT planet_features.geometry
 \u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:15,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:17,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
 This video shows you how to plug your queries directly into Dekart and instantly visualize your results on shareable maps.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/RY9H76V_qVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tutorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
@@ -3161,7 +3419,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003c/table\u003e
 \u003cp\u003e\u003cstrong\u003eReady to try it yourself?\u003c/strong\u003e Click \u003cstrong\u003e“Start free with Dekart + Wherobots”\u003c/strong\u003e above, connect your source, paste your SQL, and see your data come alive.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tuttorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
-`},{id:16,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres + OIDC Setup",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
+`},{id:18,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres + OIDC Setup",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
 
 
 
@@ -3307,7 +3565,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eWith \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e, keep \u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/code\u003e and \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e unset.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cp\u003eIf you need a local test stack, see the Dekart repository compose profile examples.\u003c/p\u003e
-`},{id:17,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
+`},{id:19,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003e\u003cstrong\u003eGoogle Account (OAuth Pass-Through)\u003c/strong\u003e\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eService Account Key (JSON)\u003c/strong\u003e\u003c/li\u003e
@@ -3401,7 +3659,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eContact us in \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eEmail us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:18,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:19,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
+`},{id:20,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:21,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/KusNayeGFaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" role="button"\u003eGet it instantly in Snowflake Marketplace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-how-dekart-works"\u003e💡 How Dekart Works\u003c/h2\u003e
@@ -3525,7 +3783,7 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:20,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`
+`},{id:22,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`
 
 
 
@@ -4239,7 +4497,7 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:21,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
+`},{id:23,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
 \u003ch2 id="what-permissions-is-dekart-requesting-and-why-are-they-necessary"\u003eWhat permissions is Dekart requesting, and why are they necessary?\u003c/h2\u003e
 \u003cp\u003eDekart implements BigQuery passthrough authentication (OAuth 2.0 Token Pass-Through) and requests the following permissions:\u003c/p\u003e
 \u003cul\u003e
@@ -4270,7 +4528,7 @@ Use a command like:\u003c/p\u003e
 \u003c!-- If you have any questions or issues about Dekart Cloud, please contact us via email at [support@dekart.xyz](mailto:support@dekart.xyz) or via [Slack](https://slack.dekart.xyz/). --\u003e
 \u003ch2 id="read-more"\u003eRead more\u003c/h2\u003e
 \u003cp\u003e👉 \u003ca href="/legal/privacy/"\u003eDekart Cloud Privacy Policy\u003c/a\u003e\u003c/p\u003e
-`},{id:22,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+`},{id:24,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
 \u003chr\u003e
@@ -4345,7 +4603,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
 \u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
 \u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
-`},{id:23,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:25,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -4366,7 +4624,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:24,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:26,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -4387,7 +4645,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:25,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:27,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -4469,7 +4727,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:26,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:28,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -4496,7 +4754,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:27,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:28,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
+`},{id:29,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:30,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Screencast: Querying Chicago Crime Dataset from BigQuery Public Data",content:`\u003cp class="lead text-left"\u003eCreate Maps with BigQuery public datasets in 40 seconds\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/_2ryUu43XRo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 `}];e.add(n),userinput&&userinput.addEventListener("input",s,!0),suggestions&&suggestions.addEventListener("click",o,!0);function s(){if(!suggestions)return;var n,i=this.value,s=e.search(i,5),o=suggestions.childNodes,r=0,c=s.length;for(suggestions.classList.remove("d-none"),s.forEach(function(e){n=document.createElement("div"),n.innerHTML="<a href><span></span><span></span></a>",a=n.querySelector("a"),t=n.querySelector("span:first-child"),d=n.querySelector("span:nth-child(2)"),a.href=e.href,t.textContent=e.title,d.textContent=e.description,suggestions.appendChild(n)});o.length>c;)suggestions.removeChild(o[r])}function o(){if(!suggestions)return!1;for(;suggestions.lastChild;)suggestions.removeChild(suggestions.lastChild);return!1}})()
