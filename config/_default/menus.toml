@@ -28,7 +28,11 @@
   identifier = "examples"
   url = "/docs/about/"
 
-
+[[docs]]
+  name = "Knowledge Base"
+  weight = 100
+  identifier = "knowledge-base"
+  url = "/docs/knowledge-base/"
 
 [[main]]
   name = "Pricing"
