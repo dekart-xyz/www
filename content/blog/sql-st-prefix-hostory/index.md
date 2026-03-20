@@ -1,6 +1,6 @@
 ---
 title: "ST_ Prefix in SQL: A Tale of Time, Space, and Standardization"
-description: "History of SQL/MM Spatial Standardization"
+description: "What does the ST_ prefix mean in BigQuery, Snowflake, and PostGIS? The origin of ST_ASGEOJSON, ST_WITHIN, and every spatial SQL function."
 lead: "What exactly ST_ means in SQL?"
 date: 2024-03-21T05:59:51Z
 lastmod: 2024-03-21T05:59:51Z
@@ -31,3 +31,10 @@ In the mean time, the focus of spatial standard lied on keeping it aligned with 
 ### Reference
 
 * Stolze, K. (2003, February). SQL/MM Spatial-The Standard to Manage Spatial Data in a Relational Database System
+
+---
+
+<div class="text-center py-3">
+  <p class="lead">Run spatial SQL and see maps instantly</p>
+  <a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/?ref=blog-st-prefix" role="button">Try It Free</a>
+</div>

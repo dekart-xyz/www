@@ -1,6 +1,6 @@
 ---
 title: "Admin Boundaries in BigQuery Public Datasets"
-description: "Fetch Countries, States, Zip codes and City Districts Geography from BigQuery Public Datasets"
+description: "SQL examples to fetch country borders, US states, zip codes, and city districts from BigQuery public datasets. Copy-paste ready."
 lead: "Fetch Countries, States, Zip codes and City Districts Geography from BigQuery Public Datasets"
 date: 2021-03-28T06:59:51Z
 lastmod: 2021-11-05T06:59:51Z
@@ -223,3 +223,10 @@ Of course you can fetch all geometries, but mind the size when visualizing. This
 * If your data is in BigQuery, you need your reference geometries (like Admin Boundaries) in BigQuery to leverage the full power of BigQuery SQL (including GIS functions).
 * You can get various useful Reference Geometries from [BigQuery Public Datasets](https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset) to later join them with your private datasets for analysis.
 * All examples have links to Dekart Playground where you can [query and visualize GIS data from any BigQuery Public dataset](/docs/about/playground/); Dekart is an open-source GIS Visualization tool you can deploy to your cloud and [use with your data](/docs/about/your-datasets/).
+
+---
+
+<div class="text-center py-3">
+  <p class="lead">Query and visualize BigQuery geodata instantly</p>
+  <a class="btn btn-primary btn-lg" href="https://cloud.dekart.xyz/?ref=blog-admin-boundaries" role="button">Try These Queries</a>
+</div>

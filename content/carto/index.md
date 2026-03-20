@@ -14,7 +14,7 @@ type: "html-content"
   </div>
 </div>
 <div class="text-center py-3">
-  <p><a class="btn btn-primary  btn-lg m-2" href="http://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Start Free</a> <a class="btn btn-outline-primary btn-lg" href="https://calendly.com/vladi-dekart/30min" target="_blank">Book a call</a></p>
+  <p><a class="btn btn-primary  btn-lg m-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Start Free</a> <a class="btn btn-outline-primary btn-lg" href="https://calendly.com/vladi-dekart/30min" target="_blank">Book a call</a></p>
 </div>
 <div class="text-center d-flex flex-column align-items-center">
   <!-- <h2 class="display-3">Create Maps in Seconds</h2> -->
@@ -44,7 +44,7 @@ type: "html-content"
 </div>
 
 <div class="text-center">
-  <p><a class="btn btn-primary m-2" href="http://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Create Free Workspace</a> <a class="btn btn-outline-primary" href="/docs/about/overture-maps-examples/" target="_blank">Book a call</a></p>
+  <p><a class="btn btn-primary m-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Create Free Workspace</a> <a class="btn btn-outline-primary" href="https://calendly.com/vladi-dekart/30min" target="_blank">Book a call</a></p>
   <p>Book a call with a team to unlock insider discounts</p>
 </div>
 </article>

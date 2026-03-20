@@ -1,6 +1,6 @@
 ---
 title: "BigQuery Overture Maps Examples"
-description: "Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using SQL and Dekart."
+description: "Interactive map examples using Overture Maps in BigQuery — roads, boundaries, land use, EV charging, and more. Run SQL, see maps instantly."
 lead: ""
 date: 2024-08-28T07:26:19+02:00
 lastmod: 2024-09-23T07:26:19+02:00
