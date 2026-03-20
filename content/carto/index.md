@@ -206,7 +206,7 @@ type: "html-content"
           <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Create Free Workspace</a>
           <a class="btn btn-outline-primary btn-lg d-inline-block mb-2" href="https://calendly.com/vladi-dekart/30min" role="button">Book a call</a>
         </p>
-        <p>Book a call with a team to unlock insider discounts</p>
+        <p>Talk to the team. Get started in minutes.</p>
       </div>
     </div>
   </section>
