@@ -41,71 +41,132 @@ type: "html-content"
   </section>
 
   <!-- Comparison Table -->
-  <section class="section container pt-5 pb-0">
-    <div class="row justify-content-center">
-      <div class="col-xl-10">
-        <h2 class="display-4 text-center mb-4">Dekart vs CARTO</h2>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead class="thead-light">
-              <tr>
-                <th></th>
-                <th class="text-center"><b>Dekart</b></th>
-                <th class="text-center">CARTO</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b>Pricing</b></td>
-                <td class="text-center">Free plan + from $49/mo</td>
-                <td class="text-center">Custom pricing, typically $1,000+/mo</td>
-              </tr>
-              <tr>
-                <td><b>BigQuery</b></td>
-                <td class="text-center">Native connector</td>
-                <td class="text-center">Supported</td>
-              </tr>
-              <tr>
-                <td><b>Snowflake</b></td>
-                <td class="text-center">Native connector</td>
-                <td class="text-center">Supported</td>
-              </tr>
-              <tr>
-                <td><b>SQL-native workflow</b></td>
-                <td class="text-center">Write SQL, see maps</td>
-                <td class="text-center">Builder UI + SQL</td>
-              </tr>
-              <tr>
-                <td><b>Open source</b></td>
-                <td class="text-center">Yes (AGPL)</td>
-                <td class="text-center">Partially</td>
-              </tr>
-              <tr>
-                <td><b>Self-hosting</b></td>
-                <td class="text-center">Docker, GKE, App Engine</td>
-                <td class="text-center">No</td>
-              </tr>
-              <tr>
-                <td><b>Visualization engine</b></td>
-                <td class="text-center">Kepler.gl / deck.gl</td>
-                <td class="text-center">deck.gl</td>
-              </tr>
-              <tr>
-                <td><b>Data stays in your warehouse</b></td>
-                <td class="text-center">Yes, always</td>
-                <td class="text-center">Depends on plan</td>
-              </tr>
-              <tr>
-                <td><b>Setup time</b></td>
-                <td class="text-center">Minutes</td>
-                <td class="text-center">Sales cycle</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class="dekart-feature-table-container mt-5 mb-5">
+    <h2 class="text-center mb-4">Dekart vs CARTO</h2>
+    <div class="table-responsive">
+      <table class="table dekart-feature-table">
+        <thead>
+          <tr>
+            <th scope="col" class="dekart-feature-header font-weight-bold">Features</th>
+            <th scope="col" class="text-center">
+              <div class="dekart-plan-header">
+                <div class="dekart-plan-name font-weight-bold">Dekart</div>
+                <a href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" class="btn btn-sm btn-primary">Start Free</a>
+              </div>
+            </th>
+            <th scope="col" class="text-center">
+              <div class="dekart-plan-header">
+                <div class="dekart-plan-name font-weight-bold">CARTO</div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="dekart-category-header">
+            <td colspan="3" class="dekart-category-title font-weight-bold">Pricing & Access</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Free plan
+            </td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+            <td class="text-center"><i class="dekart-dash"></i></td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Paid plans
+            </td>
+            <td class="text-center">From $49/mo</td>
+            <td class="text-center">Custom, typically $1,000+/mo</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Setup time
+            </td>
+            <td class="text-center">Minutes</td>
+            <td class="text-center">Sales cycle</td>
+          </tr>
+          <tr class="dekart-category-header">
+            <td colspan="3" class="dekart-category-title font-weight-bold">Data Warehouse Support</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              BigQuery
+              <br>
+              <small class="text-muted">Native connector with multithreaded fetching</small>
+            </td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Snowflake
+              <br>
+              <small class="text-muted">Native connector with multithreaded fetching</small>
+            </td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Data stays in your warehouse
+              <br>
+              <small class="text-muted">No data copies, no ETL pipelines</small>
+            </td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+            <td class="text-center">Depends on plan</td>
+          </tr>
+          <tr class="dekart-category-header">
+            <td colspan="3" class="dekart-category-title font-weight-bold">Workflow</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              SQL-native workflow
+              <br>
+              <small class="text-muted">Write SQL, see maps instantly</small>
+            </td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+            <td class="text-center">Builder UI + SQL</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Visualization engine
+              <br>
+              <small class="text-muted">High-performance WebGL rendering</small>
+            </td>
+            <td class="text-center">Kepler.gl / deck.gl</td>
+            <td class="text-center">deck.gl</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Shareable map links
+            </td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+          </tr>
+          <tr class="dekart-category-header">
+            <td colspan="3" class="dekart-category-title font-weight-bold">Deployment & Ownership</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Open source
+            </td>
+            <td class="text-center">Yes (AGPL)</td>
+            <td class="text-center">Partially</td>
+          </tr>
+          <tr>
+            <td class="dekart-feature-name">
+              Self-hosting
+              <br>
+              <small class="text-muted">Docker, GKE, App Engine</small>
+            </td>
+            <td class="text-center"><i class="dekart-checkmark"></i></td>
+            <td class="text-center"><i class="dekart-dash"></i></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </section>
+  </div>
 
   <section class="section container-fluid pt-5 pb-0">
     <div class="row justify-content-center">
