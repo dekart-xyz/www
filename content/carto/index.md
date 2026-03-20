@@ -77,7 +77,7 @@ type: "html-content"
               Paid plans
             </td>
             <td class="text-center">From $49/mo</td>
-            <td class="text-center">Custom, typically $1,000+/mo</td>
+            <td class="text-center">Custom, not published</td>
           </tr>
           <tr>
             <td class="dekart-feature-name">
@@ -183,16 +183,16 @@ type: "html-content"
     <div class="row justify-content-center">
       <div class="col-xl-12 text-left">
         <h2 class="display-4">Why Data Teams Switch from CARTO to Dekart</h2>
-        <h4>Transparent Pricing</h4>
-        <p>Free Personal Plan. Grow plans start at <i>$49/month</i>. No surprises, no overpaying. <br/><span class="d-inline-block">👉 <a href='/cloud/'>Dekart Cloud pricing</a></span></p>
-        <h4>No Vendor Lock-In</h4>
-        <p>Open-source license, commercial code license, SaaS, or self-hosting. Dekart meets any deployment needs. <br/><span class="d-inline-block">👉 <a href='/self-hosted/'>Self-hosting options</a></span></p>
-        <h4>High-performance Map Visualization</h4>
-        <p>Dekart uses the same Kepler.gl and deck.gl libraries as CARTO, delivering stunning, high-performance maps. <br/><span class="d-inline-block">👉 <a href='/docs/about/overture-maps-examples/'>Live map examples</a></span></p>
-        <h4>Faster Data Connectors</h4>
-        <p>Built with contributions from Google and Snowflake experts, Dekart's data connectors use multithreading and multiple caching techniques to fetch data faster and cheaper.</p>
-        <h4>SQL-First Workflow</h4>
-        <p>No drag-and-drop builder to learn. Write the SQL you already know, get interactive maps in seconds. Your queries stay in your warehouse. Dekart never copies your data.</p>
+        <h4>"We dropped CARTO because of the price"</h4>
+        <p>CARTO does not publish pricing. Teams we talk to report contracts starting around $4,000+/month. Dekart starts free, with paid plans from $49/month. No sales calls, no negotiations. <br/><span class="d-inline-block">👉 <a href='/cloud/'>See Dekart Cloud pricing</a></span></p>
+        <h4>"CARTO copies my data instead of querying my warehouse"</h4>
+        <p>CARTO requires data ingestion into their platform. Dekart queries BigQuery and Snowflake directly. Your data never leaves your warehouse. No ETL pipelines, no sync jobs, no extra storage costs.</p>
+        <h4>"I just want to write SQL, not learn a builder UI"</h4>
+        <p>CARTO's Builder interface adds complexity on top of what data teams already know: SQL. Dekart is SQL-first. Write a query, see a map. No drag-and-drop layers, no widget configurations. If you know SQL, you already know Dekart.</p>
+        <h4>"We need to self-host for compliance"</h4>
+        <p>CARTO offers self-hosting only on enterprise plans. Dekart runs as a single Docker container on any infrastructure, including the free open-source version. Deploy on GKE, App Engine, or any Docker host. Your data, your network, your rules. <br/><span class="d-inline-block">👉 <a href='/self-hosted/'>Self-hosting options</a></span></p>
+        <h4>"We got locked into CARTO and can't leave"</h4>
+        <p>Dekart is fully open-source (AGPL). Your maps are SQL queries stored in your warehouse. There is nothing proprietary to migrate away from. Switch to self-hosted, switch to cloud, or fork the code. You always own your work. <br/><span class="d-inline-block">👉 <a href='/docs/about/overture-maps-examples/'>See live map examples</a></span></p>
       </div>
     </div>
   </section>
