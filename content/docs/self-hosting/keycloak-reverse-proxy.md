@@ -1,5 +1,5 @@
 ---
-title: "Keycloak + Postgres + OIDC Setup"
+title: "Keycloak + Postgres"
 description: "Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage"
 date: 2025-03-11T10:30:00+01:00
 lastmod: 2025-03-11T10:30:00+01:00
