@@ -10,8 +10,6 @@ menu:
 images: []
 ---
 
-{{< cta-banner template="deployment-templates" >}}
-
 ## Main configuration
 
 
@@ -25,15 +23,15 @@ images: []
 | `DEKART_POSTGRES_PASSWORD`      | *Example*: `******`|
 |`DEKART_PORT`| *Example*: `8080`|
 |`DEKART_POSTGRES_URL` <br><small class="badge badge-info">version &gt;= 0.13</small> | Alternatively to specify `DEKART_POSTGRES_DB`, `DEKART_POSTGRES_HOST`, `DEKART_POSTGRES_PORT`, `DEKART_POSTGRES_USER`, `DEKART_POSTGRES_PASSWORD`, configure PostgreSQL by passing the connection string. If both specified `DEKART_POSTGRES_URL` is used. <br/> *Example*: `postgres://user:pass@hostname:5432/dekart?sslmode=verify-full`|
-|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li><li>`PG` Postgres <small class="badge badge-info">version &gt;= 0.18</small></li><li>`USER` Users can configure connections in UX <a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a></li><li>`CH` ClickHouse <small class="badge badge-info">version &gt;= 0.18</small></li></ul>|
-| `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li><li>`SNOWFLAKE` Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. <small class="badge badge-info">version &gt;= 0.17</small></li><li>`USER` Users can configure connections in UX <a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a></li><li>`PG` Query replay storage backed by Postgres (works with Postgres data source only). <a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.21</small></a></li></ul>|
-| `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul><br><br>Must be empty when `DEKART_STORAGE=PG` <a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.21</small></a>.|
+|`DEKART_DATASOURCE=BQ` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which datasource to use: <br>Values<ul><li>`BQ` BigQuery, default</li><li>`ATHENA` AWS Athena</li><li>`SNOWFLAKE` Snowflake <small class="badge badge-info">version &gt;= 0.12</small></li><li>`PG` Postgres <small class="badge badge-info">version &gt;= 0.18</small></li><li>`USER` Users can configure connections in UX <small class="badge badge-info">version &gt;=0.17.2</small></li><li>`CH` ClickHouse <small class="badge badge-info">version &gt;= 0.18</small></li></ul>|
+| `DEKART_STORAGE=GCS` <br><small class="badge badge-info">version &gt;= 0.8</small> | Which storage backend to use for storing queries and query results <br>Values<ul><li>`GCS` Google Cloud Storage, default, works only with BigQuery data source</li><li>`S3` AWS S3, works with BigQuery and AWS Athena</li><li>`SNOWFLAKE` Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. <small class="badge badge-info">version &gt;= 0.17</small></li><li>`USER` Users can configure connections in UX <small class="badge badge-info">version &gt;=0.18</small></li><li>`PG` Query replay storage backed by Postgres (works with Postgres data source only). <small class="badge badge-info">version &gt;=0.21</small></li></ul>|
+| `DEKART_CLOUD_STORAGE_BUCKET`      | Google Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. <br> *Example*: `dekart-bucket` <br><br>  If value is empty, users will be able to define storage bucket via UI. Supported datasource `DEKART_DATASOURCE`: <ul><li>`BQ` BigQuery from <small class="badge badge-info">version &gt;= 0.15</small></li></ul><br><br>Must be empty when `DEKART_STORAGE=PG` <small class="badge badge-info">version &gt;=0.21</small>.|
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
-| `DEKART_SQLITE_DB_PATH=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
+| `DEKART_SQLITE_DB_PATH=` <br/><small class="badge badge-info">version &gt;=0.17.2</small> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
 | `DEKART_STREAM_TIMEOUT` <br/><small class="badge badge-info">version &gt;= 0.18</small> | Timeout in seconds for streaming backend updates. Default value is 50 seconds. Useful when your Gateway has a shorter timeout and you see Gateway Timeout errors. <br> *Example*: `50`|
 ## Data Encryption
 
-<a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>
+<small class="badge badge-info">version &gt;=0.18</small>
 
 Dekart supports data encryption at rest for storing credentials. Required for configuring Snowflake and BigQuery JSON Key via UX. To enable data encryption, set the following environment variables:
 
@@ -102,8 +100,8 @@ Required to query BigQuery and use Cloud Storage
 | `DEKART_SNOWFLAKE_USER` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user with default warehouse configured  <br> *Example*: `example_user`|
 | `DEKART_SNOWFLAKE_PASSWORD` <br/><small class="badge badge-info">version &gt;= 0.12</small>     | Snowflake user password  <br> *Example*: `******`|
 | `DEKART_SNOWFLAKE_PRIVATE_KEY` <br/><small class="badge badge-info">version &gt;= 0.18.4</small>     | The private key required for authenticating with Snowflake using the JWT (JSON Web Token) authentication method. This key must be in PKCS#8 format and base64-encoded.  <br> *Example*: `MIIEv...`|
-| `DEKART_SNOWFLAKE_STAGE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>    | Persist Dekart application state on Snowflake stage. Work with `DEKART_SQLITE_DB_PATH`  <br> *Example*: `app_public.app_state_stage`|
-| `DEKART_REQUIRE_SNOWFLAKE_CONTEXT=` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.17.2</small></a> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>     | Authorize user using `Sf-Context-Current-User` header. Used in Snowpark environment. <br> *Example*: `1`|
+| `DEKART_SNOWFLAKE_STAGE` <br/><small class="badge badge-info">version &gt;=0.17.2</small> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>    | Persist Dekart application state on Snowflake stage. Work with `DEKART_SQLITE_DB_PATH`  <br> *Example*: `app_public.app_state_stage`|
+| `DEKART_REQUIRE_SNOWFLAKE_CONTEXT=` <br/><small class="badge badge-info">version &gt;=0.17.2</small> <br/><small class="badge badge-info">version &gt;= 0.18.1</small>     | Authorize user using `Sf-Context-Current-User` header. Used in Snowpark environment. <br> *Example*: `1`|
 
 ### Configuring Snowflake Private Key Authentication
 
@@ -161,9 +159,9 @@ Starting from version 0.10 Dekart supports file upload. File upload is disabled 
 | ------------- | ------------- |
 | `DEKART_ALLOW_FILE_UPLOAD` <br/><small class="badge badge-info">version &gt;= 0.10</small> | Enable file upload <br> *Example value*: `1`|
 
-## 👑 User authorization via Google OAuth 2.0 flow
+## User authorization via Google OAuth 2.0 flow
 
-{{< cta-banner template="premium" >}}
+[This feature requires an SSO key](/docs/self-hosting/enable-sso-open-source-instance/)
 
 Dekart can authorize users via Google OAuth 2.0 and use users' credentials to access BigQuery and Cloud Storage. When this option is enabled, Dekart does not require a service account and `GOOGLE_APPLICATION_CREDENTIALS` to be set. The user token is retrieved from Google OAuth 2.0 flow and stored in only in the browser memory. When the page is refreshed, the token is retrieved again. User short-lived token is then passed via Authorization header Dekart backend to access BigQuery and Cloud Storage.
 
@@ -180,9 +178,9 @@ This option is only supported for BigQuery and Cloud Storage. It is not supporte
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_REQUIRE_GOOGLE_OAUTH`  <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.15</small></a> |  Enables Google OAuth 2.0 flow. Requires users to be authenticated. <br> *Example value*: `1`|
-| `DEKART_GOOGLE_OAUTH_CLIENT_ID`<br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.15</small></a>|  Google OAuth 2.0 Client ID. <br> *Example value*: `1234567890-abcde.apps.googleusercontent.com`|
-| `DEKART_GOOGLE_OAUTH_SECRET`<br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.15</small></a>|  Google OAuth 2.0 Client Secret. <br> *Example value*: `******`|
+| `DEKART_REQUIRE_GOOGLE_OAUTH`  <br/><small class="badge badge-info">version &gt;=0.15</small> |  Enables Google OAuth 2.0 flow. Requires users to be authenticated. <br> *Example value*: `1`|
+| `DEKART_GOOGLE_OAUTH_CLIENT_ID`<br/><small class="badge badge-info">version &gt;=0.15</small>|  Google OAuth 2.0 Client ID. <br> *Example value*: `1234567890-abcde.apps.googleusercontent.com`|
+| `DEKART_GOOGLE_OAUTH_SECRET`<br/><small class="badge badge-info">version &gt;=0.15</small>|  Google OAuth 2.0 Client Secret. <br> *Example value*: `******`|
 
 
 Creating Google OAuth 2.0 Client ID and Client Secret:
@@ -191,10 +189,9 @@ Creating Google OAuth 2.0 Client ID and Client Secret:
 2. Create [OAuth 2.0 Client ID](https://console.cloud.google.com/apis/credentials) with `Web application` type
 3. Add `https://your-dekart-url.com/api/v1/authenticate` to `Authorized redirect URIs`
 
-## 👑 User authorization via Google IAP
+## User authorization via Google IAP
 
-{{< cta-banner template="premium" >}}
-
+[This feature requires an SSO key](/docs/self-hosting/enable-sso-open-source-instance/)
 
 Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto">claims provided by Google IAP</a> and authorize users to:
 
@@ -203,13 +200,12 @@ Dekart can read <a target="_blank" href="https://cloud.google.com/iap/docs/signe
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_REQUIRE_IAP` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium</small></a>     |  Enables validation Google IAP JWT. Required users to be authenticated. ENables user management policies. <br> *Example value*: `1`|
-| `DEKART_IAP_JWT_AUD` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium</small></a>     |  Signed Header JWT Audience (`aud`). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. [See details](https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload).  <br> *Example value*: `/projects/PROJECT_NUMBER/apps/PROJECT_ID`|
+| `DEKART_REQUIRE_IAP` <br/><a href="/docs/self-hosting/enable-sso-open-source-instance/"><small class="badge badge-primary">requires SSO key</small></a>     |  Enables validation Google IAP JWT. Required users to be authenticated. ENables user management policies. <br> *Example value*: `1`|
+| `DEKART_IAP_JWT_AUD` <br/><a href="/docs/self-hosting/enable-sso-open-source-instance/"><small class="badge badge-primary">requires SSO key</small></a>     |  Signed Header JWT Audience (`aud`). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. [See details](https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload).  <br> *Example value*: `/projects/PROJECT_NUMBER/apps/PROJECT_ID`|
 
-## 👑 User authorization via Amazon Load Balancer
+## User authorization via Amazon Load Balancer
 
-{{< cta-banner template="premium" >}}
-
+[This feature requires an SSO key](/docs/self-hosting/enable-sso-open-source-instance/)
 
 Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html">claims provided by Amazon Load Balancer</a> and authorize users to:
 
@@ -220,11 +216,11 @@ Dekart can read <a target="_blank" href="https://docs.aws.amazon.com/elasticload
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_REQUIRE_AMAZON_OIDC` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium</small></a>     |  Enables users authorization. Requires users to be authenticated and `x-amzn-oidc-data` to be passed from Load Balancer. Requires `AWS_REGION`. <br> *Example value*: `1`|
+| `DEKART_REQUIRE_AMAZON_OIDC` <br/><a href="/docs/self-hosting/enable-sso-open-source-instance/"><small class="badge badge-primary">requires SSO key</small></a>     |  Enables users authorization. Requires users to be authenticated and `x-amzn-oidc-data` to be passed from Load Balancer. Requires `AWS_REGION`. <br> *Example value*: `1`|
 
-## 👑 User authorization via OIDC JWT header (reverse proxy)
+## User authorization via OIDC JWT header (reverse proxy)
 
-{{< cta-banner template="premium" >}}
+[This feature requires an SSO key](/docs/self-hosting/enable-sso-open-source-instance/)
 
 Dekart can validate JWT tokens forwarded by a trusted reverse proxy (for example oauth2-proxy + Keycloak) and authorize users by `email` claim.
 
@@ -232,25 +228,23 @@ This mode expects JWT in `X-Forwarded-Access-Token` and is intended for deployme
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_REQUIRE_OIDC` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.21</small></a> | Enables OIDC JWT header auth. Mutually exclusive with `DEKART_REQUIRE_GOOGLE_OAUTH`, `DEKART_REQUIRE_IAP`, `DEKART_REQUIRE_AMAZON_OIDC`, and `DEKART_REQUIRE_SNOWFLAKE_CONTEXT`. <br> *Example value*: `1` |
-| `DEKART_OIDC_JWKS_URL` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.21</small></a> | JWKS endpoint used to verify JWT signatures. Required when `DEKART_REQUIRE_OIDC=1`. <br> *Example value*: `https://idp.example.com/realms/dekart/protocol/openid-connect/certs` |
-| `DEKART_OIDC_ISSUER` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.21</small></a> | Expected `iss` claim. Recommended. <br> *Example value*: `https://idp.example.com/realms/dekart` |
-| `DEKART_OIDC_AUDIENCE` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.21</small></a> | Expected `aud` claim. Optional. <br> *Example value*: `oauth2-proxy` |
+| `DEKART_REQUIRE_OIDC` <br/><small class="badge badge-info">version &gt;=0.21</small> | Enables OIDC JWT header auth. Mutually exclusive with `DEKART_REQUIRE_GOOGLE_OAUTH`, `DEKART_REQUIRE_IAP`, `DEKART_REQUIRE_AMAZON_OIDC`, and `DEKART_REQUIRE_SNOWFLAKE_CONTEXT`. <br> *Example value*: `1` |
+| `DEKART_OIDC_JWKS_URL` <br/><small class="badge badge-info">version &gt;=0.21</small> | JWKS endpoint used to verify JWT signatures. Required when `DEKART_REQUIRE_OIDC=1`. <br> *Example value*: `https://idp.example.com/realms/dekart/protocol/openid-connect/certs` |
+| `DEKART_OIDC_ISSUER` <br/><small class="badge badge-info">version &gt;=0.21</small> | Expected `iss` claim. Recommended. <br> *Example value*: `https://idp.example.com/realms/dekart` |
+| `DEKART_OIDC_AUDIENCE` <br/><small class="badge badge-info">version &gt;=0.21</small> | Expected `aud` claim. Optional. <br> *Example value*: `oauth2-proxy` |
 
 Keycloak reverse proxy setup example: [Keycloak OIDC Reverse Proxy](/docs/self-hosting/keycloak-reverse-proxy/)
 
 
-## 👑 Workspaces
-
-{{< cta-banner template="premium" >}}
+## Workspaces
 
 Dekart supports multiple workspaces. Each workspace can have its own set of reports, queries, and users. By default, all users are added to the `Default` workspace. To configure workspace management, set the following environment variables:
 
 | Name        | Description           |
 | ------------- | ------------- |
-| `DEKART_ALLOW_WORKSPACE_CREATION` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>     |  When set to `1`, users can create new workspaces. Set to empty, new users will be automatically added to the `Default` workspace. <br> *Example value*: `1`|
-| `DEKART_DEFAULT_WORKSPACE_ADMIN` <br/><a href="/self-hosted/"><small class="badge badge-primary">premium &gt;= 0.18</small></a>   |  Email that designates a default admin for the `Default` workspace. When not provided, all new users will be Admin. When provided, all users will be viewers, unless specified differently with `DEKART_DEFAULT_WORKSPACE_ROLE`. <br> *Example value*: `admin@email.com`
-| `DEKART_DEFAULT_WORKSPACE_ROLE` <br/><a href="/self-hosted/"><small class="badge badge-grey">premium &gt;= 0.18</small></a>    |  Role assigned by default to new users (e.g., `viewer`, `editor`, `admin`). Requires `DEKART_DEFAULT_WORKSPACE_ADMIN` to be specified. <br> *Example value*: `viewer`|
+| `DEKART_ALLOW_WORKSPACE_CREATION` <br/><small class="badge badge-info">version &gt;=0.18</small>     |  When set to `1`, users can create new workspaces. Set to empty, new users will be automatically added to the `Default` workspace. <br> *Example value*: `1`|
+| `DEKART_DEFAULT_WORKSPACE_ADMIN` <br/><small class="badge badge-info">version &gt;=0.18</small>   |  Email that designates a default admin for the `Default` workspace. When not provided, all new users will be Admin. When provided, all users will be viewers, unless specified differently with `DEKART_DEFAULT_WORKSPACE_ROLE`. <br> *Example value*: `admin@email.com`
+| `DEKART_DEFAULT_WORKSPACE_ROLE` <br/><small class="badge badge-info">version &gt;=0.18</small>    |  Role assigned by default to new users (e.g., `viewer`, `editor`, `admin`). Requires `DEKART_DEFAULT_WORKSPACE_ADMIN` to be specified. <br> *Example value*: `viewer`|
 
 
 ## User Experience

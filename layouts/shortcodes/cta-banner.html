@@ -23,14 +23,14 @@
 {{ $style := .Get "style" }}
 
 {{ if eq $template "premium" }}
-  {{ $header = "Dekart Premium feature" }}
-  {{ $buttonText = "View Plans" }}
-  {{ $buttonLink = "/self-hosted" }}
+  {{ $header = "This feature requires an SSO key" }}
+  {{ $buttonText = "Get SSO Key" }}
+  {{ $buttonLink = "https://mailchi.mp/dekart/upgrade-to-sso?ref=docs-premium-feature" }}
   {{ $style = "premium" }}
 {{ else if eq $template "deployment-templates" }}
-  {{ $header = "Save time. Get ready-to-use configs for <b>AWS</b> and <b>Google Cloud</b>" }}
-  {{ $buttonText = "Request Access" }}
-  {{ $buttonLink = "https://mailchi.mp/team/request-self-hosting-documentation?ref=deployment-templates" }}
+  {{ $header = "Need team login? Get a free SSO key" }}
+  {{ $buttonText = "Get SSO Key" }}
+  {{ $buttonLink = "https://mailchi.mp/dekart/upgrade-to-sso?ref=docs-deployment" }}
   {{ $style = "default" }}
 {{ else }}
   {{ $header = $header | default "Ready to get started?" }}
