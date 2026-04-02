@@ -158,6 +158,19 @@ Starting from version 0.10 Dekart supports file upload. File upload is disabled 
 | Name        | Description           |
 | ------------- | ------------- |
 | `DEKART_ALLOW_FILE_UPLOAD` <br/><small class="badge badge-info">version &gt;= 0.10</small> | Enable file upload <br> *Example value*: `1`|
+| `DEKART_MAX_FILE_UPLOAD_SIZE` <br/><small class="badge badge-info">version &gt;= 0.22</small> | Maximum upload size in bytes. If not set, default is `1073741824` (1 GiB). Invalid value will fail Dekart startup. <br> *Example value*: `104857600` (100 MB) |
+
+## Email notifications
+
+Dekart can send workspace invite and report access emails via [Resend](https://resend.com/).  
+If required variables are not set, notifications are disabled.
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_RESEND_API_KEY` <br/><small class="badge badge-info">version &gt;= 0.22</small> | Resend API key used to send notification emails. <br> *Example value*: `re_xxxxxxxxxxxxx` |
+| `DEKART_RESEND_FROM_EMAIL` <br/><small class="badge badge-info">version &gt;= 0.22</small> | Sender address used in outgoing notification emails. <br> *Example value*: `Dekart &lt;no-reply@yourdomain.com&gt;` |
+
+Note: Email notifications also require `DEKART_APP_URL` to build invite/report links included in emails.
 
 ## User authorization via Google OAuth 2.0 flow
 

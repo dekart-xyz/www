@@ -14,16 +14,14 @@ menu:
 
 {{< cta-banner template="deployment-templates" >}}
 
-Dekart can run in multiple Docker Compose configurations depending on datasource, authentication model, metadata backend, and cache backend.
+This page documents `docker compose` flows for self-hosted Dekart.
 
-Typical dimensions:
+## Requirements
 
-- datasource: BigQuery, Snowflake, or PostgreSQL
-- auth: no SSO, Google OAuth, or OIDC reverse proxy
-- metadata DB: PostgreSQL or SQLite
-- cache: GCS or S3
-
-All examples below include full compose YAML and use `dekartxyz/dekart:latest`.
+- Docker Compose
+- PostgreSQL (metadata storage)
+- Mapbox token
+- Credentials for your selected datasource/auth setup
 
 ## BigQuery
 
@@ -68,12 +66,12 @@ services:
       DEKART_DATASOURCE: "BQ"
 ```
 
-## Google OAuth 2.0
+### Google OAuth configuration
 
 Use this setup when users should sign in directly with Google OAuth in Dekart.
 Requires Google OAuth client credentials and a valid Dekart license key.
 
-[Enable SSO and get a key](/docs/self-hosting/enable-sso-open-source-instance/)
+[Get required SSO key](/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key)
 
 ```yaml
 services:
@@ -110,7 +108,7 @@ services:
       DEKART_LICENSE_KEY: "your-license-key"
 ```
 
-## Snowflake with S3 cache
+## Snowflake
 
 Use this setup when Snowflake is the datasource and S3 is used for query result cache.
 This is the most common production-style Snowflake configuration with PostgreSQL metadata.
@@ -153,45 +151,97 @@ services:
       DEKART_SNOWFLAKE_USER: "your-snowflake-user"
       DEKART_SNOWFLAKE_PASSWORD: "your-snowflake-password"
       DEKART_REQUIRE_AMAZON_OIDC: "0"
-      DEKART_LICENSE_KEY: "your-license-key-if-sso-enabled"
 ```
 
-## Snowflake with SQLite backups
+### S3 cache and AWS SSO configuration
 
-Use this setup for local testing or single-user environments where you do not want PostgreSQL.
-Metadata is stored in a local SQLite file mounted into the container and backed up periodically.
-For multi-user production deployments, prefer PostgreSQL-based setups.
+Use this setup when Snowflake query results are cached in S3 and auth is delegated via AWS OIDC headers from your load balancer.
+
+[Get required SSO key](/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key)
 
 ```yaml
 services:
-  dekart-snowflake-sqlite:
+  db:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "dekart"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "dekart"
+
+  dekart-snowflake-s3:
     image: dekartxyz/dekart:latest
     restart: unless-stopped
+    depends_on:
+      - db
     ports:
       - "8080:8080"
-    volumes:
-      - ./data:/dekart/data
     environment:
+      DEKART_POSTGRES_DB: "dekart"
+      DEKART_POSTGRES_USER: "postgres"
+      DEKART_POSTGRES_PASSWORD: "dekart"
+      DEKART_POSTGRES_PORT: "5432"
+      DEKART_POSTGRES_HOST: "db"
       DEKART_MAPBOX_TOKEN: "your-mapbox-token"
       DEKART_CORS_ORIGIN: "http://localhost:3000"
-      DEKART_STORAGE: "SNOWFLAKE"
+      DEKART_ALLOW_FILE_UPLOAD: "1"
+      DEKART_STORAGE: "S3"
       DEKART_DATASOURCE: "SNOWFLAKE"
+      DEKART_CLOUD_STORAGE_BUCKET: "your-s3-bucket"
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: "your-aws-access-key-id"
+      AWS_SECRET_ACCESS_KEY: "your-aws-secret-access-key"
       DEKART_SNOWFLAKE_ACCOUNT_ID: "your-snowflake-account-id"
       DEKART_SNOWFLAKE_USER: "your-snowflake-user"
       DEKART_SNOWFLAKE_PASSWORD: "your-snowflake-password"
-      DEKART_SQLITE_DB_PATH: "./data/dekart.db"
-      DEKART_BACKUP_FREQUENCY_MIN: "5"
-      DEKART_MAX_BACKUPS_AGE_DAYS: "7"
-      DEKART_DEV_CLAIMS_EMAIL: "you@example.com"
+      DEKART_REQUIRE_AMAZON_OIDC: "1"
+      DEKART_LICENSE_KEY: "your-license-key"
 ```
 
-## OIDC reverse proxy (Keycloak + oauth2-proxy)
+## Postgres
+
+Use this setup when Postgres is both the metadata database and the datasource.
+
+```yaml
+services:
+  db:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "dekart"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "dekart"
+
+  dekart-postgres:
+    image: dekartxyz/dekart:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      DEKART_POSTGRES_DB: "dekart"
+      DEKART_POSTGRES_USER: "postgres"
+      DEKART_POSTGRES_PASSWORD: "dekart"
+      DEKART_POSTGRES_PORT: "5432"
+      DEKART_POSTGRES_HOST: "db"
+      DEKART_STORAGE: "PG"
+      DEKART_DATASOURCE: "PG"
+      DEKART_POSTGRES_DATASOURCE_CONNECTION: "postgres://postgres:dekart@db:5432/dekart_geo?sslmode=disable"
+      DEKART_MAPBOX_TOKEN: "your-mapbox-token"
+      DEKART_CORS_ORIGIN: "http://localhost:3000"
+      DEKART_ALLOW_FILE_UPLOAD: "0"
+```
+
+### OIDC configuration
 
 Use this setup when authentication is handled by a trusted reverse proxy that forwards OIDC JWT to Dekart.
 It includes Keycloak and oauth2-proxy for end-to-end local SSO testing.
 This setup requires a valid Dekart license key.
 
-[Enable SSO and get a key](/docs/self-hosting/enable-sso-open-source-instance/)
+[Get required SSO key](/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key)
 
 ```yaml
 services:

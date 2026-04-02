@@ -41,7 +41,7 @@
 
 [[main]]
   name = "Self-Hosting"
-  url = "/self-hosted/"
+  url = "https://github.com/dekart-xyz/dekart?ref=github-self-hosting"
   weight = 8
 
 [[main]]
@@ -55,8 +55,8 @@
   weight = 11
 
 [[main]]
-  name = "Data Providers"
-  url = "/data-sales-demos/"
+  name = "Documentation"
+  url = "/docs/configuration/environment-variables/"
   weight = 10
 
 

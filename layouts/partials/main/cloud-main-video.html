@@ -8,6 +8,8 @@
   - muted: Mute video (default: true)
   - loop: Loop video (default: true)
   - playsinline: Enable playsinline (default: true)
+  - link_url: Optional link wrapped around the video window
+  - link_title: Optional accessible label/title for the link
 */}}
 
 {{ $videoSrc := .video_src | default "/main-page-screencast-4.mp4" }}
@@ -16,20 +18,28 @@
 {{ $muted := .muted | default true }}
 {{ $loop := .loop | default true }}
 {{ $playsinline := .playsinline | default true }}
+{{ $linkURL := .link_url | default "" }}
+{{ $linkTitle := .link_title | default "Open screencast" }}
 
 <div class="center-block dekart-video-container mt-3">
-  <div class="dekart-video-window">
-    <div class="dekart-video-content">
-      <video
-        {{ if $autoplay }}autoplay{{ end }}
-        {{ if $muted }}muted{{ end }}
-        {{ if $loop }}loop{{ end }}
-        {{ if $playsinline }}playsinline{{ end }}
-        poster="{{ $posterSrc }}"
-      >
-        <source src="{{ $videoSrc }}" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+  {{ if $linkURL }}
+  <a class="d-block text-reset text-decoration-none" href="{{ $linkURL }}" title="{{ $linkTitle }}" aria-label="{{ $linkTitle }}">
+  {{ end }}
+    <div class="dekart-video-window">
+      <div class="dekart-video-content">
+        <video
+          {{ if $autoplay }}autoplay{{ end }}
+          {{ if $muted }}muted{{ end }}
+          {{ if $loop }}loop{{ end }}
+          {{ if $playsinline }}playsinline{{ end }}
+          poster="{{ $posterSrc }}"
+        >
+          <source src="{{ $videoSrc }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
-  </div>
+  {{ if $linkURL }}
+  </a>
+  {{ end }}
 </div>
