@@ -2019,6 +2019,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003ch2 id="segment"\u003eSegment\u003c/h2\u003e
 \u003cp\u003eThe Overture Maps \u003ccode\u003esegment\u003c/code\u003e table represents paths, roads, and transportation segments, storing their geospatial data as LineStrings along with attributes like class, surface, speed limits, and access restrictions​.\u003c/p\u003e
 \u003ch3 id="nevada-roads-by-speed-and-class"\u003eNevada Roads by Speed and Class\u003c/h3\u003e
+\u003cp\u003eVisualize the Nevada road network from Overture Maps, colored by speed limit and road class. The query uses \u003ccode\u003eST_WITHIN\u003c/code\u003e to clip road segments to the Nevada boundary from \u003ccode\u003edivision_area\u003c/code\u003e, then extracts speed limit values from the nested JSON \u003ccode\u003eroad\u003c/code\u003e column. Useful for transportation planning, logistics routing, or understanding road infrastructure at the state level.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2076,6 +2077,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="berlin-roads"\u003eBerlin Roads\u003c/h3\u003e
+\u003cp\u003eQuery primary, secondary, and tertiary roads in Berlin using \u003ccode\u003eST_CONTAINS\u003c/code\u003e to filter Overture Maps segments inside the Berlin boundary. A practical starting point for urban mobility analysis, bike infrastructure mapping, or comparing road density across European cities.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2120,6 +2122,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="nevada-highways-and-main-roads"\u003eNevada highways and main roads\u003c/h3\u003e
+\u003cp\u003eExtract highways, motorways, and main roads in Nevada using Overture Maps on Snowflake. This query uses \u003ccode\u003eST_SIMPLIFY\u003c/code\u003e to reduce boundary detail for faster spatial joins, then converts geometry to WKT with \u003ccode\u003eST_ASWKT\u003c/code\u003e for visualization. Shows how to work with Overture Maps transportation data in Snowflake using the same SQL patterns as BigQuery.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2174,6 +2177,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="germany--france-road-networks"\u003eGermany \u0026amp; France Road Networks\u003c/h3\u003e
+\u003cp\u003eCompare road density between Germany and France using H3 hexagonal aggregation. The query filters Overture Maps road segments by country boundary, calculates road length in kilometers with \u003ccode\u003eST_LENGTH\u003c/code\u003e, then assigns each segment to an H3 hexagon using \u003ccode\u003ebqcarto.h3.ST_ASH3\u003c/code\u003e. The result is a heatmap showing road density per hexagon, useful for cross-country infrastructure comparison or logistics network analysis.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2237,6 +2241,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="road-density-us"\u003eRoad density US\u003c/h3\u003e
+\u003cp\u003eMap road density across the United States using H3 hexagons at zoom level 6. Filters Overture Maps segments to primary, secondary, and tertiary roads within the US boundary, calculates length per segment, then aggregates total road kilometers per hexagon. Reveals patterns in road infrastructure: dense corridors along the East Coast, sparse coverage in the Mountain West.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2300,6 +2305,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="joining-gps-probes-with-road-geometry"\u003eJoining GPS probes with road geometry\u003c/h3\u003e
+\u003cp\u003eMatch GPS trace data to Overture Maps road segments using H3 spatial indexing. The query generates H3 cells at resolution 12 along road geometries near Brandenburg Gate in Berlin, then joins them with Strava GPS stream points on the same H3 index. The result shows average cycling speed per road segment. This pattern - joining GPS probes to road geometry via H3 - is common in mobility analytics, fleet tracking, and traffic speed estimation.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2372,6 +2378,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003ch2 id="division-area"\u003eDivision Area\u003c/h2\u003e
 \u003cp\u003eThe Overture Maps division_area table contains boundary polygons for administrative areas, such as cities, countries, and neighborhoods, along with related attributes like subtype, population, and country codes​.\u003c/p\u003e
 \u003ch3 id="berlin-boundary"\u003eBerlin Boundary\u003c/h3\u003e
+\u003cp\u003eQuery the administrative boundary of Berlin from Overture Maps \u003ccode\u003edivision_area\u003c/code\u003e table. A simple filter on \u003ccode\u003enames.primary\u003c/code\u003e and \u003ccode\u003ecountry\u003c/code\u003e returns the city polygon with its subtype and region code. This is the building block for most geospatial queries: get a boundary first, then use \u003ccode\u003eST_WITHIN\u003c/code\u003e or \u003ccode\u003eST_CONTAINS\u003c/code\u003e to clip other datasets to that area.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2409,6 +2416,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003c/p\u003e
 \u003c!-- ffbe0a05-7794-465c-ab5b-de54d69cdb38 --\u003e
 \u003ch3 id="regions-and-cities-in-france"\u003eRegions and Cities in France\u003c/h3\u003e
+\u003cp\u003eList all administrative regions and cities in France from the Overture Maps \u003ccode\u003edivision_area\u003c/code\u003e table. Filters by ISO country code \u003ccode\u003eFR\u003c/code\u003e and subtypes \u003ccode\u003eregion\u003c/code\u003e and \u003ccode\u003ecity\u003c/code\u003e, returning boundary polygons with names. Useful for building a base layer of French administrative geography, or as a starting point for regional analysis like population density, infrastructure coverage, or service area planning.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2456,6 +2464,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003cp\u003eThe Overture Maps \u003ccode\u003eland_use\u003c/code\u003e table represents different types of land use, such as residential, agricultural, industrial, and others, by storing their spatial data as polygons or multipolygons, along with attributes like subtype, class, surface, and names.\u003c/p\u003e
 \u003c!-- 34d0ba2c-0fd5-4323-a677-d5b05b65d86d --\u003e
 \u003ch3 id="berlin-playgrounds"\u003eBerlin Playgrounds\u003c/h3\u003e
+\u003cp\u003eFind all playgrounds in Berlin using the Overture Maps \u003ccode\u003eland_use\u003c/code\u003e table. The query defines a bounding box around Berlin with \u003ccode\u003eST_GEOGFROMTEXT\u003c/code\u003e and filters for \u003ccode\u003eclass = 'playground'\u003c/code\u003e. Returns playground polygons with surface type and level attributes. A quick way to map public amenities from open data without downloading shapefiles or running local GIS tools.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2492,6 +2501,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="all-parks-in-london"\u003eAll parks in London\u003c/h3\u003e
+\u003cp\u003eQuery the London city boundary from Overture Maps \u003ccode\u003edivision_area\u003c/code\u003e. This example selects the London locality polygon by name and ISO country code, which can then be used as a spatial filter for other Overture tables. The map shows London\u0026rsquo;s full administrative boundary as stored in the Overture Maps dataset.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2537,6 +2547,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="ukraine-schools"\u003eUkraine Schools\u003c/h3\u003e
+\u003cp\u003eMap all schools in Ukraine using Overture Maps \u003ccode\u003eland_use\u003c/code\u003e data. The query first gets the Ukraine country boundary from \u003ccode\u003edivision_area\u003c/code\u003e, then filters \u003ccode\u003eland_use\u003c/code\u003e for \u003ccode\u003esubtype = 'education'\u003c/code\u003e and \u003ccode\u003eclass = 'school'\u003c/code\u003e within that boundary using \u003ccode\u003eST_WITHIN\u003c/code\u003e. Shows the geographic distribution of educational facilities across the country, useful for humanitarian planning, infrastructure assessment, or education policy analysis.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2583,6 +2594,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003ch2 id="places"\u003ePlaces\u003c/h2\u003e
 \u003cp\u003eThe \u003ccode\u003eplace\u003c/code\u003e table in the Overture Maps dataset contains points of interest (POIs) such as businesses, amenities, and public facilities.\u003c/p\u003e
 \u003ch3 id="london-ev-charging-density"\u003eLondon EV Charging Density\u003c/h3\u003e
+\u003cp\u003eVisualize EV charging station density across London using H3 hexagonal aggregation. The query filters Overture Maps \u003ccode\u003eplace\u003c/code\u003e data for charging-related categories within the London boundary, then groups stations into H3 hexagons at resolution 6. The heatmap reveals where charging infrastructure is concentrated and where gaps exist. Relevant for EV infrastructure planning, fleet operations, and competitive analysis in the charging network space.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2638,6 +2650,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="las-vegas-ev-charging"\u003eLas Vegas EV Charging\u003c/h3\u003e
+\u003cp\u003eFind all EV charging stations in Las Vegas from the Overture Maps \u003ccode\u003eplace\u003c/code\u003e table. The query uses the Las Vegas locality boundary to spatially filter places with charging or EV-related categories, returning station names, addresses, websites, and phone numbers. A ready-to-use query for mapping charging infrastructure in any city by changing the boundary filter.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2682,6 +2695,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003c/p\u003e
 \u003ch3 id="uk-pubs-density"\u003eUK pubs density\u003c/h3\u003e
+\u003cp\u003eMap pub density across the United Kingdom using H3 hexagons at resolution 8. Queries the Overture Maps \u003ccode\u003eplace\u003c/code\u003e table for \u003ccode\u003ecategory = 'pub'\u003c/code\u003e within the UK boundary, then aggregates by H3 cell. The heatmap highlights pub concentration in major cities and regional drinking culture patterns. Demonstrates how to use Overture Maps POI data with H3 spatial indexing for density analysis of any place category.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
