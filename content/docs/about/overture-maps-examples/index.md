@@ -28,6 +28,9 @@ The Overture Maps `segment` table represents paths, roads, and transportation se
 
 
 ### Nevada Roads by Speed and Class
+
+Visualize the Nevada road network from Overture Maps, colored by speed limit and road class. The query uses `ST_WITHIN` to clip road segments to the Nevada boundary from `division_area`, then extracts speed limit values from the nested JSON `road` column. Useful for transportation planning, logistics routing, or understanding road infrastructure at the state level.
+
 {{< img src="77dc6f7f-c91c-4099-8dc3-8f043d46cdfb.png" cloud="77dc6f7f-c91c-4099-8dc3-8f043d46cdfb" >}}
 
 ```sql
@@ -61,6 +64,9 @@ WHERE
 {{< try-query-cloud report="77dc6f7f-c91c-4099-8dc3-8f043d46cdfb" >}}
 
 ### Berlin Roads
+
+Query primary, secondary, and tertiary roads in Berlin using `ST_CONTAINS` to filter Overture Maps segments inside the Berlin boundary. A practical starting point for urban mobility analysis, bike infrastructure mapping, or comparing road density across European cities.
+
 {{< img src="410b857a-aad1-4f05-8ddd-551d0f0fe650.png" cloud="410b857a-aad1-4f05-8ddd-551d0f0fe650" >}}
 
 ```sql
@@ -81,6 +87,9 @@ AND s.class IN ('primary', 'secondary', 'tertiary');
 {{< try-query-cloud report="410b857a-aad1-4f05-8ddd-551d0f0fe650" >}}
 
 ### Nevada highways and main roads
+
+Extract highways, motorways, and main roads in Nevada using Overture Maps on Snowflake. This query uses `ST_SIMPLIFY` to reduce boundary detail for faster spatial joins, then converts geometry to WKT with `ST_ASWKT` for visualization. Shows how to work with Overture Maps transportation data in Snowflake using the same SQL patterns as BigQuery.
+
 {{< img src="db0e26c2-00b0-4f6b-8f21-a26ab312f9e1.png" cloud="db0e26c2-00b0-4f6b-8f21-a26ab312f9e1" >}}
 
 ```sql
@@ -111,6 +120,9 @@ WHERE
 {{< try-query-cloud report="db0e26c2-00b0-4f6b-8f21-a26ab312f9e1" >}}
 
 ### Germany & France Road Networks
+
+Compare road density between Germany and France using H3 hexagonal aggregation. The query filters Overture Maps road segments by country boundary, calculates road length in kilometers with `ST_LENGTH`, then assigns each segment to an H3 hexagon using `bqcarto.h3.ST_ASH3`. The result is a heatmap showing road density per hexagon, useful for cross-country infrastructure comparison or logistics network analysis.
+
 {{< img src="a4e308a3-b2e8-4183-bfd6-b68866209f50.png" cloud="a4e308a3-b2e8-4183-bfd6-b68866209f50" >}}
 
 ```sql
@@ -150,6 +162,9 @@ ORDER BY total_road_length_km DESC;
 {{< try-query-cloud report="a4e308a3-b2e8-4183-bfd6-b68866209f50" >}}
 
 ### Road density US
+
+Map road density across the United States using H3 hexagons at zoom level 6. Filters Overture Maps segments to primary, secondary, and tertiary roads within the US boundary, calculates length per segment, then aggregates total road kilometers per hexagon. Reveals patterns in road infrastructure: dense corridors along the East Coast, sparse coverage in the Mountain West.
+
 {{< img src="eb5b25bf-4c62-44bc-9e69-f0257134e3f8.png" cloud="eb5b25bf-4c62-44bc-9e69-f0257134e3f8" >}}
 
 ```sql
@@ -189,6 +204,8 @@ ORDER BY total_road_length_km DESC;
 {{< try-query-cloud report="eb5b25bf-4c62-44bc-9e69-f0257134e3f8" >}}
 
 ### Joining GPS probes with road geometry
+
+Match GPS trace data to Overture Maps road segments using H3 spatial indexing. The query generates H3 cells at resolution 12 along road geometries near Brandenburg Gate in Berlin, then joins them with Strava GPS stream points on the same H3 index. The result shows average cycling speed per road segment. This pattern - joining GPS probes to road geometry via H3 - is common in mobility analytics, fleet tracking, and traffic speed estimation.
 
 {{< img src="8693cbeb-8369-4f38-91a4-5638589998e5.png" cloud="8693cbeb-8369-4f38-91a4-5638589998e5" >}}
 
@@ -242,6 +259,8 @@ The Overture Maps division_area table contains boundary polygons for administrat
 
 ### Berlin Boundary
 
+Query the administrative boundary of Berlin from Overture Maps `division_area` table. A simple filter on `names.primary` and `country` returns the city polygon with its subtype and region code. This is the building block for most geospatial queries: get a boundary first, then use `ST_WITHIN` or `ST_CONTAINS` to clip other datasets to that area.
+
 {{< img src="5f7144cd-24f0-4698-ba7e-a63e872a4659.png" cloud="5f7144cd-24f0-4698-ba7e-a63e872a4659" >}}
 
 ```sql
@@ -254,6 +273,8 @@ AND country = 'DE'
 
 <!-- ffbe0a05-7794-465c-ab5b-de54d69cdb38 -->
 ### Regions and Cities in France
+
+List all administrative regions and cities in France from the Overture Maps `division_area` table. Filters by ISO country code `FR` and subtypes `region` and `city`, returning boundary polygons with names. Useful for building a base layer of French administrative geography, or as a starting point for regional analysis like population density, infrastructure coverage, or service area planning.
 
 {{< img src="ffbe0a05-7794-465c-ab5b-de54d69cdb38.png" cloud="ffbe0a05-7794-465c-ab5b-de54d69cdb38" >}}
 
@@ -281,6 +302,8 @@ The Overture Maps `land_use` table represents different types of land use, such 
 
 ### Berlin Playgrounds
 
+Find all playgrounds in Berlin using the Overture Maps `land_use` table. The query defines a bounding box around Berlin with `ST_GEOGFROMTEXT` and filters for `class = 'playground'`. Returns playground polygons with surface type and level attributes. A quick way to map public amenities from open data without downloading shapefiles or running local GIS tools.
+
 {{< img src="34d0ba2c-0fd5-4323-a677-d5b05b65d86d.png" cloud="34d0ba2c-0fd5-4323-a677-d5b05b65d86d" >}}
 
 ```sql
@@ -292,6 +315,8 @@ AND LOWER(class) = 'playground'
 {{< try-query-cloud report="34d0ba2c-0fd5-4323-a677-d5b05b65d86d" >}}
 
 ### All parks in London
+
+Query the London city boundary from Overture Maps `division_area`. This example selects the London locality polygon by name and ISO country code, which can then be used as a spatial filter for other Overture tables. The map shows London's full administrative boundary as stored in the Overture Maps dataset.
 
 {{< img src="8cb1566f-0237-4d99-9cc4-bdd70859763a.png" cloud="8cb1566f-0237-4d99-9cc4-bdd70859763a" >}}
 
@@ -313,6 +338,8 @@ WHERE
 {{< try-query-cloud report="8cb1566f-0237-4d99-9cc4-bdd70859763a" >}}
 
 ### Ukraine Schools
+
+Map all schools in Ukraine using Overture Maps `land_use` data. The query first gets the Ukraine country boundary from `division_area`, then filters `land_use` for `subtype = 'education'` and `class = 'school'` within that boundary using `ST_WITHIN`. Shows the geographic distribution of educational facilities across the country, useful for humanitarian planning, infrastructure assessment, or education policy analysis.
 
 {{< img src="f0941a67-350f-4a80-a9d0-27594f2f853d.png" cloud="f0941a67-350f-4a80-a9d0-27594f2f853d" >}}
 
@@ -338,6 +365,8 @@ The `place` table in the Overture Maps dataset contains points of interest (POIs
 
 
 ### London EV Charging Density
+
+Visualize EV charging station density across London using H3 hexagonal aggregation. The query filters Overture Maps `place` data for charging-related categories within the London boundary, then groups stations into H3 hexagons at resolution 6. The heatmap reveals where charging infrastructure is concentrated and where gaps exist. Relevant for EV infrastructure planning, fleet operations, and competitive analysis in the charging network space.
 
 {{< img src="af836766-9ec4-40fc-afbe-fc6b32d6593b.png" cloud="af836766-9ec4-40fc-afbe-fc6b32d6593b" >}}
 
@@ -371,6 +400,7 @@ GROUP BY
 
 ### Las Vegas EV Charging
 
+Find all EV charging stations in Las Vegas from the Overture Maps `place` table. The query uses the Las Vegas locality boundary to spatially filter places with charging or EV-related categories, returning station names, addresses, websites, and phone numbers. A ready-to-use query for mapping charging infrastructure in any city by changing the boundary filter.
 
 {{< img src="72781fb6-8bc5-4c41-839f-66f5bcf7c122.png" cloud="72781fb6-8bc5-4c41-839f-66f5bcf7c122" >}}
 
@@ -391,6 +421,8 @@ AND ST_WITHIN(p.geometry, lv.geometry)
 {{< try-query-cloud report="72781fb6-8bc5-4c41-839f-66f5bcf7c122" >}}
 
 ### UK pubs density
+
+Map pub density across the United Kingdom using H3 hexagons at resolution 8. Queries the Overture Maps `place` table for `category = 'pub'` within the UK boundary, then aggregates by H3 cell. The heatmap highlights pub concentration in major cities and regional drinking culture patterns. Demonstrates how to use Overture Maps POI data with H3 spatial indexing for density analysis of any place category.
 
 {{< img src="3205a875-b5d7-4458-a0b9-74fdeb49a44b.png" cloud="3205a875-b5d7-4458-a0b9-74fdeb49a44b" >}}
 
