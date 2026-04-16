@@ -1,6 +1,6 @@
 ---
-title: "CARTO Alternative for BigQuery & Snowflake | Open Source or Hosted From $49/mo"
-description: "Dekart is an open-source CARTO alternative built for BigQuery and Snowflake. SQL-native map analytics, transparent pricing from $49/mo, self-hosting option. No vendor lock-in."
+title: "Open-Source CARTO Alternative | Dekart"
+description: "Dekart is a CARTO alternative built for data scientists with connectors to BigQuery, Snowflake, and Postgres. Self-hosted open-source or hosted from $49/mo."
 draft: false
 images: []
 type: "html-content"
