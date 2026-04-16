@@ -1,6 +1,6 @@
 ---
-title: "Open-Source CARTO Alternative | Dekart"
-description: "Dekart is a CARTO alternative built for data scientists with connectors to BigQuery, Snowflake, and Postgres. Self-hosted open-source or hosted from $49/mo."
+title: "CARTO Alternative for Data Teams | Dekart"
+description: "Open-source map analytics for BigQuery and Snowflake. Write SQL, get maps instantly. No data movement, no vendor lock-in. Self-hosted or hosted from $49/mo."
 draft: false
 images: []
 type: "html-content"
@@ -31,8 +31,8 @@ type: "html-content"
       </div>
       <div class="col-lg-9 col-xl-8 text-center mt-4">
         <p class="mt-2">
-          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Start Free</a>
-          <a class="btn btn-outline-primary btn-lg d-inline-block mb-2" href="https://calendly.com/vladi-dekart/30min" role="button">Book a Demo</a>
+          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-create-map" role="button">Create Map</a>
+          <a class="btn btn-outline-dark btn-lg d-inline-block mb-2" href="https://github.com/dekart-xyz/dekart?ref=carto-alternative-get-on-github" role="button"><svg class="github-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px; position: relative; top: -1px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>Get it on GitHub</a>
         </p>
       </div>
       {{< cloud-main-video video_src="/main-page-screencast-4.mp4" poster_src="/main-page-screencast-4.png" >}}
@@ -51,7 +51,7 @@ type: "html-content"
             <th scope="col" class="text-center">
               <div class="dekart-plan-header">
                 <div class="dekart-plan-name font-weight-bold">Dekart</div>
-                <a href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" class="btn btn-sm btn-primary">Start Free</a>
+                <a href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-create-map" class="btn btn-sm btn-primary">Create Map</a>
               </div>
             </th>
             <th scope="col" class="text-center">
@@ -172,7 +172,7 @@ type: "html-content"
     <div class="row justify-content-center">
       <div class="col-lg-9 col-xl-8 text-center">
         <p class="mt-2">
-          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Start Free, No Credit Card</a>
+          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-create-map" role="button">Start Free, No Credit Card</a>
         </p>
       </div>
     </div>
@@ -183,16 +183,16 @@ type: "html-content"
     <div class="row justify-content-center">
       <div class="col-xl-12 text-left">
         <h2 class="display-4">Why Data Teams Switch from CARTO to Dekart</h2>
-        <h4>"We dropped CARTO because of the price"</h4>
-        <p>CARTO does not publish pricing. Teams we talk to report contracts starting around $4,000+/month. Dekart starts free, with paid plans from $49/month. No sales calls, no negotiations. <br/><span class="d-inline-block">👉 <a href='/cloud/'>See Dekart Cloud pricing</a></span></p>
-        <h4>"CARTO copies my data instead of querying my warehouse"</h4>
-        <p>CARTO requires data ingestion into their platform. Dekart queries BigQuery and Snowflake directly. Your data never leaves your warehouse. No ETL pipelines, no sync jobs, no extra storage costs.</p>
-        <h4>"I just want to write SQL, not learn a builder UI"</h4>
-        <p>CARTO's Builder interface adds complexity on top of what data teams already know: SQL. Dekart is SQL-first. Write a query, see a map. No drag-and-drop layers, no widget configurations. If you know SQL, you already know Dekart.</p>
-        <h4>"We need to self-host for compliance"</h4>
-        <p>CARTO offers self-hosting only on enterprise plans. Dekart runs as a single Docker container on any infrastructure, including the free open-source version. Deploy on GKE, App Engine, or any Docker host. Your data, your network, your rules. <br/><span class="d-inline-block">👉 <a href='/self-hosted/'>Self-hosting options</a></span></p>
-        <h4>"We got locked into CARTO and can't leave"</h4>
-        <p>Dekart is fully open-source (AGPL). Your maps are SQL queries stored in your warehouse. There is nothing proprietary to migrate away from. Switch to self-hosted, switch to cloud, or fork the code. You always own your work. <br/><span class="d-inline-block">👉 <a href='/docs/about/overture-maps-examples/'>See live map examples</a></span></p>
+        <h4>"The integration required significant additional processing to get our data ready to visualize"</h4>
+        <p>Data analytics lead at a Databricks team. CARTO requires reshaping your data before you can map it. Dekart queries BigQuery, Snowflake, and Postgres directly. Write SQL, see a map. No data prep, no extra processing.</p>
+        <h4>"Carto charges too much, stopped liking them before I even started"</h4>
+        <p>Data engineer. CARTO does not publish pricing. Teams report contracts starting around $4,000+/month. Dekart starts free, paid plans from $49/month. No sales calls. <br/><span class="d-inline-block">👉 <a href='/cloud/'>See Dekart Cloud pricing</a></span></p>
+        <h4>"I favor interoperability, cooperation, and open source, which are things they can't offer"</h4>
+        <p>Geospatial department manager. Dekart is fully open-source (AGPL). Self-host on any infrastructure or use Dekart Cloud. Your maps are SQL queries in your warehouse. Nothing proprietary to migrate away from. <br/><span class="d-inline-block">👉 <a href='/self-hosted/'>Self-hosting options</a></span></p>
+        <h4>"We only use open tools that we can configure and inspect"</h4>
+        <p>Senior data engineer. Dekart runs as a single Docker container. Deploy on GKE, App Engine, or any Docker host. Full source code on GitHub, inspect and configure everything. <br/><span class="d-inline-block">👉 <a href='https://github.com/dekart-xyz/dekart?ref=carto-alternative-open-tools'>View on GitHub</a></span></p>
+        <h4>"Lock-in is less of a concern than cost, and cost of switching"</h4>
+        <p>Enterprise data lead. With Dekart there is no switching cost. Your maps are SQL queries, your data stays in your warehouse. Start free, export anytime. <br/><span class="d-inline-block">👉 <a href='/docs/about/overture-maps-examples/'>See live map examples</a></span></p>
       </div>
     </div>
   </section>
@@ -203,10 +203,10 @@ type: "html-content"
     <div class="row justify-content-center">
       <div class="col-lg-9 col-xl-8 text-center">
         <p class="mt-2">
-          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-2" role="button">Create Free Workspace</a>
-          <a class="btn btn-outline-primary btn-lg d-inline-block mb-2" href="https://calendly.com/vladi-dekart/30min" role="button">Book a call</a>
+          <a class="btn btn-primary btn-lg d-inline-block mb-2" href="https://cloud.dekart.xyz/workspace?ref=carto-alternative-create-map" role="button">Create Free Workspace</a>
+          <a class="btn btn-outline-dark btn-lg d-inline-block mb-2" href="https://github.com/dekart-xyz/dekart?ref=carto-alternative-get-on-github" role="button"><svg class="github-btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px; position: relative; top: -1px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>Get it on GitHub</a>
         </p>
-        <p>Talk to the team. Get started in minutes.</p>
+        <p><a href="https://calendly.com/vladi-dekart/30min?ref=carto-alternative-talk-to-team">Talk to the team.</a> Get started in minutes.</p>
       </div>
     </div>
   </section>
