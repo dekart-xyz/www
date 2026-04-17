@@ -1,6 +1,6 @@
 ---
-title: "BigQuery Overture Maps Examples"
-description: "Interactive map examples using Overture Maps in BigQuery: roads, boundaries, land use, EV charging, and more. Run SQL, see maps instantly."
+title: "How to query Overture Maps on BigQuery – SQL examples by usecase"
+description: "Copy-paste BigQuery SQL for the Overture Maps public dataset. Covers roads, EV stations, buildings, boundaries, land use, and divisions."
 lead: ""
 date: 2024-08-28T07:26:19+02:00
 lastmod: 2024-09-23T07:26:19+02:00
@@ -16,7 +16,7 @@ canonical: ""
 ---
 
 
-Collection of kepler.gl maps created from Overture Data in BigQuery public dataset using BigQuery SQL and Dekart. Each example includes a SQL query and a visualized map.
+BigQuery hosts Overture Maps as a free public dataset. Below are working SQL examples by usecase, each one rendering on a live map.
 
 <div class="gpt" >
   <p>All examples are created with <b>Overture Maps GPT</b></p><p><a href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt?ref=gpt-link" class="btn btn-outline-primary" target="_blank">Get it Free</a></p>
