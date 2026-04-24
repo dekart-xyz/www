@@ -29,6 +29,7 @@ images: []
 | `DEKART_CORS_ORIGIN=` <br/><small class="badge badge-info">version &gt;= 0.10</small> | CORS Origin to be allowed by Dekart backend and set in `Access-Control-Allow-Origin` header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. <br> *Example*: `https://dekart.example.com` |
 | `DEKART_SQLITE_DB_PATH=` <br/><small class="badge badge-info">version &gt;=0.17.2</small> | Dekart will use SQLite database instead of Postgres to store query meta information. <br> *Example*: `./dekart.db` |
 | `DEKART_STREAM_TIMEOUT` <br/><small class="badge badge-info">version &gt;= 0.18</small> | Timeout in seconds for streaming backend updates. Default value is 50 seconds. Useful when your Gateway has a shorter timeout and you see Gateway Timeout errors. <br> *Example*: `50`|
+| `DEKART_HTTP_WRITE_TIMEOUT_SECONDS` <br/><small class="badge badge-info">version &gt;= 0.23</small> | HTTP server write timeout in seconds. Useful for long-running snapshot responses so backend can return a proper error payload instead of socket timeout. <br> *Example*: `65`|
 ## Data Encryption
 
 <small class="badge badge-info">version &gt;=0.18</small>
@@ -160,6 +161,18 @@ Starting from version 0.10 Dekart supports file upload. File upload is disabled 
 | `DEKART_ALLOW_FILE_UPLOAD` <br/><small class="badge badge-info">version &gt;= 0.10</small> | Enable file upload <br> *Example value*: `1`|
 | `DEKART_MAX_FILE_UPLOAD_SIZE` <br/><small class="badge badge-info">version &gt;= 0.22</small> | Maximum upload size in bytes. If not set, default is `1073741824` (1 GiB). Invalid value will fail Dekart startup. <br> *Example value*: `104857600` (100 MB) |
 
+## Report snapshots (Browserless)
+
+Snapshot rendering uses Browserless. If `DEKART_BROWSERLESS_TOKEN` is empty, snapshot feature is disabled.
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_BROWSERLESS_URL` <br/><small class="badge badge-info">version &gt;= 0.23</small> | Browserless screenshot endpoint used by backend snapshot renderer. <br> *Example value*: `http://browserless:3000/screenshot` |
+| `DEKART_BROWSERLESS_TOKEN` <br/><small class="badge badge-info">version &gt;= 0.23</small> | Browserless auth token used by snapshot renderer. Required to enable snapshot feature. |
+| `DEKART_BROWSERLESS_TIMEOUT_MS` <br/><small class="badge badge-info">version &gt;= 0.23</small> | Browserless timeout in milliseconds (container/runtime level). <br> *Example value*: `240000` |
+| `DEKART_SNAPSHOT_TIMEOUT_SECONDS` <br/><small class="badge badge-info">version &gt;= 0.23</small> | Per-snapshot render timeout in seconds enforced by Dekart backend. <br> *Example value*: `60` |
+| `DEKART_SNAPSHOT_TOKEN_TTL_MINUTES` <br/><small class="badge badge-info">version &gt;= 0.23</small> | One-time snapshot URL token TTL in minutes. <br> *Example value*: `3` |
+
 ## Email notifications
 
 Dekart can send workspace invite and report access emails via [Resend](https://resend.com/).  
@@ -247,6 +260,16 @@ This mode expects JWT in `X-Forwarded-Access-Token` and is intended for deployme
 | `DEKART_OIDC_AUDIENCE` <br/><small class="badge badge-info">version &gt;=0.21</small> | Expected `aud` claim. Optional. <br> *Example value*: `oauth2-proxy` |
 
 Keycloak reverse proxy setup example: [Keycloak OIDC Reverse Proxy](/docs/self-hosting/keycloak-reverse-proxy/)
+
+## Device auth tokens (CLI)
+
+Dekart can issue workspace-scoped device tokens for CLI and automation use.
+
+| Name        | Description           |
+| ------------- | ------------- |
+| `DEKART_DEVICE_AUTH_PRIVATE_KEY` <br/><small class="badge badge-info">version &gt;= 0.23</small> | Base64-encoded PEM RSA private key used to sign device auth JWTs. |
+| `DEKART_DEVICE_AUTH_PUBLIC_KEY` <br/><small class="badge badge-info">version &gt;= 0.23</small> | Base64-encoded PEM RSA public key used to validate device auth JWTs. |
+| `DEKART_DEVICE_AUTH_TOKEN_TTL_HOURS` <br/><small class="badge badge-info">version &gt;= 0.23</small> | Device token expiration time in hours. <br> *Example value*: `720` |
 
 
 ## Workspaces
