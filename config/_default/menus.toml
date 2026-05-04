@@ -45,7 +45,7 @@
   weight = 8
 
 [[main]]
-  name = "Examples"
+  name = "Map Examples"
   url = "/docs/about/overture-maps-examples/"
   weight = 9
 
@@ -55,7 +55,7 @@
   weight = 11
 
 [[main]]
-  name = "Documentation"
+  name = "Docs"
   url = "/docs/configuration/environment-variables/"
   weight = 10
 
