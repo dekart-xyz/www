@@ -2,13 +2,13 @@
 title: "Dekart Cloud Privacy Policy"
 description: ""
 date: 2021-02-19T08:17:44+01:00
-lastmod: 2025-03-09T08:17:44+01:00
+lastmod: 2026-05-09T08:17:44+01:00
 draft: false
 images: []
 ---
 
 # Dekart Cloud Privacy Policy
-Last Updated: 2025-03-09
+Last Updated: 2026-05-09
 
 This Privacy Policy outlines how Dekart XYZ UG (haftungsbeschränkt) (“Dekart Cloud,” “we,” “us,” or “our”) manages your data in compliance with the General Data Protection Regulation (GDPR) and other relevant laws. By accessing or using our services, you acknowledge that you have read this policy and understand your rights.
 
@@ -77,6 +77,12 @@ Data is kept for as long as necessary to provide our services, and is securely d
 ## Cookies and Tracking Technologies
 
 Dekart Cloud does not use cookies or similar tracking technologies.
+
+## Command-Line Tools and SDK Telemetry
+
+Our command-line tools (such as the `dekart` and `geosql` CLIs) perform a non-blocking version check against `cloud.dekart.xyz` on startup. The request contains only the CLI name and version (as the `User-Agent` header) and no personal data, query content, or warehouse credentials. The check helps us understand which versions are in active use so we can plan compatibility and deprecations.
+
+You can opt out at any time by setting `DO_NOT_TRACK=1` (or `DNT=1`) in your environment. With the opt-out set, no version-check request is sent.
 
 ## Changes to This Privacy Policy
 
