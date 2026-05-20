@@ -24,18 +24,18 @@ type: "html-content"
         <div class="m-2">
           <div class="card d-block">
             <div class="bg-light dekart-cloud-price-top">
-              <a href="https://github.com/dekart-xyz/dekart" class="btn btn-outline-dark">Open-Source</a>
+              <span class="btn btn-outline-dark disabled" style="pointer-events:none;">Open-Source</span>
               <h3>
-                <a href="https://github.com/dekart-xyz/dekart">Free on GitHub</a>
+                <a href="https://github.com/dekart-xyz/dekart" style="text-decoration:underline;">Free on GitHub</a>
               </h3>
               <p class="card-text">Do it yourself</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
                 <li class="mb-2">Run with Docker</li>
-                <li class="mb-2">Connect BigQuery & Snowflake</li>
-                <li class="mb-2">Share maps</li>
+                <li class="mb-2">PostgreSQL, BigQuery, Snowflake, Wherobots connectors</li>
                 <li class="mb-2">&nbsp;</li>
+                <li class="mb-3">&nbsp;</li>
               </ul>
             </div>
           </div>
@@ -45,15 +45,18 @@ type: "html-content"
         <div class="m-2">
           <div class="card">
             <div class="bg-light dekart-cloud-price-top">
-              <a href="https://calendly.com/vladi-dekart/dekart-premium?ref=calendly-premium" class="btn btn-primary">Premium</a>
-              <h3>$5,880/year</h3>
-              <p class="card-text">Enterprise Security</p>
+              <span class="btn btn-primary disabled" style="pointer-events:none;">Premium</span>
+              <h3>
+                <a href="https://calendly.com/vladi-dekart/dekart-premium?ref=calendly-premium" style="text-decoration:underline;">Contact us</a>
+              </h3>
+              <p class="card-text">Fine-grained access controls</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
-                <li class="mb-2">OIDC SSO (Keycloak, Google, IAP, Amazon)</li>
-                <li class="mb-2">Fine-graned access controls</li>
-                <li class="mb-2">Premium codebase</li>
+                <li class="mb-2">SSO</li>
+                <li class="mb-2">Private map sharing</li>
+                <li class="mb-2">User roles and permissions</li>
+                <li class="mb-2">Commercial license</li>
                 <li class="mb-2">Slack support</li>
               </ul>
             </div>
@@ -64,18 +67,19 @@ type: "html-content"
         <div class="m-2">
           <div class="card">
             <div class="bg-light dekart-cloud-price-top">
-              <a class="btn btn-dark" href="https://calendly.com/vladi-dekart/dekart-white-label?ref=calendly-white-label">White Label</a>
+              <span class="btn btn-dark disabled" style="pointer-events:none;">Enterprise</span>
               <h3>
-                <a href="https://calendly.com/vladi-dekart/dekart-white-label?ref=calendly-white-label">Contact us</a>
+                <a href="https://calendly.com/vladi-dekart/dekart-white-label?ref=calendly-white-label" style="text-decoration:underline;">Contact us</a>
               </h3>
-              <p class="card-text">For scalability, and integration</p>
+              <p class="card-text">For custom integrations</p>
             </div>
             <div class="card-body text-left">
               <ul class="list-unstyled">
-                <li class="mb-2">High availability</li>
-                <li class="mb-2">Your branding and enterprise SSO (OIDC/Keycloak)</li>
+                <li class="mb-2">Databricks connector</li>
+                <li class="mb-2">Azure connector</li>
+                <li class="mb-2">Custom SSO</li>
                 <li class="mb-2">Custom integrations</li>
-                <li class="mb-2">&nbsp;</li>
+                <li class="mb-2">Custom branding</li>
               </ul>
             </div>
           </div>
@@ -104,7 +108,7 @@ type: "html-content"
               </th>
               <th scope="col" class="text-center">
                 <div class="dekart-plan-header">
-                  <div class="dekart-plan-name font-weight-bold">White Label</div>
+                  <div class="dekart-plan-name font-weight-bold">Enterprise</div>
                   <a href="https://calendly.com/vladi-dekart/dekart-white-label?ref=calendly-white-label-contact-us" class="btn btn-sm btn-dark">Contact us</a>
                 </div>
               </th>
