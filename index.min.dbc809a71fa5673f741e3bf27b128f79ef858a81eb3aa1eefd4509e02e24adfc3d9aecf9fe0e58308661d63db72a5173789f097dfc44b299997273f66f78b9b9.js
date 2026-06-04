@@ -913,48 +913,35 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003cli\u003e\u003ca href="/blog/bigquery-vs-snowflake-gis-sql-performance-comparison-1/"\u003eBigQuery vs Snowflake GIS performance\u003c/a\u003e - query speed and cost benchmarks\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz"\u003eTry Dekart Cloud free\u003c/a\u003e - paste SQL, get a map\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:4,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Run Dekart with docker run",content:`
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-\u003cdiv class="dekart-cta-banner p-3 mb-3" \u003e
-  \u003cdiv class="row justify-content-between align-items-center"\u003e
-    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
-      Need team login? Get a free SSO key
-    \u003c/div\u003e
-    \u003cdiv class="col-md-6 text-md-right"\u003e
-      \u003ca class="btn btn-outline-dark" href="https://mailchi.mp/dekart/upgrade-to-sso?ref=docs-deployment" role="button"\u003eGet SSO Key\u003c/a\u003e
-    \u003c/div\u003e
-  \u003c/div\u003e
-\u003c/div\u003e
-
-\u003cp\u003eThis page documents \u003ccode\u003edocker run\u003c/code\u003e flows for self-hosted Dekart.\u003c/p\u003e
-\u003cp\u003eUse \u003ca href="/docs/self-hosting/docker-compose/"\u003eDocker Compose\u003c/a\u003e if you want full multi-service setup examples.\u003c/p\u003e
-\u003ch2 id="requirements"\u003eRequirements\u003c/h2\u003e
-\u003cul\u003e
-\u003cli\u003eDocker\u003c/li\u003e
-\u003cli\u003ePostgreSQL (metadata storage)\u003c/li\u003e
-\u003cli\u003eMapbox token\u003c/li\u003e
-\u003cli\u003eCredentials for your selected datasource/auth setup\u003c/li\u003e
-\u003c/ul\u003e
-\u003ch2 id="bigquery"\u003eBigQuery\u003c/h2\u003e
+`},{id:4,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Run Dekart with docker run",content:`\u003ch2 id="quick-start"\u003eQuick start\u003c/h2\u003e
+\u003cp\u003eStart Dekart with zero configuration. This uses the built-in SQLite metadata database, local file storage, and file upload:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run -p 8080:8080 dekartxyz/dekart:latest
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eOpen \u003ccode\u003ehttp://localhost:8080\u003c/code\u003e and create a map.\u003c/p\u003e
+\u003cp\u003eTo keep your maps and uploaded files between restarts, mount a host directory at \u003ccode\u003e/dekart/data\u003c/code\u003e:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run -p 8080:8080 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -v \u003cspan class="k"\u003e\$(\u003c/span\u003e\u003cspan class="nb"\u003epwd\u003c/span\u003e\u003cspan class="k"\u003e)\u003c/span\u003e/dekart-data:/dekart/data \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="amazon-s3-backups"\u003eAmazon S3 backups\u003c/h3\u003e
+\u003cp\u003eBack up the SQLite metadata database to an S3 bucket. Dekart uses the standard AWS SDK credential chain.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run -p 8080:8080 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eS3 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-s3-bucket \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eus-east-1 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_ACCESS_KEY_ID\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-aws-access-key-id \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eAWS_SECRET_ACCESS_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-aws-secret-access-key \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="google-cloud-storage-backups"\u003eGoogle Cloud Storage backups\u003c/h3\u003e
+\u003cp\u003eBack up the SQLite metadata database to a GCS bucket.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run -p 8080:8080 \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -v /absolute/path/to/gcp-service-account.json:/run/secrets/gcp-service-account.json:ro \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e/run/secrets/gcp-service-account.json \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eGCS \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-gcs-bucket \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="with-postgres-metadata-backend"\u003eWith Postgres metadata backend\u003c/h2\u003e
+\u003cp\u003eThe configurations below store metadata in Postgres instead of SQLite. Starting with version 0.23 a Postgres metadata backend requires a valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e.\u003c/p\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet required SSO key\u003c/a\u003e\u003c/p\u003e
+\u003ch3 id="bigquery"\u003eBigQuery\u003c/h3\u003e
 \u003cp\u003eUse this when BigQuery is the datasource and GCS is the cache backend.\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run --rm -p 8080:8080 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -v /absolute/path/to/gcp-service-account.json:/run/secrets/gcp-service-account.json:ro \u003cspan class="se"\u003e\\
@@ -964,6 +951,7 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003edekart \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e5432\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehost.docker.internal \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-license-key \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eGCS \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eBQ \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-gcs-bucket \u003cspan class="se"\u003e\\
@@ -973,8 +961,8 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehttp://localhost:3000 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e1\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="google-oauth-configuration"\u003eGoogle OAuth configuration\u003c/h3\u003e
-\u003cp\u003eUse this when users authenticate directly with Google OAuth in Dekart.\u003cbr\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch4 id="google-oauth-configuration"\u003eGoogle OAuth configuration\u003c/h4\u003e
+\u003cp\u003eUse this when users authenticate directly with Google OAuth in Dekart.
 A valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e is required when SSO is enabled.\u003c/p\u003e
 \u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet required SSO key\u003c/a\u003e\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run --rm -p 8080:8080 \u003cspan class="se"\u003e\\
@@ -993,7 +981,7 @@ A valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e is required when SSO
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehttp://localhost:3000 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e1\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="snowflake"\u003eSnowflake\u003c/h2\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="snowflake"\u003eSnowflake\u003c/h3\u003e
 \u003cp\u003eUse this when Snowflake is the datasource.\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run --rm -p 8080:8080 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_DB\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003edekart \u003cspan class="se"\u003e\\
@@ -1001,6 +989,7 @@ A valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e is required when SSO
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003edekart \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e5432\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehost.docker.internal \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-license-key \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eS3 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eSNOWFLAKE \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-s3-bucket \u003cspan class="se"\u003e\\
@@ -1014,7 +1003,7 @@ A valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e is required when SSO
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehttp://localhost:3000 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e1\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="s3-cache-and-aws-sso-configuration"\u003eS3 cache and AWS SSO configuration\u003c/h3\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch4 id="s3-cache-and-aws-sso-configuration"\u003eS3 cache and AWS SSO configuration\u003c/h4\u003e
 \u003cp\u003eUse this when Snowflake query results are cached in S3 and auth is delegated via AWS OIDC headers from your load balancer.\u003c/p\u003e
 \u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet required SSO key\u003c/a\u003e\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run --rm -p 8080:8080 \u003cspan class="se"\u003e\\
@@ -1038,22 +1027,22 @@ A valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e is required when SSO
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehttp://localhost:3000 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e1\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="postgres"\u003ePostgres\u003c/h2\u003e
-\u003cp\u003eUse this when Postgres is the datasource and Dekart stores replayable query state in Postgres (\u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e).\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="postgres"\u003ePostgres\u003c/h3\u003e
+\u003cp\u003eUse this when Postgres is the datasource and Dekart stores replayable query state in Postgres (\u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e). File upload is not supported with \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e and is disabled automatically.\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run --rm -p 8080:8080 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_DB\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003edekart \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_USER\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003epostgres \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003edekart \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e5432\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehost.docker.internal \u003cspan class="se"\u003e\\
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-license-key \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ePG \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ePG \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003epostgres://postgres:dekart@host.docker.internal:5432/dekart_geo?sslmode\u003cspan class="o"\u003e=\u003c/span\u003edisable \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eyour-mapbox-token \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehttp://localhost:3000 \u003cspan class="se"\u003e\\
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="m"\u003e0\u003c/span\u003e \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="oidc-configuration"\u003eOIDC configuration\u003c/h3\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch4 id="oidc-configuration"\u003eOIDC configuration\u003c/h4\u003e
 \u003cp\u003eUse this when authentication is handled by a trusted reverse proxy forwarding OIDC JWT headers.\u003c/p\u003e
 \u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet required SSO key\u003c/a\u003e\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003edocker run --rm -p 8080:8080 \u003cspan class="se"\u003e\\
@@ -1074,47 +1063,52 @@ A valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e is required when SSO
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  -e \u003cspan class="nv"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003ehttp://localhost:3000 \u003cspan class="se"\u003e\\
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="se"\u003e\u003c/span\u003e  dekartxyz/dekart:latest
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eFor full proxy wiring details, see \u003ca href="/docs/self-hosting/keycloak-reverse-proxy/"\u003eKeycloak OIDC reverse proxy\u003c/a\u003e.\u003c/p\u003e
-`},{id:5,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart with full Docker Compose configurations",content:`
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-\u003cdiv class="dekart-cta-banner p-3 mb-3" \u003e
-  \u003cdiv class="row justify-content-between align-items-center"\u003e
-    \u003cdiv class="col-md-10 text-sm-center text-md-left"\u003e
-      Need team login? Get a free SSO key
-    \u003c/div\u003e
-    \u003cdiv class="col-md-6 text-md-right"\u003e
-      \u003ca class="btn btn-outline-dark" href="https://mailchi.mp/dekart/upgrade-to-sso?ref=docs-deployment" role="button"\u003eGet SSO Key\u003c/a\u003e
-    \u003c/div\u003e
-  \u003c/div\u003e
-\u003c/div\u003e
-
-\u003cp\u003eThis page documents \u003ccode\u003edocker compose\u003c/code\u003e flows for self-hosted Dekart.\u003c/p\u003e
-\u003ch2 id="requirements"\u003eRequirements\u003c/h2\u003e
-\u003cul\u003e
-\u003cli\u003eDocker Compose\u003c/li\u003e
-\u003cli\u003ePostgreSQL (metadata storage)\u003c/li\u003e
-\u003cli\u003eMapbox token\u003c/li\u003e
-\u003cli\u003eCredentials for your selected datasource/auth setup\u003c/li\u003e
-\u003c/ul\u003e
-\u003ch2 id="bigquery"\u003eBigQuery\u003c/h2\u003e
+`},{id:5,href:"https://dekart.xyz/docs/self-hosting/docker-compose/",title:"Docker Compose",description:"Run Dekart with full Docker Compose configurations",content:`\u003ch2 id="quick-start"\u003eQuick start\u003c/h2\u003e
+\u003cp\u003eStart Dekart with zero configuration. This uses the built-in SQLite metadata database, local file storage, and file upload. The named volume keeps your maps and uploaded files between restarts:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-yaml" data-lang="yaml"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nt"\u003eservices\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003edekart\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eimage\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="l"\u003edekartxyz/dekart:latest\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003erestart\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="l"\u003eunless-stopped\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eports\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e- \u003cspan class="s2"\u003e\u0026#34;8080:8080\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003evolumes\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e- \u003cspan class="l"\u003edekart-data:/dekart/data\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="nt"\u003evolumes\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003edekart-data\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="amazon-s3-backups"\u003eAmazon S3 backups\u003c/h3\u003e
+\u003cp\u003eBack up the SQLite metadata database to an S3 bucket. Dekart uses the standard AWS SDK credential chain.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-yaml" data-lang="yaml"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nt"\u003eservices\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003edekart\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eimage\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="l"\u003edekartxyz/dekart:latest\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003erestart\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="l"\u003eunless-stopped\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eports\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e- \u003cspan class="s2"\u003e\u0026#34;8080:8080\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eenvironment\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;S3\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-s3-bucket\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eAWS_REGION\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;us-east-1\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eAWS_ACCESS_KEY_ID\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-aws-access-key-id\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eAWS_SECRET_ACCESS_KEY\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-aws-secret-access-key\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="google-cloud-storage-backups"\u003eGoogle Cloud Storage backups\u003c/h3\u003e
+\u003cp\u003eBack up the SQLite metadata database to a GCS bucket.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-yaml" data-lang="yaml"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nt"\u003eservices\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003edekart\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eimage\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="l"\u003edekartxyz/dekart:latest\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003erestart\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="l"\u003eunless-stopped\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eports\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e- \u003cspan class="s2"\u003e\u0026#34;8080:8080\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003evolumes\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e- \u003cspan class="l"\u003e./gcp-service-account.json:/run/secrets/gcp-service-account.json:ro\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eenvironment\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;GCS\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-gcs-bucket\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;/run/secrets/gcp-service-account.json\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="with-postgres-metadata-backend"\u003eWith Postgres metadata backend\u003c/h2\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003e\u003csmall class="badge badge-primary"\u003erequires SSO key\u003c/small\u003e\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eThe configurations below store metadata in Postgres instead of SQLite. Starting with version 0.23 a Postgres metadata backend requires a valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e.\u003c/p\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet required SSO key\u003c/a\u003e\u003c/p\u003e
+\u003ch3 id="bigquery"\u003eBigQuery\u003c/h3\u003e
 \u003cp\u003eUse this setup when your warehouse is BigQuery and cache storage is Google Cloud Storage.
 It runs Dekart with PostgreSQL metadata storage and a mounted GCP service account JSON file.
 Best fit for GCP-native teams.\u003c/p\u003e
@@ -1143,6 +1137,7 @@ Best fit for GCP-native teams.\u003c/p\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;dekart\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;5432\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;db\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-license-key\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-gcs-bucket\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_BIGQUERY_PROJECT_ID\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-gcp-project-id\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_BIGQUERY_MAX_BYTES_BILLED\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;53687091200\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1152,7 +1147,7 @@ Best fit for GCP-native teams.\u003c/p\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;1\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;GCS\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;BQ\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="google-oauth-configuration"\u003eGoogle OAuth configuration\u003c/h3\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch4 id="google-oauth-configuration"\u003eGoogle OAuth configuration\u003c/h4\u003e
 \u003cp\u003eUse this setup when users should sign in directly with Google OAuth in Dekart.
 Requires Google OAuth client credentials and a valid Dekart license key.\u003c/p\u003e
 \u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet required SSO key\u003c/a\u003e\u003c/p\u003e
@@ -1188,7 +1183,7 @@ Requires Google OAuth client credentials and a valid Dekart license key.\u003c/p
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_GOOGLE_OAUTH_CLIENT_ID\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-google-oauth-client-id\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_GOOGLE_OAUTH_SECRET\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-google-oauth-client-secret\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-license-key\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="snowflake"\u003eSnowflake\u003c/h2\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="snowflake"\u003eSnowflake\u003c/h3\u003e
 \u003cp\u003eUse this setup when Snowflake is the datasource and S3 is used for query result cache.
 This is the most common production-style Snowflake configuration with PostgreSQL metadata.
 SSO is optional in this setup.\u003c/p\u003e
@@ -1215,6 +1210,7 @@ SSO is optional in this setup.\u003c/p\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;dekart\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;5432\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;db\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-license-key\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-mapbox-token\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;http://localhost:3000\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;1\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1228,7 +1224,7 @@ SSO is optional in this setup.\u003c/p\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_SNOWFLAKE_USER\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-snowflake-user\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_SNOWFLAKE_PASSWORD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-snowflake-password\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;0\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="s3-cache-and-aws-sso-configuration"\u003eS3 cache and AWS SSO configuration\u003c/h3\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch4 id="s3-cache-and-aws-sso-configuration"\u003eS3 cache and AWS SSO configuration\u003c/h4\u003e
 \u003cp\u003eUse this setup when Snowflake query results are cached in S3 and auth is delegated via AWS OIDC headers from your load balancer.\u003c/p\u003e
 \u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet required SSO key\u003c/a\u003e\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-yaml" data-lang="yaml"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nt"\u003eservices\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1268,8 +1264,8 @@ SSO is optional in this setup.\u003c/p\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_SNOWFLAKE_PASSWORD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-snowflake-password\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;1\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-license-key\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="postgres"\u003ePostgres\u003c/h2\u003e
-\u003cp\u003eUse this setup when Postgres is both the metadata database and the datasource.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="postgres"\u003ePostgres\u003c/h3\u003e
+\u003cp\u003eUse this setup when Postgres is both the metadata database and the datasource. File upload is not supported with \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e and is disabled automatically.\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-yaml" data-lang="yaml"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nt"\u003eservices\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="nt"\u003edb\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="nt"\u003eimage\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="l"\u003epostgres:16\u003c/span\u003e\u003cspan class="w"\u003e
@@ -1293,13 +1289,13 @@ SSO is optional in this setup.\u003c/p\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PASSWORD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;dekart\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_PORT\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;5432\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;db\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_LICENSE_KEY\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-license-key\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;PG\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;PG\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;postgres://postgres:dekart@db:5432/dekart_geo?sslmode=disable\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-mapbox-token\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;http://localhost:3000\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;0\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="oidc-configuration"\u003eOIDC configuration\u003c/h3\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch4 id="oidc-configuration"\u003eOIDC configuration\u003c/h4\u003e
 \u003cp\u003eUse this setup when authentication is handled by a trusted reverse proxy that forwards OIDC JWT to Dekart.
 It includes Keycloak and oauth2-proxy for end-to-end local SSO testing.
 This setup requires a valid Dekart license key.\u003c/p\u003e
@@ -1358,7 +1354,6 @@ This setup requires a valid Dekart license key.\u003c/p\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_HOST\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;db\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_MAPBOX_TOKEN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;your-mapbox-token\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_CORS_ORIGIN\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;http://localhost:4180\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;1\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_STORAGE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;PG\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_DATASOURCE\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;PG\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="nt"\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/span\u003e\u003cspan class="p"\u003e:\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s2"\u003e\u0026#34;postgres://postgres:dekart@db:5432/dekart_geo?sslmode=disable\u0026#34;\u003c/span\u003e\u003cspan class="w"\u003e
@@ -2353,8 +2348,8 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003cp\u003eThis template queries city boundaries from the Overture Maps dataset in BigQuery—even if multiple cities share the same name. It fetches all matching boundaries, counts the Points of Interest (POIs) in each, and returns the boundary with the highest POI count as the “most relevant” city. Perfect for data analysts and data scientists who need accurate location context without diving into specialized GIS tools.\u003c/p\u003e
 \u003cp\u003eRequires: \u003csmall class="badge badge-info"\u003eBigQuery Account\u003c/small\u003e\u003c/p\u003e
 `},{id:16,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"How to query Overture Maps on BigQuery – SQL examples by usecase",description:"Copy-paste BigQuery SQL for the Overture Maps public dataset. Covers roads, EV stations, buildings, boundaries, land use, and divisions.",content:`\u003cp\u003eBigQuery hosts Overture Maps as a free public dataset. Below are working SQL examples by usecase, each one rendering on a live map.\u003c/p\u003e
-\u003cdiv class="gpt" \u003e
-  \u003cp\u003eAll examples are created with \u003cb\u003eOverture Maps GPT\u003c/b\u003e\u003c/p\u003e\u003cp\u003e\u003ca href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt?ref=gpt-link" class="btn btn-outline-primary" target="_blank"\u003eGet it Free\u003c/a\u003e\u003c/p\u003e
+\u003cdiv class="geosql" \u003e
+  \u003cp\u003e\u003cimg src="/claude.svg" alt="Claude" class="geosql-logo" /\u003eAll maps created with GeoSQL skill for Claude\u003c/p\u003e\u003cp\u003e\u003ca href="https://github.com/dekart-xyz/geosql" class="btn btn-outline-dark" target="_blank"\u003eGet it on GitHub\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
 \u003ch2 id="segment"\u003eSegment\u003c/h2\u003e
 \u003cp\u003eThe Overture Maps \u003ccode\u003esegment\u003c/code\u003e table represents paths, roads, and transportation segments, storing their geospatial data as LineStrings along with attributes like class, surface, speed limits, and access restrictions​.\u003c/p\u003e
@@ -4434,6 +4429,7 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
 `},{id:26,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
+\u003cp\u003eDekart runs with zero configuration: by default it uses a built-in SQLite metadata database, local file storage, and file upload, so you can create a map immediately. Override the variables below to point Dekart at your datasource and storage. See \u003ca href="#metadata-storage"\u003eMetadata storage\u003c/a\u003e for persistence and backups, \u003ca href="#authentication"\u003eAuthentication\u003c/a\u003e for SSO, and \u003ca href="#data-source-connectors"\u003eData source connectors\u003c/a\u003e for warehouse settings.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4443,12 +4439,106 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_MAPBOX_TOKEN\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003e\u003ca href="https://docs.mapbox.com/help/how-mapbox-works/access-tokens/"\u003eMapbox Token\u003c/a\u003e to show a map\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DATASOURCE=USER\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eWhich datasource to use: \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery\u003c/li\u003e\u003cli\u003e\u003ccode\u003eATHENA\u003c/code\u003e AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Snowflake\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Postgres \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.17.2\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eCH\u003c/code\u003e ClickHouse \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003eDefault: \u003ccode\u003eUSER\u003c/code\u003e \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e.\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch3 id="storage"\u003eStorage\u003c/h3\u003e
+\u003cp\u003e\u003ccode\u003eDEKART_STORAGE\u003c/code\u003e selects the backend for query results. When it is \u003ccode\u003eS3\u003c/code\u003e or \u003ccode\u003eGCS\u003c/code\u003e, the bucket set in \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e is used for three things:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003e\u003cstrong\u003eQuery result cache\u003c/strong\u003e — query results are stored so reports reload without re-running the query.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eFile uploads\u003c/strong\u003e — uploaded CSV and GeoJSON files, when file upload is enabled.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eSQLite metadata backups\u003c/strong\u003e — periodic backups of the SQLite metadata database \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eProvide credentials for the matching provider (\u003ccode\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/code\u003e for GCS, \u003ccode\u003eAWS_*\u003c/code\u003e for S3); the same credentials are used by the matching data source connector (Google Cloud for BigQuery, AWS for Athena).\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_STORAGE=USER\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eWhich storage backend to use for storing queries and query results \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eGCS\u003c/code\u003e Google Cloud Storage, works only with BigQuery data source\u003c/li\u003e\u003cli\u003e\u003ccode\u003eS3\u003c/code\u003e AWS S3, works with BigQuery and AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.17\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Query replay storage backed by Postgres (works with Postgres data source only). \u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003eDefault: \u003ccode\u003eUSER\u003c/code\u003e \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eGoogle Cloud Storage or AWS S3 bucket name used by Dekart (see the list above for what it stores). \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003edekart-bucket\u003c/code\u003e \u003cbr\u003e\u003cbr\u003eIf value is empty, users can define the storage bucket via UI. Supported datasource \u003ccode\u003eDEKART_DATASOURCE\u003c/code\u003e: \u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eFor \u003ccode\u003eDEKART_STORAGE=GCS\u003c/code\u003e (and BigQuery). Credentials for \u003ca href="https://cloud.google.com/docs/authentication/getting-started"\u003eGoogle Cloud API\u003c/a\u003e \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e/.../service-account-123456.json\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eAWS_REGION\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eFor \u003ccode\u003eDEKART_STORAGE=S3\u003c/code\u003e (and AWS Athena). The AWS SDK compatible environment variable that specifies the AWS Region to send the request to\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eAWS_ACCESS_KEY_ID\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eSpecifies an AWS access key associated with an IAM user or role.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eAWS_SECRET_ACCESS_KEY\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eSpecifies the secret key associated with the access key. This is essentially the \u0026ldquo;password\u0026rdquo; for the access key.\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="metadata-storage"\u003eMetadata storage\u003c/h2\u003e
+\u003cp\u003eBy default Dekart stores query metadata in a built-in SQLite database and uploaded files on the local filesystem under \u003ccode\u003e/dekart/data\u003c/code\u003e. Persist \u003ccode\u003e/dekart/data\u003c/code\u003e so metadata and uploaded files survive container replacement.\u003c/p\u003e
+\u003ch3 id="sqlite-and-backups"\u003eSQLite and backups\u003c/h3\u003e
+\u003cp\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/p\u003e
+\u003cp\u003eSQLite backups can be stored in Amazon S3 or Google Cloud Storage by setting \u003ccode\u003eDEKART_STORAGE=S3\u003c/code\u003e or \u003ccode\u003eDEKART_STORAGE=GCS\u003c/code\u003e together with \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_SQLITE_DB_PATH\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.17.2\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003ePath to the SQLite metadata database. Defaults to \u003ccode\u003e/dekart/data/dekart.db\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e./dekart.db\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_LOCAL_FILES_ROOT\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eLocal directory for uploaded files when using local file storage. Default is \u003ccode\u003e/dekart/data/files\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e/dekart/data/files\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_BACKUP_FREQUENCY_MIN\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eHow often, in minutes, the SQLite database is backed up to object storage. Default is \u003ccode\u003e5\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e5\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_MAX_BACKUPS_AGE_DAYS\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eHow many days SQLite backups are retained in object storage before older backups are pruned. Default is \u003ccode\u003e7\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e7\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch3 id="postgres-metadata-backend"\u003ePostgres metadata backend\u003c/h3\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eInstead of SQLite, Dekart can store query metadata in a Postgres database. Do not confuse this with using \u003ca href="#postgres"\u003ePostgres as a data source\u003c/a\u003e. Starting with version 0.23 the Postgres metadata backend requires a valid \u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e. \u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet a key for free here\u003c/a\u003e. Dekart selects the Postgres metadata backend automatically when any of the \u003ccode\u003eDEKART_POSTGRES_*\u003c/code\u003e variables below are set.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_LICENSE_KEY\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eLicense key required to use the Postgres metadata backend and to enable SSO. \u003ca href="/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key"\u003eGet a key for free here\u003c/a\u003e.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_URL\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003ePostgres metadata connection string. If set, it takes precedence over the structured \u003ccode\u003eDEKART_POSTGRES_*\u003c/code\u003e variables below. \u003cbr/\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003epostgres://user:pass@hostname:5432/dekart?sslmode=verify-full\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_DB\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eDatabase name. Dekart needs Postgres Database to store query meta information. Alternatively SQLite can be used, see bellow. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003edekart\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eMetadata database name. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003edekart\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_HOST\u003c/code\u003e\u003c/td\u003e
@@ -4466,45 +4556,9 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_PASSWORD\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003e\u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e******\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_PORT\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003e\u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e8080\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_URL\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.13\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eAlternatively to specify \u003ccode\u003eDEKART_POSTGRES_DB\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_HOST\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_PORT\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_USER\u003c/code\u003e, \u003ccode\u003eDEKART_POSTGRES_PASSWORD\u003c/code\u003e, configure PostgreSQL by passing the connection string. If both specified \u003ccode\u003eDEKART_POSTGRES_URL\u003c/code\u003e is used. \u003cbr/\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003epostgres://user:pass@hostname:5432/dekart?sslmode=verify-full\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DATASOURCE=BQ\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eWhich datasource to use: \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery, default\u003c/li\u003e\u003cli\u003e\u003ccode\u003eATHENA\u003c/code\u003e AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Snowflake \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Postgres \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.17.2\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eCH\u003c/code\u003e ClickHouse \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_STORAGE=GCS\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eWhich storage backend to use for storing queries and query results \u003cbr\u003eValues\u003cul\u003e\u003cli\u003e\u003ccode\u003eGCS\u003c/code\u003e Google Cloud Storage, default, works only with BigQuery data source\u003c/li\u003e\u003cli\u003e\u003ccode\u003eS3\u003c/code\u003e AWS S3, works with BigQuery and AWS Athena\u003c/li\u003e\u003cli\u003e\u003ccode\u003eSNOWFLAKE\u003c/code\u003e Queries will be cached in Snowflake query result cache. Works only with Snowflake data source. \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.17\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003eUSER\u003c/code\u003e Users can configure connections in UX \u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/li\u003e\u003cli\u003e\u003ccode\u003ePG\u003c/code\u003e Query replay storage backed by Postgres (works with Postgres data source only). \u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eGoogle Cloud Storage or AWS S3 bucket name where Dekart Query results will be stored. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003edekart-bucket\u003c/code\u003e \u003cbr\u003e\u003cbr\u003e  If value is empty, users will be able to define storage bucket via UI. Supported datasource \u003ccode\u003eDEKART_DATASOURCE\u003c/code\u003e: \u003cul\u003e\u003cli\u003e\u003ccode\u003eBQ\u003c/code\u003e BigQuery from \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e\u003c/li\u003e\u003c/ul\u003e\u003cbr\u003e\u003cbr\u003eMust be empty when \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e \u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e.\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_CORS_ORIGIN=\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.10\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eCORS Origin to be allowed by Dekart backend and set in \u003ccode\u003eAccess-Control-Allow-Origin\u003c/code\u003e header. If not set or set incorrectly, warning will appear in logs. If set incorrectly. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003ehttps://dekart.example.com\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_SQLITE_DB_PATH=\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.17.2\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eDekart will use SQLite database instead of Postgres to store query meta information. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e./dekart.db\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_STREAM_TIMEOUT\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eTimeout in seconds for streaming backend updates. Default value is 50 seconds. Useful when your Gateway has a shorter timeout and you see Gateway Timeout errors. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e50\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_HTTP_WRITE_TIMEOUT_SECONDS\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eHTTP server write timeout in seconds. Useful for long-running snapshot responses so backend can return a proper error payload instead of socket timeout. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e65\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="data-encryption"\u003eData Encryption\u003c/h2\u003e
+\u003ch3 id="data-encryption"\u003eData encryption\u003c/h3\u003e
 \u003cp\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/p\u003e
 \u003cp\u003eDekart supports data encryption at rest for storing credentials. Required for configuring Snowflake and BigQuery JSON Key via UX. To enable data encryption, set the following environment variables:\u003c/p\u003e
 \u003ctable\u003e
@@ -4521,24 +4575,30 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003cp\u003eSteps to Generate \u0026amp; Set the Key:\u003c/p\u003e
+\u003cp\u003eSteps to generate and set the key:\u003c/p\u003e
 \u003col\u003e
-\u003cli\u003e
-\u003cp\u003eGenerate a Secure 256‐Bit Key
-Use a command like:\u003c/p\u003e
+\u003cli\u003eGenerate a secure 256-bit key:
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eopenssl rand -base64 \u003cspan class="m"\u003e32\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eThis produces a base64‐encoded, 32‐byte key.\u003c/p\u003e
-\u003c/li\u003e
-\u003cli\u003e
-\u003cp\u003eAdd key to Google Secret Manager\u003c/p\u003e
-\u003c/li\u003e
-\u003cli\u003e
-\u003cp\u003eSet the Environment Variable:\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003eThis produces a base64-encoded, 32-byte key.\u003c/li\u003e
+\u003cli\u003eAdd the key to Google Secret Manager.\u003c/li\u003e
+\u003cli\u003eSet the environment variable:
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="nv"\u003eDEKART_DATA_ENCRYPTION_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003eprojects/121212121212/secrets/dekart-data-encoding-key/versions/1
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
 \u003c/ol\u003e
-\u003ch2 id="aws"\u003eAWS\u003c/h2\u003e
-\u003cp\u003eDekart support started AWS SDK environment variables. Required to query AWS Athena and use AWS S3.\u003c/p\u003e
+\u003ch2 id="authentication"\u003eAuthentication\u003c/h2\u003e
+\u003cp\u003eDekart can delegate user authentication to an identity provider. The modes below are mutually exclusive. Each requires an SSO key.\u003c/p\u003e
+\u003ch3 id="google-oauth-20"\u003eGoogle OAuth 2.0\u003c/h3\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eThe most common option. Dekart can authorize users via Google OAuth 2.0 and use users\u0026rsquo; credentials to access BigQuery and Cloud Storage. When this option is enabled, Dekart does not require a service account and \u003ccode\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/code\u003e to be set. The user token is retrieved from Google OAuth 2.0 flow and stored only in the browser memory. When the page is refreshed, the token is retrieved again. The user\u0026rsquo;s short-lived token is then passed via the Authorization header to the Dekart backend to access BigQuery and Cloud Storage.\u003c/p\u003e
+\u003cp\u003eNo token is stored in the Dekart backend, database, or logs.\u003c/p\u003e
+\u003cp\u003eEach user needs to have access to BigQuery and Cloud Storage with the following permissions:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eBigQuery Data Viewer\u003c/li\u003e
+\u003cli\u003eBigQuery Job User\u003c/li\u003e
+\u003cli\u003eBigQuery Read Session User\u003c/li\u003e
+\u003cli\u003eStorage Object User\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eThis option is only supported for BigQuery and Cloud Storage. It is not supported for AWS and Snowflake data sources.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4548,20 +4608,29 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eAWS_REGION\u003c/code\u003e\u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eThe AWS SDK compatible environment variable that specifies the AWS Region to send the request to\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_GOOGLE_OAUTH\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eEnables Google OAuth 2.0 flow. Requires users to be authenticated. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eAWS_ACCESS_KEY_ID\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eSpecifies an AWS access key associated with an IAM user or role.\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_CLIENT_ID\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eGoogle OAuth 2.0 Client ID. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1234567890-abcde.apps.googleusercontent.com\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eAWS_SECRET_ACCESS_KEY\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eSpecifies the secret key associated with the access key. This is essentially the \u0026ldquo;password\u0026rdquo; for the access key.\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_SECRET\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eGoogle OAuth 2.0 Client Secret. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e******\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="aws-athena"\u003eAWS Athena\u003c/h2\u003e
+\u003cp\u003eCreating Google OAuth 2.0 Client ID and Client Secret:\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eConfigure \u003ca href="https://console.cloud.google.com/apis/credentials/consent"\u003eOAuth Consent Screen\u003c/a\u003e in your Google Cloud Project\u003c/li\u003e
+\u003cli\u003eCreate \u003ca href="https://console.cloud.google.com/apis/credentials"\u003eOAuth 2.0 Client ID\u003c/a\u003e with \u003ccode\u003eWeb application\u003c/code\u003e type\u003c/li\u003e
+\u003cli\u003eAdd \u003ccode\u003ehttps://your-dekart-url.com/api/v1/authenticate\u003c/code\u003e to \u003ccode\u003eAuthorized redirect URIs\u003c/code\u003e\u003c/li\u003e
+\u003c/ol\u003e
+\u003ch3 id="oidc-jwt-header-reverse-proxy"\u003eOIDC JWT header (reverse proxy)\u003c/h3\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eDekart can validate JWT tokens forwarded by a trusted reverse proxy (for example oauth2-proxy + Keycloak) and authorize users by \u003ccode\u003eemail\u003c/code\u003e claim.\u003c/p\u003e
+\u003cp\u003eThis mode expects JWT in \u003ccode\u003eX-Forwarded-Access-Token\u003c/code\u003e and is intended for deployments where login/session are handled outside Dekart.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4571,25 +4640,31 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_ATHENA_CATALOG\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eData source (group of databases) for AWS Athena to reference when executing queries. Default value is usually \u003ccode\u003eAwsDataCatalog\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003emy-athena-catalog\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_OIDC\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eEnables OIDC JWT header auth. Mutually exclusive with \u003ccode\u003eDEKART_REQUIRE_GOOGLE_OAUTH\u003c/code\u003e, \u003ccode\u003eDEKART_REQUIRE_IAP\u003c/code\u003e, \u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e, and \u003ccode\u003eDEKART_REQUIRE_SNOWFLAKE_CONTEXT\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_ATHENA_S3_OUTPUT_LOCATION\u003c/code\u003e and then copied to \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e.  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003eathena-results\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_JWKS_URL\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eJWKS endpoint used to verify JWT signatures. Required when \u003ccode\u003eDEKART_REQUIRE_OIDC=1\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://idp.example.com/realms/dekart/protocol/openid-connect/certs\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_ATHENA_S3_OUTPUT_LOCATION\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.8\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eAmazon S3 query result location required by Athena SDK. This is different from  \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e. First query results are stored in \u003ccode\u003eDEKART_ATHENA_S3_OUTPUT_LOCATION\u003c/code\u003e and then copied to \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e.  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003eathena-results\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_ISSUER\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eExpected \u003ccode\u003eiss\u003c/code\u003e claim. Recommended. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://idp.example.com/realms/dekart\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_ATHENA_WORKGROUP\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.13\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eAWS Athena workgroup to use when executing Athena queries. If not specified, the default \u003ccode\u003eprimary\u003c/code\u003e workgroup will be used. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003emy-athena-workgroup\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_AUDIENCE\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eExpected \u003ccode\u003eaud\u003c/code\u003e claim. Optional. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eoauth2-proxy\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="google-cloud"\u003eGoogle Cloud\u003c/h2\u003e
-\u003cp\u003eRequired to query BigQuery and use Cloud Storage\u003c/p\u003e
+\u003cp\u003eKeycloak reverse proxy setup example: \u003ca href="/docs/self-hosting/keycloak-reverse-proxy/"\u003eKeycloak OIDC Reverse Proxy\u003c/a\u003e\u003c/p\u003e
+\u003ch3 id="google-iap"\u003eGoogle IAP\u003c/h3\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eDekart can read \u003ca target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto"\u003eclaims provided by Google IAP\u003c/a\u003e and authorize users to:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003elist and edit only their own reports\u003c/li\u003e
+\u003cli\u003eread-only access to other users reports\u003c/li\u003e
+\u003c/ul\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4599,12 +4674,64 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eCredentials for \u003ca href="https://cloud.google.com/docs/authentication/getting-started"\u003eGoogle Cloud API\u003c/a\u003e \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e/.../service-account-123456.json\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_IAP\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eEnables validation Google IAP JWT. Required users to be authenticated. ENables user management policies. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_IAP_JWT_AUD\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eSigned Header JWT Audience (\u003ccode\u003eaud\u003c/code\u003e). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. \u003ca href="https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload"\u003eSee details\u003c/a\u003e.  \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e/projects/PROJECT_NUMBER/apps/PROJECT_ID\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="bigquery"\u003eBigQuery\u003c/h2\u003e
+\u003ch3 id="amazon-load-balancer-alb"\u003eAmazon Load Balancer (ALB)\u003c/h3\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
+\u003cp\u003eDekart can read \u003ca target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html"\u003eclaims provided by Amazon Load Balancer\u003c/a\u003e and authorize users to:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003elist and edit only their reports\u003c/li\u003e
+\u003cli\u003eread-only access to other user\u0026rsquo;s reports\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003e\u003ca href="/docs/self-hosting/aws-ecs-terraform/#cognito-authentication"\u003eAmazon Load Balancer configuration example with Terraform\u003c/a\u003e\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eEnables users authorization. Requires users to be authenticated and \u003ccode\u003ex-amzn-oidc-data\u003c/code\u003e to be passed from Load Balancer. Requires \u003ccode\u003eAWS_REGION\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch3 id="device-auth-tokens-cli"\u003eDevice auth tokens (CLI)\u003c/h3\u003e
+\u003cp\u003eDekart can issue workspace-scoped device tokens for CLI and automation use.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DEVICE_AUTH_PRIVATE_KEY\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eBase64-encoded PEM RSA private key used to sign device auth JWTs.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DEVICE_AUTH_PUBLIC_KEY\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eBase64-encoded PEM RSA public key used to validate device auth JWTs.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DEVICE_AUTH_TOKEN_TTL_HOURS\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eDevice token expiration time in hours. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e720\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="data-source-connectors"\u003eData source connectors\u003c/h2\u003e
+\u003cp\u003eSettings for the warehouse selected with \u003ccode\u003eDEKART_DATASOURCE\u003c/code\u003e. Cloud credentials live under \u003ca href="#main-configuration"\u003eMain configuration\u003c/a\u003e.\u003c/p\u003e
+\u003ch3 id="bigquery"\u003eBigQuery\u003c/h3\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4615,19 +4742,19 @@ Use a command like:\u003c/p\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_BIGQUERY_PROJECT_ID\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eUnique identifier for your Google Cloud project with BigQuery API Enabled. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003emy-project\u003c/code\u003e \u003cbr\u003e\u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.15\u003c/small\u003e If value is empty, users will be able to define project ID via UI.\u003c/td\u003e
+\u003ctd\u003eUnique identifier for your Google Cloud project with BigQuery API Enabled. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003emy-project\u003c/code\u003e \u003cbr\u003e If value is empty, users will be able to define project ID via UI.\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_BIGQUERY_MAX_BYTES_BILLED\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.7\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_BIGQUERY_MAX_BYTES_BILLED\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003eSets \u003ccode\u003emaximumBytesBilled\u003c/code\u003e in BigQuery Job Configuration to implement  \u003ca href="https://cloud.google.com/bigquery/docs/best-practices-costs#limit_query_costs_by_restricting_the_number_of_bytes_billed"\u003eBest Practices for Controlling Query Cost\u003c/a\u003e.\u003cbr\u003e If not set warning message will appear in logs.\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_GCP_EXTRA_OAUTH_SCOPES\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.14\u003c/small\u003e \u003cbr/\u003eOAuth token support from \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_GCP_EXTRA_OAUTH_SCOPES\u003c/code\u003e \u003cbr/\u003eOAuth token support from \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
 \u003ctd\u003eSet additional scopes for the GCP OAuth token when connecting to BigQuery.\u003cbr\u003e The value is interpreted as a comma-delimited list.\u003cbr\u003e E.g., in order to query a BigQuery table backed by a Google Sheet in Google Drive, the value needs to be set to \u003ccode\u003ehttps://www.googleapis.com/auth/drive\u003c/code\u003e.\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="snowflake"\u003eSnowflake\u003c/h2\u003e
+\u003ch3 id="snowflake"\u003eSnowflake\u003c/h3\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4637,15 +4764,15 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_ACCOUNT_ID\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_ACCOUNT_ID\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003e\u003ca target="_blank" href="https://docs.snowflake.com/en/user-guide/admin-account-identifier#using-an-account-name-as-an-identifier"\u003eSnowflake Account Identifier\u003c/a\u003e  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003eorgname-account_name\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_USER\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_USER\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003eSnowflake user with default warehouse configured  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003eexample_user\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_PASSWORD\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.12\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_SNOWFLAKE_PASSWORD\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003eSnowflake user password  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e******\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
@@ -4662,32 +4789,22 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch3 id="configuring-snowflake-private-key-authentication"\u003eConfiguring Snowflake Private Key Authentication\u003c/h3\u003e
-\u003ch4 id="step-1-generate-a-key-pair"\u003eStep 1: Generate a Key Pair\u003c/h4\u003e
-\u003cul\u003e
-\u003cli\u003e\u003cstrong\u003eGenerate a Private Key\u003c/strong\u003e: Use OpenSSL to generate a private key in PKCS#8 format.
+\u003ch4 id="key-pair-authentication"\u003eKey-pair authentication\u003c/h4\u003e
+\u003cp\u003eConfigure \u003ccode\u003eDEKART_SNOWFLAKE_PRIVATE_KEY\u003c/code\u003e to authenticate with Snowflake using the JWT method.\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003e\u003cstrong\u003eGenerate a key pair.\u003c/strong\u003e Create a private key in PKCS#8 format and extract the public key:
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eopenssl genrsa \u003cspan class="m"\u003e2048\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8 -nocrypt
+\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eopenssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
-\u003cli\u003e\u003cstrong\u003eGenerate a Public Key\u003c/strong\u003e: Extract the public key from the private key.
-\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eopenssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
-\u003c/ul\u003e
-\u003ch4 id="step-2-assign-the-public-key-to-a-snowflake-user"\u003eStep 2: Assign the Public Key to a Snowflake User\u003c/h4\u003e
-\u003cul\u003e
-\u003cli\u003eLog into Snowflake with a user that has the necessary permissions.\u003c/li\u003e
-\u003cli\u003eAssign the public key to the user using the following SQL command:
+\u003cli\u003e\u003cstrong\u003eAssign the public key to a Snowflake user:\u003c/strong\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eALTER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eUSER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eexample_user\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSET\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eRSA_PUBLIC_KEY\u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;MIIBIj...\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
-\u003c/ul\u003e
-\u003ch4 id="step-3-set-the-environment-variable"\u003eStep 3: Set the Environment Variable\u003c/h4\u003e
-\u003cul\u003e
-\u003cli\u003eSet the \u003ccode\u003eDEKART_SNOWFLAKE_PRIVATE_KEY\u003c/code\u003e environment variable with the base64-encoded private key.\u003c/li\u003e
-\u003cli\u003eThe private key must be base64-encoded without the \u003ccode\u003e-----BEGIN PRIVATE KEY-----\u003c/code\u003e and \u003ccode\u003e-----END PRIVATE KEY-----\u003c/code\u003e markers.\u003c/li\u003e
-\u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
-\u003c/ul\u003e
+\u003cli\u003e\u003cstrong\u003eSet the environment variable.\u003c/strong\u003e Base64-encode the private key without the \u003ccode\u003e-----BEGIN PRIVATE KEY-----\u003c/code\u003e / \u003ccode\u003e-----END PRIVATE KEY-----\u003c/code\u003e markers and without newlines:
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="postgres-as-a-data-source"\u003ePostgres (as a data source)\u003c/h2\u003e
-\u003cp\u003ePostgres can be used as a data source for Dekart. Do not confuse with Dekart\u0026rsquo;s Postgres database, which is used to store query meta information.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003c/li\u003e
+\u003c/ol\u003e
+\u003ch3 id="postgres"\u003ePostgres\u003c/h3\u003e
+\u003cp\u003ePostgres can be used as a data source for Dekart. Do not confuse with the \u003ca href="#postgres-metadata-backend"\u003ePostgres metadata backend\u003c/a\u003e, which is used to store query meta information.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4697,12 +4814,12 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_POSTGRES_DATASOURCE_CONNECTION\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003ePostgres DB to be used as data source  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003epostgres://user:password@host:port/db\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="clickhouse"\u003eClickHouse\u003c/h2\u003e
+\u003ch3 id="clickhouse"\u003eClickHouse\u003c/h3\u003e
 \u003cp\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/p\u003e
 \u003cp\u003eClickHouse can be used as a data source for Dekart.\u003c/p\u003e
 \u003ctable\u003e
@@ -4723,8 +4840,7 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="file-upload"\u003eFile upload\u003c/h2\u003e
-\u003cp\u003eStarting from version 0.10 Dekart supports file upload. File upload is disabled by default. Once uploaded files are stored in the same storage as query results. Both AWS S3 and Google Cloud Storage are supported. The recommended max file size is 100MB.\u003c/p\u003e
+\u003ch3 id="aws-athena"\u003eAWS Athena\u003c/h3\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4734,8 +4850,113 @@ Use a command like:\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.10\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eEnable file upload \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_ATHENA_CATALOG\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eData source (group of databases) for AWS Athena to reference when executing queries. Default value is usually \u003ccode\u003eAwsDataCatalog\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003emy-athena-catalog\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_ATHENA_S3_OUTPUT_LOCATION\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eAmazon S3 query result location required by Athena SDK. This is different from  \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e. First query results are stored in \u003ccode\u003eDEKART_ATHENA_S3_OUTPUT_LOCATION\u003c/code\u003e and then copied to \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e.  \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003eathena-results\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_ATHENA_WORKGROUP\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eAWS Athena workgroup to use when executing Athena queries. If not specified, the default \u003ccode\u003eprimary\u003c/code\u003e workgroup will be used. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003emy-athena-workgroup\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="workspaces-and-users"\u003eWorkspaces and users\u003c/h2\u003e
+\u003cp\u003eDekart supports multiple workspaces. Each workspace can have its own set of reports, queries, and users. By default, all users are added to the \u003ccode\u003eDefault\u003c/code\u003e workspace. To configure workspace management, set the following environment variables:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_ALLOW_WORKSPACE_CREATION\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eWhen set to \u003ccode\u003e1\u003c/code\u003e, users can create new workspaces. Set to empty, new users will be automatically added to the \u003ccode\u003eDefault\u003c/code\u003e workspace. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ADMIN\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eEmail that designates a default admin for the \u003ccode\u003eDefault\u003c/code\u003e workspace. When not provided, all new users will be Admin. When provided, all users will be viewers, unless specified differently with \u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ROLE\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eadmin@email.com\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ROLE\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eRole assigned by default to new users (e.g., \u003ccode\u003eviewer\u003c/code\u003e, \u003ccode\u003eeditor\u003c/code\u003e, \u003ccode\u003eadmin\u003c/code\u003e). Requires \u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ADMIN\u003c/code\u003e to be specified. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eviewer\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="user-experience"\u003eUser experience\u003c/h2\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_HOMEPAGE\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eChange URL linked from Dekart logo\u003cbr\u003e \u003cem\u003eDefault value\u003c/em\u003e: \u003ccode\u003e/\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_DATA_DOCUMENTATION\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eAllows provide URL to dataset documentation. It will appear in Dekart UI.\u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://my.company/dataset/schema.html\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_HTML_CUSTOM_CODE\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eAllows to add custom HTML code to \u003ccode\u003e\u0026lt;head\u0026gt;\u003c/code\u003e. Can be used for adding trackers.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_DISABLE_USAGE_STATS\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eBy default, Dekart appends certain information to the referrer of external links. This information includes the version number, the SHA256 hash of the hostname, the name of the data source, and the total number of reports, queries, files, and authors. No other information is collected. The source code for this implementation can be found \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/src/client/lib/ref.js#L25"\u003ehere\u003c/a\u003e. This behavior can be turned off by setting this variable to \u003ccode\u003e1\u003c/code\u003e.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_ACCESS_ERROR_INFO_HTML\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eAllows to provide custom HTML code to be shown on the access error page.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_NOT_FOUND_ERROR_INFO_HTML\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eAllows to provide custom HTML code to be shown on the not found error page.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_UX_SAMPLE_QUERY_SQL\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eAllows to provide a sample SQL query to be shown in the query editor.\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="optional-features"\u003eOptional features\u003c/h2\u003e
+\u003ch3 id="mapbox-base-map"\u003eMapbox base map\u003c/h3\u003e
+\u003cp\u003eDekart renders maps on a free MapLibre/Carto base map style by default, so no token is required to create a map. Set a Mapbox token to enable Mapbox base map styles and static map thumbnail previews.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_MAPBOX_TOKEN\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eOptional. \u003ca href="https://docs.mapbox.com/help/how-mapbox-works/access-tokens/"\u003eMapbox Token\u003c/a\u003e that enables Mapbox base map styles and static map thumbnail previews. Not required for the default MapLibre/Carto base map.\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch3 id="file-upload"\u003eFile upload\u003c/h3\u003e
+\u003cp\u003eDekart supports file upload. Since version 0.23 file upload is enabled by default (\u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD=1\u003c/code\u003e). Uploaded files are stored alongside query results: on the local filesystem with the default SQLite setup, or in AWS S3 or Google Cloud Storage when object storage is configured. The recommended max file size is 100MB.\u003c/p\u003e
+\u003cp\u003eFile upload is not supported with \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e; when \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e Dekart disables file upload automatically and logs a warning at startup \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eName\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eEnable file upload. Enabled by default since \u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e. Auto-disabled when \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_MAX_FILE_UPLOAD_SIZE\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.22\u003c/small\u003e\u003c/td\u003e
@@ -4743,7 +4964,7 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="report-snapshots-browserless"\u003eReport snapshots (Browserless)\u003c/h2\u003e
+\u003ch3 id="report-snapshots-browserless"\u003eReport snapshots (Browserless)\u003c/h3\u003e
 \u003cp\u003eSnapshot rendering uses Browserless. If \u003ccode\u003eDEKART_BROWSERLESS_TOKEN\u003c/code\u003e is empty, snapshot feature is disabled.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -4775,7 +4996,7 @@ Use a command like:\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003ch2 id="email-notifications"\u003eEmail notifications\u003c/h2\u003e
+\u003ch3 id="email-notifications"\u003eEmail notifications\u003c/h3\u003e
 \u003cp\u003eDekart can send workspace invite and report access emails via \u003ca href="https://resend.com/"\u003eResend\u003c/a\u003e.\u003cbr\u003e
 If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003ctable\u003e
@@ -4797,18 +5018,8 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
 \u003cp\u003eNote: Email notifications also require \u003ccode\u003eDEKART_APP_URL\u003c/code\u003e to build invite/report links included in emails.\u003c/p\u003e
-\u003ch2 id="user-authorization-via-google-oauth-20-flow"\u003eUser authorization via Google OAuth 2.0 flow\u003c/h2\u003e
-\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003eDekart can authorize users via Google OAuth 2.0 and use users\u0026rsquo; credentials to access BigQuery and Cloud Storage. When this option is enabled, Dekart does not require a service account and \u003ccode\u003eGOOGLE_APPLICATION_CREDENTIALS\u003c/code\u003e to be set. The user token is retrieved from Google OAuth 2.0 flow and stored in only in the browser memory. When the page is refreshed, the token is retrieved again. User short-lived token is then passed via Authorization header Dekart backend to access BigQuery and Cloud Storage.\u003c/p\u003e
-\u003cp\u003eNo token is stored in the Dekart backend, database, or logs.\u003c/p\u003e
-\u003cp\u003eEach user needs to have access to BigQuery and Cloud Storage with following permissions:\u003c/p\u003e
-\u003cul\u003e
-\u003cli\u003eBigQuery Data Viewer\u003c/li\u003e
-\u003cli\u003eBigQuery Job User\u003c/li\u003e
-\u003cli\u003eBigQuery Read Session User\u003c/li\u003e
-\u003cli\u003eStorage Object User\u003c/li\u003e
-\u003c/ul\u003e
-\u003cp\u003eThis option is only supported for BigQuery and Cloud Storage. It is not supported for AWS and Snowflake Data Sources.\u003c/p\u003e
+\u003ch2 id="advanced-configuration"\u003eAdvanced configuration\u003c/h2\u003e
+\u003cp\u003eRarely changed. Adjust only when you have a specific reason, such as a reverse proxy or gateway with strict timeouts.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
 \u003ctr\u003e
@@ -4818,187 +5029,16 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_GOOGLE_OAUTH\u003c/code\u003e  \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.15\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eEnables Google OAuth 2.0 flow. Requires users to be authenticated. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_CORS_ORIGIN=\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eCORS Origin to be allowed by Dekart backend and set in \u003ccode\u003eAccess-Control-Allow-Origin\u003c/code\u003e header. If not set or set incorrectly, warning will appear in logs. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003ehttps://dekart.example.com\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_CLIENT_ID\u003c/code\u003e\u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.15\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eGoogle OAuth 2.0 Client ID. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1234567890-abcde.apps.googleusercontent.com\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_STREAM_TIMEOUT\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.18\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eTimeout in seconds for streaming backend updates. Default value is 50 seconds. Useful when your Gateway has a shorter timeout and you see Gateway Timeout errors. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e50\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_GOOGLE_OAUTH_SECRET\u003c/code\u003e\u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.15\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eGoogle OAuth 2.0 Client Secret. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e******\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003cp\u003eCreating Google OAuth 2.0 Client ID and Client Secret:\u003c/p\u003e
-\u003col\u003e
-\u003cli\u003eConfigure \u003ca href="https://console.cloud.google.com/apis/credentials/consent"\u003eOAuth Consent Screen\u003c/a\u003e in your Google Cloud Project\u003c/li\u003e
-\u003cli\u003eCreate \u003ca href="https://console.cloud.google.com/apis/credentials"\u003eOAuth 2.0 Client ID\u003c/a\u003e with \u003ccode\u003eWeb application\u003c/code\u003e type\u003c/li\u003e
-\u003cli\u003eAdd \u003ccode\u003ehttps://your-dekart-url.com/api/v1/authenticate\u003c/code\u003e to \u003ccode\u003eAuthorized redirect URIs\u003c/code\u003e\u003c/li\u003e
-\u003c/ol\u003e
-\u003ch2 id="user-authorization-via-google-iap"\u003eUser authorization via Google IAP\u003c/h2\u003e
-\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003eDekart can read \u003ca target="_blank" href="https://cloud.google.com/iap/docs/signed-headers-howto"\u003eclaims provided by Google IAP\u003c/a\u003e and authorize users to:\u003c/p\u003e
-\u003cul\u003e
-\u003cli\u003elist and edit only their own reports\u003c/li\u003e
-\u003cli\u003eread-only access to other users reports\u003c/li\u003e
-\u003c/ul\u003e
-\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003eName\u003c/th\u003e
-\u003cth\u003eDescription\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_IAP\u003c/code\u003e \u003cbr/\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003e\u003csmall class="badge badge-primary"\u003erequires SSO key\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
-\u003ctd\u003eEnables validation Google IAP JWT. Required users to be authenticated. ENables user management policies. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_IAP_JWT_AUD\u003c/code\u003e \u003cbr/\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003e\u003csmall class="badge badge-primary"\u003erequires SSO key\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
-\u003ctd\u003eSigned Header JWT Audience (\u003ccode\u003eaud\u003c/code\u003e). You can get the values for the aud string mentioned above by accessing the Cloud Console, or you can use the gcloud command-line tool. \u003ca href="https://cloud.google.com/iap/docs/signed-headers-howto#verifying_the_jwt_payload"\u003eSee details\u003c/a\u003e.  \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e/projects/PROJECT_NUMBER/apps/PROJECT_ID\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003ch2 id="user-authorization-via-amazon-load-balancer"\u003eUser authorization via Amazon Load Balancer\u003c/h2\u003e
-\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003eDekart can read \u003ca target="_blank" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html"\u003eclaims provided by Amazon Load Balancer\u003c/a\u003e and authorize users to:\u003c/p\u003e
-\u003cul\u003e
-\u003cli\u003elist and edit only their reports\u003c/li\u003e
-\u003cli\u003eread-only access to other user\u0026rsquo;s reports\u003c/li\u003e
-\u003c/ul\u003e
-\u003cp\u003e\u003ca href="/docs/self-hosting/aws-ecs-terraform/#cognito-authentication"\u003eAmazon Load Balancer configuration example with Terraform\u003c/a\u003e\u003c/p\u003e
-\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003eName\u003c/th\u003e
-\u003cth\u003eDescription\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e \u003cbr/\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003e\u003csmall class="badge badge-primary"\u003erequires SSO key\u003c/small\u003e\u003c/a\u003e\u003c/td\u003e
-\u003ctd\u003eEnables users authorization. Requires users to be authenticated and \u003ccode\u003ex-amzn-oidc-data\u003c/code\u003e to be passed from Load Balancer. Requires \u003ccode\u003eAWS_REGION\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003ch2 id="user-authorization-via-oidc-jwt-header-reverse-proxy"\u003eUser authorization via OIDC JWT header (reverse proxy)\u003c/h2\u003e
-\u003cp\u003e\u003ca href="/docs/self-hosting/enable-sso-open-source-instance/"\u003eThis feature requires an SSO key\u003c/a\u003e\u003c/p\u003e
-\u003cp\u003eDekart can validate JWT tokens forwarded by a trusted reverse proxy (for example oauth2-proxy + Keycloak) and authorize users by \u003ccode\u003eemail\u003c/code\u003e claim.\u003c/p\u003e
-\u003cp\u003eThis mode expects JWT in \u003ccode\u003eX-Forwarded-Access-Token\u003c/code\u003e and is intended for deployments where login/session are handled outside Dekart.\u003c/p\u003e
-\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003eName\u003c/th\u003e
-\u003cth\u003eDescription\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_REQUIRE_OIDC\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eEnables OIDC JWT header auth. Mutually exclusive with \u003ccode\u003eDEKART_REQUIRE_GOOGLE_OAUTH\u003c/code\u003e, \u003ccode\u003eDEKART_REQUIRE_IAP\u003c/code\u003e, \u003ccode\u003eDEKART_REQUIRE_AMAZON_OIDC\u003c/code\u003e, and \u003ccode\u003eDEKART_REQUIRE_SNOWFLAKE_CONTEXT\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_JWKS_URL\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eJWKS endpoint used to verify JWT signatures. Required when \u003ccode\u003eDEKART_REQUIRE_OIDC=1\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://idp.example.com/realms/dekart/protocol/openid-connect/certs\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_ISSUER\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eExpected \u003ccode\u003eiss\u003c/code\u003e claim. Recommended. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://idp.example.com/realms/dekart\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_OIDC_AUDIENCE\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.21\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eExpected \u003ccode\u003eaud\u003c/code\u003e claim. Optional. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eoauth2-proxy\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003cp\u003eKeycloak reverse proxy setup example: \u003ca href="/docs/self-hosting/keycloak-reverse-proxy/"\u003eKeycloak OIDC Reverse Proxy\u003c/a\u003e\u003c/p\u003e
-\u003ch2 id="device-auth-tokens-cli"\u003eDevice auth tokens (CLI)\u003c/h2\u003e
-\u003cp\u003eDekart can issue workspace-scoped device tokens for CLI and automation use.\u003c/p\u003e
-\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003eName\u003c/th\u003e
-\u003cth\u003eDescription\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DEVICE_AUTH_PRIVATE_KEY\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eBase64-encoded PEM RSA private key used to sign device auth JWTs.\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DEVICE_AUTH_PUBLIC_KEY\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eBase64-encoded PEM RSA public key used to validate device auth JWTs.\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DEVICE_AUTH_TOKEN_TTL_HOURS\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eDevice token expiration time in hours. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e720\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003ch2 id="workspaces"\u003eWorkspaces\u003c/h2\u003e
-\u003cp\u003eDekart supports multiple workspaces. Each workspace can have its own set of reports, queries, and users. By default, all users are added to the \u003ccode\u003eDefault\u003c/code\u003e workspace. To configure workspace management, set the following environment variables:\u003c/p\u003e
-\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003eName\u003c/th\u003e
-\u003cth\u003eDescription\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_ALLOW_WORKSPACE_CREATION\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eWhen set to \u003ccode\u003e1\u003c/code\u003e, users can create new workspaces. Set to empty, new users will be automatically added to the \u003ccode\u003eDefault\u003c/code\u003e workspace. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ADMIN\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eEmail that designates a default admin for the \u003ccode\u003eDefault\u003c/code\u003e workspace. When not provided, all new users will be Admin. When provided, all users will be viewers, unless specified differently with \u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ROLE\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eadmin@email.com\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ROLE\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;=0.18\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eRole assigned by default to new users (e.g., \u003ccode\u003eviewer\u003c/code\u003e, \u003ccode\u003eeditor\u003c/code\u003e, \u003ccode\u003eadmin\u003c/code\u003e). Requires \u003ccode\u003eDEKART_DEFAULT_WORKSPACE_ADMIN\u003c/code\u003e to be specified. \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003eviewer\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003ch2 id="user-experience"\u003eUser Experience\u003c/h2\u003e
-\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003eName\u003c/th\u003e
-\u003cth\u003eDescription\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_UX_HOMEPAGE\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eChange URL linked from Dekart logo\u003cbr\u003e \u003cem\u003eDefault value\u003c/em\u003e: \u003ccode\u003e/\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_UX_DATA_DOCUMENTATION\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eAllows provide URL to dataset documentation. It will appear in Dekart UI.\u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003ehttps://my.company/dataset/schema.html\u003c/code\u003e\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_HTML_CUSTOM_CODE\u003c/code\u003e\u003c/td\u003e
-\u003ctd\u003eAllows to add custom HTML code to \u003ccode\u003e\u0026lt;head\u0026gt;\u003c/code\u003e. Can be used for adding trackers.\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_DISABLE_USAGE_STATS\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.11\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eBy default, Dekart appends certain information to the referrer of external links. This information includes the version number, the SHA256 hash of the hostname, the name of the data source, and the total number of reports, queries, files, and authors. No other information is collected. The source code for this implementation can be found \u003ca href="https://github.com/dekart-xyz/dekart/blob/main/src/client/lib/ref.js#L25"\u003ehere\u003c/a\u003e. This behavior can be turned off by setting this variable to \u003ccode\u003e1\u003c/code\u003e.\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_UX_ACCESS_ERROR_INFO_HTML\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eAllows to provide custom HTML code to be shown on the access error page.\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_UX_NOT_FOUND_ERROR_INFO_HTML\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eAllows to provide custom HTML code to be shown on the not found error page.\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003e\u003ccode\u003eDEKART_UX_SAMPLE_QUERY_SQL\u003c/code\u003e \u003cbr\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.16\u003c/small\u003e\u003c/td\u003e
-\u003ctd\u003eAllows to provide a sample SQL query to be shown in the query editor.\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_HTTP_WRITE_TIMEOUT_SECONDS\u003c/code\u003e \u003cbr/\u003e\u003csmall class="badge badge-info"\u003eversion \u0026gt;= 0.23\u003c/small\u003e\u003c/td\u003e
+\u003ctd\u003eHTTP server write timeout in seconds. Useful for long-running snapshot responses so backend can return a proper error payload instead of socket timeout. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e65\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
@@ -5012,6 +5052,10 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/thead\u003e
 \u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEKART_PORT\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003ePort the Dekart server binds to inside the container. Defaults to \u003ccode\u003e8080\u003c/code\u003e; map it to a host port with \u003ccode\u003edocker run -p\u003c/code\u003e. \u003cbr\u003e \u003cem\u003eExample\u003c/em\u003e: \u003ccode\u003e8080\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eDEKART_LOG_DEBUG\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003eSet Dekart log level to debug \u003cbr\u003e \u003cem\u003eExample value\u003c/em\u003e: \u003ccode\u003e1\u003c/code\u003e\u003c/td\u003e
