@@ -56,6 +56,32 @@
     align-items: center;
 }
 
+.geosql {
+    background-color: rgb(248, 235, 229);
+    border: 1px solid rgb(248, 235, 229);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.geosql p {
+    margin-bottom: 0;
+}
+
+.geosql .geosql-logo {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+.geosql .btn {
+    white-space: nowrap;
+}
+
 // Import component styles
 @import '../components/cloud-main-video';
 @import '../components/animated-logo-stripe';

@@ -12,18 +12,71 @@ menu:
     parent: "self-hosting"
 ---
 
-{{< cta-banner template="deployment-templates" >}}
+## Quick start
 
-This page documents `docker compose` flows for self-hosted Dekart.
+Start Dekart with zero configuration. This uses the built-in SQLite metadata database, local file storage, and file upload. The named volume keeps your maps and uploaded files between restarts:
 
-## Requirements
+```yaml
+services:
+  dekart:
+    image: dekartxyz/dekart:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - dekart-data:/dekart/data
 
-- Docker Compose
-- PostgreSQL (metadata storage)
-- Mapbox token
-- Credentials for your selected datasource/auth setup
+volumes:
+  dekart-data:
+```
 
-## BigQuery
+### Amazon S3 backups
+
+Back up the SQLite metadata database to an S3 bucket. Dekart uses the standard AWS SDK credential chain.
+
+```yaml
+services:
+  dekart:
+    image: dekartxyz/dekart:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DEKART_STORAGE: "S3"
+      DEKART_CLOUD_STORAGE_BUCKET: "your-s3-bucket"
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: "your-aws-access-key-id"
+      AWS_SECRET_ACCESS_KEY: "your-aws-secret-access-key"
+```
+
+### Google Cloud Storage backups
+
+Back up the SQLite metadata database to a GCS bucket.
+
+```yaml
+services:
+  dekart:
+    image: dekartxyz/dekart:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./gcp-service-account.json:/run/secrets/gcp-service-account.json:ro
+    environment:
+      DEKART_STORAGE: "GCS"
+      DEKART_CLOUD_STORAGE_BUCKET: "your-gcs-bucket"
+      GOOGLE_APPLICATION_CREDENTIALS: "/run/secrets/gcp-service-account.json"
+```
+
+## With Postgres metadata backend
+
+<a href="/docs/self-hosting/enable-sso-open-source-instance/"><small class="badge badge-primary">requires SSO key</small></a>
+
+The configurations below store metadata in Postgres instead of SQLite. Starting with version 0.23 a Postgres metadata backend requires a valid `DEKART_LICENSE_KEY`.
+
+[Get required SSO key](/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key)
+
+### BigQuery
 
 Use this setup when your warehouse is BigQuery and cache storage is Google Cloud Storage.
 It runs Dekart with PostgreSQL metadata storage and a mounted GCP service account JSON file.
@@ -55,6 +108,7 @@ services:
       DEKART_POSTGRES_PASSWORD: "dekart"
       DEKART_POSTGRES_PORT: "5432"
       DEKART_POSTGRES_HOST: "db"
+      DEKART_LICENSE_KEY: "your-license-key"
       DEKART_CLOUD_STORAGE_BUCKET: "your-gcs-bucket"
       DEKART_BIGQUERY_PROJECT_ID: "your-gcp-project-id"
       DEKART_BIGQUERY_MAX_BYTES_BILLED: "53687091200"
@@ -66,7 +120,7 @@ services:
       DEKART_DATASOURCE: "BQ"
 ```
 
-### Google OAuth configuration
+#### Google OAuth configuration
 
 Use this setup when users should sign in directly with Google OAuth in Dekart.
 Requires Google OAuth client credentials and a valid Dekart license key.
@@ -108,7 +162,7 @@ services:
       DEKART_LICENSE_KEY: "your-license-key"
 ```
 
-## Snowflake
+### Snowflake
 
 Use this setup when Snowflake is the datasource and S3 is used for query result cache.
 This is the most common production-style Snowflake configuration with PostgreSQL metadata.
@@ -138,6 +192,7 @@ services:
       DEKART_POSTGRES_PASSWORD: "dekart"
       DEKART_POSTGRES_PORT: "5432"
       DEKART_POSTGRES_HOST: "db"
+      DEKART_LICENSE_KEY: "your-license-key"
       DEKART_MAPBOX_TOKEN: "your-mapbox-token"
       DEKART_CORS_ORIGIN: "http://localhost:3000"
       DEKART_ALLOW_FILE_UPLOAD: "1"
@@ -153,7 +208,7 @@ services:
       DEKART_REQUIRE_AMAZON_OIDC: "0"
 ```
 
-### S3 cache and AWS SSO configuration
+#### S3 cache and AWS SSO configuration
 
 Use this setup when Snowflake query results are cached in S3 and auth is delegated via AWS OIDC headers from your load balancer.
 
@@ -199,9 +254,9 @@ services:
       DEKART_LICENSE_KEY: "your-license-key"
 ```
 
-## Postgres
+### Postgres
 
-Use this setup when Postgres is both the metadata database and the datasource.
+Use this setup when Postgres is both the metadata database and the datasource. File upload is not supported with `DEKART_STORAGE=PG` and is disabled automatically.
 
 ```yaml
 services:
@@ -227,15 +282,15 @@ services:
       DEKART_POSTGRES_PASSWORD: "dekart"
       DEKART_POSTGRES_PORT: "5432"
       DEKART_POSTGRES_HOST: "db"
+      DEKART_LICENSE_KEY: "your-license-key"
       DEKART_STORAGE: "PG"
       DEKART_DATASOURCE: "PG"
       DEKART_POSTGRES_DATASOURCE_CONNECTION: "postgres://postgres:dekart@db:5432/dekart_geo?sslmode=disable"
       DEKART_MAPBOX_TOKEN: "your-mapbox-token"
       DEKART_CORS_ORIGIN: "http://localhost:3000"
-      DEKART_ALLOW_FILE_UPLOAD: "0"
 ```
 
-### OIDC configuration
+#### OIDC configuration
 
 Use this setup when authentication is handled by a trusted reverse proxy that forwards OIDC JWT to Dekart.
 It includes Keycloak and oauth2-proxy for end-to-end local SSO testing.
@@ -298,7 +353,6 @@ services:
       DEKART_POSTGRES_HOST: "db"
       DEKART_MAPBOX_TOKEN: "your-mapbox-token"
       DEKART_CORS_ORIGIN: "http://localhost:4180"
-      DEKART_ALLOW_FILE_UPLOAD: "1"
       DEKART_STORAGE: "PG"
       DEKART_DATASOURCE: "PG"
       DEKART_POSTGRES_DATASOURCE_CONNECTION: "postgres://postgres:dekart@db:5432/dekart_geo?sslmode=disable"

@@ -56,7 +56,7 @@
 
 [[main]]
   name = "Docs"
-  url = "/docs/configuration/environment-variables/"
+  url = "/docs/self-hosting/docker/"
   weight = 10
 
 

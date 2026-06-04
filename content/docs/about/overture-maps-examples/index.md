@@ -18,8 +18,8 @@ canonical: ""
 
 BigQuery hosts Overture Maps as a free public dataset. Below are working SQL examples by usecase, each one rendering on a live map.
 
-<div class="gpt" >
-  <p>All examples are created with <b>Overture Maps GPT</b></p><p><a href="https://chatgpt.com/g/g-onSLtzQQB-overture-maps-gpt?ref=gpt-link" class="btn btn-outline-primary" target="_blank">Get it Free</a></p>
+<div class="geosql" >
+  <p><img src="/claude.svg" alt="Claude" class="geosql-logo" />All maps created with GeoSQL skill for Claude</p><p><a href="https://github.com/dekart-xyz/geosql" class="btn btn-outline-dark" target="_blank">Get it on GitHub</a></p>
 </div>
 
 ## Segment

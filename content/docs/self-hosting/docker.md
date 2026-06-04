@@ -12,20 +12,58 @@ menu:
     parent: "self-hosting"
 ---
 
-{{< cta-banner template="deployment-templates" >}}
+## Quick start
 
-This page documents `docker run` flows for self-hosted Dekart.
+Start Dekart with zero configuration. This uses the built-in SQLite metadata database, local file storage, and file upload:
 
-Use [Docker Compose](/docs/self-hosting/docker-compose/) if you want full multi-service setup examples.
+```bash
+docker run -p 8080:8080 dekartxyz/dekart:latest
+```
 
-## Requirements
+Open `http://localhost:8080` and create a map.
 
-- Docker
-- PostgreSQL (metadata storage)
-- Mapbox token
-- Credentials for your selected datasource/auth setup
+To keep your maps and uploaded files between restarts, mount a host directory at `/dekart/data`:
 
-## BigQuery
+```bash
+docker run -p 8080:8080 \
+  -v $(pwd)/dekart-data:/dekart/data \
+  dekartxyz/dekart:latest
+```
+
+### Amazon S3 backups
+
+Back up the SQLite metadata database to an S3 bucket. Dekart uses the standard AWS SDK credential chain.
+
+```bash
+docker run -p 8080:8080 \
+  -e DEKART_STORAGE=S3 \
+  -e DEKART_CLOUD_STORAGE_BUCKET=your-s3-bucket \
+  -e AWS_REGION=us-east-1 \
+  -e AWS_ACCESS_KEY_ID=your-aws-access-key-id \
+  -e AWS_SECRET_ACCESS_KEY=your-aws-secret-access-key \
+  dekartxyz/dekart:latest
+```
+
+### Google Cloud Storage backups
+
+Back up the SQLite metadata database to a GCS bucket.
+
+```bash
+docker run -p 8080:8080 \
+  -v /absolute/path/to/gcp-service-account.json:/run/secrets/gcp-service-account.json:ro \
+  -e GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcp-service-account.json \
+  -e DEKART_STORAGE=GCS \
+  -e DEKART_CLOUD_STORAGE_BUCKET=your-gcs-bucket \
+  dekartxyz/dekart:latest
+```
+
+## With Postgres metadata backend
+
+The configurations below store metadata in Postgres instead of SQLite. Starting with version 0.23 a Postgres metadata backend requires a valid `DEKART_LICENSE_KEY`.
+
+[Get required SSO key](/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key)
+
+### BigQuery
 
 Use this when BigQuery is the datasource and GCS is the cache backend.
 
@@ -38,6 +76,7 @@ docker run --rm -p 8080:8080 \
   -e DEKART_POSTGRES_PASSWORD=dekart \
   -e DEKART_POSTGRES_PORT=5432 \
   -e DEKART_POSTGRES_HOST=host.docker.internal \
+  -e DEKART_LICENSE_KEY=your-license-key \
   -e DEKART_STORAGE=GCS \
   -e DEKART_DATASOURCE=BQ \
   -e DEKART_CLOUD_STORAGE_BUCKET=your-gcs-bucket \
@@ -49,9 +88,9 @@ docker run --rm -p 8080:8080 \
   dekartxyz/dekart:latest
 ```
 
-### Google OAuth configuration
+#### Google OAuth configuration
 
-Use this when users authenticate directly with Google OAuth in Dekart.  
+Use this when users authenticate directly with Google OAuth in Dekart.
 A valid `DEKART_LICENSE_KEY` is required when SSO is enabled.
 
 [Get required SSO key](/docs/self-hosting/enable-sso-open-source-instance/?ref=sso-key)
@@ -75,7 +114,7 @@ docker run --rm -p 8080:8080 \
   dekartxyz/dekart:latest
 ```
 
-## Snowflake
+### Snowflake
 
 Use this when Snowflake is the datasource.
 
@@ -86,6 +125,7 @@ docker run --rm -p 8080:8080 \
   -e DEKART_POSTGRES_PASSWORD=dekart \
   -e DEKART_POSTGRES_PORT=5432 \
   -e DEKART_POSTGRES_HOST=host.docker.internal \
+  -e DEKART_LICENSE_KEY=your-license-key \
   -e DEKART_STORAGE=S3 \
   -e DEKART_DATASOURCE=SNOWFLAKE \
   -e DEKART_CLOUD_STORAGE_BUCKET=your-s3-bucket \
@@ -101,7 +141,7 @@ docker run --rm -p 8080:8080 \
   dekartxyz/dekart:latest
 ```
 
-### S3 cache and AWS SSO configuration
+#### S3 cache and AWS SSO configuration
 
 Use this when Snowflake query results are cached in S3 and auth is delegated via AWS OIDC headers from your load balancer.
 
@@ -131,9 +171,9 @@ docker run --rm -p 8080:8080 \
   dekartxyz/dekart:latest
 ```
 
-## Postgres
+### Postgres
 
-Use this when Postgres is the datasource and Dekart stores replayable query state in Postgres (`DEKART_STORAGE=PG`).
+Use this when Postgres is the datasource and Dekart stores replayable query state in Postgres (`DEKART_STORAGE=PG`). File upload is not supported with `DEKART_STORAGE=PG` and is disabled automatically.
 
 ```bash
 docker run --rm -p 8080:8080 \
@@ -142,16 +182,16 @@ docker run --rm -p 8080:8080 \
   -e DEKART_POSTGRES_PASSWORD=dekart \
   -e DEKART_POSTGRES_PORT=5432 \
   -e DEKART_POSTGRES_HOST=host.docker.internal \
+  -e DEKART_LICENSE_KEY=your-license-key \
   -e DEKART_STORAGE=PG \
   -e DEKART_DATASOURCE=PG \
   -e DEKART_POSTGRES_DATASOURCE_CONNECTION=postgres://postgres:dekart@host.docker.internal:5432/dekart_geo?sslmode=disable \
   -e DEKART_MAPBOX_TOKEN=your-mapbox-token \
   -e DEKART_CORS_ORIGIN=http://localhost:3000 \
-  -e DEKART_ALLOW_FILE_UPLOAD=0 \
   dekartxyz/dekart:latest
 ```
 
-### OIDC configuration
+#### OIDC configuration
 
 Use this when authentication is handled by a trusted reverse proxy forwarding OIDC JWT headers.
 
