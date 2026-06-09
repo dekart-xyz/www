@@ -9,6 +9,14 @@
   padding-bottom: 3rem;
 }
 
+// Give single blog articles extra breathing room so the post body does not
+// hug the footer. Overrides the shared rule above for blog single pages only;
+// docs, tutorials, and section list pages keep their tighter spacing.
+.blog .content > article {
+  padding-top: 1rem;
+  padding-bottom: 4rem;
+}
+
 h1,
 h2,
 h3,

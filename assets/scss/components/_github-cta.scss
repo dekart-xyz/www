@@ -1,0 +1,19 @@
+// GitHub CTA shortcode (layouts/shortcodes/github-cta.html)
+// Inline-link style with the GitHub mark. The wrapper gives the link
+// generous vertical breathing room so the article does not feel cramped
+// against the footer or the surrounding content.
+
+.github-cta-wrapper {
+  margin-top: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.github-cta-icon {
+  // The SVG inherits its color via fill="currentColor" + inline color.
+  // The link text inherits the theme link color from the parent <a>.
+  color: #181717;
+  vertical-align: middle;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+}
