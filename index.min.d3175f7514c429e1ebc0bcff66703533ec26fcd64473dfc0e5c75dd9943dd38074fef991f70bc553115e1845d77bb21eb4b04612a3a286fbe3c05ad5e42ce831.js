@@ -1877,7 +1877,96 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="/docs/about/overture-maps-examples/"\u003eOverture Maps examples in BigQuery\u003c/a\u003e - 15 ready-to-run queries with live maps.\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/knowledge-base/st-aswkt-bigquery/"\u003eST_ASWKT in BigQuery (use ST_ASTEXT)\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:11,href:"https://dekart.xyz/docs/knowledge-base/",title:"Knowledge Base",description:"Cost comparisons, migration guides, and practical resources for GIS data teams.",content:""},{id:12,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
+`},{id:11,href:"https://dekart.xyz/docs/knowledge-base/snowflake-marketplace-datasets/",title:"Snowflake Marketplace Datasets",description:"Copy-paste SQL examples for Dekart datasets published on Snowflake Marketplace.",content:`\u003ch2 id="how-to-use-these-examples"\u003eHow to use these examples\u003c/h2\u003e
+\u003cp\u003eInstall a Dekart dataset from Snowflake Marketplace, then paste the matching SQL example into Snowflake or Dekart.\u003c/p\u003e
+\u003cp\u003eThe examples use \u003ccode\u003eSCHEMA.TABLE\u003c/code\u003e names, not \u003ccode\u003eDATABASE.SCHEMA.TABLE\u003c/code\u003e names. Snowflake Marketplace consumers choose their own database name when installing a listing.\u003c/p\u003e
+\u003ch2 id="uk-h3-travel-matrix"\u003eUK H3 Travel Matrix\u003c/h2\u003e
+\u003cp\u003eThe UK H3 Travel Matrix is an origin-destination dataset for travel analysis in the United Kingdom. Each row represents travel between one origin H3 cell and one destination H3 cell.\u003c/p\u003e
+\u003cp\u003eThe matrix was computed from heavy ground-vehicle routing, not simple straight-line distance or normal passenger-car estimates. Generating country-wide time-distance matrices requires substantial routing compute. This Marketplace dataset makes the result available for analysis without running the full routing job yourself.\u003c/p\u003e
+\u003cp\u003eSnowflake\u0026rsquo;s routing examples show how routing workloads can run inside Snowflake with Snowpark Container Services, including directions, optimization, isochrones, and time-distance matrices. See \u003ca href="https://www.snowflake.com/en/developers/guides/oss-install-openrouteservice-native-app/"\u003eBuild Routing Solution in Snowflake with Snowflake CoCo\u003c/a\u003e and the \u003ca href="https://github.com/Snowflake-Labs/sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator"\u003eSnowflake Labs route optimization simulator\u003c/a\u003e.\u003c/p\u003e
+\u003cp\u003eMain table:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-text" data-lang="text"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eFLEET_ANALYTICS.UK_H3_TRAVEL_MATRIX
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eColumns:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eColumn\u003c/th\u003e
+\u003cth\u003eType\u003c/th\u003e
+\u003cth\u003eDescription\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eORIGIN_H3\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eVARCHAR\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eOrigin H3 cell.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eDEST_H3\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eVARCHAR\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eDestination H3 cell.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eTRAVEL_TIME_SECONDS\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eFLOAT\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eEstimated travel time in seconds.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eTRAVEL_DISTANCE_METERS\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eFLOAT\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eEstimated travel distance in meters.\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eCALCULATED_AT\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003ccode\u003eTIMESTAMP\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eTimestamp when the route metric was calculated.\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="map-travel-times-from-london"\u003eMap travel times from London\u003c/h2\u003e
+\u003cp\u003eThis query maps travel time from one London H3 cell to reachable UK destination cells.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- London H3 cell:
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- SELECT H3_POINT_TO_CELL_STRING(TO_GEOGRAPHY(\u0026#39;POINT(-0.1218076741 51.492116613)\u0026#39;), 7);
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003edest_h3\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003etravel_time_seconds\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3600\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etravel_hours\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003etravel_distance_meters\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1000\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etravel_km\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eST_X\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eH3_CELL_TO_POINT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003edest_h3\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elongitude\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eST_Y\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eH3_CELL_TO_POINT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003edest_h3\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elatitude\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eFLEET_ANALYTICS\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eUK_H3_TRAVEL_MATRIX\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eorigin_h3\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;87194ad14ffffff\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etravel_time_seconds\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNOT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNULL\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eUse \u003ccode\u003elongitude\u003c/code\u003e and \u003ccode\u003elatitude\u003c/code\u003e as point columns in your map. Color by \u003ccode\u003etravel_hours\u003c/code\u003e to see travel time from London.\u003c/p\u003e
+\u003ch2 id="choosing-another-origin"\u003eChoosing another origin\u003c/h2\u003e
+\u003cp\u003eSnowflake\u0026rsquo;s H3 functions can convert a longitude/latitude point into an H3 cell:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eH3_POINT_TO_CELL_STRING\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eTO_GEOGRAPHY\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;POINT(-0.1218076741 51.492116613)\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e7\u003c/span\u003e\u003cspan class="p"\u003e);\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eFor repeated queries, calculate the H3 cell once and paste the literal value into the \u003ccode\u003eWHERE origin_h3 = ...\u003c/code\u003e filter. This helps Snowflake prune the table efficiently.\u003c/p\u003e
+\u003ch2 id="query-patterns"\u003eQuery patterns\u003c/h2\u003e
+\u003cp\u003eTravel time from one origin to all reachable destinations:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eFLEET_ANALYTICS\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eUK_H3_TRAVEL_MATRIX\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eorigin_h3\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;87194ad14ffffff\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etravel_time_seconds\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNOT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNULL\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eTravel time to one destination from many origins:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eorigin_h3\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003etravel_time_seconds\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3600\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etravel_hours\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eST_X\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eH3_CELL_TO_POINT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eorigin_h3\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elongitude\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eST_Y\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eH3_CELL_TO_POINT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eorigin_h3\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elatitude\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eFLEET_ANALYTICS\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eUK_H3_TRAVEL_MATRIX\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edest_h3\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;87194ad14ffffff\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003etravel_time_seconds\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNOT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNULL\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="performance-notes"\u003ePerformance notes\u003c/h2\u003e
+\u003cp\u003eThe UK H3 Travel Matrix table is clustered by \u003ccode\u003eORIGIN_H3\u003c/code\u003e, so origin-based lookups are the fastest path. Prefer a literal H3 value in filters instead of calculating it inline for every query.\u003c/p\u003e
+\u003cp\u003eFor exploratory maps, start with one origin or one destination cell. Full-table scans over all origin-destination pairs can be expensive.\u003c/p\u003e
+\u003ch2 id="see-also"\u003eSee also\u003c/h2\u003e
+\u003cul\u003e
+\u003cli\u003e\u003ca href="https://docs.snowflake.com/en/sql-reference/functions/h3_point_to_cell_string"\u003eSnowflake H3 function reference\u003c/a\u003e\u003c/li\u003e
+\u003cli\u003e\u003ca href="/docs/about/snowflake-kepler-gl-examples/"\u003eSnowflake Kepler.gl map examples\u003c/a\u003e\u003c/li\u003e
+\u003cli\u003e\u003ca href="/docs/usage/snowflake-private-key/"\u003eConnect Snowflake to Dekart\u003c/a\u003e\u003c/li\u003e
+\u003c/ul\u003e
+`},{id:12,href:"https://dekart.xyz/docs/knowledge-base/",title:"Knowledge Base",description:"Cost comparisons, migration guides, and practical resources for GIS data teams.",content:""},{id:13,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
 \u003cp\u003e\u003ca href="./dekart-architecture-overview.png"\u003e\u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -1952,7 +2041,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eClient requests result by separate HTTP endpoint from server\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003eGoogle IAP (Identity Aware Proxy) is supported to authenticate user requests.\u003c/p\u003e
-`},{id:13,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+`},{id:14,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -1996,7 +2085,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:14,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:15,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -2040,7 +2129,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:15,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:16,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
 \u003ch3 id="where-ev-drivers-risk-running-empty"\u003eWhere EV Drivers Risk Running Empty\u003c/h3\u003e
 \u003cp\u003e\u003cem\u003eMap created by DLP Labs\u003c/em\u003e\u003c/p\u003e
 \u003cfigure\u003e
@@ -2351,7 +2440,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003ch2 id="want-to-build-similar-maps"\u003eWant to build similar maps?\u003c/h2\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://calendly.com/vladi-dekart/30min?ref=book-ev-charging-demo" role="button"\u003eBook a free demo\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e\u003cem\u003eBook a free demo\u003c/em\u003e: we’ll walk you through the process, help customize your data, and show how to spin off maps in minutes.\u003c/p\u003e
-`},{id:16,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003ch2 id="what-is-a-map-template"\u003eWhat is a Map Template?\u003c/h2\u003e
+`},{id:17,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003ch2 id="what-is-a-map-template"\u003eWhat is a Map Template?\u003c/h2\u003e
 \u003cp\u003eA Map Template is a reusable Dekart Map that you can use as a starting point for your analytics projects. Each Map Template is designed to help you quickly visualize your data and answer common business questions. Map Templates utilize Dekart\u0026rsquo;s query parameters to make it easy to customize the map to your specific needs.\u003c/p\u003e
 \u003ch2 id="templates"\u003eTemplates\u003c/h2\u003e
 \u003ch3 id="osm-vs-overture-maps--compare-bike-lane-coverage"\u003eOSM vs Overture Maps – Compare Bike Lane Coverage\u003c/h3\u003e
@@ -2408,7 +2497,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003cp\u003eThis template queries city boundaries from the Overture Maps dataset in BigQuery—even if multiple cities share the same name. It fetches all matching boundaries, counts the Points of Interest (POIs) in each, and returns the boundary with the highest POI count as the “most relevant” city. Perfect for data analysts and data scientists who need accurate location context without diving into specialized GIS tools.\u003c/p\u003e
 \u003cp\u003eRequires: \u003csmall class="badge badge-info"\u003eBigQuery Account\u003c/small\u003e\u003c/p\u003e
-`},{id:17,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"How to query Overture Maps on BigQuery – SQL examples by usecase",description:"Copy-paste BigQuery SQL for the Overture Maps public dataset. Covers roads, EV stations, buildings, boundaries, land use, and divisions.",content:`\u003cp\u003eBigQuery hosts Overture Maps as a free public dataset. Below are working SQL examples by usecase, each one rendering on a live map.\u003c/p\u003e
+`},{id:18,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"How to query Overture Maps on BigQuery – SQL examples by usecase",description:"Copy-paste BigQuery SQL for the Overture Maps public dataset. Covers roads, EV stations, buildings, boundaries, land use, and divisions.",content:`\u003cp\u003eBigQuery hosts Overture Maps as a free public dataset. Below are working SQL examples by usecase, each one rendering on a live map.\u003c/p\u003e
 \u003cdiv class="geosql" \u003e
   \u003cp\u003e\u003cimg src="/claude.svg" alt="Claude" class="geosql-logo" /\u003eAll maps created with GeoSQL skill for Claude\u003c/p\u003e\u003cp\u003e\u003ca href="https://github.com/dekart-xyz/geosql" class="btn btn-outline-dark" target="_blank"\u003eGet it on GitHub\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
@@ -3138,7 +3227,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:18,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
+`},{id:19,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
 \u003ch2 id="overture-maps"\u003eOverture Maps\u003c/h2\u003e
 \u003ch3 id="nevada-roads-by-speed-and-class"\u003eNevada Roads by Speed and Class\u003c/h3\u003e
 \u003cfigure\u003e
@@ -3256,7 +3345,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eroad_segments\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003echarging_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eID\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eroad_id\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- Join with the previous result set to match road details with charging station counts
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:19,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:20,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
 \u003ch2 id="population-density"\u003ePopulation density\u003c/h2\u003e
 \u003cp\u003eVisualize population density anywhere in the world and at any level of detail\u003c/p\u003e
 \u003ch3 id="eu-population-density"\u003eEU Population Density\u003c/h3\u003e
@@ -3982,7 +4071,7 @@ SELECT planet_features.geometry
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:20,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
+`},{id:21,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
 \u003ch2 id="large-datasets"\u003eLarge datasets\u003c/h2\u003e
 \u003cp\u003eExplore large datasets with millions of rows and visualize them on a map\u003c/p\u003e
 \u003cul\u003e
@@ -4011,7 +4100,7 @@ SELECT planet_features.geometry
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:21,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
+`},{id:22,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
 \u003ch2 id="step-1-generate-a-key-pair"\u003eStep 1: Generate a Key Pair\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003e\u003cstrong\u003eGenerate a Private Key\u003c/strong\u003e: Use OpenSSL to generate a private key in PKCS#8 format.
@@ -4035,7 +4124,7 @@ SELECT planet_features.geometry
 \u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:22,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:23,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
 This video shows you how to plug your queries directly into Dekart and instantly visualize your results on shareable maps.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/RY9H76V_qVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tutorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
@@ -4125,7 +4214,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003c/table\u003e
 \u003cp\u003e\u003cstrong\u003eReady to try it yourself?\u003c/strong\u003e Click \u003cstrong\u003e“Start free with Dekart + Wherobots”\u003c/strong\u003e above, connect your source, paste your SQL, and see your data come alive.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tuttorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
-`},{id:23,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
+`},{id:24,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
 
 
 
@@ -4271,7 +4360,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eWith \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e, keep \u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/code\u003e and \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e unset.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cp\u003eIf you need a local test stack, see the Dekart repository compose profile examples.\u003c/p\u003e
-`},{id:24,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
+`},{id:25,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003e\u003cstrong\u003eGoogle Account (OAuth Pass-Through)\u003c/strong\u003e\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eService Account Key (JSON)\u003c/strong\u003e\u003c/li\u003e
@@ -4365,7 +4454,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eContact us in \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eEmail us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:25,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:26,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
+`},{id:26,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:27,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/KusNayeGFaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" role="button"\u003eGet it instantly in Snowflake Marketplace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-how-dekart-works"\u003e💡 How Dekart Works\u003c/h2\u003e
@@ -4489,7 +4578,7 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:27,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
+`},{id:28,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
 \u003cp\u003eDekart runs with zero configuration: by default it uses a built-in SQLite metadata database, local file storage, and file upload, so you can create a map immediately. Override the variables below to point Dekart at your datasource and storage. See \u003ca href="#metadata-storage"\u003eMetadata storage\u003c/a\u003e for persistence and backups, \u003ca href="#authentication"\u003eAuthentication\u003c/a\u003e for SSO, and \u003ca href="#data-source-connectors"\u003eData source connectors\u003c/a\u003e for warehouse settings.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -5135,7 +5224,7 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:28,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
+`},{id:29,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
 \u003ch2 id="what-permissions-is-dekart-requesting-and-why-are-they-necessary"\u003eWhat permissions is Dekart requesting, and why are they necessary?\u003c/h2\u003e
 \u003cp\u003eDekart implements BigQuery passthrough authentication (OAuth 2.0 Token Pass-Through) and requests the following permissions:\u003c/p\u003e
 \u003cul\u003e
@@ -5166,7 +5255,7 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c!-- If you have any questions or issues about Dekart Cloud, please contact us via email at [support@dekart.xyz](mailto:support@dekart.xyz) or via [Slack](https://slack.dekart.xyz/). --\u003e
 \u003ch2 id="read-more"\u003eRead more\u003c/h2\u003e
 \u003cp\u003e👉 \u003ca href="/legal/privacy/"\u003eDekart Cloud Privacy Policy\u003c/a\u003e\u003c/p\u003e
-`},{id:29,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+`},{id:30,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
 \u003chr\u003e
@@ -5241,7 +5330,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
 \u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
 \u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
-`},{id:30,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:31,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -5262,7 +5351,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:31,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:32,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -5283,7 +5372,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:32,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:33,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -5365,7 +5454,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:33,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:34,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -5392,7 +5481,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:34,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:35,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Video walkthroughs: create shareable maps from SQL, file uploads, and query parameters",content:`\u003cp class="lead text-left"\u003eSee how Dekart turns SQL queries into shareable maps in under a minute\u003c/p\u003e
+`},{id:35,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:36,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Video walkthroughs: create shareable maps from SQL, file uploads, and query parameters",content:`\u003cp class="lead text-left"\u003eSee how Dekart turns SQL queries into shareable maps in under a minute\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/_2ryUu43XRo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="more-videos"\u003eMore Videos\u003c/h2\u003e
