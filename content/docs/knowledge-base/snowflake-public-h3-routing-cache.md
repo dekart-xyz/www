@@ -1,7 +1,7 @@
 ---
-title: "Snowflake Marketplace Datasets"
-description: "Copy-paste SQL examples for Dekart datasets published on Snowflake Marketplace."
-lead: "Use Dekart datasets from Snowflake Marketplace with ready-to-map SQL."
+title: "Snowflake Public H3 Routing Cache"
+description: "Copy-paste SQL examples for public H3 routing cache datasets in Snowflake."
+lead: "Use public H3 routing caches in Snowflake with ready-to-map SQL."
 date: 2026-06-11T00:00:00Z
 lastmod: 2026-06-11T00:00:00Z
 draft: false
@@ -12,20 +12,20 @@ contributors: ["Vladi"]
 menu:
   docs:
     parent: "knowledge-base"
-    name: "Snowflake Marketplace Datasets"
+    name: "Snowflake Public H3 Routing Cache"
 ---
 
 ## How to use these examples
 
-Install a Dekart dataset from Snowflake Marketplace, then paste the matching SQL example into Snowflake or Dekart.
+Install a public H3 routing cache from Snowflake Marketplace, then paste the matching SQL example into a Snowflake worksheet.
 
 The examples use `SCHEMA.TABLE` names, not `DATABASE.SCHEMA.TABLE` names. Snowflake Marketplace consumers choose their own database name when installing a listing.
 
 ## UK H3 Travel Matrix
 
-The UK H3 Travel Matrix is an origin-destination dataset for travel analysis in the United Kingdom. Each row represents travel between one origin H3 cell and one destination H3 cell.
+The UK H3 Travel Matrix is an origin-destination routing cache for travel analysis in the United Kingdom. Each row represents travel between one origin H3 cell and one destination H3 cell.
 
-The matrix was computed from heavy ground-vehicle routing, not simple straight-line distance or normal passenger-car estimates. Generating country-wide time-distance matrices requires substantial routing compute. This Marketplace dataset makes the result available for analysis without running the full routing job yourself.
+The matrix was computed by Snowflake from heavy ground-vehicle routing, not simple straight-line distance or normal passenger-car estimates. Generating country-wide time-distance matrices requires substantial routing compute. This public cache makes the result available for analysis without running the full routing job yourself.
 
 Snowflake's routing examples show how routing workloads can run inside Snowflake with Snowpark Container Services, including directions, optimization, isochrones, and time-distance matrices. See [Build Routing Solution in Snowflake with Snowflake CoCo](https://www.snowflake.com/en/developers/guides/oss-install-openrouteservice-native-app/) and the [Snowflake Labs route optimization simulator](https://github.com/Snowflake-Labs/sfguide-create-a-route-optimisation-and-vehicle-route-plan-simulator).
 
@@ -64,7 +64,7 @@ WHERE origin_h3 = '87194ad14ffffff'
   AND travel_time_seconds IS NOT NULL;
 ```
 
-Use `longitude` and `latitude` as point columns in your map. Color by `travel_hours` to see travel time from London.
+Use `longitude` and `latitude` as point columns in a map. Color by `travel_hours` to see travel time from London.
 
 ## Choosing another origin
 
@@ -110,4 +110,3 @@ For exploratory maps, start with one origin or one destination cell. Full-table 
 
 - [Snowflake H3 function reference](https://docs.snowflake.com/en/sql-reference/functions/h3_point_to_cell_string)
 - [Snowflake Kepler.gl map examples](/docs/about/snowflake-kepler-gl-examples/)
-- [Connect Snowflake to Dekart](/docs/usage/snowflake-private-key/)
