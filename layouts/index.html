@@ -1,8 +1,8 @@
 {{ define "main" }}
 <section class="section container-fluid mt-n3 pb-3">
   <div class="row justify-content-center">
-    <div class="col-lg-12 text-center">
-      <h1 class="mt-0 display-3" style="
+    <div class="col-lg-12 text-center dekart-hero-col">
+      <h1 class="mt-0 mb-5 display-2 dekart-hero-title" style="
         background-color: white;
         background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
         background-size: 100%;
@@ -10,15 +10,11 @@
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
         -moz-text-fill-color: transparent;
-    ">SQL to Map. <span class="d-inline-block">Instantly.</span></h1>
+    ">Your geospatial analysts</h1>
     </div>
     <div class="col-lg-12 text-center">
       <p class="lead">
-        <span class="d-inline-block">We took <em class="fst-italic">Kepler.gl</em>, and connected it to your data
-          warehouse. Now you can type SQL and get beautiful, up-to-date maps ready to share with your team.</span>
-      </p>
-      <p>
-        <em class="d-inline-block mark">Light alternative to CARTO</em>
+        <span class="d-inline-block"><em>Claude</em> and <em>Codex</em> use Dekart to run and verify analysis on a map, so you get reliable answers and live dashboards everyone can use.</span>
       </p>
     </div>
     <div class="col-lg-9 col-xl-8 text-center mt-4">
@@ -29,21 +25,19 @@
       </p>
     </div>
     {{ partial "main/cloud-main-video.html" (dict
-      "video_src" "/main-page-screencast-4.mp4"
-      "poster_src" "/main-page-screencast-4.png"
+      "video_src" "/landing-demo.mp4"
+      "poster_src" "/landing-demo.png"
       "autoplay" true
       "muted" true
       "loop" true
       "playsinline" true
-      "link_url" "/docs/about/screencast/"
-      "link_title" "Open Dekart screencast"
+      "frameless" true
+      "aspect_ratio" "16/9"
     ) }}
-    <!-- Animated Logo Stripe -->
-    {{ partial "main/animated-logo-stripe.html" (dict
-      "logos_dir" "static/images/community-logos"
+    <!-- Logo Stripe -->
+    {{ partial "main/logo-stripe.html" (dict
       "link_url" "https://slack.dekart.xyz/"
       "link_title" "Join our Slack Community of users and contributors"
-      "animation_duration" 30
     ) }}
   </div>
 </section>
@@ -72,31 +66,12 @@
 </section>
 {{ end }}
 {{ define "sidebar-prefooter" }}
-{{ partial "main/map-examples-section.html" (dict
-  "title" "Map Examples"
-  "examples_dir" "static/images/map-examples"
-  "connectors" (slice
-    (dict "name" "BigQuery" "icon" "/bigquery.svg" "link" "/docs/about/overture-maps-examples/")
-    (dict "name" "Snowflake" "icon" "/snowflake.svg" "link" "/docs/about/snowflake-kepler-gl-examples/")
-    (dict "name" "Wherobots" "icon" "/wherobots.svg" "link" "/docs/usage/wherobots-sql-tutorial/")
-  )
-) }}
 <!-- testimonials -->
 {{ partial "main/testimonials-section.html" (dict
   "title" "What Our Users Say"
   "testimonials" .Site.Data.dekart.testimonials
 ) }}
 
-<!-- video tutorials -->
-{{ partial "main/video-tutorials-section.html" (dict
-  "title" "See it Yourself"
-  "subtitle" "Short tutorials showing how to create and share maps with Dekart."
-  "videos" (slice
-    (dict "youtube_id" "_2ryUu43XRo" "title" "Video Tutorial 1" "alt" "Video Tutorial 1")
-    (dict "youtube_id" "UJdKENJis2Y" "title" "Video Tutorial 3" "alt" "Video Tutorial 3")
-    (dict "youtube_id" "GS2Xbl77RpM" "title" "Video Tutorial 2" "alt" "Video Tutorial 2")
-  )
-) }}
 {{ end }}
 
 {{ define "sidebar-footer" }}

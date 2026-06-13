@@ -16,6 +16,8 @@ toc: true
 
 This curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.
 
+{{< geosql-banner ref="map-examples-ev-charging" >}}
+
 ### Where EV Drivers Risk Running Empty
 
 *Map created by DLP Labs*

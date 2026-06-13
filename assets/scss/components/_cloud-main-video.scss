@@ -15,6 +15,18 @@
   display: block;
 }
 
+.dekart-video-window--frameless {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+
+  .dekart-video-content {
+    border-radius: 0;
+    border: none;
+    background: transparent;
+  }
+}
+
 .dekart-video-content {
   width: 100%;
   position: relative;

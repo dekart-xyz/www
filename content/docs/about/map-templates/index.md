@@ -14,6 +14,8 @@ weight: 999
 toc: true
 ---
 
+{{< geosql-banner ref="map-examples-templates" >}}
+
 ## What is a Map Template?
 
 A Map Template is a reusable Dekart Map that you can use as a starting point for your analytics projects. Each Map Template is designed to help you quickly visualize your data and answer common business questions. Map Templates utilize Dekart's query parameters to make it easy to customize the map to your specific needs.

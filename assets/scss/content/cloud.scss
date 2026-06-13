@@ -2,6 +2,31 @@
 @import '../components/video-tutorials-section';
 @import '../components/testimonials-section';
 
+// Hero headline: keep it on a single line at every width by scaling the font
+// with the container width. The Bootstrap container max-width steps at each
+// breakpoint, so viewport units (vw) overflow just below a step; container
+// query units (cqi) track the real available width and always fit.
+.dekart-hero-col {
+  container-type: inline-size;
+}
+
+h1.dekart-hero-title {
+  white-space: nowrap;
+  font-size: clamp(1.75rem, 5.5vw, 5rem); // fallback for no container queries
+}
+
+@supports (font-size: 1cqi) {
+  h1.dekart-hero-title {
+    font-size: clamp(1.75rem, 9cqi, 5rem);
+  }
+}
+
+@media (max-width: 360px) {
+  h1.dekart-hero-title {
+    white-space: normal;
+  }
+}
+
 
 .cloud-prices div {
     background-size: contain;
@@ -84,5 +109,5 @@
 
 // Import component styles
 @import '../components/cloud-main-video';
-@import '../components/animated-logo-stripe';
+@import '../components/logo-stripe';
 @import '../components/map-examples-section';

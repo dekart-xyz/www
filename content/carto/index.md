@@ -36,7 +36,7 @@ type: "html-content"
         </p>
       </div>
       {{< cloud-main-video video_src="/main-page-screencast-4.mp4" poster_src="/main-page-screencast-4.png" >}}
-      {{< animated-logo-stripe >}}
+      {{< logo-stripe >}}
     </div>
   </section>
 
