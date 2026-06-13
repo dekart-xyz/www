@@ -1,12 +1,8 @@
 .footer {
   margin-top: 0;
-  background: #14233a;
-  color: #aab6c6;
-}
-
-.footer__brand-rule {
-  height: 3px;
-  background: linear-gradient(90deg, #2f6fed 0%, #7b5be6 50%, #e0489f 100%);
+  border-top: 1px solid rgba(#70b5d0, 0.16);
+  background: linear-gradient(180deg, #2b323b 70%, #25272f 100%);
+  color: rgba($white, 0.7);
 }
 
 .footer__inner {
@@ -21,29 +17,32 @@
 
 .footer__brand p {
   max-width: 15.625rem;
-  margin: 0.875rem 0 0;
-  color: #7e8ea6;
+  margin: 1.25rem 0 0;
+  color: rgba($white, 0.56);
   font-size: $font-size-sm;
   font-weight: 600;
   line-height: 1.65;
 }
 
 .footer__logo {
-  color: $white;
-  font-size: 1.375rem;
-  font-weight: 700;
-  line-height: 1.2;
+  display: inline-block;
+  line-height: 1;
+}
+
+.footer__logo img {
+  display: block;
+  width: 4.8125rem;
+  height: auto;
 }
 
 .footer__logo:hover,
 .footer__logo:focus {
-  color: $white;
   text-decoration: none;
 }
 
 .footer__nav h2 {
   margin: 0 0 1.125rem;
-  color: #67788f;
+  color: rgba(#70b5d0, 0.72);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -66,7 +65,7 @@
 }
 
 .footer__nav a {
-  color: #aab6c6;
+  color: rgba($white, 0.72);
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1.35;
@@ -79,12 +78,12 @@
   gap: 1rem;
   margin-top: 3.25rem;
   padding: 1.5rem 0;
-  border-top: 1px solid rgba($white, 0.09);
+  border-top: 1px solid rgba(#70b5d0, 0.18);
 }
 
 .footer__bottom p {
   margin: 0;
-  color: #67788f;
+  color: rgba($white, 0.48);
   font-size: 0.8125rem;
   font-weight: 600;
 }
@@ -101,28 +100,28 @@
   justify-content: center;
   width: 2.125rem;
   height: 2.125rem;
-  border: 1px solid rgba($white, 0.12);
+  border: 1px solid rgba(#70b5d0, 0.28);
   border-radius: 0.5rem;
-  color: #aab6c6;
+  color: rgba($white, 0.72);
 }
 
 .footer__nav a:hover,
 .footer__nav a:focus {
-  color: $white;
+  color: #70b5d0;
   text-decoration: none;
 }
 
 .footer__social a:hover,
 .footer__social a:focus {
-  border-color: rgba($white, 0.35);
-  color: $white;
+  border-color: rgba(#70b5d0, 0.68);
+  color: #70b5d0;
   text-decoration: none;
 }
 
 .footer__social a:focus-visible,
 .footer__nav a:focus-visible,
 .footer__logo:focus-visible {
-  outline: 2px solid #2f6fed;
+  outline: 2px solid #70b5d0;
   outline-offset: 3px;
 }
 

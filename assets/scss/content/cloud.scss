@@ -20,7 +20,7 @@ h1.dekart-hero-title {
 
 @supports (font-size: 1cqi) {
   h1.dekart-hero-title {
-    font-size: clamp(32px, 6.4cqi, 4.25rem);
+    font-size: clamp(1.55rem, 6.4cqi, 4.25rem);
   }
 }
 
