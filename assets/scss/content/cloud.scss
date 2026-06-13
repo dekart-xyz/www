@@ -3,6 +3,9 @@
 @import '../components/testimonials-section';
 @import '../components/map-harness-section';
 
+$dekart-hero-title-scale: 1 !default; // Increase to 1.1, 1.2, etc. to grow the responsive hero title.
+$dekart-hero-title-max-size: calc(#{$dekart-hero-title-scale} * 4.25rem) !default;
+
 // Hero headline: scale with the container and allow wrapping so the headline
 // cannot clip when copy length, font weight, or viewport width changes.
 .dekart-hero-col {
@@ -12,7 +15,7 @@
 h1.dekart-hero-title {
   overflow: visible;
   white-space: normal;
-  font-size: clamp(32px, 4.6vw, 4.25rem); // fallback for no container queries
+  font-size: clamp(32px, calc(#{$dekart-hero-title-scale} * 4.6vw), $dekart-hero-title-max-size); // fallback for no container queries
   font-weight: 700;
   line-height: 1.5;
   overflow-wrap: normal;
@@ -20,7 +23,7 @@ h1.dekart-hero-title {
 
 @supports (font-size: 1cqi) {
   h1.dekart-hero-title {
-    font-size: clamp(1.55rem, 6.4cqi, 4.25rem);
+    font-size: clamp(1.55rem, calc(#{$dekart-hero-title-scale} * 6.4cqi), $dekart-hero-title-max-size);
   }
 }
 
