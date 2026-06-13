@@ -1,0 +1,137 @@
+.map-harness-section {
+  background: $gray-100;
+  border-bottom: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+  padding: 3rem 0;
+}
+
+.map-harness-intro {
+  margin: 0 auto 3.25rem auto;
+  max-width: 760px;
+  text-align: center;
+
+  h2 {
+    color: $black;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 1.125rem 0;
+  }
+}
+
+.map-harness-eyebrow {
+  color: $primary;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.map-harness-lead {
+  color: $gray-700;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  margin: 0;
+
+  strong {
+    color: $black;
+    font-weight: 600;
+  }
+}
+
+.map-harness-layout {
+  align-items: center;
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
+}
+
+.map-harness-figure {
+  margin: 0;
+
+  img {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+}
+
+.map-harness-cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.map-harness-card {
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: 0.75rem;
+  padding: 1.35rem 1.5rem;
+
+  h3 {
+    color: $black;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 0.45rem 0;
+  }
+
+  p {
+    color: $gray-700;
+    font-size: 0.984375rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+}
+
+.map-harness-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+@include media-breakpoint-down(md) {
+  .map-harness-section {
+    padding: 4rem 0;
+  }
+
+  .map-harness-intro {
+    margin-bottom: 2.25rem;
+  }
+
+  .map-harness-layout {
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .map-harness-section {
+    padding: 3.25rem 0;
+  }
+
+  .map-harness-intro {
+    text-align: left;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .map-harness-lead {
+    font-size: 1rem;
+  }
+
+  .map-harness-figure {
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+
+  .map-harness-card {
+    padding: 1.125rem 1.25rem;
+  }
+
+  .map-harness-cta {
+    margin-top: 2rem;
+  }
+}

@@ -7,12 +7,12 @@
 
   Parameters:
   - logos: ordered slice of logo filenames under /images/community-logos
-           (default: the four core customer logos)
+           (default: the three core customer logos)
   - link_url: URL to link to (default: "https://slack.dekart.xyz/")
   - link_title: Title attribute for link
 */}}
 
-{{ $logos := .logos | default (slice "geotab.png" "electra.png" "zanskar.png" "landmarksid.png") }}
+{{ $logos := .logos | default (slice "geotab.png" "electra.png" "landmarksid.png") }}
 {{ $linkUrl := .link_url | default "https://slack.dekart.xyz/" }}
 {{ $linkTitle := .link_title | default "Join our Slack Community of users and contributors" }}
 

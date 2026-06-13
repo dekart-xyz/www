@@ -10,11 +10,11 @@
         -moz-background-clip: text;
         -webkit-text-fill-color: transparent;
         -moz-text-fill-color: transparent;
-    ">Your geospatial analysts</h1>
+    ">Your new geospatial analysts</h1>
     </div>
     <div class="col-lg-12 text-center">
       <p class="lead">
-        <span class="d-inline-block"><em>Claude</em> and <em>Codex</em> use Dekart to run and verify analysis on a map, so you get reliable answers and live dashboards everyone can use.</span>
+        <span class="d-inline-block"><em>Claude</em> and <em>Codex</em> use Dekart to run and verify analysis on a map, so you get reliable answers and live dashboards everyone can use</span>
       </p>
     </div>
     <div class="col-lg-9 col-xl-8 text-center mt-4">
@@ -66,6 +66,7 @@
 </section>
 {{ end }}
 {{ define "sidebar-prefooter" }}
+{{ partial "main/map-harness-section.html" . }}
 <!-- testimonials -->
 {{ partial "main/testimonials-section.html" (dict
   "title" "What Our Users Say"
