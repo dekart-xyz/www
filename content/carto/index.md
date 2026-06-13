@@ -12,7 +12,7 @@ type: "html-content"
       <div class="col-lg-16 text-center">
         <h1 class="mt-0 display-3" style="
           background-color: white;
-          background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
+          background-image: linear-gradient(90deg, #2F6FED 0%, #7B5BE6 50%, #E0489F 100%);
           background-size: 100%;
           -webkit-background-clip: text;
           -moz-background-clip: text;

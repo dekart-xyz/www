@@ -4,29 +4,104 @@ kbd,
 samp {
   font-family: $font-family-monospace;
   font-size: $font-size-sm;
-  border-radius: $border-radius;
+  border-radius: 0.75rem;
 }
 
 pre {
-  background: $beige;
-  color: $black;
+  background: $black;
+  border: 1px solid rgba($border-color, 0.12);
+  color: #c7d2e0;
   line-height: $line-height-lg;
   margin: 2rem 0;
   overflow: auto;
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem 1.75rem;
   tab-size: 4;
 }
 
 code {
-  background: $beige;
-  color: $black;
+  background: #f7f9fc;
+  border: 1px solid $border-color;
+  color: $primary;
   padding: 0.25rem 0.5rem;
 }
 
 pre code {
   background: none;
+  border: 0;
+  color: inherit;
   font-size: inherit;
   padding: 0;
+}
+
+.code-block,
+.highlight {
+  margin: 2rem 0;
+  position: relative;
+}
+
+.code-block pre,
+.highlight pre {
+  margin: 0;
+}
+
+.code-copy-button {
+  align-items: center;
+  appearance: none;
+  background: rgba($primary, 0.16);
+  border: 1px solid rgba($primary, 0.42);
+  border-radius: 0.5rem;
+  color: #edf0f4;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  width: 2rem;
+  z-index: 2;
+}
+
+.code-copy-button svg {
+  fill: none;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  width: 1rem;
+}
+
+.code-copy-button:hover,
+.code-copy-button:focus {
+  background: $primary;
+  border-color: $primary;
+  color: $white;
+}
+
+.code-copy-button:focus {
+  outline: 2px solid rgba($white, 0.72);
+  outline-offset: 2px;
+}
+
+.code-copy-button.is-copied {
+  background: rgba(#8fd6b1, 0.18);
+  border-color: rgba(#8fd6b1, 0.64);
+  color: #8fd6b1;
+}
+
+.code-copy-button.is-copied svg {
+  display: none;
+}
+
+.code-copy-button.is-copied::before {
+  content: "";
+  height: 0.95rem;
+  width: 0.95rem;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 6 9 17l-5-5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 @include media-breakpoint-down(xs) {
