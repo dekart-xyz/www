@@ -12,15 +12,15 @@
 h1.dekart-hero-title {
   overflow: visible;
   white-space: normal;
-  font-size: clamp(1.75rem, 4.6vw, 4.25rem); // fallback for no container queries
+  font-size: clamp(32px, 4.6vw, 4.25rem); // fallback for no container queries
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.5;
   overflow-wrap: normal;
 }
 
 @supports (font-size: 1cqi) {
   h1.dekart-hero-title {
-    font-size: clamp(1.55rem, 6.4cqi, 4.25rem);
+    font-size: clamp(32px, 6.4cqi, 4.25rem);
   }
 }
 
