@@ -15,15 +15,30 @@ $dekart-hero-title-max-size: calc(#{$dekart-hero-title-scale} * 4.25rem) !defaul
 h1.dekart-hero-title {
   overflow: visible;
   white-space: normal;
-  font-size: clamp(32px, calc(#{$dekart-hero-title-scale} * 4.6vw), $dekart-hero-title-max-size); // fallback for no container queries
-  font-weight: 700;
-  line-height: 1.5;
+  font-size: clamp(32px, calc(#{$dekart-hero-title-scale} * 5.7vw), $dekart-hero-title-max-size); // fallback for no container queries
+  font-weight: 300;
+  line-height: 1.2;
   overflow-wrap: normal;
+}
+
+@include media-breakpoint-up(lg) {
+  .dekart-hero-col {
+    flex: 0 0 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: 100vw;
+    padding-left: $grid-gutter-width / 2;
+    padding-right: $grid-gutter-width / 2;
+  }
+
+  h1.dekart-hero-title {
+    white-space: nowrap;
+  }
 }
 
 @supports (font-size: 1cqi) {
   h1.dekart-hero-title {
-    font-size: clamp(1.55rem, calc(#{$dekart-hero-title-scale} * 6.4cqi), $dekart-hero-title-max-size);
+    font-size: clamp(1.55rem, calc(#{$dekart-hero-title-scale} * 8cqi), $dekart-hero-title-max-size);
   }
 }
 

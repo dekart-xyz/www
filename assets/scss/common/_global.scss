@@ -87,6 +87,22 @@ body {
   padding-top: 3.5625rem;
 }
 
+@include media-breakpoint-up(xl) {
+  .navbar > .container,
+  .wrap.container,
+  .footer > .container {
+    max-width: 100vw;
+  }
+}
+
+@media (min-width: 1952px) {
+  .navbar > .container,
+  .wrap.container,
+  .footer > .container {
+    max-width: 1880px;
+  }
+}
+
 .docs-sidebar {
   order: 2;
 }
@@ -111,6 +127,19 @@ body {
 @include media-breakpoint-up(xl) {
   .docs-sidebar {
     flex: 0 1 320px;
+  }
+
+  .docs-content.col-xl-9 {
+    flex: 1 1 0;
+    max-width: 1040px;
+  }
+
+  .docs-toc.col-xl-3 {
+    flex: 0 0 280px;
+    max-width: 280px;
+    margin-left: 2rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid $gray-200;
   }
 }
 
