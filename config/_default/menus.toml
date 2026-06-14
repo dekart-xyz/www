@@ -35,13 +35,8 @@
   url = "/docs/knowledge-base/"
 
 [[main]]
-  name = "Pricing"
-  url = "/cloud"
-  weight = 7
-
-[[main]]
   name = "Self-Hosting"
-  url = "https://github.com/dekart-xyz/dekart?ref=github-self-hosting"
+  url = "https://github.com/dekart-xyz/dekart?ref=github-self-hosting#quick-start"
   weight = 8
 
 [[main]]
@@ -50,12 +45,12 @@
   weight = 9
 
 [[main]]
-  name = "🛟 Ask in Slack"
+  name = "Slack Group"
   url = "https://slack.dekart.xyz"
   weight = 11
 
 [[main]]
-  name = "Docs"
+  name = "Documentation"
   url = "/docs/self-hosting/docker/"
   weight = 10
 

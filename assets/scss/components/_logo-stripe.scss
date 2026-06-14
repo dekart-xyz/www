@@ -1,0 +1,112 @@
+// Logo Stripe Component Styles
+//
+// Single line at every width:
+// - Default (narrow): seamless scrolling marquee (logos rendered twice).
+// - Wide enough to fit all logos: static, centered, no animation.
+//
+// Breakpoint is sized to the four core logos:
+//   4 × 180px cell + 3 × 4rem gap ≈ 912px of content.
+
+.dekart-logos {
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0 0;
+  background-color: white;
+  position: relative;
+}
+
+// Edge fades for the marquee (hidden in static mode)
+.dekart-logos::before,
+.dekart-logos::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dekart-logos::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.dekart-logos::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+.dekart-logos-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  animation: dekart-scroll 30s linear infinite;
+}
+
+.dekart-logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  width: 180px;
+  margin-right: 4rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.dekart-logo:hover {
+  opacity: 1;
+}
+
+.dekart-logo img {
+  max-height: 76px;
+  max-width: 170px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.dekart-logo:hover img {
+  filter: grayscale(0%);
+}
+
+@keyframes dekart-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+// Wide screens: all logos fit -> static, centered, no animation.
+@media (min-width: 992px) {
+  .dekart-logos-track {
+    width: 100%;
+    justify-content: center;
+    gap: 4rem;
+    animation: none;
+  }
+
+  .dekart-logo {
+    margin-right: 0;
+  }
+
+  .dekart-logo--dup {
+    display: none;
+  }
+
+  .dekart-logos::before,
+  .dekart-logos::after {
+    display: none;
+  }
+}
+
+// Respect reduced-motion: never animate.
+@media (prefers-reduced-motion: reduce) {
+  .dekart-logos-track {
+    animation: none;
+  }
+}

@@ -1,0 +1,17 @@
+{{/*
+  GeoSQL Banner Shortcode
+
+  Beige banner noting that the maps were created with the GeoSQL skill for
+  Claude, with a link to the open-source skill on GitHub.
+
+  Usage: {{< geosql-banner >}}
+         {{< geosql-banner ref="map-examples-overture" >}}
+
+  Params:
+    ref (optional)  attribution tag appended as ?ref=<ref> so clicks can be
+                    tracked as a goal (default: map-examples)
+*/}}
+{{- $ref := .Get "ref" | default "map-examples" -}}
+<div class="geosql">
+  <p><img src="/claude.svg" alt="Claude" class="geosql-logo" />All maps created with GeoSQL skill for Claude</p><p><a href="https://github.com/dekart-xyz/geosql?ref={{ $ref }}" class="btn btn-outline-dark" target="_blank" rel="noopener">Get it on GitHub</a></p>
+</div>

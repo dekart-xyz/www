@@ -15,6 +15,8 @@ canonical: ""
 
 Dekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.
 
+{{< geosql-banner ref="map-examples-kepler-bigquery" >}}
+
 ## Population density
 
 Visualize population density anywhere in the world and at any level of detail

@@ -1,0 +1,30 @@
+{{/*
+  Logo Stripe Shortcode
+
+  Row of customer/community logos. Stays on a single line at all widths:
+  static + centered when the logos fit, falling back to a seamless scrolling
+  marquee on narrow screens where they don't.
+
+  Usage: {{< logo-stripe >}}
+  Optional: {{< logo-stripe link_url="..." >}}
+*/}}
+
+{{ $logos := slice "geotab.png" "electra.png" "landmarksid.png" }}
+{{ $linkUrl := .Get "link_url" | default "https://slack.dekart.xyz/" }}
+{{ $linkTitle := .Get "link_title" | default "Join our Slack Community of users and contributors" }}
+
+<a class="dekart-logos" href="{{ $linkUrl }}" title="{{ $linkTitle }}">
+  <div class="dekart-logos-track">
+    {{ range $logos }}
+      <div class="dekart-logo">
+        <img src="/images/community-logos/{{ . }}" alt="{{ replace . ".png" "" | title }}" loading="lazy">
+      </div>
+    {{ end }}
+    {{/* Duplicate set: only shown for the marquee on narrow screens */}}
+    {{ range $logos }}
+      <div class="dekart-logo dekart-logo--dup" aria-hidden="true">
+        <img src="/images/community-logos/{{ . }}" alt="" loading="lazy">
+      </div>
+    {{ end }}
+  </div>
+</a>

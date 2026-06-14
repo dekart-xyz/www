@@ -10,6 +10,8 @@
   - playsinline: Enable playsinline (default: true)
   - link_url: Optional link wrapped around the video window
   - link_title: Optional accessible label/title for the link
+  - frameless: Render without the framed card (shadow/border) for clips already shot on white (default: false)
+  - aspect_ratio: Optional CSS aspect-ratio override for the video content (e.g. "16/9")
 */}}
 
 {{ $videoSrc := .video_src | default "/main-page-screencast-4.mp4" }}
@@ -20,13 +22,19 @@
 {{ $playsinline := .playsinline | default true }}
 {{ $linkURL := .link_url | default "" }}
 {{ $linkTitle := .link_title | default "Open screencast" }}
+{{ $frameless := .frameless | default false }}
+{{ $aspectRatio := .aspect_ratio }}
 
 <div class="center-block dekart-video-container mt-3">
   {{ if $linkURL }}
   <a class="d-block text-reset text-decoration-none" href="{{ $linkURL }}" title="{{ $linkTitle }}" aria-label="{{ $linkTitle }}">
   {{ end }}
-    <div class="dekart-video-window">
+    <div class="dekart-video-window{{ if $frameless }} dekart-video-window--frameless{{ end }}">
+      {{ if $aspectRatio }}
+      <div class="dekart-video-content" style="aspect-ratio: {{ $aspectRatio | safeCSS }} !important;">
+      {{ else }}
       <div class="dekart-video-content">
+      {{ end }}
         <video
           {{ if $autoplay }}autoplay{{ end }}
           {{ if $muted }}muted{{ end }}

@@ -1,7 +1,46 @@
 // Import component styles
 @import '../components/video-tutorials-section';
 @import '../components/testimonials-section';
+@import '../components/map-harness-section';
 
+$dekart-hero-title-scale: 1 !default; // Increase to 1.1, 1.2, etc. to grow the responsive hero title.
+$dekart-hero-title-max-size: calc(#{$dekart-hero-title-scale} * 4.25rem) !default;
+
+// Hero headline: scale with the container and allow wrapping so the headline
+// cannot clip when copy length, font weight, or viewport width changes.
+.dekart-hero-col {
+  container-type: inline-size;
+}
+
+h1.dekart-hero-title {
+  overflow: visible;
+  white-space: normal;
+  font-size: clamp(32px, calc(#{$dekart-hero-title-scale} * 5.7vw), $dekart-hero-title-max-size); // fallback for no container queries
+  font-weight: 300;
+  line-height: 1.2;
+  overflow-wrap: normal;
+}
+
+@include media-breakpoint-up(lg) {
+  .dekart-hero-col {
+    flex: 0 0 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: 100vw;
+    padding-left: $grid-gutter-width / 2;
+    padding-right: $grid-gutter-width / 2;
+  }
+
+  h1.dekart-hero-title {
+    white-space: nowrap;
+  }
+}
+
+@supports (font-size: 1cqi) {
+  h1.dekart-hero-title {
+    font-size: clamp(1.55rem, calc(#{$dekart-hero-title-scale} * 8cqi), $dekart-hero-title-max-size);
+  }
+}
 
 .cloud-prices div {
     background-size: contain;
@@ -32,8 +71,7 @@
 }
 .cloud-title {
     background-color: white;
-    background-image: linear-gradient(90deg, #D9A8BF, #5C5DE3);
-    // background-image: linear-gradient(90deg, #1A90FF, #d32e9d);
+    background-image: linear-gradient(90deg, $primary 0%, $purple-500 50%, $pink-500 100%);
     background-size: 100%;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -84,5 +122,5 @@
 
 // Import component styles
 @import '../components/cloud-main-video';
-@import '../components/animated-logo-stripe';
+@import '../components/logo-stripe';
 @import '../components/map-examples-section';

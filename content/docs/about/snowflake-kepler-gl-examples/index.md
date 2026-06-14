@@ -18,6 +18,8 @@ canonical: ""
 
 Collection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.
 
+{{< geosql-banner ref="map-examples-snowflake" >}}
+
 ## Overture Maps
 
 ### Nevada Roads by Speed and Class
