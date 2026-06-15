@@ -3,11 +3,11 @@
 ## Homepage
 title = "Dekart"
 titleSeparator = "-"
-titleAddition = "SQL to Map Instantly - Visualize BigQuery, Snowflake & Wherobots Data."
-description = "We took Kepler.gl, and connected it to your data warehouse. Now you can type SQL and get beautiful, up-to-date maps ready to share with your team."
+titleAddition = "Your New Geospatial Analyst"
+description = "Claude and Codex use Dekart to run and verify geospatial analysis on a map, so your team gets reliable answers and live dashboards."
 
 ## Open Graph + Twitter Cards
-images = ["dekart-social-preview-0-18.png"]
+images = ["dekart-social-preview-ai-geospatial-analysts-3.png"]
 twitterCreator = "delfrrr"
 ogLocale = "en_US"
 

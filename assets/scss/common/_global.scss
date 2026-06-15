@@ -87,7 +87,7 @@ body {
   padding-top: 3.5625rem;
 }
 
-@include media-breakpoint-up(xl) {
+@include media-breakpoint-up(lg) {
   .navbar > .container,
   .wrap.container,
   .footer > .container {
@@ -111,6 +111,14 @@ body {
   .docs-sidebar {
     order: 0;
     border-right: 1px solid $gray-200;
+    flex: 0 0 260px;
+    max-width: 260px;
+  }
+
+  .docs-content.col-lg-11 {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 920px;
   }
 
   @supports ((position:-webkit-sticky) or (position:sticky)) {
@@ -126,20 +134,45 @@ body {
 
 @include media-breakpoint-up(xl) {
   .docs-sidebar {
-    flex: 0 1 320px;
+    flex: 0 0 280px;
+    max-width: 280px;
   }
 
   .docs-content.col-xl-9 {
     flex: 1 1 0;
-    max-width: 1040px;
+    min-width: 0;
+    max-width: 920px;
   }
 
   .docs-toc.col-xl-3 {
-    flex: 0 0 280px;
-    max-width: 280px;
-    margin-left: 2rem;
+    flex: 0 0 240px;
+    max-width: 240px;
+    margin-left: 1.5rem;
     padding-left: 1.5rem;
     border-left: 1px solid $gray-200;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1359.98px) {
+  .docs-toc.d-xl-block {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .docs-sidebar {
+    flex-basis: 300px;
+    max-width: 300px;
+  }
+
+  .docs-content.col-xl-9 {
+    max-width: 960px;
+  }
+
+  .docs-toc.col-xl-3 {
+    flex-basis: 260px;
+    max-width: 260px;
+    margin-left: 2rem;
   }
 }
 
