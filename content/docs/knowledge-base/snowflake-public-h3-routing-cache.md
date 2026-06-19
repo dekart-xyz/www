@@ -66,6 +66,46 @@ WHERE origin_h3 = '87194ad14ffffff'
 
 Use `longitude` and `latitude` as point columns in a map. Color by `travel_hours` to see travel time from London.
 
+## Germany H3 Travel Matrix
+
+The Germany H3 Travel Matrix is an origin-destination routing cache for travel analysis in Germany.
+
+Main table:
+
+```text
+FLEET_ANALYTICS.GERMANY_H3_TRAVEL_MATRIX
+```
+
+Helper views:
+
+```text
+FLEET_ANALYTICS.GERMANY_H3_BERLIN_ROUTING_TIME_SAMPLE
+FLEET_ANALYTICS.GERMANY_H3_TRAVEL_MATRIX_METADATA
+```
+
+The Germany table currently contains `3,180,149,440` loaded origin-destination rows from `223` Parquet shards. Two source shards were excluded because the available local files were corrupted and unreadable: `data_0_0_12.snappy.parquet` and `data_0_0_27.snappy.parquet`. The metadata view exposes these excluded file names and their `23,760,896` source-metadata rows.
+
+## Map travel times from Berlin
+
+This query maps travel time from one Berlin H3 cell to reachable Germany destination cells.
+
+```sql
+-- Berlin H3 cell:
+-- SELECT H3_POINT_TO_CELL_STRING(TO_GEOGRAPHY('POINT(13.4050 52.5200)'), 7);
+
+SELECT
+  dest_h3,
+  ROUND(travel_time_seconds / 3600.0, 1) AS travel_hours,
+  ROUND(travel_distance_meters / 1000.0, 1) AS travel_km,
+  ST_X(H3_CELL_TO_POINT(dest_h3)) AS longitude,
+  ST_Y(H3_CELL_TO_POINT(dest_h3)) AS latitude
+FROM FLEET_ANALYTICS.GERMANY_H3_TRAVEL_MATRIX
+WHERE origin_h3 = '871f1d4d6ffffff'
+  AND travel_time_seconds IS NOT NULL;
+```
+
+Use `longitude` and `latitude` as point columns in a map. Color by `travel_hours` to see travel time from Berlin.
+
 ## Choosing another origin
 
 Snowflake's H3 functions can convert a longitude/latitude point into an H3 cell:
@@ -103,6 +143,8 @@ WHERE dest_h3 = '87194ad14ffffff'
 ## Performance notes
 
 The UK H3 Travel Matrix table is clustered by `ORIGIN_H3`, so origin-based lookups are the fastest path. Prefer a literal H3 value in filters instead of calculating it inline for every query.
+
+The Germany H3 Travel Matrix table is also clustered by `ORIGIN_H3`. In a benchmark on an X-Small warehouse, the Berlin query returned `74,796` rows in about five seconds after clustering.
 
 For exploratory maps, start with one origin or one destination cell. Full-table scans over all origin-destination pairs can be expensive.
 
