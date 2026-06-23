@@ -18,22 +18,6 @@
   padding-bottom: 6rem;
 }
 
-// Sticky footer: on short blog posts, push the footer to the bottom of the
-// viewport instead of letting it ride up directly under the article.
-body.blog {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-body.blog .wrap.container {
-  flex: 1 0 auto;
-}
-
-body.blog .footer {
-  flex-shrink: 0;
-}
-
 h1,
 h2,
 h3,
