@@ -106,6 +106,46 @@ WHERE origin_h3 = '871f1d4d6ffffff'
 
 Use `longitude` and `latitude` as point columns in a map. Color by `travel_hours` to see travel time from Berlin.
 
+## California H3 Travel Matrix
+
+The California H3 Travel Matrix is an origin-destination routing cache for travel analysis in California.
+
+Main table:
+
+```text
+FLEET_ANALYTICS.CALIFORNIA_H3_TRAVEL_MATRIX
+```
+
+Helper views:
+
+```text
+FLEET_ANALYTICS.CALIFORNIA_H3_LOS_ANGELES_ROUTING_TIME_SAMPLE
+FLEET_ANALYTICS.CALIFORNIA_H3_TRAVEL_MATRIX_METADATA
+```
+
+The California table currently contains `2,212,737,998` loaded origin-destination rows from `150` Parquet shards. Four source shards were excluded because the available local files were corrupted and unreadable: `data_0_0_6.snappy.parquet`, `data_0_0_8.snappy.parquet`, `data_0_1_0.snappy.parquet`, and `data_0_1_16.snappy.parquet`. The metadata view exposes these excluded file names and their `62,082,985` source-metadata rows.
+
+## Map travel times from Los Angeles
+
+This query maps travel time from one Los Angeles H3 cell to reachable California destination cells.
+
+```sql
+-- Los Angeles H3 cell:
+-- SELECT H3_POINT_TO_CELL_STRING(TO_GEOGRAPHY('POINT(-118.2437 34.0522)'), 7);
+
+SELECT
+  dest_h3,
+  ROUND(travel_time_seconds / 3600.0, 1) AS travel_hours,
+  ROUND(travel_distance_meters / 1000.0, 1) AS travel_km,
+  ST_X(H3_CELL_TO_POINT(dest_h3)) AS longitude,
+  ST_Y(H3_CELL_TO_POINT(dest_h3)) AS latitude
+FROM FLEET_ANALYTICS.CALIFORNIA_H3_TRAVEL_MATRIX
+WHERE origin_h3 = '8729a1d71ffffff'
+  AND travel_time_seconds IS NOT NULL;
+```
+
+Use `longitude` and `latitude` as point columns in a map. Color by `travel_hours` to see travel time from Los Angeles.
+
 ## Choosing another origin
 
 Snowflake's H3 functions can convert a longitude/latitude point into an H3 cell:
@@ -145,6 +185,8 @@ WHERE dest_h3 = '87194ad14ffffff'
 The UK H3 Travel Matrix table is clustered by `ORIGIN_H3`, so origin-based lookups are the fastest path. Prefer a literal H3 value in filters instead of calculating it inline for every query.
 
 The Germany H3 Travel Matrix table is also clustered by `ORIGIN_H3`. In a benchmark on an X-Small warehouse, the Berlin query returned `74,796` rows in about five seconds after clustering.
+
+The California H3 Travel Matrix table is also clustered by `ORIGIN_H3`. In a benchmark on an X-Small warehouse, the Los Angeles query returned `53,793` rows in under four seconds after clustering.
 
 For exploratory maps, start with one origin or one destination cell. Full-table scans over all origin-destination pairs can be expensive.
 
