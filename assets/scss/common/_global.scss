@@ -12,9 +12,26 @@
 // Give single blog articles extra breathing room so the post body does not
 // hug the footer. Overrides the shared rule above for blog single pages only;
 // docs, tutorials, and section list pages keep their tighter spacing.
-.blog .content > article {
-  padding-top: 1rem;
-  padding-bottom: 4rem;
+// Note: the article is nested under .content > .row > .col, so a child
+// combinator on "> article" never matched. Target .content directly.
+.blog.single .content {
+  padding-bottom: 6rem;
+}
+
+// Sticky footer: on short blog posts, push the footer to the bottom of the
+// viewport instead of letting it ride up directly under the article.
+body.blog {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.blog .wrap.container {
+  flex: 1 0 auto;
+}
+
+body.blog .footer {
+  flex-shrink: 0;
 }
 
 h1,
