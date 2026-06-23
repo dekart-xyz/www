@@ -45,7 +45,7 @@ Columns:
 | `TRAVEL_DISTANCE_METERS` | `FLOAT` | Estimated travel distance in meters. |
 | `CALCULATED_AT` | `TIMESTAMP` | Timestamp when the route metric was calculated. |
 
-## Map travel times from London
+### Map travel times from London
 
 This query maps travel time from one London H3 cell to reachable UK destination cells.
 
@@ -85,7 +85,7 @@ FLEET_ANALYTICS.GERMANY_H3_TRAVEL_MATRIX_METADATA
 
 The Germany table currently contains `3,180,149,440` loaded origin-destination rows from `223` Parquet shards. Two source shards were excluded because the available local files were corrupted and unreadable: `data_0_0_12.snappy.parquet` and `data_0_0_27.snappy.parquet`. The metadata view exposes these excluded file names and their `23,760,896` source-metadata rows.
 
-## Map travel times from Berlin
+### Map travel times from Berlin
 
 This query maps travel time from one Berlin H3 cell to reachable Germany destination cells.
 
@@ -125,7 +125,7 @@ FLEET_ANALYTICS.CALIFORNIA_H3_TRAVEL_MATRIX_METADATA
 
 The California table currently contains `2,212,737,998` loaded origin-destination rows from `150` Parquet shards. Four source shards were excluded because the available local files were corrupted and unreadable: `data_0_0_6.snappy.parquet`, `data_0_0_8.snappy.parquet`, `data_0_1_0.snappy.parquet`, and `data_0_1_16.snappy.parquet`. The metadata view exposes these excluded file names and their `62,082,985` source-metadata rows.
 
-## Map travel times from Los Angeles
+### Map travel times from Los Angeles
 
 This query maps travel time from one Los Angeles H3 cell to reachable California destination cells.
 
