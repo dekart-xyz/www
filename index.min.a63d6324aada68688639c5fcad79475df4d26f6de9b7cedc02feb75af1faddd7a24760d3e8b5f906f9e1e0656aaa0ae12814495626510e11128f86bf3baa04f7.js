@@ -1644,7 +1644,31 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="/docs/about/overture-maps-examples/"\u003eOverture Maps examples in BigQuery\u003c/a\u003e - 15 ready-to-run queries with live maps.\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/knowledge-base/st-geogfromtext-bigquery-polygon-wkt/"\u003eST_GEOGFROMTEXT polygon WKT examples\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:9,href:"https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/",title:"Use Google Places Insights in BigQuery",description:"How to set up Google Places Insights in BigQuery, query it safely with aggregation threshold rules, pick H3 levels, and render an actual street-level map.",content:`\u003cp\u003eGoogle Places Insights makes Google Maps Places data queryable in BigQuery. You can use SQL to analyze restaurants, shops, services, ratings, opening hours, accessibility attributes, and other POI attributes without building your own Places ETL pipeline.\u003c/p\u003e
+`},{id:9,href:"https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/",title:"Use Google Places Insights in BigQuery",description:"How to set up Google Places Insights in BigQuery, query it safely with aggregation threshold rules, pick H3 levels, and render an actual street-level map.",content:`\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_512x0_resize_box_3.png 512w"
+    width="1992"
+    height="1480"
+    alt="Berlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count."
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets.png" width="1992" height="1480" alt="Berlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count."\u003e\u003c/noscript\u003e
+  \u003cfigcaption class="figure-caption"\u003eBerlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count.\u003c/figcaption\u003e
+\u003c/figure\u003e
+
+
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/5613be52-41ee-47db-adb8-905b04caf0d3/source?ref=dekart-xyz-view-map\u0026utm_content=places-insights-bq-top" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  Open this map in Dekart
+\u003c/a\u003e
+\u003c/p\u003e
+
+\u003cp\u003eGoogle Places Insights makes Google Maps Places data queryable in BigQuery. You can use SQL to analyze restaurants, shops, services, ratings, opening hours, accessibility attributes, and other POI attributes without building your own Places ETL pipeline.\u003c/p\u003e
 \u003cp\u003eThe important difference from a normal POI table: Places Insights is designed for aggregated analysis. You should expect privacy and aggregation rules, especially when you try to map small areas.\u003c/p\u003e
 \u003ch2 id="getting-started"\u003eGetting started\u003c/h2\u003e
 \u003ch3 id="main-links"\u003eMain links\u003c/h3\u003e
@@ -1935,31 +1959,13 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ch2 id="complete-example"\u003eComplete Example\u003c/h2\u003e
 \u003ch3 id="berlin-food-ratings-on-overture-streets"\u003eBerlin food ratings on Overture streets\u003c/h3\u003e
 \u003cp\u003eThis enrichment example colors Overture street segments by the total Google Places review count from intersecting H3 r10 cells. The same pattern can enrich other geometry tables. It includes restaurants, cafes, bars, bakeries, fast food, takeaway, and delivery places.\u003c/p\u003e
-\u003cfigure\u003e
-  \u003cimg
-    class="img-fluid lazyload"
-    data-sizes="auto"
-    src="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_20x0_resize_box_3.png"
-    data-srcset="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_512x0_resize_box_3.png 512w"
-    width="1992"
-    height="1480"
-    alt="Berlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count."
-  \u003e
-  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets_hu2399a0faf0756fa394ae8b9439983f7d_783828_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/knowledge-base/places-insights-bigquery/places-insights-bigquery-h3-streets.png" width="1992" height="1480" alt="Berlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count."\u003e\u003c/noscript\u003e
-  \u003cfigcaption class="figure-caption"\u003eBerlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count.\u003c/figcaption\u003e
-\u003c/figure\u003e
-
-
+\u003cp\u003eThe map uses H3 r10 because it preserved useful coverage for this line-geometry enrichment while staying more granular than r9. Around Berlin, r10 cells are about 116 m by square-root area.\u003c/p\u003e
 \u003cp class="view-on-map"\u003e
-\u003ca href="https://cloud.dekart.xyz/reports/5613be52-41ee-47db-adb8-905b04caf0d3/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
-  View interactive map
+\u003ca href="https://cloud.dekart.xyz/reports/5613be52-41ee-47db-adb8-905b04caf0d3/source?ref=dekart-xyz-view-map\u0026utm_content=places-insights-bq-example" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  Open this map in Dekart
 \u003c/a\u003e
 \u003c/p\u003e
 
-
-
-
-\u003cp\u003eThe map uses H3 r10 because it preserved useful coverage for this line-geometry enrichment while staying more granular than r9. Around Berlin, r10 cells are about 116 m by square-root area.\u003c/p\u003e
 \u003ch3 id="sql"\u003eSQL\u003c/h3\u003e
 \u003cp\u003eReplace \u003ccode\u003eYOUR_PROJECT.YOUR_DATASET.places_sample\u003c/code\u003e with your subscribed Places Insights table or view.\u003c/p\u003e
 \u003cp\u003eThis query uses CARTO\u0026rsquo;s public BigQuery H3 UDFs:\u003c/p\u003e
@@ -2147,6 +2153,18 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cp\u003eThe Overture \u003ccode\u003ebbox\u003c/code\u003e filter is there for cost control. The public Overture segment table is global. For city-scale work, use a hardcoded bounding box before \u003ccode\u003eST_INTERSECTS\u003c/code\u003e.\u003c/p\u003e
 \u003cp\u003e\u003ccode\u003eST_INTERSECTS(s.geometry, h.h3_geometry)\u003c/code\u003e is used instead of a centroid join. For line geometries and irregular polygons, centroid joins become brittle when H3 cells get small.\u003c/p\u003e
 \u003cp\u003eThe final result is one row per enrichment feature. In this example, that means one row per street segment. If a segment intersects multiple H3 cells, the query sums those H3 metrics for that segment.\u003c/p\u003e
+\u003ch2 id="run-it-in-dekart-in-3-steps"\u003eRun it in Dekart in 3 steps\u003c/h2\u003e
+\u003col\u003e
+\u003cli\u003eSubscribe to a Places Insights dataset for your geography in \u003ca href="https://developers.google.com/maps/documentation/placesinsights/cloud-setup"\u003eGoogle Cloud\u003c/a\u003e.\u003c/li\u003e
+\u003cli\u003eConnect BigQuery to Dekart Cloud: \u003ca href="/docs/usage/choose-bigquery-connection-method/"\u003eBigQuery connection guide\u003c/a\u003e.\u003c/li\u003e
+\u003cli\u003ePaste the SQL above, replace \u003ccode\u003eYOUR_PROJECT.YOUR_DATASET.places_sample\u003c/code\u003e with your subscribed table, and run.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/5613be52-41ee-47db-adb8-905b04caf0d3/source?ref=dekart-xyz-view-map\u0026utm_content=places-insights-bq-end" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  See the finished map in Dekart
+\u003c/a\u003e
+\u003c/p\u003e
+
 \u003ch2 id="limitations-and-troubleshooting"\u003eLimitations and troubleshooting\u003c/h2\u003e
 \u003ch3 id="limitations"\u003eLimitations\u003c/h3\u003e
 \u003cp\u003eThis is still aggregated data. Do not read the output as exact \u0026ldquo;these specific restaurants belong to this exact enrichment feature\u0026rdquo; attribution.\u003c/p\u003e
