@@ -1,5 +1,5 @@
 <p class="view-on-map">
-<a href="https://cloud.dekart.xyz/reports/{{ .Get "report" }}/source?ref=dekart-xyz-view-map" target="_blank" class="btn btn-outline-primary btn-sm">
-  View on the map
+<a href="https://cloud.dekart.xyz/reports/{{ .Get "report" }}/source?ref=dekart-xyz-view-map{{ with .Get "utm_content" }}&utm_content={{ . }}{{ end }}" target="_blank" class="btn btn-outline-primary btn-sm">
+  {{ with .Get "label" }}{{ . }}{{ else }}View on the map{{ end }}
 </a>
 </p>

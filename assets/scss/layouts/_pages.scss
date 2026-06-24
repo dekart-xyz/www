@@ -42,9 +42,13 @@ h4:hover a {
 }
 
 .view-on-map {
-  margin-top: -1.5rem;
+  margin-top: 1rem;
   text-align: center;
   font-size: 0.8em;
+}
+
+figure + .view-on-map {
+  margin-top: -1.5rem;
 }
 .view-on-map-template {
   margin-top: -2rem;

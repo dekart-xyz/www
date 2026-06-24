@@ -15,6 +15,10 @@ menu:
     name: "Places Insights in BigQuery"
 ---
 
+{{< img src="places-insights-bigquery-h3-streets.png" caption="Berlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count." >}}
+
+{{< view-on-map report="5613be52-41ee-47db-adb8-905b04caf0d3" utm_content="places-insights-bq-top" label="Open this map in Dekart" >}}
+
 Google Places Insights makes Google Maps Places data queryable in BigQuery. You can use SQL to analyze restaurants, shops, services, ratings, opening hours, accessibility attributes, and other POI attributes without building your own Places ETL pipeline.
 
 The important difference from a normal POI table: Places Insights is designed for aggregated analysis. You should expect privacy and aggregation rules, especially when you try to map small areas.
@@ -262,9 +266,9 @@ Rule of thumb:
 
 This enrichment example colors Overture street segments by the total Google Places review count from intersecting H3 r10 cells. The same pattern can enrich other geometry tables. It includes restaurants, cafes, bars, bakeries, fast food, takeaway, and delivery places.
 
-{{< img src="places-insights-bigquery-h3-streets.png" cloud="5613be52-41ee-47db-adb8-905b04caf0d3" caption="Berlin food and drink Places Insights aggregated to H3 r10, joined to Overture street geometries, and colored by total user rating count." >}}
-
 The map uses H3 r10 because it preserved useful coverage for this line-geometry enrichment while staying more granular than r9. Around Berlin, r10 cells are about 116 m by square-root area.
+
+{{< view-on-map report="5613be52-41ee-47db-adb8-905b04caf0d3" utm_content="places-insights-bq-example" label="Open this map in Dekart" >}}
 
 ### SQL
 
@@ -465,6 +469,14 @@ The Overture `bbox` filter is there for cost control. The public Overture segmen
 `ST_INTERSECTS(s.geometry, h.h3_geometry)` is used instead of a centroid join. For line geometries and irregular polygons, centroid joins become brittle when H3 cells get small.
 
 The final result is one row per enrichment feature. In this example, that means one row per street segment. If a segment intersects multiple H3 cells, the query sums those H3 metrics for that segment.
+
+## Run it in Dekart in 3 steps
+
+1. Subscribe to a Places Insights dataset for your geography in [Google Cloud](https://developers.google.com/maps/documentation/placesinsights/cloud-setup).
+2. Connect BigQuery to Dekart Cloud: [BigQuery connection guide](/docs/usage/choose-bigquery-connection-method/).
+3. Paste the SQL above, replace `YOUR_PROJECT.YOUR_DATASET.places_sample` with your subscribed table, and run.
+
+{{< view-on-map report="5613be52-41ee-47db-adb8-905b04caf0d3" utm_content="places-insights-bq-end" label="See the finished map in Dekart" >}}
 
 ## Limitations and troubleshooting
 
