@@ -10,6 +10,30 @@
   margin-left: 1rem;
 }
 
+// "Book a call" header CTA: soft blue-tinted pill with calendar icon + bold
+// blue label (matches the Dekart Landing mockup).
+.btn.btn-book-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  border-radius: 10px;
+  background-color: #e8edfc;
+  color: $primary;
+  font-weight: 600;
+
+  &:hover,
+  &:focus {
+    background-color: #dbe3fb;
+    color: $blue-700;
+  }
+}
+
+.btn-book-call-icon {
+  flex-shrink: 0;
+}
+
 .navbar-brand {
   font-weight: $headings-font-weight;
   line-height: 33px;
@@ -97,9 +121,26 @@
 }
 }
 
-@include media-breakpoint-down(md) {
+// Tablet (768-991px): the expanded navbar has no room for the login cluster
+// beside the full nav, so keep it hidden (original behaviour, avoids overflow).
+@include media-breakpoint-only(md) {
 .navbar-login {
   display: none;
+}
+}
+
+// Phone (<768px, hamburger menu): show Login / Sign Up / Book a call stacked
+// vertically inside the open menu so nothing overflows the viewport.
+@include media-breakpoint-down(sm) {
+.navbar-login {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start !important;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid $gray-200;
 }
 }
 

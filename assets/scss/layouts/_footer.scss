@@ -16,12 +16,94 @@
 }
 
 .footer__brand p {
-  max-width: 15.625rem;
-  margin: 1.25rem 0 0;
+  max-width: 17rem;
+  margin: 0;
   color: rgba($white, 0.56);
   font-size: $font-size-sm;
   font-weight: 600;
   line-height: 1.65;
+}
+
+.footer__cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.footer__avatars {
+  display: flex;
+  align-items: center;
+}
+
+.footer__avatar {
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 2px solid #2b323b;
+  background: #2b323b;
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+
+  // First avatar (Vladi) sits on top of the overlap.
+  &:first-child {
+    position: relative;
+    z-index: 1;
+  }
+
+  & + & {
+    margin-left: -0.85rem;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover,
+  &:focus {
+    position: relative;
+    z-index: 2;
+    transform: translateY(-3px) scale(1.08);
+    border-color: #70b5d0;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #70b5d0;
+    outline-offset: 3px;
+  }
+}
+
+.footer__book-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid rgba($white, 0.28);
+  border-radius: 0.625rem;
+  color: $white;
+  font-size: 0.9375rem;
+  font-weight: 700;
+
+  &:hover,
+  &:focus {
+    border-color: rgba(#70b5d0, 0.68);
+    color: #70b5d0;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #70b5d0;
+    outline-offset: 3px;
+  }
+}
+
+.footer__book-call-icon {
+  flex-shrink: 0;
 }
 
 .footer__logo {
