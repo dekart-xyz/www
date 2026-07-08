@@ -4717,7 +4717,125 @@ SELECT planet_features.geometry
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:23,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
+`},{id:23,href:"https://dekart.xyz/docs/usage/postgres-connection/",title:"Postgres Connection Guide",description:"Connect Dekart Cloud to Postgres or PostGIS with TLS and IP allowlisting",content:`\u003cp\u003eDekart Cloud connects to your Postgres or PostGIS database from one static egress IP.\u003c/p\u003e
+\u003cp\u003eAllowlist this CIDR in your database firewall:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-text" data-lang="text"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e35.242.193.95/32
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eUse SSL mode \u003ccode\u003eRequire SSL\u003c/code\u003e in Dekart Cloud. Cloud connections must use TLS.\u003c/p\u003e
+\u003ch2 id="before-you-connect"\u003eBefore You Connect\u003c/h2\u003e
+\u003col\u003e
+\u003cli\u003eMake the database reachable from the public internet, but only from Dekart Cloud\u0026rsquo;s egress CIDR.\u003c/li\u003e
+\u003cli\u003eAllow inbound TCP traffic to your Postgres port, usually \u003ccode\u003e5432\u003c/code\u003e, from \u003ccode\u003e35.242.193.95/32\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eCreate a read-only database user for Dekart.\u003c/li\u003e
+\u003cli\u003eKeep TLS enabled on the database.\u003c/li\u003e
+\u003cli\u003eOpen the Postgres connection dialog in Dekart and click \u003cstrong\u003eTest connection\u003c/strong\u003e before saving.\u003c/li\u003e
+\u003c/ol\u003e
+\u003ch2 id="create-a-read-only-user"\u003eCreate a Read-Only User\u003c/h2\u003e
+\u003cp\u003eRun this as a database admin and replace \u003ccode\u003emy_database\u003c/code\u003e, \u003ccode\u003epublic\u003c/code\u003e, and the password.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eCREATE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eUSER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edekart_readonly\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ePASSWORD\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;replace-with-a-strong-password\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGRANT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eCONNECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDATABASE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003emy_database\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eTO\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edekart_readonly\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGRANT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eUSAGE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSCHEMA\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eTO\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edekart_readonly\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGRANT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eALL\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eTABLES\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSCHEMA\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eTO\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edekart_readonly\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eALTER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDEFAULT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ePRIVILEGES\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSCHEMA\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGRANT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eTABLES\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eTO\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edekart_readonly\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eIf your spatial tables live in another schema, repeat the schema grants for that schema.
+Default privileges only apply to future tables created by the role that runs the command. If another application owner creates tables, run:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eALTER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDEFAULT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ePRIVILEGES\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eFOR\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eROLE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eapp_owner\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSCHEMA\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGRANT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eTABLES\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eTO\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edekart_readonly\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch2 id="aws-rds-or-aurora-postgresql"\u003eAWS RDS or Aurora PostgreSQL\u003c/h2\u003e
+\u003cp\u003eUse this for Amazon RDS PostgreSQL or Aurora PostgreSQL with PostGIS enabled.\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eConfirm the DB instance is publicly reachable, or reachable through a public proxy you control.\u003c/li\u003e
+\u003cli\u003eOpen the database VPC security group.\u003c/li\u003e
+\u003cli\u003eAdd an inbound rule:
+\u003cul\u003e
+\u003cli\u003eType: \u003ccode\u003ePostgreSQL\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003ePort: \u003ccode\u003e5432\u003c/code\u003e, or your custom database port\u003c/li\u003e
+\u003cli\u003eSource: \u003ccode\u003e35.242.193.95/32\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003c/li\u003e
+\u003cli\u003eKeep SSL enabled. For RDS PostgreSQL, use \u003ccode\u003erds.force_ssl = 1\u003c/code\u003e when you want the server to reject non-TLS clients.\u003c/li\u003e
+\u003cli\u003eIn Dekart, use the RDS endpoint as \u003cstrong\u003eServer\u003c/strong\u003e and choose \u003ccode\u003eRequire SSL\u003c/code\u003e.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eReferences: \u003ca href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html"\u003eRDS security groups\u003c/a\u003e, \u003ca href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/PostgreSQL.Concepts.General.SSL.html"\u003eRDS PostgreSQL SSL\u003c/a\u003e\u003c/p\u003e
+\u003ch2 id="google-cloud-sql-for-postgresql"\u003eGoogle Cloud SQL for PostgreSQL\u003c/h2\u003e
+\u003cp\u003eUse this for Cloud SQL PostgreSQL with PostGIS enabled.\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eOpen the Cloud SQL instance in Google Cloud Console.\u003c/li\u003e
+\u003cli\u003eGo to \u003cstrong\u003eConnections\u003c/strong\u003e -\u0026gt; \u003cstrong\u003eNetworking\u003c/strong\u003e.\u003c/li\u003e
+\u003cli\u003eMake sure the instance has a public IP address.\u003c/li\u003e
+\u003cli\u003eUnder \u003cstrong\u003eAuthorized networks\u003c/strong\u003e, add:
+\u003cul\u003e
+\u003cli\u003eName: \u003ccode\u003eDekart Cloud\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eNetwork: \u003ccode\u003e35.242.193.95/32\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003c/li\u003e
+\u003cli\u003eKeep SSL/TLS enabled or enforced.\u003c/li\u003e
+\u003cli\u003eIn Dekart, use the Cloud SQL public IP or DNS name as \u003cstrong\u003eServer\u003c/strong\u003e and choose \u003ccode\u003eRequire SSL\u003c/code\u003e.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eReferences: \u003ca href="https://docs.cloud.google.com/sql/docs/postgres/authorize-networks"\u003eCloud SQL authorized networks\u003c/a\u003e, \u003ca href="https://docs.cloud.google.com/sql/docs/postgres/authorize-ssl"\u003eCloud SQL SSL/TLS\u003c/a\u003e\u003c/p\u003e
+\u003ch2 id="azure-database-for-postgresql-flexible-server"\u003eAzure Database for PostgreSQL Flexible Server\u003c/h2\u003e
+\u003cp\u003eUse this for Azure Database for PostgreSQL Flexible Server with PostGIS enabled.\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eOpen the PostgreSQL flexible server in Azure Portal.\u003c/li\u003e
+\u003cli\u003eGo to \u003cstrong\u003eNetworking\u003c/strong\u003e.\u003c/li\u003e
+\u003cli\u003eEnable public access if your server is not private-only.\u003c/li\u003e
+\u003cli\u003eAdd a firewall rule:
+\u003cul\u003e
+\u003cli\u003eRule name: \u003ccode\u003eDekartCloud\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eStart IP address: \u003ccode\u003e35.242.193.95\u003c/code\u003e\u003c/li\u003e
+\u003cli\u003eEnd IP address: \u003ccode\u003e35.242.193.95\u003c/code\u003e\u003c/li\u003e
+\u003c/ul\u003e
+\u003c/li\u003e
+\u003cli\u003eKeep encrypted connections enabled.\u003c/li\u003e
+\u003cli\u003eIn Dekart, use the server hostname as \u003cstrong\u003eServer\u003c/strong\u003e and choose \u003ccode\u003eRequire SSL\u003c/code\u003e.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eReferences: \u003ca href="https://learn.microsoft.com/en-us/azure/postgresql/security/security-firewall-rules"\u003eAzure PostgreSQL firewall rules\u003c/a\u003e, \u003ca href="https://learn.microsoft.com/en-us/azure/postgresql/network/concepts-networking-public"\u003eAzure public networking\u003c/a\u003e\u003c/p\u003e
+\u003ch2 id="supabase"\u003eSupabase\u003c/h2\u003e
+\u003cp\u003eUse this for Supabase Postgres with the PostGIS extension enabled.\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eOpen your Supabase project.\u003c/li\u003e
+\u003cli\u003eGo to \u003cstrong\u003eProject Settings\u003c/strong\u003e -\u0026gt; \u003cstrong\u003eDatabase\u003c/strong\u003e -\u0026gt; \u003cstrong\u003eNetwork Restrictions\u003c/strong\u003e.\u003c/li\u003e
+\u003cli\u003eAdd \u003ccode\u003e35.242.193.95/32\u003c/code\u003e to the database allowed IPv4 CIDRs.\u003c/li\u003e
+\u003cli\u003eUse the Supavisor session pooler host on port \u003ccode\u003e5432\u003c/code\u003e, which is IPv4-compatible. If you want to use the direct Postgres host, enable the Supabase IPv4 add-on first.\u003c/li\u003e
+\u003cli\u003eIn Dekart, enter the pooler host, database name, user, and password from Supabase connection settings.\u003c/li\u003e
+\u003cli\u003eIn Dekart, choose \u003ccode\u003eRequire SSL\u003c/code\u003e.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eReferences: \u003ca href="https://supabase.com/docs/guides/platform/network-restrictions"\u003eSupabase network restrictions\u003c/a\u003e, \u003ca href="https://supabase.com/docs/guides/database/connecting-to-postgres"\u003eSupabase Postgres connections\u003c/a\u003e, \u003ca href="https://supabase.com/docs/guides/platform/ipv4-address"\u003eSupabase IPv4 add-on\u003c/a\u003e\u003c/p\u003e
+\u003ch2 id="digitalocean-managed-postgresql"\u003eDigitalOcean Managed PostgreSQL\u003c/h2\u003e
+\u003cp\u003eUse this for DigitalOcean Managed PostgreSQL with PostGIS enabled.\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eOpen the database cluster in DigitalOcean.\u003c/li\u003e
+\u003cli\u003eGo to \u003cstrong\u003eSettings\u003c/strong\u003e or \u003cstrong\u003eNetwork Access\u003c/strong\u003e.\u003c/li\u003e
+\u003cli\u003eAdd a trusted source for \u003ccode\u003e35.242.193.95/32\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eCreate or choose a least-privilege database user.\u003c/li\u003e
+\u003cli\u003eIn Dekart, use the public host and port from the connection details and choose \u003ccode\u003eRequire SSL\u003c/code\u003e.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eReferences: \u003ca href="https://docs.digitalocean.com/products/databases/postgresql/how-to/secure/"\u003eDigitalOcean trusted sources\u003c/a\u003e, \u003ca href="https://docs.digitalocean.com/products/databases/postgresql/how-to/connect/"\u003eDigitalOcean PostgreSQL connection details\u003c/a\u003e\u003c/p\u003e
+\u003ch2 id="self-managed-postgres-or-postgis"\u003eSelf-Managed Postgres or PostGIS\u003c/h2\u003e
+\u003cp\u003eUse this for Postgres running on your own VM, Kubernetes cluster, or bare metal server.\u003c/p\u003e
+\u003cp\u003eOpen your firewall only to \u003ccode\u003e35.242.193.95/32\u003c/code\u003e on the Postgres port, enable TLS in Postgres, and prefer a \u003ccode\u003ehostssl\u003c/code\u003e rule in \u003ccode\u003epg_hba.conf\u003c/code\u003e:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-text" data-lang="text"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ehostssl my_database dekart_readonly 35.242.193.95/32 scram-sha-256
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eReload Postgres after updating \u003ccode\u003epg_hba.conf\u003c/code\u003e. In Dekart, choose \u003ccode\u003eRequire SSL\u003c/code\u003e.\u003c/p\u003e
+\u003ch2 id="troubleshooting"\u003eTroubleshooting\u003c/h2\u003e
+\u003ch3 id="network-connection-failed"\u003eNetwork Connection Failed\u003c/h3\u003e
+\u003cp\u003eCheck that the database host is public, the firewall allows \u003ccode\u003e35.242.193.95/32\u003c/code\u003e, and the database listens on the port entered in Dekart.\u003c/p\u003e
+\u003ch3 id="tls-connection-failed"\u003eTLS Connection Failed\u003c/h3\u003e
+\u003cp\u003eKeep Dekart set to \u003ccode\u003eRequire SSL\u003c/code\u003e. Check that the database accepts TLS connections and that any provider-side \u0026ldquo;require SSL\u0026rdquo; option is enabled.\u003c/p\u003e
+\u003ch3 id="authentication-failed"\u003eAuthentication Failed\u003c/h3\u003e
+\u003cp\u003eVerify the username and password. For managed services, make sure you are using the database username, not the cloud account login.\u003c/p\u003e
+\u003ch3 id="permission-denied"\u003ePermission Denied\u003c/h3\u003e
+\u003cp\u003eRun the read-only grants again for the schema that contains your tables. PostGIS geometry columns work like regular columns for \u003ccode\u003eSELECT\u003c/code\u003e queries.\u003c/p\u003e
+\u003ch2 id="security-checklist"\u003eSecurity Checklist\u003c/h2\u003e
+\u003cul\u003e
+\u003cli\u003eAllowlist only \u003ccode\u003e35.242.193.95/32\u003c/code\u003e, not \u003ccode\u003e0.0.0.0/0\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eUse a dedicated read-only user for Dekart.\u003c/li\u003e
+\u003cli\u003eKeep TLS enabled.\u003c/li\u003e
+\u003cli\u003eRotate the password if a team member who knew it leaves.\u003c/li\u003e
+\u003cli\u003eUse \u003cstrong\u003eTest connection\u003c/strong\u003e after every firewall, credential, or TLS change.\u003c/li\u003e
+\u003c/ul\u003e
+`},{id:24,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
 \u003ch2 id="step-1-generate-a-key-pair"\u003eStep 1: Generate a Key Pair\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003e\u003cstrong\u003eGenerate a Private Key\u003c/strong\u003e: Use OpenSSL to generate a private key in PKCS#8 format.
@@ -4741,7 +4859,7 @@ SELECT planet_features.geometry
 \u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:24,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:25,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
 This video shows you how to plug your queries directly into Dekart and instantly visualize your results on shareable maps.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/RY9H76V_qVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tutorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
@@ -4831,7 +4949,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003c/table\u003e
 \u003cp\u003e\u003cstrong\u003eReady to try it yourself?\u003c/strong\u003e Click \u003cstrong\u003e“Start free with Dekart + Wherobots”\u003c/strong\u003e above, connect your source, paste your SQL, and see your data come alive.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tuttorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
-`},{id:25,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
+`},{id:26,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
 
 
 
@@ -4977,7 +5095,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eWith \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e, keep \u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/code\u003e and \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e unset.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cp\u003eIf you need a local test stack, see the Dekart repository compose profile examples.\u003c/p\u003e
-`},{id:26,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
+`},{id:27,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003e\u003cstrong\u003eGoogle Account (OAuth Pass-Through)\u003c/strong\u003e\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eService Account Key (JSON)\u003c/strong\u003e\u003c/li\u003e
@@ -5071,7 +5189,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eContact us in \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eEmail us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:27,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:28,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
+`},{id:28,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:29,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/KusNayeGFaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" role="button"\u003eGet it instantly in Snowflake Marketplace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-how-dekart-works"\u003e💡 How Dekart Works\u003c/h2\u003e
@@ -5195,7 +5313,7 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:29,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
+`},{id:30,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
 \u003cp\u003eDekart runs with zero configuration: by default it uses a built-in SQLite metadata database, local file storage, and file upload, so you can create a map immediately. Override the variables below to point Dekart at your datasource and storage. See \u003ca href="#metadata-storage"\u003eMetadata storage\u003c/a\u003e for persistence and backups, \u003ca href="#authentication"\u003eAuthentication\u003c/a\u003e for SSO, and \u003ca href="#data-source-connectors"\u003eData source connectors\u003c/a\u003e for warehouse settings.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -5841,7 +5959,7 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:30,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
+`},{id:31,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
 \u003ch2 id="what-permissions-is-dekart-requesting-and-why-are-they-necessary"\u003eWhat permissions is Dekart requesting, and why are they necessary?\u003c/h2\u003e
 \u003cp\u003eDekart implements BigQuery passthrough authentication (OAuth 2.0 Token Pass-Through) and requests the following permissions:\u003c/p\u003e
 \u003cul\u003e
@@ -5872,7 +5990,7 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c!-- If you have any questions or issues about Dekart Cloud, please contact us via email at [support@dekart.xyz](mailto:support@dekart.xyz) or via [Slack](https://slack.dekart.xyz/). --\u003e
 \u003ch2 id="read-more"\u003eRead more\u003c/h2\u003e
 \u003cp\u003e👉 \u003ca href="/legal/privacy/"\u003eDekart Cloud Privacy Policy\u003c/a\u003e\u003c/p\u003e
-`},{id:31,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+`},{id:32,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
 \u003chr\u003e
@@ -5947,7 +6065,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
 \u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
 \u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
-`},{id:32,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:33,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -5968,7 +6086,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:33,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:34,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -5989,7 +6107,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:34,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:35,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -6071,7 +6189,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:35,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:36,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -6098,7 +6216,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:36,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:37,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Video walkthroughs: create shareable maps from SQL, file uploads, and query parameters",content:`\u003cp class="lead text-left"\u003eSee how Dekart turns SQL queries into shareable maps in under a minute\u003c/p\u003e
+`},{id:37,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:38,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Video walkthroughs: create shareable maps from SQL, file uploads, and query parameters",content:`\u003cp class="lead text-left"\u003eSee how Dekart turns SQL queries into shareable maps in under a minute\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/_2ryUu43XRo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="more-videos"\u003eMore Videos\u003c/h2\u003e
