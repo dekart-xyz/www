@@ -910,7 +910,7 @@ resource \u0026#34;aws_alb_listener\u0026#34; \u0026#34;dekart_https\u0026#34; {
 \u003cli\u003e\u003ca href="/docs/about/overture-maps-examples/"\u003eOverture Maps examples\u003c/a\u003e - interactive maps built with Dekart on Overture data\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery map examples\u003c/a\u003e - large-scale datasets visualized\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/about/snowflake-kepler-gl-examples/"\u003eSnowflake map examples\u003c/a\u003e - Snowflake spatial queries rendered on a map\u003c/li\u003e
-\u003cli\u003e\u003ca href="/blog/bigquery-vs-snowflake-gis-sql-performance-comparison-1/"\u003eBigQuery vs Snowflake GIS performance\u003c/a\u003e - query speed and cost benchmarks\u003c/li\u003e
+\u003cli\u003e\u003ca href="/blog/bigquery-vs-snowflake-gis-query-performance/"\u003eBigQuery vs Snowflake GIS performance\u003c/a\u003e - query speed and cost benchmarks\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz"\u003eTry Dekart Cloud free\u003c/a\u003e - paste SQL, get a map\u003c/li\u003e
 \u003c/ul\u003e
 `},{id:4,href:"https://dekart.xyz/docs/self-hosting/docker/",title:"Docker",description:"Run Dekart with docker run",content:`\u003ch2 id="quick-start"\u003eQuick start\u003c/h2\u003e
