@@ -1,6 +1,9 @@
 ---
-title: "Compare BigQuery and Snowflake performance on GIS queries."
-description: "Compare BigQuery and Snowflake on GIS query performance. Explore execution times, costs, and efficiency in a Geometry-in-Polygon use case with real-world data from Overture Maps"
+title: "BigQuery vs Snowflake GIS Query Performance Benchmark"
+description: "Benchmark BigQuery and Snowflake for a geometry-in-polygon query using Overture Maps, including execution time, data scanned, cost, and spatial clustering."
+url: "/blog/bigquery-vs-snowflake-gis-query-performance/"
+aliases:
+  - /blog/compare-bigquery-and-snowflake-performance-on-gis-queries./
 lead: "Geometry-in-Polygon Query."
 date: 2024-12-03T05:59:51Z
 lastmod: 2024-12-03T05:59:51Z
@@ -113,4 +116,4 @@ In this test, after Snowflake Search Optimization was applied, the performance o
 
 Check the next post where we compare platforms in more realistic examples where geometry is not constant.
 
-→ [Compare and optimize BigQuery and Snowflake performance on GIS queries. Part 2](http://localhost:1313/blog/compare-and-optimize-bigquery-and-snowflake-performance-on-gis-queries.-part-2./)
+→ [Compare BigQuery and Snowflake spatial join performance in Part 2](/blog/bigquery-vs-snowflake-spatial-join-performance/)

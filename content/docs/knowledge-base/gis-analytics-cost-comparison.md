@@ -114,5 +114,5 @@ Pragmatic architecture: **BigQuery or Wherobots for planetary analytics** + smal
 - [Overture Maps examples](/docs/about/overture-maps-examples/) - interactive maps built with Dekart on Overture data
 - [BigQuery map examples](/docs/about/kepler-gl-map-examples/) - large-scale datasets visualized
 - [Snowflake map examples](/docs/about/snowflake-kepler-gl-examples/) - Snowflake spatial queries rendered on a map
-- [BigQuery vs Snowflake GIS performance](/blog/bigquery-vs-snowflake-gis-sql-performance-comparison-1/) - query speed and cost benchmarks
+- [BigQuery vs Snowflake GIS performance](/blog/bigquery-vs-snowflake-gis-query-performance/) - query speed and cost benchmarks
 - [Try Dekart Cloud free](https://cloud.dekart.xyz) - paste SQL, get a map

@@ -8,4 +8,5 @@
 - Do not use numbered section headers in `../www` content (for example, avoid `## 1. ...`, `## 2. ...`).
 - Do not label sibling sections as `Option A/B/C`; use heading hierarchy with clear titles.
 - Do not use list bullets for a single entity. If there is only one item, put it on a new line as plain text/link.
+- Do not create blog posts with `draft: true`. New blog posts must be published with `draft: false` (override the archetype default).
 

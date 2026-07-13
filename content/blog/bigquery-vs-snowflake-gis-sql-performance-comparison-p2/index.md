@@ -1,6 +1,9 @@
 ---
-title: "Compare and optimize BigQuery and Snowflake performance on GIS queries. Part 2."
-description: "Compare BigQuery and Snowflake on GIS query performance. Explore execution times, costs, and efficiency in a Geometry-in-Polygon use case with real-world data from Overture Maps"
+title: "BigQuery vs Snowflake Spatial Join Performance"
+description: "Compare BigQuery and Snowflake spatial join performance using dynamic geometries, Overture Maps, query plans, clustering, execution time, and cost."
+url: "/blog/bigquery-vs-snowflake-spatial-join-performance/"
+aliases:
+  - /blog/compare-and-optimize-bigquery-and-snowflake-performance-on-gis-queries.-part-2./
 lead: "Geometry-in-Polygon Query with dynamic geometry."
 date: 2024-12-10T05:59:51Z
 lastmod: 2024-12-10T05:59:51Z
@@ -11,7 +14,7 @@ contributors: ["Vladi"]
 ---
 
 
-This second post in the series compares performances of GIS queries between Snowflake. In a previous post, I [tested Geometry-in-Polygon Query with constant geometry](/blog/compare-bigquery-and-snowflake-performance-on-gis-queries./), showing that without Enterprise-only Snowflake Search Optimization, BigQuery significantly outperforms Snowflake due to spatial clustering.
+This second post in the series compares GIS query performance in BigQuery and Snowflake. In a previous post, I [tested a geometry-in-polygon query with constant geometry](/blog/bigquery-vs-snowflake-gis-query-performance/), showing that without Enterprise-only Snowflake Search Optimization, BigQuery significantly outperforms Snowflake due to spatial clustering.
 
 However, how often do we see constant geometry in real-life pipelines? In my experience, geometry in most cases comes from another dataset.
 
