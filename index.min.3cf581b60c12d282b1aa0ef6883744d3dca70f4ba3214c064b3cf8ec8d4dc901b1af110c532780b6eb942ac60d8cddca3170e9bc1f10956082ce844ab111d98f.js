@@ -2197,7 +2197,394 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="/docs/knowledge-base/st-aswkt-bigquery/"\u003eST_ASWKT in BigQuery: 3 working examples\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/knowledge-base/overture-maps-snowflake-marketplace/"\u003eGet Overture Maps in Snowflake from the Marketplace\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:10,href:"https://dekart.xyz/docs/knowledge-base/overture-maps-snowflake-marketplace/",title:"Get Overture Maps in Snowflake from the Marketplace",description:"Step-by-step: install free Overture Maps shares (Places, Buildings, Transportation, Divisions, Addresses, Base) from the Snowflake Marketplace via CARTO.",content:`\u003ch2 id="what-you-get"\u003eWhat you get\u003c/h2\u003e
+`},{id:10,href:"https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/",title:"EV charging site screening with BigQuery",description:"A reproducible EV charging site-screening workflow using Overture Maps, NDW traffic, parking polygons, charger gaps, BigQuery SQL, and evidence maps.",content:`\u003cp\u003eThis example screens retail and roadside locations in the Eindhoven–Tilburg–Breda corridor. It combines candidate places, parking polygons, road geometry, a traffic proxy, and existing 150 kW+ chargers in BigQuery.\u003c/p\u003e
+\u003cp\u003eThe result is a desk-screening list for field investigation. It is not a site-viability or investment decision.\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_512x0_resize_box_3.png 512w"
+    width="1600"
+    height="900"
+    alt="Fifteen distinct candidate sites, traffic proxy segments, qualifying parking areas, and 2 km exclusion zones around observed 150 kW\u0026#43; chargers."
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist_hu61e537f1cd77a07b1a94036be422d1c7_395797_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/final-shortlist.png" width="1600" height="900" alt="Fifteen distinct candidate sites, traffic proxy segments, qualifying parking areas, and 2 km exclusion zones around observed 150 kW\u0026#43; chargers."\u003e\u003c/noscript\u003e
+  \u003cfigcaption class="figure-caption"\u003eFifteen distinct candidate sites, traffic proxy segments, qualifying parking areas, and 2 km exclusion zones around observed 150 kW+ chargers.\u003c/figcaption\u003e
+\u003c/figure\u003e
+
+
+
+
+
+\u003cp class="view-on-map"\u003e
+\u003ca href="https://cloud.dekart.xyz/reports/30165f20-525b-4165-85ec-7febf482aa82/source?ref=dekart-xyz-view-map\u0026utm_content=ev-site-screening-final" target="_blank" class="btn btn-outline-primary btn-sm"\u003e
+  Open the final interactive map and SQL
+\u003c/a\u003e
+\u003c/p\u003e
+
+\u003ch2 id="screening-rules"\u003eScreening rules\u003c/h2\u003e
+\u003cp\u003eThe final query applies these rules:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eInput\u003c/th\u003e
+\u003cth\u003eRule\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eStudy area\u003c/td\u003e
+\u003ctd\u003eConvex hull of Breda, Tilburg, and Eindhoven, buffered by 8 km and clipped to North Brabant\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eCandidate type\u003c/td\u003e
+\u003ctd\u003eGrocery, large retail, or fuel/roadside\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eTraffic\u003c/td\u003e
+\u003ctd\u003eBest traffic-proxy road segment within 500 m\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eStrong traffic\u003c/td\u003e
+\u003ctd\u003eTop quartile of nearby proxy segments, 3,300 vehicles/hour in this snapshot\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eParking\u003c/td\u003e
+\u003ctd\u003eLargest parking polygon of at least 2,500 m² within 100 m\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eCharging gap\u003c/td\u003e
+\u003ctd\u003eNo observed charger rated 150 kW+ within 2 km\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eDeduplication\u003c/td\u003e
+\u003ctd\u003eOne candidate per parking polygon\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eRanking\u003c/td\u003e
+\u003ctd\u003eTraffic evidence tier, flow, then parking area\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eThe \u003ccode\u003e5 km\u003c/code\u003e and \u003ccode\u003e3 km\u003c/code\u003e charger exclusions returned no top-quartile candidates. At \u003ccode\u003e2 km\u003c/code\u003e, 16 candidate places passed the strong-traffic rule, but they occupied only five distinct parking areas. The final list therefore keeps those five Tier A sites and adds ten Tier B sites with traffic-proxy values to produce 15 distinct locations.\u003c/p\u003e
+\u003ch2 id="warehouse-tables"\u003eWarehouse tables\u003c/h2\u003e
+\u003cp\u003eAll analysis tables are in the BigQuery \u003ccode\u003eEU\u003c/code\u003e location under \u003ccode\u003edekart-data-samples.demo_data_samples\u003c/code\u003e.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eTable\u003c/th\u003e
+\u003cth\u003eSource\u003c/th\u003e
+\u003cth style="text-align:right"\u003ePrepared output\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003enorth_brabant_boundary\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eOverture divisions\u003c/td\u003e
+\u003ctd style="text-align:right"\u003e1 exact province polygon\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eoverture_candidate_sites_north_brabant\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eOverture Places\u003c/td\u003e
+\u003ctd style="text-align:right"\u003e3,539 candidate places\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eoverture_parking_areas_north_brabant\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eOverture Base infrastructure\u003c/td\u003e
+\u003ctd style="text-align:right"\u003e25,108 parking polygons\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eoverture_major_roads_north_brabant\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eOverture Transportation\u003c/td\u003e
+\u003ctd style="text-align:right"\u003e41,564 road segments, 6,534 km\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003endw_traffic_snapshot\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eNDW current measurements and measurement sites\u003c/td\u003e
+\u003ctd style="text-align:right"\u003e20,532 directional observations nationwide\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003enorth_brabant_traffic_proxy\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eNDW snapshot joined to Overture roads\u003c/td\u003e
+\u003ctd style="text-align:right"\u003e2,737 estimated road segments, 1,480 km\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003enextev_chargers\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eNextEV map payload\u003c/td\u003e
+\u003ctd style="text-align:right"\u003e20,497 normalized European sites; 53 inside North Brabant\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003ch2 id="source-and-preparation"\u003eSource and preparation\u003c/h2\u003e
+\u003ch3 id="boundary-places-parking-and-roads"\u003eBoundary, places, parking, and roads\u003c/h3\u003e
+\u003cp\u003eOverture data is available from the \u003ca href="https://docs.overturemaps.org/getting-data/data-mirrors/bigquery/"\u003e\u003ccode\u003ebigquery-public-data.overture_maps\u003c/code\u003e\u003c/a\u003e public dataset. The workflow uses:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eOverture table\u003c/th\u003e
+\u003cth\u003eUse\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003edivision_area\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eExact North Brabant boundary\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eplace\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eRetail and roadside candidate points\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003einfrastructure\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eParking polygons and attributes\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003esegment\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eMotorway through tertiary road geometry\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eEvery global Overture scan uses a bounding-box predicate before \u003ccode\u003eST_INTERSECTS\u003c/code\u003e. This matters because the global tables are not partitioned for this area query.\u003c/p\u003e
+\u003cp\u003eCandidate places retain Overture ID, name, brand, category, address, confidence, and geometry. The extraction requires \u003ccode\u003econfidence \u0026gt;= 0.75\u003c/code\u003e, removes permanently closed places, and maps selected categories into five screening groups. The final screen uses only grocery, large retail, and fuel/roadside.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003earea\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003esamples\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edemo_data_samples_us\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003enorth_brabant_boundary\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eid\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;028768cc-c290-4ec0-9c3c-d6c208275987\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eid\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eoverture_id\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003enames\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eprimary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ename\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ebrand\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003enames\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eprimary\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ebrand\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eCOALESCE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003etaxonomy\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eprimary\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ecategories\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eprimary\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ebasic_category\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecategory\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003econfidence\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eST_X\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elongitude\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eST_Y\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elatitude\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003ebigquery\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_maps\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eplace\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eCROSS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003earea\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ea\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ebbox\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003exmax\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e4\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e190124034881592\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ebbox\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003exmin\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026lt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e6\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e048120975494385\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ebbox\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eymax\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e51\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e220909118652344\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ebbox\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eymin\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026lt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e51\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e83075714111328\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_INTERSECTS\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ea\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003econfidence\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e75\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eCOALESCE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoperating_status\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;open\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e!=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;permanently_closed\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eParking extraction keeps polygon and multipolygon features where \u003ccode\u003eclass = 'parking'\u003c/code\u003e. It derives \u003ccode\u003eparking_type\u003c/code\u003e, \u003ccode\u003eaccess\u003c/code\u003e, \u003ccode\u003efee\u003c/code\u003e, \u003ccode\u003ecapacity\u003c/code\u003e, and \u003ccode\u003esurface\u003c/code\u003e from normalized columns or source tags, and calculates \u003ccode\u003earea_m2\u003c/code\u003e with \u003ccode\u003eST_AREA\u003c/code\u003e.\u003c/p\u003e
+\u003cp\u003eRoad extraction keeps \u003ccode\u003emotorway\u003c/code\u003e, \u003ccode\u003etrunk\u003c/code\u003e, \u003ccode\u003eprimary\u003c/code\u003e, \u003ccode\u003esecondary\u003c/code\u003e, and \u003ccode\u003etertiary\u003c/code\u003e segments. Each line is clipped to the province with \u003ccode\u003eST_INTERSECTION\u003c/code\u003e; empty and zero-length results are removed.\u003c/p\u003e
+\u003cp\u003eThe Overture BigQuery mirror is in the \u003ccode\u003eUS\u003c/code\u003e multi-region while the NDW working dataset is in \u003ccode\u003eEU\u003c/code\u003e. The preparation pipeline therefore:\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eMaterializes the small North Brabant slices in a US staging dataset.\u003c/li\u003e
+\u003cli\u003eConverts \u003ccode\u003eGEOGRAPHY\u003c/code\u003e to WKT with \u003ccode\u003eST_ASTEXT\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eExports newline-delimited JSON.\u003c/li\u003e
+\u003cli\u003eLoads an EU staging table.\u003c/li\u003e
+\u003cli\u003eReconstructs \u003ccode\u003eGEOGRAPHY\u003c/code\u003e with \u003ccode\u003eST_GEOGFROMTEXT\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eVerifies row counts, distinct IDs, geometry validity, and bounds in both regions.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_512x0_resize_box_3.png 512w"
+    width="1600"
+    height="900"
+    alt="Candidate places and parking-area geometry around Eindhoven."
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking_hu1a26cb06d305acb4b45e4d0ba99d8292_586631_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/candidate-sites-parking.png" width="1600" height="900" alt="Candidate places and parking-area geometry around Eindhoven."\u003e\u003c/noscript\u003e
+  \u003cfigcaption class="figure-caption"\u003eCandidate places and parking-area geometry around Eindhoven.\u003c/figcaption\u003e
+\u003c/figure\u003e
+
+
+
+
+
+\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/reports/1c3d5f6a-3bcb-4d94-a007-d836e3eb2f6c/source?ref=kb-ev-site-screening"\u003eOpen candidate sites and parking with SQL\u003c/a\u003e\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_512x0_resize_box_3.png 512w"
+    width="1600"
+    height="900"
+    alt="A close inspection of Overture parking polygons near the A58 at Breda."
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas_hu9a122c0924c36b575287ebd28ba34b92_375989_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/parking-areas.png" width="1600" height="900" alt="A close inspection of Overture parking polygons near the A58 at Breda."\u003e\u003c/noscript\u003e
+  \u003cfigcaption class="figure-caption"\u003eA close inspection of Overture parking polygons near the A58 at Breda.\u003c/figcaption\u003e
+\u003c/figure\u003e
+
+
+
+
+
+\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/reports/3b3b0da0-2dc9-4919-bfe0-d68b19267281/source?ref=kb-ev-site-screening"\u003eOpen the parking geometry map with SQL\u003c/a\u003e\u003c/p\u003e
+\u003ch3 id="ndw-traffic-snapshot"\u003eNDW traffic snapshot\u003c/h3\u003e
+\u003cp\u003e\u003ca href="https://docs.ndw.nu/faq/avg/"\u003eNDW\u003c/a\u003e publishes flow and speed measurements every minute from thousands of fixed locations. The demo joined the current measurement feed to the measurement-site package from the \u003ca href="https://opendata.ndw.nu/"\u003eNDW open-data portal\u003c/a\u003e.\u003c/p\u003e
+\u003cp\u003ePreparation steps:\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eParse DATEX II measurements and measurement-site coordinates.\u003c/li\u003e
+\u003cli\u003eSum all-vehicle flow across lanes for each directional measurement site.\u003c/li\u003e
+\u003cli\u003eCalculate a weighted average speed.\u003c/li\u003e
+\u003cli\u003ePreserve observation time, direction, road reference, coordinates, and native \u003ccode\u003eGEOGRAPHY\u003c/code\u003e.\u003c/li\u003e
+\u003cli\u003eUse the exact province polygon after the bounding-box filter.\u003c/li\u003e
+\u003cli\u003eGroup technical feeds representing the same coordinate and direction before analysis.\u003c/li\u003e
+\u003c/ol\u003e
+\u003cp\u003eThe frozen snapshot contains 20,532 nationwide directional observations captured at approximately 09:07–09:08 on 14 September 2026. It is not AADT, typical traffic, or annual demand.\u003c/p\u003e
+\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/reports/09568a50-a6d4-45fa-8151-4a1f5f286af4/source?ref=kb-ev-site-screening"\u003eOpen the raw North Brabant traffic map with SQL\u003c/a\u003e\u003c/p\u003e
+\u003ch3 id="traffic-proxy-on-roads"\u003eTraffic proxy on roads\u003c/h3\u003e
+\u003cp\u003eThe point measurements do not provide road-level coverage. The exploratory proxy first snaps each grouped sensor to the nearest Overture road within 150 m. It then finds up to three sensors on the same road class within 3 km of every road segment and calculates an inverse-distance-weighted estimate.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eobserved_flow_vph\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003esensor_distance_m\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e+\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e25\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003esensor_distance_m\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e+\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e25\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eestimated_snapshot_flow_vph\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eThe \u003ccode\u003e25 m\u003c/code\u003e offset prevents a sensor at zero distance from dividing by zero. Confidence combines the number of contributing sensors with distance decay:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="n"\u003eLEAST\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e6\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e+\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e2\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003econtributing_sensor_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eEXP\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003enearest_sensor_distance_m\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3000\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003espatial_confidence\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eEvery result retains \u003ccode\u003enearest_sensor_distance_m\u003c/code\u003e, \u003ccode\u003econtributing_sensor_count\u003c/code\u003e, \u003ccode\u003espatial_confidence\u003c/code\u003e, and a categorical quality label:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth style="text-align:right"\u003eNearest sensor\u003c/th\u003e
+\u003cth\u003eQuality label\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd style="text-align:right"\u003eUp to 50 m\u003c/td\u003e
+\u003ctd\u003eNear observation\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd style="text-align:right"\u003e50–500 m\u003c/td\u003e
+\u003ctd\u003eMedium extrapolation\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd style="text-align:right"\u003e500–3,000 m\u003c/td\u003e
+\u003ctd\u003eLow extrapolation\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eThe output covers approximately 99% of motorway length, 46% of trunk roads, 7% of primary roads, and about 2% of secondary and tertiary roads. Missing proxy rows must remain missing; do not silently turn them into zero traffic.\u003c/p\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_512x0_resize_box_3.png 512w"
+    width="1600"
+    height="900"
+    alt="NDW snapshot values extrapolated onto nearby same-class Overture road segments. The map exposed the sharp loss of coverage away from motorways."
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy_hu184ef7f062290451409c1637a44ee4d4_577224_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/knowledge-base/ev-charging-site-screening-bigquery/traffic-proxy.png" width="1600" height="900" alt="NDW snapshot values extrapolated onto nearby same-class Overture road segments. The map exposed the sharp loss of coverage away from motorways."\u003e\u003c/noscript\u003e
+  \u003cfigcaption class="figure-caption"\u003eNDW snapshot values extrapolated onto nearby same-class Overture road segments. The map exposed the sharp loss of coverage away from motorways.\u003c/figcaption\u003e
+\u003c/figure\u003e
+
+
+
+
+
+\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/reports/c7adb436-8402-4090-bf0f-58a750e688b5/source?ref=kb-ev-site-screening"\u003eOpen the traffic proxy and observations with SQL\u003c/a\u003e\u003c/p\u003e
+\u003ch3 id="charger-locations"\u003eCharger locations\u003c/h3\u003e
+\u003cp\u003eThe demo decoded the public \u003ca href="https://nextev.app/map/chargers.json"\u003e\u003ccode\u003enextev.app/map/chargers.json\u003c/code\u003e\u003c/a\u003e payload into typed columns for site ID, coordinates, operator, network, maximum power, stalls, availability, price, plugs, and source timestamp. It preserved each original array as JSON and created point \u003ccode\u003eGEOGRAPHY\u003c/code\u003e from longitude and latitude.\u003c/p\u003e
+\u003cp\u003eThis is the weakest production input. The snapshot covers selected operators, has no stated reuse licence, and cannot prove that an apparent charger gap is real. The Netherlands now publishes official charging locations through \u003ca href="https://english.ndw.nu/dataportals/dot-nl"\u003eNDW DOT-NL\u003c/a\u003e, including GeoJSON and OCPI snapshots on the \u003ca href="https://opendata.ndw.nu/"\u003eNDW open-data portal\u003c/a\u003e. Replace NextEV with DOT-NL before operational use.\u003c/p\u003e
+\u003cp\u003e\u003ca href="https://cloud.dekart.xyz/reports/96e6b623-18a6-433d-a3d0-153bfaed36b7/source?ref=kb-ev-site-screening"\u003eOpen the normalized NextEV map with SQL\u003c/a\u003e\u003c/p\u003e
+\u003ch2 id="final-screening-sql"\u003eFinal screening SQL\u003c/h2\u003e
+\u003cp\u003eThe complete runnable seven-layer query is available in the \u003ca href="https://cloud.dekart.xyz/reports/30165f20-525b-4165-85ec-7febf482aa82/source?ref=kb-ev-site-screening"\u003efinal map\u0026rsquo;s SQL view\u003c/a\u003e. These selected fragments show its traffic, parking, charger, and eligibility logic. Comments mark the omitted columns and CTEs, so the excerpt below is not standalone SQL.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- Selected from the full query linked above.
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- Earlier boundary, study-area, and sites CTEs are omitted.
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="n"\u003etraffic_join\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_id\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003et\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eroad_segment_id\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003et\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eestimated_snapshot_flow_vph\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003eST_DISTANCE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003et\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esegment_distance_m\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esites\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003esamples\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edemo_data_samples\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003enorth_brabant_traffic_proxy\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003et\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_DWITHIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003et\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e500\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="n"\u003eparking_best\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_id\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_id\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eparking_id\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003earea_m2\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eparking_area_m2\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003eST_DISTANCE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eparking_distance_m\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esites\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003esamples\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edemo_data_samples\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_parking_areas_north_brabant\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_DWITHIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e100\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003earea_m2\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e2500\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eQUALIFY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eROW_NUMBER\u003c/span\u003e\u003cspan class="p"\u003e()\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eOVER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003ePARTITION\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_id\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003earea_m2\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_DISTANCE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="n"\u003echarger_near\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_id\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eMIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eST_DISTANCE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ec\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeography\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003enearest_fast_charger_m\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esites\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003esamples\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edemo_data_samples\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003enextev_chargers\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ec\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_DWITHIN\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeometry\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ec\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003egeography\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e25000\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ec\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003emax_power_kw\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e150\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoverture_id\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="c1"\u003e-- traffic_best and enriched CTEs are omitted. traffic_best selects the
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- highest-flow proxy segment per site as site_snapshot_flow_vph; enriched
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e-- combines it with parking_best and charger_near.
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="n"\u003eelig\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eenriched\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eparking_id\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNOT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNULL\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eCOALESCE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003enearest_fast_charger_m\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="n"\u003ee9\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e2000\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esite_snapshot_flow_vph\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNOT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNULL\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eNearest-feature joins use \u003ccode\u003eQUALIFY ROW_NUMBER()\u003c/code\u003e to prevent many-to-many duplication. The shortlist also removes candidate POIs whose names identify the place itself as a charging site, then keeps one row per parking polygon:\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="n"\u003eQUALIFY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eROW_NUMBER\u003c/span\u003e\u003cspan class="p"\u003e()\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eOVER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ePARTITION\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eparking_id\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003esite_snapshot_flow_vph\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eCASE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecandidate_type\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="k"\u003eWHEN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;Fuel / roadside\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eTHEN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="k"\u003eWHEN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;Large retail\u0026#39;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eTHEN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e2\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e      \u003c/span\u003e\u003cspan class="k"\u003eELSE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eEND\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003econfidence\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eThe final map has seven evidence layers:\u003c/p\u003e
+\u003col\u003e
+\u003cli\u003eFifteen distinct shortlisted sites.\u003c/li\u003e
+\u003cli\u003eAll 35 candidates with parking, a traffic-proxy value, and no observed 150 kW+ charger within 2 km.\u003c/li\u003e
+\u003cli\u003eObserved 150 kW+ chargers with 2 km exclusion polygons.\u003c/li\u003e
+\u003cli\u003eTraffic-proxy road segments.\u003c/li\u003e
+\u003cli\u003eThe 16 qualifying parking polygons.\u003c/li\u003e
+\u003cli\u003eThe 1,107 km² study corridor.\u003c/li\u003e
+\u003cli\u003eTwo candidate POIs excluded because they were charging sites.\u003c/li\u003e
+\u003c/ol\u003e
+\u003ch2 id="what-the-map-review-found"\u003eWhat the map review found\u003c/h2\u003e
+\u003cp\u003eThe map is part of validation, not only presentation.\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eFour of the five Tier A sites inherit the same 3,300 vehicles/hour estimate with \u003ccode\u003eLow extrapolation\u003c/code\u003e confidence of approximately 0.22–0.32.\u003c/li\u003e
+\u003cli\u003eOnly the rank-one Tier A site has a top-quartile proxy value anchored by a sensor at zero distance.\u003c/li\u003e
+\u003cli\u003eTen of the 15 final sites are \u003ccode\u003eNear observation\u003c/code\u003e with spatial confidence \u003ccode\u003e1.0\u003c/code\u003e, including several Tier B sites with better evidence than the Tier A extrapolations.\u003c/li\u003e
+\u003cli\u003eCandidate-place duplicates become obvious when several businesses share one parking polygon. Ranking places without parking-level deduplication would overstate the number of distinct sites.\u003c/li\u003e
+\u003cli\u003eCharger-radius sensitivity is discontinuous: \u003ccode\u003e3 km\u003c/code\u003e yields no top-tier sites, while \u003ccode\u003e2 km\u003c/code\u003e yields 16 places concentrated in five parking areas.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eFor analyst review, keep \u003ccode\u003etraffic_spatial_quality\u003c/code\u003e, \u003ccode\u003etraffic_spatial_confidence\u003c/code\u003e, \u003ccode\u003etraffic_sensor_distance_m\u003c/code\u003e, \u003ccode\u003eparking_id\u003c/code\u003e, and \u003ccode\u003enearest_fast_charger_m\u003c/code\u003e in every exported shortlist.\u003c/p\u003e
+\u003ch2 id="missing-inputs-for-a-real-investment-decision"\u003eMissing inputs for a real investment decision\u003c/h2\u003e
+\u003cp\u003eBefore fieldwork or investment approval, add:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eTypical weekday and seasonal traffic or AADT.\u003c/li\u003e
+\u003cli\u003eOfficial DOT-NL charger coverage and a defined freshness SLA.\u003c/li\u003e
+\u003cli\u003eGrid connection capacity, lead time, and reinforcement cost.\u003c/li\u003e
+\u003cli\u003eLandowner, lease, and site-control information.\u003c/li\u003e
+\u003cli\u003eAccess, visibility, turning movements, and dwell-time evidence.\u003c/li\u003e
+\u003cli\u003ePlanning, environmental, and safety constraints.\u003c/li\u003e
+\u003cli\u003eVerified usable bays rather than mapped parking area alone.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eTreat Overture places as locations to inspect, parking polygons as physical context, the traffic surface as an explicitly uncertain proxy, and the final score as a review queue rather than ground truth.\u003c/p\u003e
+`},{id:11,href:"https://dekart.xyz/docs/knowledge-base/overture-maps-snowflake-marketplace/",title:"Get Overture Maps in Snowflake from the Marketplace",description:"Step-by-step: install free Overture Maps shares (Places, Buildings, Transportation, Divisions, Addresses, Base) from the Snowflake Marketplace via CARTO.",content:`\u003ch2 id="what-you-get"\u003eWhat you get\u003c/h2\u003e
 \u003cp\u003eOverture Maps is published on the Snowflake Marketplace by \u003cstrong\u003eCARTO\u003c/strong\u003e as free, read-only data shares. No ETL, no storage cost. You only pay for the compute you run against the data.\u003c/p\u003e
 \u003cp\u003eThe data is split into one listing per Overture theme:\u003c/p\u003e
 \u003ctable\u003e
@@ -2306,7 +2693,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="/docs/about/overture-maps-examples/"\u003eOverture Maps examples in BigQuery\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="https://docs.overturemaps.org/getting-data/data-mirrors/snowflake/"\u003eOverture Maps Snowflake docs (official)\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:11,href:"https://dekart.xyz/docs/knowledge-base/st-geogfromtext-bigquery-polygon-wkt/",title:"ST_GEOGFROMTEXT in BigQuery: 4 SQL Examples",description:"Parse polygon WKT with ST_GEOGFROMTEXT in BigQuery. 4 SQL examples using Overture Maps roads, places, and boundaries.",content:`\u003ch2 id="short-answer"\u003eShort answer\u003c/h2\u003e
+`},{id:12,href:"https://dekart.xyz/docs/knowledge-base/st-geogfromtext-bigquery-polygon-wkt/",title:"ST_GEOGFROMTEXT in BigQuery: 4 SQL Examples",description:"Parse polygon WKT with ST_GEOGFROMTEXT in BigQuery. 4 SQL examples using Overture Maps roads, places, and boundaries.",content:`\u003ch2 id="short-answer"\u003eShort answer\u003c/h2\u003e
 \u003cp\u003e\u003ccode\u003eST_GEOGFROMTEXT(wkt_string)\u003c/code\u003e parses a WKT string into a BigQuery \u003ccode\u003eGEOGRAPHY\u003c/code\u003e. It accepts \u003ccode\u003ePOINT\u003c/code\u003e, \u003ccode\u003eLINESTRING\u003c/code\u003e, \u003ccode\u003ePOLYGON\u003c/code\u003e, \u003ccode\u003eMULTIPOLYGON\u003c/code\u003e, and other standard WKT types.\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eST_GEOGFROMTEXT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;POLYGON((13.08 52.33, 13.76 52.33, 13.76 52.67, 13.08 52.67, 13.08 52.33))\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eberlin_bbox\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eCoordinate order is always \u003ccode\u003elongitude latitude\u003c/code\u003e. Polygons must close (first point equals last point).\u003c/p\u003e
@@ -2430,7 +2817,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="/docs/about/overture-maps-examples/"\u003eOverture Maps examples in BigQuery\u003c/a\u003e - 15 ready-to-run queries with live maps.\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/knowledge-base/st-aswkt-bigquery/"\u003eST_ASWKT in BigQuery (use ST_ASTEXT)\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:12,href:"https://dekart.xyz/docs/knowledge-base/snowflake-public-h3-routing-cache/",title:"Snowflake Public H3 Routing Cache",description:"Copy-paste SQL examples for public H3 routing cache datasets in Snowflake.",content:`\u003ch2 id="how-to-use-these-examples"\u003eHow to use these examples\u003c/h2\u003e
+`},{id:13,href:"https://dekart.xyz/docs/knowledge-base/snowflake-public-h3-routing-cache/",title:"Snowflake Public H3 Routing Cache",description:"Copy-paste SQL examples for public H3 routing cache datasets in Snowflake.",content:`\u003ch2 id="how-to-use-these-examples"\u003eHow to use these examples\u003c/h2\u003e
 \u003cp\u003eInstall a public H3 routing cache from Snowflake Marketplace, then paste the matching SQL example into a Snowflake worksheet.\u003c/p\u003e
 \u003cp\u003eThe examples use \u003ccode\u003eSCHEMA.TABLE\u003c/code\u003e names, not \u003ccode\u003eDATABASE.SCHEMA.TABLE\u003c/code\u003e names. Snowflake Marketplace consumers choose their own database name when installing a listing.\u003c/p\u003e
 \u003ch2 id="uk-h3-travel-matrix"\u003eUK H3 Travel Matrix\u003c/h2\u003e
@@ -2566,7 +2953,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="https://docs.snowflake.com/en/sql-reference/functions/h3_point_to_cell_string"\u003eSnowflake H3 function reference\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/about/snowflake-kepler-gl-examples/"\u003eSnowflake Kepler.gl map examples\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:13,href:"https://dekart.xyz/docs/knowledge-base/",title:"Knowledge Base",description:"Cost comparisons, migration guides, and practical resources for GIS data teams.",content:""},{id:14,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
+`},{id:14,href:"https://dekart.xyz/docs/knowledge-base/",title:"Knowledge Base",description:"Cost comparisons, migration guides, and practical resources for GIS data teams.",content:""},{id:15,href:"https://dekart.xyz/docs/contributing/architecture-overview/",title:"Architecture",description:"Build Dekart from Source",content:`\u003ch2 id="overview"\u003eOverview\u003c/h2\u003e
 \u003cp\u003e\u003ca href="./dekart-architecture-overview.png"\u003e\u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2641,7 +3028,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eClient requests result by separate HTTP endpoint from server\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003eGoogle IAP (Identity Aware Proxy) is supported to authenticate user requests.\u003c/p\u003e
-`},{id:15,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+`},{id:16,href:"https://dekart.xyz/docs/contributing/build-from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -2685,7 +3072,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:16,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:17,href:"https://dekart.xyz/docs/self-hosting/from-source/",title:"Build from Source",description:"Build Dekart from Source",content:`\u003ch2 id="prerequisites"\u003ePrerequisites\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003eGoogle Cloud Project\u003c/li\u003e
 \u003cli\u003eBigQuery API Enabled\u003c/li\u003e
@@ -2729,7 +3116,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eRun frontend\u003c/li\u003e
 \u003c/ol\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003enpm start
-\u003c/code\u003e\u003c/pre\u003e`},{id:17,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
+\u003c/code\u003e\u003c/pre\u003e`},{id:18,href:"https://dekart.xyz/docs/about/ev-charging-analytics/",title:"EV Charging Analytics Maps",description:"Explore how to plan smarter EV charging infrastructure using open and premium data.",content:`\u003cp\u003eThis curated collection of interactive maps—built with SQL in BigQuery and Snowflake—helps analysts, planners, and EV operators uncover high-opportunity locations, optimize deployments, and benchmark market presence.\u003c/p\u003e
 \u003cdiv class="geosql"\u003e
   \u003cp\u003e\u003cimg src="/claude.svg" alt="Claude" class="geosql-logo" /\u003eAll maps created with GeoSQL skill for Claude\u003c/p\u003e\u003cp\u003e\u003ca href="https://github.com/dekart-xyz/geosql?ref=map-examples-ev-charging" class="btn btn-outline-dark" target="_blank" rel="noopener"\u003eGet it on GitHub\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
@@ -3044,7 +3431,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003ch2 id="want-to-build-similar-maps"\u003eWant to build similar maps?\u003c/h2\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://calendly.com/vladi-dekart/30min?ref=book-ev-charging-demo" role="button"\u003eBook a free demo\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003e\u003cem\u003eBook a free demo\u003c/em\u003e: we’ll walk you through the process, help customize your data, and show how to spin off maps in minutes.\u003c/p\u003e
-`},{id:18,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003cdiv class="geosql"\u003e
+`},{id:19,href:"https://dekart.xyz/docs/about/map-templates/",title:"Reusable Map Templates",description:"Collection of reusable Dekart Maps for your analytics projects",content:`\u003cdiv class="geosql"\u003e
   \u003cp\u003e\u003cimg src="/claude.svg" alt="Claude" class="geosql-logo" /\u003eAll maps created with GeoSQL skill for Claude\u003c/p\u003e\u003cp\u003e\u003ca href="https://github.com/dekart-xyz/geosql?ref=map-examples-templates" class="btn btn-outline-dark" target="_blank" rel="noopener"\u003eGet it on GitHub\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
 
@@ -3105,7 +3492,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 
 \u003cp\u003eThis template queries city boundaries from the Overture Maps dataset in BigQuery—even if multiple cities share the same name. It fetches all matching boundaries, counts the Points of Interest (POIs) in each, and returns the boundary with the highest POI count as the “most relevant” city. Perfect for data analysts and data scientists who need accurate location context without diving into specialized GIS tools.\u003c/p\u003e
 \u003cp\u003eRequires: \u003csmall class="badge badge-info"\u003eBigQuery Account\u003c/small\u003e\u003c/p\u003e
-`},{id:19,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"How to query Overture Maps on BigQuery – SQL examples by usecase",description:"Copy-paste BigQuery SQL for the Overture Maps public dataset. Covers roads, EV stations, buildings, boundaries, land use, and divisions.",content:`\u003cp\u003eBigQuery hosts Overture Maps as a free public dataset. Below are working SQL examples by usecase, each one rendering on a live map.\u003c/p\u003e
+`},{id:20,href:"https://dekart.xyz/docs/about/overture-maps-examples/",title:"How to query Overture Maps on BigQuery – SQL examples by usecase",description:"Copy-paste BigQuery SQL for the Overture Maps public dataset. Covers roads, EV stations, buildings, boundaries, land use, and divisions.",content:`\u003cp\u003eBigQuery hosts Overture Maps as a free public dataset. Below are working SQL examples by usecase, each one rendering on a live map.\u003c/p\u003e
 \u003cdiv class="geosql"\u003e
   \u003cp\u003e\u003cimg src="/claude.svg" alt="Claude" class="geosql-logo" /\u003eAll maps created with GeoSQL skill for Claude\u003c/p\u003e\u003cp\u003e\u003ca href="https://github.com/dekart-xyz/geosql?ref=map-examples-overture" class="btn btn-outline-dark" target="_blank" rel="noopener"\u003eGet it on GitHub\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
@@ -3836,7 +4223,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:20,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
+`},{id:21,href:"https://dekart.xyz/docs/about/snowflake-kepler-gl-examples/",title:"Snowflake Kepler.gl Maps Examples",description:"Collection of Kepler.gl maps examples created with Snowflake public dataset using SQL.",content:`\u003cp\u003eCollection of kepler.gl maps created from Overture Data in Snowflake public dataset using SQL and Dekart.\u003c/p\u003e
 \u003cdiv class="geosql"\u003e
   \u003cp\u003e\u003cimg src="/claude.svg" alt="Claude" class="geosql-logo" /\u003eAll maps created with GeoSQL skill for Claude\u003c/p\u003e\u003cp\u003e\u003ca href="https://github.com/dekart-xyz/geosql?ref=map-examples-snowflake" class="btn btn-outline-dark" target="_blank" rel="noopener"\u003eGet it on GitHub\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
@@ -3958,7 +4345,7 @@ Replace \u003ccode\u003e{{country}}\u003c/code\u003e with a valid 2-letter ISO c
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eroad_segments\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003echarging_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eON\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003er\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eID\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecc\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eroad_id\u003c/span\u003e\u003cspan class="p"\u003e;\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- Join with the previous result set to match road details with charging station counts
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:21,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:22,href:"https://dekart.xyz/docs/about/kepler-gl-map-examples/",title:"BigQuery Kepler.gl Maps Examples",description:"Kepler.gl maps examples created on Dekart with public BigQuery datasets, Overture Data, and OpenStreetMap data",content:`\u003cp\u003eDekart allows user create and share Kepler.gl maps from private and public BigQuery datasets, using SQL. It works particularly well with BigQuery GIS functions.\u003c/p\u003e
 \u003cdiv class="geosql"\u003e
   \u003cp\u003e\u003cimg src="/claude.svg" alt="Claude" class="geosql-logo" /\u003eAll maps created with GeoSQL skill for Claude\u003c/p\u003e\u003cp\u003e\u003ca href="https://github.com/dekart-xyz/geosql?ref=map-examples-kepler-bigquery" class="btn btn-outline-dark" target="_blank" rel="noopener"\u003eGet it on GitHub\u003c/a\u003e\u003c/p\u003e
 \u003c/div\u003e
@@ -4688,7 +5075,7 @@ SELECT planet_features.geometry
           \u003c/a\u003e
 
 \u003c/p\u003e
-`},{id:22,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
+`},{id:23,href:"https://dekart.xyz/docs/about/public-dataset-examples/",title:"Examples with Public Datasets",description:"Learn how to use BigQuery SQL to visualize spatial datasets",content:`\u003cp\u003eLearn how to use BigQuery SQL to visualize spatial datasets. Below are some examples of public datasets that you can explore and visualize with Dekart.\u003c/p\u003e
 \u003ch2 id="large-datasets"\u003eLarge datasets\u003c/h2\u003e
 \u003cp\u003eExplore large datasets with millions of rows and visualize them on a map\u003c/p\u003e
 \u003cul\u003e
@@ -4717,7 +5104,7 @@ SELECT planet_features.geometry
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:23,href:"https://dekart.xyz/docs/usage/postgres-connection/",title:"Postgres Connection Guide",description:"Connect Dekart Cloud to Postgres or PostGIS with TLS and IP allowlisting",content:`\u003cp\u003eDekart Cloud connects to your Postgres or PostGIS database from one static egress IP.\u003c/p\u003e
+`},{id:24,href:"https://dekart.xyz/docs/usage/postgres-connection/",title:"Postgres Connection Guide",description:"Connect Dekart Cloud to Postgres or PostGIS with TLS and IP allowlisting",content:`\u003cp\u003eDekart Cloud connects to your Postgres or PostGIS database from one static egress IP.\u003c/p\u003e
 \u003cp\u003eAllowlist this CIDR in your database firewall:\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-text" data-lang="text"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e35.242.193.95/32
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eUse SSL mode \u003ccode\u003eRequire SSL\u003c/code\u003e in Dekart Cloud. Cloud connections must use TLS.\u003c/p\u003e
@@ -4835,7 +5222,7 @@ Default privileges only apply to future tables created by the role that runs the
 \u003cli\u003eRotate the password if a team member who knew it leaves.\u003c/li\u003e
 \u003cli\u003eUse \u003cstrong\u003eTest connection\u003c/strong\u003e after every firewall, credential, or TLS change.\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:24,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
+`},{id:25,href:"https://dekart.xyz/docs/usage/snowflake-private-key/",title:"Snowflake Private Key",description:"Step-by-Step: Creating a Snowflake Private Key Pair and Using It in Dekart",content:`\u003cp\u003eThis guide walks you through generating a Snowflake-compatible RSA key pair, configuring your Snowflake user for key-pair authentication, and using the private key in Dekart.\u003c/p\u003e
 \u003ch2 id="step-1-generate-a-key-pair"\u003eStep 1: Generate a Key Pair\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003e\u003cstrong\u003eGenerate a Private Key\u003c/strong\u003e: Use OpenSSL to generate a private key in PKCS#8 format.
@@ -4859,7 +5246,7 @@ Default privileges only apply to future tables created by the role that runs the
 \u003cli\u003eRemove all newlines from the base64-encoded string.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003ecat rsa_key.p8 \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----BEGIN PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e sed \u003cspan class="s1"\u003e\u0026#39;/-----END PRIVATE KEY-----/d\u0026#39;\u003c/span\u003e \u003cspan class="p"\u003e|\u003c/span\u003e tr -d \u003cspan class="s1"\u003e\u0026#39;\\n\u0026#39;\u003c/span\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:25,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
+\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e`},{id:26,href:"https://dekart.xyz/docs/usage/wherobots-sql-tutorial/",title:"Wherobots SQL Tutorial",description:"Learn how to use Dekart's Wherobots SQL to analyze and visualize geospatial data.",content:`\u003cp\u003eAlready using Wherobots or writing geospatial SQL with Apache Sedona?
 This video shows you how to plug your queries directly into Dekart and instantly visualize your results on shareable maps.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/RY9H76V_qVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tutorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
@@ -4949,7 +5336,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003c/table\u003e
 \u003cp\u003e\u003cstrong\u003eReady to try it yourself?\u003c/strong\u003e Click \u003cstrong\u003e“Start free with Dekart + Wherobots”\u003c/strong\u003e above, connect your source, paste your SQL, and see your data come alive.\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz?ref=wherobots-tuttorial-top" role="button"\u003eStart free with Dekart + Wherobots\u003c/a\u003e\u003c/p\u003e
-`},{id:26,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
+`},{id:27,href:"https://dekart.xyz/docs/self-hosting/keycloak-reverse-proxy/",title:"Keycloak + Postgres",description:"Copy-paste setup guide for Dekart Premium v0.21 with Keycloak reverse proxy and Postgres-only storage",content:`
 
 
 
@@ -5095,7 +5482,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eWith \u003ccode\u003eDEKART_STORAGE=PG\u003c/code\u003e, keep \u003ccode\u003eDEKART_ALLOW_FILE_UPLOAD\u003c/code\u003e and \u003ccode\u003eDEKART_CLOUD_STORAGE_BUCKET\u003c/code\u003e unset.\u003c/li\u003e
 \u003c/ul\u003e
 \u003cp\u003eIf you need a local test stack, see the Dekart repository compose profile examples.\u003c/p\u003e
-`},{id:27,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
+`},{id:28,href:"https://dekart.xyz/docs/usage/choose-bigquery-connection-method/",title:"BigQuery Connection Guide",description:"Choose BigQuery Connection Method",content:`\u003cp\u003eDekart offers two ways to connect to BigQuery:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003e\u003cstrong\u003eGoogle Account (OAuth Pass-Through)\u003c/strong\u003e\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eService Account Key (JSON)\u003c/strong\u003e\u003c/li\u003e
@@ -5189,7 +5576,7 @@ This video shows you how to plug your queries directly into Dekart and instantly
 \u003cli\u003eContact us in \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eEmail us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:28,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:29,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
+`},{id:29,href:"https://dekart.xyz/docs/contributing/",title:"Contributing",description:"Contributing to the project",content:""},{id:30,href:"https://dekart.xyz/docs/snowflake-snowpark/about/",title:"Dekart Snowpark Application",description:"Why Dekart Cloud is Secure",content:`\u003cp\u003e\u003cstrong\u003eDekart\u003c/strong\u003e enables you to create powerful \u003cstrong\u003eKepler.gl\u003c/strong\u003e visualizations directly from SQL queries in Snowflake, simplifying the process of visualizing and sharing location data without ETL pipelines.\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/KusNayeGFaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://app.snowflake.com/marketplace/listing/GZSYZJNO4W/dekart-xyz-dekart" role="button"\u003eGet it instantly in Snowflake Marketplace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="-how-dekart-works"\u003e💡 How Dekart Works\u003c/h2\u003e
@@ -5313,7 +5700,7 @@ CALL v1.set_query_warehouse(\u0026#39;MY_WH\u0026#39;);
 \u003cli\u003e\u003ca href="https://github.com/dekart-xyz/dekart/issues"\u003eCreate a GitHub Issue\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eContact us over email \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:30,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
+`},{id:31,href:"https://dekart.xyz/docs/configuration/environment-variables/",title:"Environment Variables",description:"Environment Variables",content:`\u003ch2 id="main-configuration"\u003eMain configuration\u003c/h2\u003e
 \u003cp\u003eDekart runs with zero configuration: by default it uses a built-in SQLite metadata database, local file storage, and file upload, so you can create a map immediately. Override the variables below to point Dekart at your datasource and storage. See \u003ca href="#metadata-storage"\u003eMetadata storage\u003c/a\u003e for persistence and backups, \u003ca href="#authentication"\u003eAuthentication\u003c/a\u003e for SSO, and \u003ca href="#data-source-connectors"\u003eData source connectors\u003c/a\u003e for warehouse settings.\u003c/p\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -5959,7 +6346,7 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-`},{id:31,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
+`},{id:32,href:"https://dekart.xyz/docs/usage/google-cloud-grant-scopes-faq/",title:"Google Cloud Grant Scopes",description:"What permissions am I granting to Dekart, and why are they necessary?",content:`\u003cp class="lead text-left jumbotron p-5"\u003eDekart has been verified by Google’s Trust \u0026 Safety Team to be Compliant with \u003ca href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"\u003eGoogle API Services User Data Policy\u003c/a\u003e – a process \u003ca href="https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"\u003erequired\u003c/a\u003e to approve our Google Authentication consent screen.\u003c/p\u003e
 \u003ch2 id="what-permissions-is-dekart-requesting-and-why-are-they-necessary"\u003eWhat permissions is Dekart requesting, and why are they necessary?\u003c/h2\u003e
 \u003cp\u003eDekart implements BigQuery passthrough authentication (OAuth 2.0 Token Pass-Through) and requests the following permissions:\u003c/p\u003e
 \u003cul\u003e
@@ -5990,7 +6377,7 @@ If required variables are not set, notifications are disabled.\u003c/p\u003e
 \u003c!-- If you have any questions or issues about Dekart Cloud, please contact us via email at [support@dekart.xyz](mailto:support@dekart.xyz) or via [Slack](https://slack.dekart.xyz/). --\u003e
 \u003ch2 id="read-more"\u003eRead more\u003c/h2\u003e
 \u003cp\u003e👉 \u003ca href="/legal/privacy/"\u003eDekart Cloud Privacy Policy\u003c/a\u003e\u003c/p\u003e
-`},{id:32,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
+`},{id:33,href:"https://dekart.xyz/docs/usage/query-parameters/",title:"Query Parameters",description:"Turn your maps in applications with Dekart Query Parameters.",content:`\u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/aItBYkfr530" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e👉 \u003ca href="https://cloud.dekart.xyz/reports/322dbd27-0699-4c41-8a08-a3e023edf981/source?qp_country=DE\u0026amp;qp_region=BE\u0026amp;ref=query-param-example"\u003eExample Map with Query Parameters\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eQuery parameters in Dekart provide a powerful way to make your maps interactive and dynamic. With query parameters, you can create SQL queries that dynamically adjust based on user input. Below is a detailed guide to understanding and using query parameters in Dekart.\u003c/p\u003e
 \u003chr\u003e
@@ -6065,7 +6452,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWhen you share a report with query parameters, the parameters are included in the URL. This allows you to share a report with specific parameters set.\u003c/p\u003e
 \u003cp\u003eUser with Editor and Admin roles, who have access to update the report, can change the query parameters and see the updated results.\u003c/p\u003e
 \u003cp\u003eViewers can view only cached results with the parameters set by the report owner.\u003c/p\u003e
-`},{id:33,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:34,href:"https://dekart.xyz/docs/cloud/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -6086,7 +6473,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:34,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
+`},{id:35,href:"https://dekart.xyz/docs/usage/cloud-security-faq/",title:"Security Considerations",description:"Why Dekart Cloud is Secure",content:`\u003cp class="lead text-left"\u003e\u003ca href="/"\u003eDekart Cloud\u003c/a\u003e is designed to make your cybersecurity and legal teams happy. We achieve it by never storing tokens, and query results in Dekart Cloud backend.\u003c/p\u003e
 \u003c!-- * **Passthrough Authentication**: Short-lived Google OAuth token is passed from your browser to Google APIs and never stored on Dekart Cloud backend.
 
 * **No User Data Storage**: Query results are stored on Google Cloud Storage bucket provided by you.
@@ -6107,7 +6494,7 @@ Example:\u003c/p\u003e
 \u003cp\u003eWe are committed to upholding the principles of GDPR and ensuring that your data rights are respected. We also comply with \u003ca href="https://cloud.google.com/terms/services"\u003eGoogle API Services User Data Policy\u003c/a\u003e and verified by Google\u0026rsquo;s Trust \u0026amp; Safety team.\u003c/p\u003e
 \u003ch3 id="what-support-is-available-if-i-have-issues-or-questions-about-data-access"\u003eWhat support is available if I have issues or questions about data access?\u003c/h3\u003e
 \u003cp\u003eIf you have any questions or issues about data access, please contact us via email at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e or via \u003ca href="https://slack.dekart.xyz/"\u003eSlack\u003c/a\u003e.\u003c/p\u003e
-`},{id:35,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
+`},{id:36,href:"https://dekart.xyz/docs/about/playground/",title:"BigQuery Playground",description:"Dekart BigQuery Playground: Create data-driven geospatial visualizations from BigQuery Public Datasets",content:`\u003cp\u003eCreate Kepler.gl Maps with \u003ca href="/docs/about/kepler-gl-map-examples/"\u003eBigQuery Public Datasets\u003c/a\u003e in seconds using SQL.\u003c/p\u003e
 \u003cp\u003e\u003cmark\u003ePremium alternative to BigQuery GeoViz.\u003c/mark\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="quick-start"\u003eQuick Start\u003c/h2\u003e
@@ -6189,7 +6576,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eNow you can save and share you beautiful Map!\u003c/li\u003e
 \u003c/ol\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-playground" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
-`},{id:36,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
+`},{id:37,href:"https://dekart.xyz/docs/about/your-datasets/",title:"Query Private Datasets",description:"Using Dekart with your team/company internal/private datasets",content:`\u003cp\u003eDekart offers 2 different options to work with private datasets:\u003c/p\u003e
 \u003cp class="lead text-left"\u003e✨\u003ca href="/cloud"\u003e\u003cb\u003eDekart Cloud\u003c/b\u003e\u003c/a\u003e. We host and manage Dekart instance for you. Free for single person use. Subscription plan for teams at the cost of self-hosting.\u003c/p\u003e
 \u003cp\u003e⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private BigQuery datasets\u003c/a\u003e
 ⚙️ \u003ca href="https://cloud.dekart.xyz/"\u003eConfigure access to private Snowflake datasets\u003c/a\u003e\u003c/p\u003e
@@ -6216,7 +6603,7 @@ Example:\u003c/p\u003e
 \u003cli\u003eAWS: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-amazon-load-balancer"\u003econfigure authorization with Amazon Cognito\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003eGoogle Cloud: \u003ca href="/docs/configuration/environment-variables/#user-authorization-via-google-iap"\u003econfigure authorization with Google IAP\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:37,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:38,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Video walkthroughs: create shareable maps from SQL, file uploads, and query parameters",content:`\u003cp class="lead text-left"\u003eSee how Dekart turns SQL queries into shareable maps in under a minute\u003c/p\u003e
+`},{id:38,href:"https://dekart.xyz/docs/",title:"Documentation",description:"Dekart Documentation",content:""},{id:39,href:"https://dekart.xyz/docs/about/screencast/",title:"Dekart Screencast",description:"Video walkthroughs: create shareable maps from SQL, file uploads, and query parameters",content:`\u003cp class="lead text-left"\u003eSee how Dekart turns SQL queries into shareable maps in under a minute\u003c/p\u003e
 \u003cp\u003e\u003ciframe width="560" height="315" src="https://www.youtube.com/embed/_2ryUu43XRo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen\u003e\u003c/iframe\u003e\u003c/p\u003e
 \u003cp\u003e\u003ca class="btn btn-primary" target="_blank" href="https://cloud.dekart.xyz/?ref=create-workspace-screencast" role="button"\u003eCreate Workspace\u003c/a\u003e\u003c/p\u003e
 \u003ch2 id="more-videos"\u003eMore Videos\u003c/h2\u003e
