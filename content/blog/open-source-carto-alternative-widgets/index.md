@@ -45,6 +45,8 @@ Dekart uses DuckDB and SQLRooms instead:
 
 In the video that is 81,268 Overture places from BigQuery, 254 categories, filtered down to 19,800 without a second query. Uploaded files work the same way.
 
+Open the map from the video → [BigQuery places with widgets](https://cloud.dekart.xyz/reports/da0fc606-9921-4ca3-9b51-bb41e2693e58?ref=blog-widgets-bigquery-map)
+
 ## It works with your agent
 
 Dekart runs with [GeoSQL](https://github.com/dekart-xyz/geosql?ref=blog-open-source-carto-alternative-widgets-geosql), the map-in-the-loop harness for Claude and Codex, so the agent can build the dashboard instead of you clicking it together. The prompt in the video:
@@ -55,6 +57,9 @@ color by top category. Use DuckDB. Rewire chart. Name chart, layer.
 ```
 
 Claude aggregated the 81,268 places into 2,053 H3 cells, added the 3D layer, rewired the charts to the new aggregation and named everything for sharing.
+
+* [BigQuery, DuckDB and widgets: the 3D H3 map](https://cloud.dekart.xyz/reports/0bdb4e5e-6cd9-4570-bfc2-7e022a800b3f?ref=blog-widgets-h3-map)
+* [How to update GeoSQL](https://github.com/dekart-xyz/geosql?ref=blog-widgets-geosql-upgrade#how-to-update)
 
 Related reading:
 
