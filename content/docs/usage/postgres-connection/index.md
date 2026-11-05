@@ -100,7 +100,7 @@ References: [Azure PostgreSQL firewall rules](https://learn.microsoft.com/en-us/
 
 ## Supabase
 
-Use this for Supabase Postgres with the PostGIS extension enabled.
+Use this for Supabase Postgres with the PostGIS extension enabled. For a full walkthrough, see the [Supabase connection guide](/docs/usage/supabase-connection/).
 
 1. Open your Supabase project.
 2. Go to **Project Settings** -> **Database** -> **Network Restrictions**.
