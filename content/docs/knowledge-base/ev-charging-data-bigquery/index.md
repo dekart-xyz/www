@@ -1,9 +1,9 @@
 ---
 title: "German EV charging data in BigQuery"
-description: "How to query public EV charging stations, charge points, occupancy history and prices for Germany in BigQuery: tables, definitions, data rules, tested SQL examples and maps."
+description: "How to query public EV charging stations, charge points, occupancy history and prices for Germany in BigQuery, and join them with Overture Maps places, roads and boundaries: tables, definitions, data rules, tested SQL examples and maps."
 lead: "Station locations, plug status history every 4 minutes, daily utilisation and prices for about 36,000 public charging stations in Germany, ready to query in BigQuery."
 date: 2026-11-09T00:00:00Z
-lastmod: 2026-11-09T00:00:00Z
+lastmod: 2026-11-10T00:00:00Z
 draft: false
 weight: 27
 toc: true
@@ -34,7 +34,7 @@ This page explains how to query the dataset correctly. It is written for analyst
 
 ## How to query
 
-Run queries from your own Google Cloud project. Your project pays for the bytes each query reads; the dataset is small, and every example below reads under 200 MB.
+Run queries from your own Google Cloud project. Your project pays for the bytes each query reads; the charging dataset is small, and every charging example below reads under 200 MB. Examples that join Overture Maps read more and list their bytes.
 
 Always use full table names, for example `` `dekart-ev-public-data.ev_charging_v1.stations` ``. In the BigQuery console, set the processing location to `EU` if it is not detected.
 
@@ -504,6 +504,198 @@ GROUP BY h3
 HAVING charge_points >= 10   -- skip cells with too few charge points to compare
 ```
 
+## Join with Overture Maps
+
+Overture Maps data for Germany is in the same project, in dataset `overture_eu` (region `EU`), so you can join it with the charging tables in one query. Access to `ev_charging_v1` includes it.
+
+| Table | One row is | Rows |
+|---|---|---:|
+| `place` | a point of interest: shop, restaurant, fuel station, hotel | 6.3 million |
+| `segment` | a piece of road, rail or path | 20 million |
+| `land_use` | a land use area | 7.2 million |
+| `division_area` | a country, state (`region`), county, city or district boundary | 40,526 |
+| `building` | a building footprint | 60 million |
+| `address` | an address point | 19 million |
+
+The tables are from the latest Overture release; the `release` label on each table names it (`2026-10-21_0` on 10 November 2026). `division_area` and `address` hold rows with `country = 'DE'`. The other four hold every row inside the box lon 5.8 to 15.1, lat 47.2 to 55.1, so they also cover border areas of neighbouring countries; filter with the Germany polygon when that matters (example below). Geometry is in `geometry` (GEOGRAPHY). Columns follow Overture's GeoParquet schema, for example `names.primary` and `taxonomy.primary`; see the [Overture schema docs](https://docs.overturemaps.org/schema/).
+
+Overture's data has its own licences: OpenStreetMap data under ODbL for roads, land use, buildings and boundaries, and per-source licences for places and addresses. Each table's description names them; see [Overture attribution](https://docs.overturemaps.org/attribution/).
+
+Known gaps in this release: `address` has no rows for Bavaria, Berlin or Hamburg, and Berlin and Hamburg have no `county` row (use their `region` row).
+
+These examples read more than the ones above, up to 5.6 GB, because Overture geometries are large. Each lists the bytes it read.
+
+### What is next to high-power chargers
+
+{{< img src="hpc-next-to-place.png" caption="High-power (150 kW+) stations colored by the closest place within 150 m. Green: supermarket, red: fuel station, orange: fast food, blue: DIY, furniture or mall, purple: hotel, grey: none of these." >}}
+
+Color by `next_to`. Reads 0.42 GB.
+
+```sql
+-- What is within 150 m of each high-power (150 kW+) charging station
+WITH hpc AS (
+  SELECT station_id, operator, name, city, dc_charge_point_count, geog
+  FROM `dekart-ev-public-data.ev_charging_v1.stations`
+  WHERE max_power_kw >= 150
+    AND latitude BETWEEN 47.2 AND 55.1 AND longitude BETWEEN 5.8 AND 15.1
+),
+nearby_place AS (
+  SELECT
+    h.station_id,
+    CASE
+      WHEN p.taxonomy.primary IN ('grocery_store', 'discount_store', 'organic_grocery_store') THEN 'Supermarket'
+      WHEN p.taxonomy.primary = 'fast_food_restaurant' THEN 'Fast food'
+      WHEN p.taxonomy.primary IN ('gas_station', 'truck_gas_station') THEN 'Fuel station'
+      WHEN p.taxonomy.primary IN ('hardware_store', 'furniture_store', 'shopping_mall') THEN 'DIY, furniture or mall'
+      WHEN p.taxonomy.primary = 'hotel' THEN 'Hotel'
+    END AS next_to,
+    ST_DISTANCE(h.geog, p.geometry) AS distance_m
+  FROM hpc AS h
+  JOIN `dekart-ev-public-data.overture_eu.place` AS p
+    ON ST_DWITHIN(h.geog, p.geometry, 150)
+  WHERE p.taxonomy.primary IN ('grocery_store', 'discount_store', 'organic_grocery_store', 'fast_food_restaurant',
+                               'gas_station', 'truck_gas_station', 'hardware_store', 'furniture_store',
+                               'shopping_mall', 'hotel')
+    AND p.confidence >= 0.7   -- skip low-confidence places
+)
+SELECT
+  h.station_id,
+  h.operator,
+  h.name,
+  h.city,
+  h.dc_charge_point_count,
+  IFNULL(n.next_to, 'None of these') AS next_to,
+  h.geog AS geometry
+FROM hpc AS h
+LEFT JOIN nearby_place AS n USING (station_id)
+QUALIFY ROW_NUMBER() OVER (PARTITION BY h.station_id ORDER BY n.distance_m) = 1   -- closest place wins
+```
+
+| next_to | stations | share |
+|---|---:|---:|
+| Supermarket | 2,354 | 34% |
+| Fuel station | 2,180 | 31% |
+| None of these | 1,243 | 18% |
+| DIY, furniture or mall | 528 | 8% |
+| Fast food | 401 | 6% |
+| Hotel | 272 | 4% |
+
+### Motorway stretches far from a fast charger
+
+{{< img src="motorway-fast-charger-gaps.png" caption="German motorways by distance to the nearest 150 kW+ station. Blue: under 5 km, yellow: 5 to 10 km, red: 10 km or more." >}}
+
+Color by `distance_band`. Reads 5.6 GB. Distance is measured from the road segment to the station in a straight line, not along the road.
+
+```sql
+-- German motorways and the distance from each segment to the nearest high-power (150 kW+) charging station
+WITH germany AS (
+  SELECT geometry
+  FROM `dekart-ev-public-data.overture_eu.division_area`
+  WHERE subtype = 'country' AND class = 'land'
+),
+motorway AS (
+  SELECT
+    s.id,
+    (SELECT STRING_AGG(DISTINCT r.element.ref) FROM UNNEST(s.routes.list) AS r WHERE r.element.network = 'BAB') AS motorway,
+    s.geometry
+  FROM `dekart-ev-public-data.overture_eu.segment` AS s, germany AS g
+  WHERE s.subtype = 'road' AND s.class = 'motorway' AND s.subclass IS NULL   -- main carriageway, no ramps
+    AND ST_INTERSECTS(s.geometry, g.geometry)   -- the table also covers border areas of neighbouring countries
+),
+hpc AS (
+  SELECT geog
+  FROM `dekart-ev-public-data.ev_charging_v1.stations`
+  WHERE max_power_kw >= 150
+)
+SELECT
+  m.id,
+  m.motorway,
+  ROUND(IFNULL(MIN(ST_DISTANCE(m.geometry, h.geog)), 20000) / 1000, 1) AS km_to_fast_charger,   -- 20 means none within 20 km
+  CASE
+    WHEN IFNULL(MIN(ST_DISTANCE(m.geometry, h.geog)), 20000) < 5000 THEN 'Under 5 km'
+    WHEN MIN(ST_DISTANCE(m.geometry, h.geog)) < 10000 THEN '5 to 10 km'
+    ELSE '10 km or more'
+  END AS distance_band,
+  ROUND(ST_LENGTH(ANY_VALUE(m.geometry)) / 1000, 2) AS length_km,
+  ANY_VALUE(m.geometry) AS geometry
+FROM motorway AS m
+LEFT JOIN hpc AS h
+  ON ST_DWITHIN(m.geometry, h.geog, 20000)
+GROUP BY m.id, m.motorway
+```
+
+The result covers 27,031 km of main carriageway (both directions; the Autobahn network is about 13,200 km long). 417 km are 10 km or more from a high-power station:
+
+| motorway | km 10 km or more from a fast charger |
+|---|---:|
+| A 11 | 81 |
+| A 24 | 39 |
+| A 71 | 37 |
+| A 81 | 36 |
+| A 20 | 29 |
+
+### Fast-charging utilisation by county
+
+{{< img src="county-dc-utilisation.png" caption="DC utilisation per county, 5–8 November 2026. Purple low, yellow high." >}}
+
+Color by `dc_utilisation`; `dc_charge_points_per_100_km2` shows supply. Reads 0.49 GB.
+
+```sql
+-- Fast-charging utilisation and supply per county (Landkreis or kreisfreie Stadt), 5-8 Nov 2026
+WITH county AS (
+  SELECT
+    id, names.primary AS county, region, geometry,
+    -- simplified to 100 m for the map; keep only polygon parts, since simplifying can leave stray lines
+    (SELECT ST_UNION_AGG(part) FROM UNNEST(ST_DUMP(ST_SIMPLIFY(geometry, 100))) AS part
+     WHERE ST_DIMENSION(part) = 2) AS map_geometry
+  FROM `dekart-ev-public-data.overture_eu.division_area`
+  WHERE class = 'land'
+    AND (subtype = 'county' OR (subtype = 'region' AND region IN ('DE-BE', 'DE-HH')))   -- Berlin and Hamburg have no county row
+),
+usage AS (
+  SELECT
+    station_id,
+    SUM(occupied_minutes) AS occupied_minutes,
+    SUM(available_minutes) AS available_minutes,
+    SUM(unknown_minutes) AS unknown_minutes,
+    SUM(occupied_minutes + available_minutes + out_of_service_minutes + unknown_minutes) AS all_minutes
+  FROM `dekart-ev-public-data.ev_charging_v1.station_daily_metrics`
+  WHERE local_date BETWEEN '2026-11-05' AND '2026-11-08'
+  GROUP BY station_id
+),
+station AS (
+  SELECT c.id, s.dc_charge_point_count, u.*
+  FROM `dekart-ev-public-data.ev_charging_v1.stations` AS s
+  JOIN county AS c ON ST_INTERSECTS(s.geog, c.geometry)
+  LEFT JOIN usage AS u USING (station_id)
+  WHERE s.dc_charge_point_count > 0
+)
+SELECT
+  c.county,
+  c.region,
+  COUNT(s.id) AS dc_stations,
+  IFNULL(SUM(s.dc_charge_point_count), 0) AS dc_charge_points,
+  ROUND(IFNULL(SUM(s.dc_charge_point_count), 0) / (ST_AREA(ANY_VALUE(c.geometry)) / 1e6) * 100, 1) AS dc_charge_points_per_100_km2,
+  -- utilisation only from stations whose status was mostly known
+  ROUND(SAFE_DIVIDE(SUM(IF(s.unknown_minutes / s.all_minutes < 0.2, s.occupied_minutes, 0)),
+                    SUM(IF(s.unknown_minutes / s.all_minutes < 0.2, s.occupied_minutes + s.available_minutes, 0))), 3) AS dc_utilisation,
+  ANY_VALUE(c.map_geometry) AS geometry
+FROM county AS c
+LEFT JOIN station AS s USING (id)
+GROUP BY c.id, c.county, c.region
+```
+
+The 401 areas cover 356,178 km² and contain 10,445 of the 10,446 stations with DC charge points (one has coordinates outside Germany). Among counties with at least 20 DC charge points:
+
+| county | dc_charge_points | dc_utilisation |
+|---|---:|---:|
+| Remscheid | 53 | 0.287 |
+| Landkreis Limburg-Weilburg | 152 | 0.259 |
+| Leverkusen | 29 | 0.255 |
+| Uckermark | 105 | 0.045 |
+| Elbe-Elster | 45 | 0.035 |
+| Landkreis Sonneberg | 27 | 0.034 |
+
 ## What will not change
 
 The dataset name `ev_charging_v1` is a promise. Within v1, columns are only added, never renamed, retyped or removed, and new sources and countries only add rows. A change that would break a query goes to a new dataset, `ev_charging_v2`, and v1 stays available for 90 days after it.
@@ -521,3 +713,4 @@ If a daily update fails its checks, the previous day's data stays in place.
 - For current prices, filter `valid_to IS NULL` and the condition columns; expect several rows per charge point.
 - Call `estimated_sessions` an estimate.
 - Credit the sources listed in `sources`.
+- For Overture tables in `overture_eu`, filter with the Germany polygon from `division_area` when border areas matter, and credit Overture and its sources.
