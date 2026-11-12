@@ -6361,7 +6361,17 @@ SELECT planet_features.geometry
 \u003cul\u003e
 \u003cli\u003e\u003ca href="https://cloud.dekart.xyz/reports/aeefb6e0-d83a-489a-b371-50b306535e2d"\u003eLocate empty building plots\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:25,href:"https://dekart.xyz/docs/usage/geosql-claude/",title:"GeoSQL with Claude",description:"Connect Claude to your Dekart Cloud workspace with the GeoSQL MCP server and skill, then ask for maps in plain language.",content:`\u003cp\u003eGeoSQL lets Claude work with the data in your Dekart Cloud workspace: discover tables, write geospatial SQL, check the cost before running it, run it through your Dekart connections, and render the result as a Dekart map that it inspects and corrects itself.\u003c/p\u003e
+`},{id:25,href:"https://dekart.xyz/docs/usage/geosql-claude/",title:"GeoSQL with Claude",description:"Let Claude answer location questions on your data, from EV charging networks to your own tables, and check its SQL against a map. Set up the GeoSQL MCP server and skill for Claude Desktop or Claude Code.",content:`\u003cp\u003eGeoSQL lets Claude answer location questions on the data in your Dekart workspace. It writes the SQL, runs it, and draws the result as a map.\u003c/p\u003e
+\u003cp\u003eClaude made this map from one prompt:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003e/geosql Using dekart-ev-public-data.ev_charging_v1: top 5 EV charging brands in Germany, what chargers they build and where. Map it with evidence.
+\u003c/code\u003e\u003c/pre\u003e\u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/usage/geosql-claude/ev-brands-germany_huf629318fd9c683b48fea9fa8e3c44991_369872_20x0_resize_box_3.png" data-src="https://dekart.xyz/docs/usage/geosql-claude/ev-brands-germany.png" width="1200" height="700" alt="Map of Germany with the charging stations of the top 5 EV charging brands, made by Claude with GeoSQL"\u003e
+
+
+\u003cp\u003eAn agent that only sees rows cannot tell that points landed in the sea or that a join dropped half a country. With the map, Claude can see mistakes like these and correct the SQL before it answers. The map is a check that catches many errors, not a promise that every answer is right.\u003c/p\u003e
+\u003cimg class="img-simple img-fluid lazyload" src="https://dekart.xyz/docs/usage/geosql-claude/maps-in-the-loop_hu0cab705340461a0eb6df3b2a74bc6f08_402736_20x0_resize_box_3.png" data-src="https://dekart.xyz/docs/usage/geosql-claude/maps-in-the-loop.png" width="3840" height="2160" alt="Without a map the agent loops between data and SQL. With a map it checks the SQL against the map, and successful evals go from 10 to 40."\u003e
+
+
+\u003cp\u003e→ \u003ca href="https://www.linkedin.com/posts/bilonenko_this-is-how-we-fixed-llm-hallucinations-in-share-7511652294497697792--2zO/"\u003eThis is how we fixed LLM hallucinations in spatial analytics\u003c/a\u003e\u003c/p\u003e
 \u003cp\u003eTwo pieces do this:\u003c/p\u003e
 \u003cul\u003e
 \u003cli\u003eThe \u003cstrong\u003eGeoSQL MCP server\u003c/strong\u003e gives Claude the Dekart tools: list connections, create reports, run queries, render map snapshots. It runs at \u003ccode\u003ehttps://geosql.dekart.xyz\u003c/code\u003e and forwards every call to Dekart Cloud with your token.\u003c/li\u003e
@@ -6373,10 +6383,11 @@ SELECT planet_features.geometry
 \u003cli\u003eA Dekart Cloud workspace with at least one connection (BigQuery, Snowflake, Postgres or Wherobots) or uploaded files. DuckDB queries over uploaded files need no connection.\u003c/li\u003e
 \u003cli\u003eClaude Desktop, or Claude Code in a terminal.\u003c/li\u003e
 \u003c/ul\u003e
+\u003cp\u003eIf someone invited you to a Dekart workspace, the connection and the data are already there; you only need a token. No invite yet: ask the person who sent you this page, or write to us at \u003ca href="mailto:support@dekart.xyz"\u003esupport@dekart.xyz\u003c/a\u003e.\u003c/p\u003e
 \u003ch2 id="create-an-api-token"\u003eCreate an API token\u003c/h2\u003e
 \u003cp\u003eClaude authenticates to your workspace with a token that you create and can revoke at any time.\u003c/p\u003e
 \u003col\u003e
-\u003cli\u003eOpen your workspace in Dekart Cloud and go to \u003cstrong\u003eWorkspace\u003c/strong\u003e, then the \u003cstrong\u003eAPI tokens\u003c/strong\u003e tab.\u003c/li\u003e
+\u003cli\u003eOpen your workspace in Dekart Cloud and go to \u003cstrong\u003eWorkspace\u003c/strong\u003e, then the \u003cstrong\u003eTokens\u003c/strong\u003e tab.\u003c/li\u003e
 \u003cli\u003eClick \u003cstrong\u003eCreate token\u003c/strong\u003e, give it a name that says which client will use it, for example \u003ccode\u003eClaude Desktop\u003c/code\u003e, and confirm.\u003c/li\u003e
 \u003cli\u003eCopy the token. It is shown once.\u003c/li\u003e
 \u003c/ol\u003e
@@ -6400,6 +6411,9 @@ SELECT planet_features.geometry
 \u003c/ol\u003e
 \u003cp\u003eUpdates to the skill arrive through the marketplace; nothing else to maintain.\u003c/p\u003e
 \u003ch2 id="claude-code"\u003eClaude Code\u003c/h2\u003e
+\u003cp\u003eThe skill and the CLI are open source. The repository has the full setup and the source code.\u003c/p\u003e
+\u003cp class="github-cta-wrapper"\u003e\u003ca href="https://github.com/dekart-xyz/geosql?ref=docs-geosql-claude-claude-code" class="github-cta"\u003e\u003csvg class="github-cta-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"\u003e\u003cpath d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/\u003e\u003c/svg\u003egithub.com/dekart-xyz/geosql\u003c/a\u003e\u003c/p\u003e
+
 \u003ch3 id="add-the-mcp-server"\u003eAdd the MCP server\u003c/h3\u003e
 \u003cp\u003eRun once in a terminal, pasting your token in place of the placeholder:\u003c/p\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-bash" data-lang="bash"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003eclaude mcp add --transport http geosql https://geosql.dekart.xyz/mcp --header \u003cspan class="s2"\u003e\u0026#34;Authorization: Bearer \u0026lt;your token\u0026gt;\u0026#34;\u003c/span\u003e
@@ -6412,8 +6426,8 @@ SELECT planet_features.geometry
 \u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eThe skill detects which one is present. With the MCP server it calls the tools directly; otherwise it uses the CLI.\u003c/p\u003e
 \u003ch2 id="your-first-map"\u003eYour first map\u003c/h2\u003e
 \u003cp\u003eStart a prompt with \u003ccode\u003e/geosql\u003c/code\u003e and describe the question. For example:\u003c/p\u003e
-\u003cpre tabindex="0"\u003e\u003ccode\u003e/geosql Show EV charger density along major roads in Romania and render a map
-\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eClaude then works through the same steps every time:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003e/geosql Using dekart-ev-public-data.ev_charging_v1: top 5 EV charging brands in Germany, what chargers they build and where. Map it with evidence.
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eClaude then works through steps like these. The exact path depends on the question and the data:\u003c/p\u003e
 \u003col\u003e
 \u003cli\u003eLists your Dekart connections and picks the one for the data.\u003c/li\u003e
 \u003cli\u003eDiscovers the tables and columns it needs instead of guessing names.\u003c/li\u003e
@@ -6426,6 +6440,10 @@ SELECT planet_features.geometry
 \u003c/ol\u003e
 \u003cp\u003eOpen the link to explore the map, share it with your workspace, or keep asking Claude to change it. Each report Claude creates is a normal Dekart report that you own.\u003c/p\u003e
 \u003ch2 id="more-prompts-to-try"\u003eMore prompts to try\u003c/h2\u003e
+\u003cp\u003eEV charging:\u003c/p\u003e
+\u003cpre tabindex="0"\u003e\u003ccode\u003e/geosql Using dekart-ev-public-data.ev_charging_v1: compare EnBW and Aral pulse in Munich by number of stations and charger power. Map it.
+\u003c/code\u003e\u003c/pre\u003e\u003cpre tabindex="0"\u003e\u003ccode\u003e/geosql Using dekart-ev-public-data.ev_charging_v1: find areas in Bavaria with fast chargers (150 kW and above) of other brands and no EnBW charger within 5 km. Map the top 20.
+\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eReplace the brand, the place or the distance with your own; the data covers Germany.\u003c/p\u003e
 \u003cp\u003eSite selection:\u003c/p\u003e
 \u003cpre tabindex="0"\u003e\u003ccode\u003e/geosql Find the top 10 locations for a sporting goods store in Seattle based on POI co-location and distance to the nearest competitor. Create a map.
 \u003c/code\u003e\u003c/pre\u003e\u003cp\u003eReal estate:\u003c/p\u003e
@@ -6440,11 +6458,12 @@ SELECT planet_features.geometry
 \u003cli\u003eA map snapshot renders within about a minute. If it times out, Claude points you to the interactive report.\u003c/li\u003e
 \u003c/ul\u003e
 \u003ch2 id="revoking-access"\u003eRevoking access\u003c/h2\u003e
-\u003cp\u003eDelete the token in \u003cstrong\u003eWorkspace\u003c/strong\u003e, \u003cstrong\u003eAPI tokens\u003c/strong\u003e. The next tool call from that client fails with \u0026ldquo;Create a new token in Dekart\u0026rdquo; and returns no data. Create a new token and paste it into the extension to reconnect.\u003c/p\u003e
+\u003cp\u003eDelete the token in \u003cstrong\u003eWorkspace\u003c/strong\u003e, \u003cstrong\u003eTokens\u003c/strong\u003e. The next tool call from that client fails with \u0026ldquo;Create a new token in Dekart\u0026rdquo; and returns no data. Create a new token and paste it into the extension to reconnect.\u003c/p\u003e
 \u003ch2 id="troubleshooting"\u003eTroubleshooting\u003c/h2\u003e
 \u003cul\u003e
 \u003cli\u003e\u003cstrong\u003eClaude says \u0026ldquo;Create a new token in Dekart\u0026rdquo;\u003c/strong\u003e: the token was revoked or expired. Create a new one and update the extension settings or the \u003ccode\u003eclaude mcp add\u003c/code\u003e command.\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eClaude cannot find a connection for your warehouse\u003c/strong\u003e: add it in Dekart under \u003cstrong\u003eConnections\u003c/strong\u003e; Claude cannot create connections.\u003c/li\u003e
+\u003cli\u003e\u003cstrong\u003eClaude does not see the data you were invited to\u003c/strong\u003e: the token was created in another workspace. Switch to the invited workspace and create a new token.\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eNo Dekart tools in the chat\u003c/strong\u003e: check the extension is enabled in Claude Desktop settings, or run \u003ccode\u003eclaude mcp list\u003c/code\u003e in Claude Code.\u003c/li\u003e
 \u003cli\u003e\u003cstrong\u003eClaude runs SQL but never checks cost or the map\u003c/strong\u003e: the skill is missing. Install the plugin as described above.\u003c/li\u003e
 \u003c/ul\u003e
