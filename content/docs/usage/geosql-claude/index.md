@@ -1,17 +1,31 @@
 ---
 title: "GeoSQL with Claude"
-description: "Connect Claude to your Dekart Cloud workspace with the GeoSQL MCP server and skill, then ask for maps in plain language."
+description: "Let Claude answer location questions on your data, from EV charging networks to your own tables, and check its SQL against a map. Set up the GeoSQL MCP server and skill for Claude Desktop or Claude Code."
 date: 2026-11-09T00:00:00+00:00
-lastmod: 2026-11-09T00:00:00+00:00
+lastmod: 2026-11-11T00:00:00+00:00
 draft: false
 menu:
   docs:
     parent: "usage"
-images: []
+images: ["maps-in-the-loop.png"]
 toc: true
 ---
 
-GeoSQL lets Claude work with the data in your Dekart Cloud workspace: discover tables, write geospatial SQL, check the cost before running it, run it through your Dekart connections, and render the result as a Dekart map that it inspects and corrects itself.
+GeoSQL lets Claude answer location questions on the data in your Dekart workspace. It writes the SQL, runs it, and draws the result as a map.
+
+Claude made this map from one prompt:
+
+```
+/geosql Using dekart-ev-public-data.ev_charging_v1: top 5 EV charging brands in Germany, what chargers they build and where. Map it with evidence.
+```
+
+{{< img-simple src="ev-brands-germany.png" alt="Map of Germany with the charging stations of the top 5 EV charging brands, made by Claude with GeoSQL" >}}
+
+An agent that only sees rows cannot tell that points landed in the sea or that a join dropped half a country. With the map, Claude can see mistakes like these and correct the SQL before it answers. The map is a check that catches many errors, not a promise that every answer is right.
+
+{{< img-simple src="maps-in-the-loop.png" alt="Without a map the agent loops between data and SQL. With a map it checks the SQL against the map, and successful evals go from 10 to 40." >}}
+
+→ [This is how we fixed LLM hallucinations in spatial analytics](https://www.linkedin.com/posts/bilonenko_this-is-how-we-fixed-llm-hallucinations-in-share-7511652294497697792--2zO/)
 
 Two pieces do this:
 
@@ -25,11 +39,13 @@ Install both. The server without the skill answers questions but skips the check
 - A Dekart Cloud workspace with at least one connection (BigQuery, Snowflake, Postgres or Wherobots) or uploaded files. DuckDB queries over uploaded files need no connection.
 - Claude Desktop, or Claude Code in a terminal.
 
+If someone invited you to a Dekart workspace, the connection and the data are already there; you only need a token. No invite yet: ask the person who sent you this page, or write to us at [support@dekart.xyz](mailto:support@dekart.xyz).
+
 ## Create an API token
 
 Claude authenticates to your workspace with a token that you create and can revoke at any time.
 
-1. Open your workspace in Dekart Cloud and go to **Workspace**, then the **API tokens** tab.
+1. Open your workspace in Dekart Cloud and go to **Workspace**, then the **Tokens** tab.
 2. Click **Create token**, give it a name that says which client will use it, for example `Claude Desktop`, and confirm.
 3. Copy the token. It is shown once.
 
@@ -59,6 +75,10 @@ The skill is distributed as a Claude plugin from the GeoSQL repository.
 Updates to the skill arrive through the marketplace; nothing else to maintain.
 
 ## Claude Code
+
+The skill and the CLI are open source. The repository has the full setup and the source code.
+
+{{< github-cta repo="dekart-xyz/geosql" ref="docs-geosql-claude-claude-code" >}}
 
 ### Add the MCP server
 
@@ -93,10 +113,10 @@ The skill detects which one is present. With the MCP server it calls the tools d
 Start a prompt with `/geosql` and describe the question. For example:
 
 ```
-/geosql Show EV charger density along major roads in Romania and render a map
+/geosql Using dekart-ev-public-data.ev_charging_v1: top 5 EV charging brands in Germany, what chargers they build and where. Map it with evidence.
 ```
 
-Claude then works through the same steps every time:
+Claude then works through steps like these. The exact path depends on the question and the data:
 
 1. Lists your Dekart connections and picks the one for the data.
 2. Discovers the tables and columns it needs instead of guessing names.
@@ -110,6 +130,18 @@ Claude then works through the same steps every time:
 Open the link to explore the map, share it with your workspace, or keep asking Claude to change it. Each report Claude creates is a normal Dekart report that you own.
 
 ## More prompts to try
+
+EV charging:
+
+```
+/geosql Using dekart-ev-public-data.ev_charging_v1: compare EnBW and Aral pulse in Munich by number of stations and charger power. Map it.
+```
+
+```
+/geosql Using dekart-ev-public-data.ev_charging_v1: find areas in Bavaria with fast chargers (150 kW and above) of other brands and no EnBW charger within 5 km. Map the top 20.
+```
+
+Replace the brand, the place or the distance with your own; the data covers Germany.
 
 Site selection:
 
@@ -138,11 +170,12 @@ Your own data:
 
 ## Revoking access
 
-Delete the token in **Workspace**, **API tokens**. The next tool call from that client fails with "Create a new token in Dekart" and returns no data. Create a new token and paste it into the extension to reconnect.
+Delete the token in **Workspace**, **Tokens**. The next tool call from that client fails with "Create a new token in Dekart" and returns no data. Create a new token and paste it into the extension to reconnect.
 
 ## Troubleshooting
 
 - **Claude says "Create a new token in Dekart"**: the token was revoked or expired. Create a new one and update the extension settings or the `claude mcp add` command.
 - **Claude cannot find a connection for your warehouse**: add it in Dekart under **Connections**; Claude cannot create connections.
+- **Claude does not see the data you were invited to**: the token was created in another workspace. Switch to the invited workspace and create a new token.
 - **No Dekart tools in the chat**: check the extension is enabled in Claude Desktop settings, or run `claude mcp list` in Claude Code.
 - **Claude runs SQL but never checks cost or the map**: the skill is missing. Install the plugin as described above.
