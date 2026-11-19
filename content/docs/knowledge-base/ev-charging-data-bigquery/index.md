@@ -3,7 +3,7 @@ title: "German EV charging data in BigQuery"
 description: "How to query public EV charging stations, charge points, occupancy history and prices for Germany in BigQuery, and join them with Overture Maps places, roads and boundaries: tables, definitions, data rules, tested SQL examples and maps."
 lead: "Station locations, plug status history every 4 minutes, daily utilisation and prices for about 36,000 public charging stations in Germany, ready to query in BigQuery."
 date: 2026-11-09T00:00:00Z
-lastmod: 2026-11-10T00:00:00Z
+lastmod: 2026-11-18T00:00:00Z
 draft: false
 weight: 27
 toc: true
@@ -15,7 +15,7 @@ menu:
     name: "EV charging data in BigQuery"
 ---
 
-This page explains how to query the dataset correctly. It is written for analysts and for AI agents that write SQL against it. Every query and number on this page was run against the data on 9 November 2026.
+This page explains how to query the dataset correctly. It is written for analysts and for AI agents that write SQL against it. Every query on this page was run against the data. Result tables and map images show November 2026 and will differ today.
 
 {{< img src="hpc-size-utilisation.png" caption="High-power (150 kW+) charging stations in Germany, 5–8 November 2026. Size is the number of DC charge points, color is utilisation (dark purple low, yellow high). The SQL is under Maps below." >}}
 
@@ -25,8 +25,8 @@ This page explains how to query the dataset correctly. It is written for analyst
 |---|---|
 | Location | BigQuery project `dekart-ev-public-data`, dataset `ev_charging_v1`, region `EU` |
 | Country | Germany |
-| Stations | 36,265 (35,931 with live status) |
-| Charge points | 133,006 |
+| Stations | About 36,000, nearly all with live status |
+| Charge points | More than 130,000 |
 | Status history | Since 4 November 2026, 16:00 UTC |
 | Status polling | Every 4 minutes (every 2 minutes until 7 November 2026, 06:16 UTC) |
 | Update | Daily, in the early morning UTC, complete through the previous day |
@@ -34,7 +34,7 @@ This page explains how to query the dataset correctly. It is written for analyst
 
 ## How to query
 
-Run queries from your own Google Cloud project. Your project pays for the bytes each query reads; the charging dataset is small, and every charging example below reads under 200 MB. Examples that join Overture Maps read more and list their bytes.
+Run queries from your own Google Cloud project. Your project pays for the bytes each query reads; the charging dataset is small, and the charging examples below read a few hundred MB at most. The two status history tables grow every day, so give them a period. Examples that join Overture Maps read more and list their bytes.
 
 Always use full table names, for example `` `dekart-ev-public-data.ev_charging_v1.stations` ``. In the BigQuery console, set the processing location to `EU` if it is not detected.
 
@@ -48,6 +48,8 @@ Access is granted per Google account or group. To request it, write to support@d
 | `charge_points` | one charge point (EVSE, a plug that charges one car at a time) | plug details, linking prices to stations |
 | `station_hourly_occupancy` | a station in one UTC hour | time-of-day patterns |
 | `station_daily_metrics` | a station on one local day (Europe/Berlin) | utilisation and sessions per day |
+| `charge_point_status_intervals` | one charge point in one stretch of one status | exact status history, time per status in any period |
+| `charging_sessions` | one charge point in one stretch of status CHARGING | counting sessions, session length |
 | `prices` | the price of one charge point over a time range | current prices and price history |
 | `sources` | a data source | licence and the credit line to show |
 
@@ -60,6 +62,8 @@ Two more tables are used internally and may change: `data_coverage` (polling cov
 `station_hourly_occupancy.station_id` and `station_daily_metrics.station_id` → `stations.station_id`
 
 `prices.charge_point_id` → `charge_points.charge_point_id`
+
+`charge_point_status_intervals.charge_point_id` and `charging_sessions.charge_point_id` → `charge_points.charge_point_id`. Both tables also carry `station_id`.
 
 ### stations
 
@@ -95,7 +99,7 @@ A station is one site: locations from the same source and operator at exactly th
 | `first_seen_at`, `last_seen_at` | TIMESTAMP | First and last time listed |
 | `source` | STRING | Source |
 
-Charge points are never deleted. One that is no longer listed keeps its row, and `last_seen_at` shows when it was last listed (3,328 rows on 9 November).
+Charge points are never deleted. One that is no longer listed keeps its row, and `last_seen_at` shows when it was last listed.
 
 ### station_hourly_occupancy and station_daily_metrics
 
@@ -113,10 +117,63 @@ Charge points are never deleted. One that is no longer listed keeps its row, and
 | `status_changes` (hourly) | INT64 | Status changes reported |
 | `utilisation` (daily) | FLOAT64 | `occupied ÷ (occupied + available)` |
 | `estimated_sessions` | INT64 | Changes into CHARGING; an estimate, not a count of real sessions |
+| `eligible_sessions` | INT64 | Changes into CHARGING where the status just before was known: the rows of `charging_sessions` with `start_seen` |
 
 Minutes are summed over charge points, so a station with 4 charge points has up to 240 minutes per hour. Per station and hour, occupied + available + out of service + unknown = `charge_points_known` × 60.
 
 To sum utilisation over several days or stations, add the minutes first and divide once. Do not average the daily `utilisation` values.
+
+### charge_point_status_intervals
+
+The status history of every charge point since 4 November 2026: one row per charge point per stretch of one status.
+
+| Column | Type | Meaning |
+|---|---|---|
+| `charge_point_id` | STRING | Charge point, as in `charge_points` |
+| `station_id` | STRING | Station the charge point belonged to when the row was last built |
+| `start_at`, `end_at` | TIMESTAMP | UTC; the start is included, the end is not |
+| `status` | STRING | The source's status as sent: `AVAILABLE`, `CHARGING`, `BLOCKED`, `RESERVED`, `OUTOFORDER`, `INOPERATIVE`, or any other value a source sends (today `REMOVED`, `STATIC`, `PLANNED`). `UNKNOWN` when the time cannot be trusted |
+| `unknown_reason` | STRING | Set only when `status` is `UNKNOWN`, see below |
+| `start_observed_at` | TIMESTAMP | When the status that starts the row was received; null when the row starts for another reason |
+
+`unknown_reason` says why a stretch is unknown. When several reasons apply, the first in this list wins:
+
+| Value | Meaning |
+|---|---|
+| `FEED_STALE` | The source's feed reported itself stale or not active |
+| `FEED_QUIET` | Kept for later; no row has this value yet |
+| `POLL_MISSED` | A poll was missed and the status changed during the gap |
+| `SOURCE_UNKNOWN` | The source reported the status UNKNOWN |
+| `BEFORE_FIRST_STATUS` | Before the charge point's status was first seen |
+
+Rows of one charge point never overlap, and they leave no hole from its first row to the latest update. The only exception is a charge point whose source replaced its identifier.
+
+Two rows next to each other never have the same `status` and `unknown_reason`, so you never need to join rows back together.
+
+A row that is still running has `end_at` equal to the time of the latest update; the next daily update extends it.
+
+Rows that end within the last three days can change in a later update. Older rows change only when a source delivers a status late.
+
+The table is partitioned by the date of `start_at`. A row can start before the period you ask for, so filter with `end_at > period start AND start_at < period end` and cut the row to the period, as in the example below.
+
+The hourly and daily minute columns, `eligible_sessions` and `charge_points_known` can be computed from this table. A status outside the six named ones counts as unknown minutes there. `status_changes` and `estimated_sessions` are counts of the changes received and cannot be computed from it.
+
+### charging_sessions
+
+One row per `CHARGING` row of `charge_point_status_intervals`.
+
+| Column | Type | Meaning |
+|---|---|---|
+| `charge_point_id`, `station_id`, `start_at`, `end_at` | | As in `charge_point_status_intervals` |
+| `minutes` | FLOAT64 | Length of the session |
+| `start_seen` | BOOL | The row just before is `AVAILABLE`, `BLOCKED`, `RESERVED`, `OUTOFORDER` or `INOPERATIVE` |
+| `end_seen` | BOOL | The row just after exists and is one of those five; false while the session is still running |
+
+A session whose start or end was not seen can be longer than `minutes` says.
+
+A session is a stretch of status CHARGING, not a payment or a delivered amount of energy.
+
+The number of sessions with `start_seen` per station and hour equals `eligible_sessions`. Ten station-hours on 5 November 2026 are one lower in `eligible_sessions`.
 
 ### prices
 
@@ -150,23 +207,23 @@ Each charge point's status is read every 4 minutes. The time between two status 
 
 ## Rules for reliable results
 
-Check unknown minutes. Unknown share varies by source and day; on 6 November it was 0.1% for EnBW and 87% for Inergia. Leave out stations whose unknown share is high, for example over 20%.
+Check unknown minutes. Unknown share varies a lot by source and day. Leave out stations whose unknown share is high, for example over 20%.
 
 Leave out stations that never change status. A charge point stuck in one status reports 100% utilisation with no sessions. Requiring a few `estimated_sessions` over the period removes them.
 
 Utilisation ignores out-of-service and unknown minutes. A station that was occupied for one hour and out of service for the rest of the week reports 100%.
 
-Start from 5 November. Status history starts on 4 November at 16:00 UTC, so 4 November is a partial day with high unknown minutes.
+Leave out the first day of status history. It is a partial day with high unknown minutes.
 
-Compare across 7 November with care. Polling changed from every 2 to every 4 minutes on 7 November at 06:16 UTC. Four-minute polling misses about 5% of short status changes, so `estimated_sessions` is a few percent lower afterwards; charging minutes change by less than 0.1%.
+Compare across a change in polling with care. Less frequent polling misses more short status changes, so `estimated_sessions` is lower afterwards; charging minutes hardly change.
 
 Use `local_date` for days and convert `hour_utc` for hours. Daily tables use German local days. For local hours, use `DATETIME(hour_utc, 'Europe/Berlin')`.
 
-Filter `charge_point_count > 0` for occupancy and maps. 333 stations exist only to carry Tesla prices from Mobilithek and have no charge points.
+Filter `charge_point_count > 0` for occupancy and maps. Some stations exist only to carry prices and have no charge points.
 
-Filter coordinates to Germany for maps. 9 stations have coordinates outside Germany because of source errors: `latitude BETWEEN 47.2 AND 55.1 AND longitude BETWEEN 5.8 AND 15.1`.
+Filter coordinates to Germany for maps. A few stations have coordinates outside Germany because of source errors: `latitude BETWEEN 47.2 AND 55.1 AND longitude BETWEEN 5.8 AND 15.1`.
 
-Pick price rows explicitly. For a single current energy price, use rows with `valid_to IS NULL`, a non-null `price_eur_per_kwh_incl_vat`, and no time-of-day or session-length condition. About 1,500 charge points still have more than one such row; take the lowest.
+Pick price rows explicitly. For a single current energy price, use rows with `valid_to IS NULL`, a non-null `price_eur_per_kwh_incl_vat`, and no time-of-day or session-length condition. Some charge points still have more than one such row; take the lowest.
 
 ## Example queries
 
@@ -220,13 +277,7 @@ ORDER BY utilisation DESC
 LIMIT 10
 ```
 
-| station_id | operator | city | dc_charge_point_count | utilisation | estimated_sessions |
-|---|---|---|---:|---:|---:|
-| DE:mobidata:323680 | Shell Recharge | Arnsberg | 4 | 0.673 | 43 |
-| DE:mobidata:325833 | Shell Recharge | Monheim | 4 | 0.634 | 42 |
-| DE:mobidata:343070 | Fastned | Bühl | 12 | 0.594 | 251 |
-
-Without the two `HAVING` conditions, the top 10 are all stations at 100% utilisation with zero sessions.
+Without the two `HAVING` conditions, the top of the list is stations at 100% utilisation with zero sessions.
 
 ### Utilisation by hour of day
 
@@ -243,7 +294,7 @@ GROUP BY local_hour
 ORDER BY local_hour
 ```
 
-For stations with DC charging, utilisation was lowest at 03:00 (3.4%) and highest at 12:00 (21.6%) local time.
+For stations with DC charging, utilisation is lowest in the early morning and highest around midday, local time.
 
 ### Current energy price by operator
 
@@ -274,15 +325,6 @@ ORDER BY dc_charge_points_priced DESC
 LIMIT 10
 ```
 
-| operator | dc_charge_points_priced | median_eur_per_kwh |
-|---|---:|---:|
-| ENBW | 9,834 | 0.79 |
-| Aral pulse | 4,168 | 0.96 |
-| Tesla, Inc. | 4,027 | 0.53 |
-| Shell Recharge | 2,512 | 0.79 |
-| Allego | 2,104 | 0.76 |
-| IONITY | 1,620 | 0.72 |
-
 ### Data quality per source and day
 
 ```sql
@@ -299,6 +341,70 @@ ORDER BY 1, 2
 ```
 
 Run this before comparing operators or days.
+
+### Time per status in a period
+
+The last 7 full UTC days. Each row is cut to the period, because a row can start before it or still be running.
+
+```sql
+WITH period AS (
+  SELECT
+    TIMESTAMP_SUB(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL 7 DAY) AS p0,
+    TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY) AS p1
+)
+SELECT
+  i.status,
+  ROUND(SUM(TIMESTAMP_DIFF(LEAST(i.end_at, p.p1), GREATEST(i.start_at, p.p0), SECOND)) / 3600) AS hours
+FROM `dekart-ev-public-data.ev_charging_v1.charge_point_status_intervals` AS i
+CROSS JOIN period AS p
+WHERE i.end_at > p.p0    -- rows that touch the period
+  AND i.start_at < p.p1
+GROUP BY i.status
+ORDER BY hours DESC
+```
+
+### How late statuses arrive, per source
+
+```sql
+SELECT
+  c.source,
+  COUNT(*) AS statuses,
+  APPROX_QUANTILES(TIMESTAMP_DIFF(i.start_observed_at, i.start_at, MINUTE), 100)[OFFSET(50)] AS median_minutes_late,
+  APPROX_QUANTILES(TIMESTAMP_DIFF(i.start_observed_at, i.start_at, MINUTE), 100)[OFFSET(99)] AS p99_minutes_late
+FROM `dekart-ev-public-data.ev_charging_v1.charge_point_status_intervals` AS i
+JOIN `dekart-ev-public-data.ev_charging_v1.charge_points` AS c USING (charge_point_id)
+WHERE i.start_observed_at IS NOT NULL
+  AND i.start_at >= TIMESTAMP_SUB(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL 7 DAY)
+GROUP BY c.source
+ORDER BY statuses DESC
+```
+
+Most statuses arrive within a few minutes. A small share arrives hours late, which is why rows of the last three days can still change.
+
+### Short sessions per station
+
+Sessions under 5 minutes at stations of 150 kW or more, over the last 7 days.
+
+```sql
+SELECT
+  s.station_id,
+  s.operator,
+  s.city,
+  COUNT(*) AS sessions,
+  COUNTIF(cs.start_seen AND cs.end_seen AND cs.minutes < 5) AS short_sessions,
+  ROUND(SAFE_DIVIDE(COUNTIF(cs.start_seen AND cs.end_seen AND cs.minutes < 5), COUNT(*)), 3) AS short_share
+FROM `dekart-ev-public-data.ev_charging_v1.charging_sessions` AS cs
+JOIN `dekart-ev-public-data.ev_charging_v1.stations` AS s USING (station_id)
+WHERE cs.start_at >= TIMESTAMP_SUB(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL 7 DAY)
+  AND ((cs.start_seen AND cs.end_seen) OR cs.minutes >= 10)  -- both ends seen, or long enough anyway
+  AND s.max_power_kw >= 150
+GROUP BY 1, 2, 3
+HAVING sessions >= 200
+ORDER BY short_share DESC
+LIMIT 10
+```
+
+Count a session as short only when both its ends were seen. A session with an unseen end can look short because the data stopped, not because the car left.
 
 ### Credit lines
 
@@ -709,8 +815,10 @@ If a daily update fails its checks, the previous day's data stays in place.
 - Compute utilisation as `SUM(occupied_minutes) / SUM(occupied_minutes + available_minutes)`; never average ratios.
 - Exclude stations with a high unknown share and stations with no `estimated_sessions` when ranking.
 - Use `local_date` for days; convert `hour_utc` with `DATETIME(hour_utc, 'Europe/Berlin')` for local hours.
-- Start time series on 5 November 2026; note the polling change on 7 November 2026.
+- Leave out the first day of status history, and note changes in polling (both under At a glance).
 - For current prices, filter `valid_to IS NULL` and the condition columns; expect several rows per charge point.
 - Call `estimated_sessions` an estimate.
+- For time per status in a period, use `charge_point_status_intervals`, filter `end_at > period start AND start_at < period end`, and cut each row to the period.
+- For session counts and lengths, use `charging_sessions`; trust a length only when `start_seen` and `end_seen` are both true.
 - Credit the sources listed in `sources`.
 - For Overture tables in `overture_eu`, filter with the Germany polygon from `division_area` when border areas matter, and credit Overture and its sources.
