@@ -2197,7 +2197,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003e\u003ca href="/docs/knowledge-base/st-aswkt-bigquery/"\u003eST_ASWKT in BigQuery: 3 working examples\u003c/a\u003e\u003c/li\u003e
 \u003cli\u003e\u003ca href="/docs/knowledge-base/overture-maps-snowflake-marketplace/"\u003eGet Overture Maps in Snowflake from the Marketplace\u003c/a\u003e\u003c/li\u003e
 \u003c/ul\u003e
-`},{id:10,href:"https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/",title:"German EV charging data in BigQuery",description:"How to query public EV charging stations, charge points, occupancy history and prices for Germany in BigQuery, and join them with Overture Maps places, roads and boundaries: tables, definitions, data rules, tested SQL examples and maps.",content:`\u003cp\u003eThis page explains how to query the dataset correctly. It is written for analysts and for AI agents that write SQL against it. Every query and number on this page was run against the data on 9 November 2026.\u003c/p\u003e
+`},{id:10,href:"https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/",title:"German EV charging data in BigQuery",description:"How to query public EV charging stations, charge points, occupancy history and prices for Germany in BigQuery, and join them with Overture Maps places, roads and boundaries: tables, definitions, data rules, tested SQL examples and maps.",content:`\u003cp\u003eThis page explains how to query the dataset correctly. It is written for analysts and for AI agents that write SQL against it. Every query on this page was run against the data. Result tables and map images show November 2026 and will differ today.\u003c/p\u003e
 \u003cfigure\u003e
   \u003cimg
     class="img-fluid lazyload"
@@ -2235,11 +2235,11 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003eStations\u003c/td\u003e
-\u003ctd\u003e36,265 (35,931 with live status)\u003c/td\u003e
+\u003ctd\u003eAbout 36,000, nearly all with live status\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003eCharge points\u003c/td\u003e
-\u003ctd\u003e133,006\u003c/td\u003e
+\u003ctd\u003eMore than 130,000\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
 \u003ctd\u003eStatus history\u003c/td\u003e
@@ -2260,7 +2260,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/tbody\u003e
 \u003c/table\u003e
 \u003ch2 id="how-to-query"\u003eHow to query\u003c/h2\u003e
-\u003cp\u003eRun queries from your own Google Cloud project. Your project pays for the bytes each query reads; the charging dataset is small, and every charging example below reads under 200 MB. Examples that join Overture Maps read more and list their bytes.\u003c/p\u003e
+\u003cp\u003eRun queries from your own Google Cloud project. Your project pays for the bytes each query reads; the charging dataset is small, and the charging examples below read a few hundred MB at most. The two status history tables grow every day, so give them a period. Examples that join Overture Maps read more and list their bytes.\u003c/p\u003e
 \u003cp\u003eAlways use full table names, for example \u003ccode\u003e\`dekart-ev-public-data.ev_charging_v1.stations\`\u003c/code\u003e. In the BigQuery console, set the processing location to \u003ccode\u003eEU\u003c/code\u003e if it is not detected.\u003c/p\u003e
 \u003cp\u003eAccess is granted per Google account or group. To request it, write to support@dekart.xyz.\u003c/p\u003e
 \u003ch2 id="tables"\u003eTables\u003c/h2\u003e
@@ -2294,6 +2294,16 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ctd\u003eutilisation and sessions per day\u003c/td\u003e
 \u003c/tr\u003e
 \u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003echarge_point_status_intervals\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eone charge point in one stretch of one status\u003c/td\u003e
+\u003ctd\u003eexact status history, time per status in any period\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003echarging_sessions\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eone charge point in one stretch of status CHARGING\u003c/td\u003e
+\u003ctd\u003ecounting sessions, session length\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
 \u003ctd\u003e\u003ccode\u003eprices\u003c/code\u003e\u003c/td\u003e
 \u003ctd\u003ethe price of one charge point over a time range\u003c/td\u003e
 \u003ctd\u003ecurrent prices and price history\u003c/td\u003e
@@ -2310,6 +2320,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cp\u003e\u003ccode\u003echarge_points.station_id\u003c/code\u003e → \u003ccode\u003estations.station_id\u003c/code\u003e\u003c/p\u003e
 \u003cp\u003e\u003ccode\u003estation_hourly_occupancy.station_id\u003c/code\u003e and \u003ccode\u003estation_daily_metrics.station_id\u003c/code\u003e → \u003ccode\u003estations.station_id\u003c/code\u003e\u003c/p\u003e
 \u003cp\u003e\u003ccode\u003eprices.charge_point_id\u003c/code\u003e → \u003ccode\u003echarge_points.charge_point_id\u003c/code\u003e\u003c/p\u003e
+\u003cp\u003e\u003ccode\u003echarge_point_status_intervals.charge_point_id\u003c/code\u003e and \u003ccode\u003echarging_sessions.charge_point_id\u003c/code\u003e → \u003ccode\u003echarge_points.charge_point_id\u003c/code\u003e. Both tables also carry \u003ccode\u003estation_id\u003c/code\u003e.\u003c/p\u003e
 \u003ch3 id="stations"\u003estations\u003c/h3\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -2445,7 +2456,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
-\u003cp\u003eCharge points are never deleted. One that is no longer listed keeps its row, and \u003ccode\u003elast_seen_at\u003c/code\u003e shows when it was last listed (3,328 rows on 9 November).\u003c/p\u003e
+\u003cp\u003eCharge points are never deleted. One that is no longer listed keeps its row, and \u003ccode\u003elast_seen_at\u003c/code\u003e shows when it was last listed.\u003c/p\u003e
 \u003ch3 id="station_hourly_occupancy-and-station_daily_metrics"\u003estation_hourly_occupancy and station_daily_metrics\u003c/h3\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -2516,10 +2527,131 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ctd\u003eINT64\u003c/td\u003e
 \u003ctd\u003eChanges into CHARGING; an estimate, not a count of real sessions\u003c/td\u003e
 \u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eeligible_sessions\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eINT64\u003c/td\u003e
+\u003ctd\u003eChanges into CHARGING where the status just before was known: the rows of \u003ccode\u003echarging_sessions\u003c/code\u003e with \u003ccode\u003estart_seen\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
 \u003cp\u003eMinutes are summed over charge points, so a station with 4 charge points has up to 240 minutes per hour. Per station and hour, occupied + available + out of service + unknown = \u003ccode\u003echarge_points_known\u003c/code\u003e × 60.\u003c/p\u003e
 \u003cp\u003eTo sum utilisation over several days or stations, add the minutes first and divide once. Do not average the daily \u003ccode\u003eutilisation\u003c/code\u003e values.\u003c/p\u003e
+\u003ch3 id="charge_point_status_intervals"\u003echarge_point_status_intervals\u003c/h3\u003e
+\u003cp\u003eThe status history of every charge point since 4 November 2026: one row per charge point per stretch of one status.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eColumn\u003c/th\u003e
+\u003cth\u003eType\u003c/th\u003e
+\u003cth\u003eMeaning\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003echarge_point_id\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eSTRING\u003c/td\u003e
+\u003ctd\u003eCharge point, as in \u003ccode\u003echarge_points\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003estation_id\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eSTRING\u003c/td\u003e
+\u003ctd\u003eStation the charge point belonged to when the row was last built\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003estart_at\u003c/code\u003e, \u003ccode\u003eend_at\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eTIMESTAMP\u003c/td\u003e
+\u003ctd\u003eUTC; the start is included, the end is not\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003estatus\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eSTRING\u003c/td\u003e
+\u003ctd\u003eThe source\u0026rsquo;s status as sent: \u003ccode\u003eAVAILABLE\u003c/code\u003e, \u003ccode\u003eCHARGING\u003c/code\u003e, \u003ccode\u003eBLOCKED\u003c/code\u003e, \u003ccode\u003eRESERVED\u003c/code\u003e, \u003ccode\u003eOUTOFORDER\u003c/code\u003e, \u003ccode\u003eINOPERATIVE\u003c/code\u003e, or any other value a source sends (today \u003ccode\u003eREMOVED\u003c/code\u003e, \u003ccode\u003eSTATIC\u003c/code\u003e, \u003ccode\u003ePLANNED\u003c/code\u003e). \u003ccode\u003eUNKNOWN\u003c/code\u003e when the time cannot be trusted\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eunknown_reason\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eSTRING\u003c/td\u003e
+\u003ctd\u003eSet only when \u003ccode\u003estatus\u003c/code\u003e is \u003ccode\u003eUNKNOWN\u003c/code\u003e, see below\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003estart_observed_at\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eTIMESTAMP\u003c/td\u003e
+\u003ctd\u003eWhen the status that starts the row was received; null when the row starts for another reason\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003e\u003ccode\u003eunknown_reason\u003c/code\u003e says why a stretch is unknown. When several reasons apply, the first in this list wins:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eValue\u003c/th\u003e
+\u003cth\u003eMeaning\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eFEED_STALE\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eThe source\u0026rsquo;s feed reported itself stale or not active\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eFEED_QUIET\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eKept for later; no row has this value yet\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003ePOLL_MISSED\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eA poll was missed and the status changed during the gap\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eSOURCE_UNKNOWN\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eThe source reported the status UNKNOWN\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eBEFORE_FIRST_STATUS\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eBefore the charge point\u0026rsquo;s status was first seen\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eRows of one charge point never overlap, and they leave no hole from its first row to the latest update. The only exception is a charge point whose source replaced its identifier.\u003c/p\u003e
+\u003cp\u003eTwo rows next to each other never have the same \u003ccode\u003estatus\u003c/code\u003e and \u003ccode\u003eunknown_reason\u003c/code\u003e, so you never need to join rows back together.\u003c/p\u003e
+\u003cp\u003eA row that is still running has \u003ccode\u003eend_at\u003c/code\u003e equal to the time of the latest update; the next daily update extends it.\u003c/p\u003e
+\u003cp\u003eRows that end within the last three days can change in a later update. Older rows change only when a source delivers a status late.\u003c/p\u003e
+\u003cp\u003eThe table is partitioned by the date of \u003ccode\u003estart_at\u003c/code\u003e. A row can start before the period you ask for, so filter with \u003ccode\u003eend_at \u0026gt; period start AND start_at \u0026lt; period end\u003c/code\u003e and cut the row to the period, as in the example below.\u003c/p\u003e
+\u003cp\u003eThe hourly and daily minute columns, \u003ccode\u003eeligible_sessions\u003c/code\u003e and \u003ccode\u003echarge_points_known\u003c/code\u003e can be computed from this table. A status outside the six named ones counts as unknown minutes there. \u003ccode\u003estatus_changes\u003c/code\u003e and \u003ccode\u003eestimated_sessions\u003c/code\u003e are counts of the changes received and cannot be computed from it.\u003c/p\u003e
+\u003ch3 id="charging_sessions"\u003echarging_sessions\u003c/h3\u003e
+\u003cp\u003eOne row per \u003ccode\u003eCHARGING\u003c/code\u003e row of \u003ccode\u003echarge_point_status_intervals\u003c/code\u003e.\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eColumn\u003c/th\u003e
+\u003cth\u003eType\u003c/th\u003e
+\u003cth\u003eMeaning\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003echarge_point_id\u003c/code\u003e, \u003ccode\u003estation_id\u003c/code\u003e, \u003ccode\u003estart_at\u003c/code\u003e, \u003ccode\u003eend_at\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003e\u003c/td\u003e
+\u003ctd\u003eAs in \u003ccode\u003echarge_point_status_intervals\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eminutes\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eFLOAT64\u003c/td\u003e
+\u003ctd\u003eLength of the session\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003estart_seen\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eBOOL\u003c/td\u003e
+\u003ctd\u003eThe row just before is \u003ccode\u003eAVAILABLE\u003c/code\u003e, \u003ccode\u003eBLOCKED\u003c/code\u003e, \u003ccode\u003eRESERVED\u003c/code\u003e, \u003ccode\u003eOUTOFORDER\u003c/code\u003e or \u003ccode\u003eINOPERATIVE\u003c/code\u003e\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eend_seen\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eBOOL\u003c/td\u003e
+\u003ctd\u003eThe row just after exists and is one of those five; false while the session is still running\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eA session whose start or end was not seen can be longer than \u003ccode\u003eminutes\u003c/code\u003e says.\u003c/p\u003e
+\u003cp\u003eA session is a stretch of status CHARGING, not a payment or a delivered amount of energy.\u003c/p\u003e
+\u003cp\u003eThe number of sessions with \u003ccode\u003estart_seen\u003c/code\u003e per station and hour equals \u003ccode\u003eeligible_sessions\u003c/code\u003e. Ten station-hours on 5 November 2026 are one lower in \u003ccode\u003eeligible_sessions\u003c/code\u003e.\u003c/p\u003e
 \u003ch3 id="prices"\u003eprices\u003c/h3\u003e
 \u003ctable\u003e
 \u003cthead\u003e
@@ -2598,15 +2730,15 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003ethe source reported the status UNKNOWN.\u003c/li\u003e
 \u003c/ul\u003e
 \u003ch2 id="rules-for-reliable-results"\u003eRules for reliable results\u003c/h2\u003e
-\u003cp\u003eCheck unknown minutes. Unknown share varies by source and day; on 6 November it was 0.1% for EnBW and 87% for Inergia. Leave out stations whose unknown share is high, for example over 20%.\u003c/p\u003e
+\u003cp\u003eCheck unknown minutes. Unknown share varies a lot by source and day. Leave out stations whose unknown share is high, for example over 20%.\u003c/p\u003e
 \u003cp\u003eLeave out stations that never change status. A charge point stuck in one status reports 100% utilisation with no sessions. Requiring a few \u003ccode\u003eestimated_sessions\u003c/code\u003e over the period removes them.\u003c/p\u003e
 \u003cp\u003eUtilisation ignores out-of-service and unknown minutes. A station that was occupied for one hour and out of service for the rest of the week reports 100%.\u003c/p\u003e
-\u003cp\u003eStart from 5 November. Status history starts on 4 November at 16:00 UTC, so 4 November is a partial day with high unknown minutes.\u003c/p\u003e
-\u003cp\u003eCompare across 7 November with care. Polling changed from every 2 to every 4 minutes on 7 November at 06:16 UTC. Four-minute polling misses about 5% of short status changes, so \u003ccode\u003eestimated_sessions\u003c/code\u003e is a few percent lower afterwards; charging minutes change by less than 0.1%.\u003c/p\u003e
+\u003cp\u003eLeave out the first day of status history. It is a partial day with high unknown minutes.\u003c/p\u003e
+\u003cp\u003eCompare across a change in polling with care. Less frequent polling misses more short status changes, so \u003ccode\u003eestimated_sessions\u003c/code\u003e is lower afterwards; charging minutes hardly change.\u003c/p\u003e
 \u003cp\u003eUse \u003ccode\u003elocal_date\u003c/code\u003e for days and convert \u003ccode\u003ehour_utc\u003c/code\u003e for hours. Daily tables use German local days. For local hours, use \u003ccode\u003eDATETIME(hour_utc, 'Europe/Berlin')\u003c/code\u003e.\u003c/p\u003e
-\u003cp\u003eFilter \u003ccode\u003echarge_point_count \u0026gt; 0\u003c/code\u003e for occupancy and maps. 333 stations exist only to carry Tesla prices from Mobilithek and have no charge points.\u003c/p\u003e
-\u003cp\u003eFilter coordinates to Germany for maps. 9 stations have coordinates outside Germany because of source errors: \u003ccode\u003elatitude BETWEEN 47.2 AND 55.1 AND longitude BETWEEN 5.8 AND 15.1\u003c/code\u003e.\u003c/p\u003e
-\u003cp\u003ePick price rows explicitly. For a single current energy price, use rows with \u003ccode\u003evalid_to IS NULL\u003c/code\u003e, a non-null \u003ccode\u003eprice_eur_per_kwh_incl_vat\u003c/code\u003e, and no time-of-day or session-length condition. About 1,500 charge points still have more than one such row; take the lowest.\u003c/p\u003e
+\u003cp\u003eFilter \u003ccode\u003echarge_point_count \u0026gt; 0\u003c/code\u003e for occupancy and maps. Some stations exist only to carry prices and have no charge points.\u003c/p\u003e
+\u003cp\u003eFilter coordinates to Germany for maps. A few stations have coordinates outside Germany because of source errors: \u003ccode\u003elatitude BETWEEN 47.2 AND 55.1 AND longitude BETWEEN 5.8 AND 15.1\u003c/code\u003e.\u003c/p\u003e
+\u003cp\u003ePick price rows explicitly. For a single current energy price, use rows with \u003ccode\u003evalid_to IS NULL\u003c/code\u003e, a non-null \u003ccode\u003eprice_eur_per_kwh_incl_vat\u003c/code\u003e, and no time-of-day or session-length condition. Some charge points still have more than one such row; take the lowest.\u003c/p\u003e
 \u003ch2 id="example-queries"\u003eExample queries\u003c/h2\u003e
 \u003ch3 id="fast-chargers-near-a-place"\u003eFast chargers near a place\u003c/h3\u003e
 \u003cp\u003eDC stations of 150 kW or more within 5 km of Stuttgart main station:\u003c/p\u003e
@@ -2681,45 +2813,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="w"\u003e   \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eestimated_sessions\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e7\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- skip plugs stuck in one status all week
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eutilisation\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eLIMIT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e10\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003estation_id\u003c/th\u003e
-\u003cth\u003eoperator\u003c/th\u003e
-\u003cth\u003ecity\u003c/th\u003e
-\u003cth style="text-align:right"\u003edc_charge_point_count\u003c/th\u003e
-\u003cth style="text-align:right"\u003eutilisation\u003c/th\u003e
-\u003cth style="text-align:right"\u003eestimated_sessions\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003eDE:mobidata:323680\u003c/td\u003e
-\u003ctd\u003eShell Recharge\u003c/td\u003e
-\u003ctd\u003eArnsberg\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e4\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.673\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e43\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003eDE:mobidata:325833\u003c/td\u003e
-\u003ctd\u003eShell Recharge\u003c/td\u003e
-\u003ctd\u003eMonheim\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e4\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.634\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e42\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003eDE:mobidata:343070\u003c/td\u003e
-\u003ctd\u003eFastned\u003c/td\u003e
-\u003ctd\u003eBühl\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e12\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.594\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e251\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003cp\u003eWithout the two \u003ccode\u003eHAVING\u003c/code\u003e conditions, the top 10 are all stations at 100% utilisation with zero sessions.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eWithout the two \u003ccode\u003eHAVING\u003c/code\u003e conditions, the top of the list is stations at 100% utilisation with zero sessions.\u003c/p\u003e
 \u003ch3 id="utilisation-by-hour-of-day"\u003eUtilisation by hour of day\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eEXTRACT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eHOUR\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eDATETIME\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eh\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ehour_utc\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;Europe/Berlin\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elocal_hour\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
@@ -2731,7 +2825,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003edc_charge_point_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elocal_hour\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elocal_hour\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eFor stations with DC charging, utilisation was lowest at 03:00 (3.4%) and highest at 12:00 (21.6%) local time.\u003c/p\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eFor stations with DC charging, utilisation is lowest in the early morning and highest around midday, local time.\u003c/p\u003e
 \u003ch3 id="current-energy-price-by-operator"\u003eCurrent energy price by operator\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecurrent_energy_price\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- Open price rows (valid_to IS NULL) without time-of-day or duration conditions.
@@ -2757,48 +2851,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eHAVING\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edc_charge_points_priced\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e200\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003edc_charge_points_priced\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eLIMIT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e10\u003c/span\u003e\u003cspan class="w"\u003e
-\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ctable\u003e
-\u003cthead\u003e
-\u003ctr\u003e
-\u003cth\u003eoperator\u003c/th\u003e
-\u003cth style="text-align:right"\u003edc_charge_points_priced\u003c/th\u003e
-\u003cth style="text-align:right"\u003emedian_eur_per_kwh\u003c/th\u003e
-\u003c/tr\u003e
-\u003c/thead\u003e
-\u003ctbody\u003e
-\u003ctr\u003e
-\u003ctd\u003eENBW\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e9,834\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.79\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003eAral pulse\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e4,168\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.96\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003eTesla, Inc.\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e4,027\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.53\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003eShell Recharge\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e2,512\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.79\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003eAllego\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e2,104\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.76\u003c/td\u003e
-\u003c/tr\u003e
-\u003ctr\u003e
-\u003ctd\u003eIONITY\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e1,620\u003c/td\u003e
-\u003ctd style="text-align:right"\u003e0.72\u003c/td\u003e
-\u003c/tr\u003e
-\u003c/tbody\u003e
-\u003c/table\u003e
-\u003ch3 id="data-quality-per-source-and-day"\u003eData quality per source and day\u003c/h3\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="data-quality-per-source-and-day"\u003eData quality per source and day\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003elocal_date\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003esource\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
@@ -2810,6 +2863,54 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e2\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e2\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eRun this before comparing operators or days.\u003c/p\u003e
+\u003ch3 id="time-per-status-in-a-period"\u003eTime per status in a period\u003c/h3\u003e
+\u003cp\u003eThe last 7 full UTC days. Each row is cut to the period, because a row can start before it or still be running.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eperiod\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_SUB\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_TRUNC\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eCURRENT_TIMESTAMP\u003c/span\u003e\u003cspan class="p"\u003e(),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="nb"\u003eINTERVAL\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e7\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep0\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_TRUNC\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eCURRENT_TIMESTAMP\u003c/span\u003e\u003cspan class="p"\u003e(),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep1\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estatus\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_DIFF\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eLEAST\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eend_at\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ep1\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eGREATEST\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_at\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ep0\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSECOND\u003c/span\u003e\u003cspan class="p"\u003e))\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3600\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ehours\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003echarge_point_status_intervals\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eCROSS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eperiod\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eend_at\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ep0\u003c/span\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="c1"\u003e-- rows that touch the period
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_at\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026lt;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ep1\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estatus\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ehours\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003ch3 id="how-late-statuses-arrive-per-source"\u003eHow late statuses arrive, per source\u003c/h3\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003ec\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003esource\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eCOUNT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003estatuses\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eAPPROX_QUANTILES\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_DIFF\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_observed_at\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_at\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eMINUTE\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e100\u003c/span\u003e\u003cspan class="p"\u003e)[\u003c/span\u003e\u003cspan class="k"\u003eOFFSET\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="mi"\u003e50\u003c/span\u003e\u003cspan class="p"\u003e)]\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003emedian_minutes_late\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eAPPROX_QUANTILES\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_DIFF\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_observed_at\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_at\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eMINUTE\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e100\u003c/span\u003e\u003cspan class="p"\u003e)[\u003c/span\u003e\u003cspan class="k"\u003eOFFSET\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="mi"\u003e99\u003c/span\u003e\u003cspan class="p"\u003e)]\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ep99_minutes_late\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003echarge_point_status_intervals\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003echarge_points\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ec\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eUSING\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003echarge_point_id\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_observed_at\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eIS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNOT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eNULL\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ei\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_at\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_SUB\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_TRUNC\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eCURRENT_TIMESTAMP\u003c/span\u003e\u003cspan class="p"\u003e(),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="nb"\u003eINTERVAL\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e7\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003ec\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003esource\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003estatuses\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eMost statuses arrive within a few minutes. A small share arrives hours late, which is why rows of the last three days can still change.\u003c/p\u003e
+\u003ch3 id="short-sessions-per-station"\u003eShort sessions per station\u003c/h3\u003e
+\u003cp\u003eSessions under 5 minutes at stations of 150 kW or more, over the last 7 days.\u003c/p\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estation_id\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eoperator\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003ecity\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eCOUNT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esessions\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eCOUNTIF\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_seen\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eend_seen\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eminutes\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026lt;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e5\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eshort_sessions\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eSAFE_DIVIDE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eCOUNTIF\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_seen\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eend_seen\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eminutes\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026lt;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e5\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eCOUNT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="o"\u003e*\u003c/span\u003e\u003cspan class="p"\u003e)),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eshort_share\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003echarging_sessions\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estations\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eUSING\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003estation_id\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_at\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_SUB\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eTIMESTAMP_TRUNC\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eCURRENT_TIMESTAMP\u003c/span\u003e\u003cspan class="p"\u003e(),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="nb"\u003eINTERVAL\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e7\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e((\u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estart_seen\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eend_seen\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eOR\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecs\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eminutes\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e10\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- both ends seen, or long enough anyway
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="c1"\u003e\u003c/span\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003emax_power_kw\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e150\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e2\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eHAVING\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003esessions\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;=\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e200\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eshort_share\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eLIMIT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e10\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eCount a session as short only when both its ends were seen. A session with an unseen end can look short because the data stopped, not because the car left.\u003c/p\u003e
 \u003ch3 id="credit-lines"\u003eCredit lines\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003esource\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elicence\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eattribution_text\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eurl\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003esources\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e
@@ -3448,9 +3549,11 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eCompute utilisation as \u003ccode\u003eSUM(occupied_minutes) / SUM(occupied_minutes + available_minutes)\u003c/code\u003e; never average ratios.\u003c/li\u003e
 \u003cli\u003eExclude stations with a high unknown share and stations with no \u003ccode\u003eestimated_sessions\u003c/code\u003e when ranking.\u003c/li\u003e
 \u003cli\u003eUse \u003ccode\u003elocal_date\u003c/code\u003e for days; convert \u003ccode\u003ehour_utc\u003c/code\u003e with \u003ccode\u003eDATETIME(hour_utc, 'Europe/Berlin')\u003c/code\u003e for local hours.\u003c/li\u003e
-\u003cli\u003eStart time series on 5 November 2026; note the polling change on 7 November 2026.\u003c/li\u003e
+\u003cli\u003eLeave out the first day of status history, and note changes in polling (both under At a glance).\u003c/li\u003e
 \u003cli\u003eFor current prices, filter \u003ccode\u003evalid_to IS NULL\u003c/code\u003e and the condition columns; expect several rows per charge point.\u003c/li\u003e
 \u003cli\u003eCall \u003ccode\u003eestimated_sessions\u003c/code\u003e an estimate.\u003c/li\u003e
+\u003cli\u003eFor time per status in a period, use \u003ccode\u003echarge_point_status_intervals\u003c/code\u003e, filter \u003ccode\u003eend_at \u0026gt; period start AND start_at \u0026lt; period end\u003c/code\u003e, and cut each row to the period.\u003c/li\u003e
+\u003cli\u003eFor session counts and lengths, use \u003ccode\u003echarging_sessions\u003c/code\u003e; trust a length only when \u003ccode\u003estart_seen\u003c/code\u003e and \u003ccode\u003eend_seen\u003c/code\u003e are both true.\u003c/li\u003e
 \u003cli\u003eCredit the sources listed in \u003ccode\u003esources\u003c/code\u003e.\u003c/li\u003e
 \u003cli\u003eFor Overture tables in \u003ccode\u003eoverture_eu\u003c/code\u003e, filter with the Germany polygon from \u003ccode\u003edivision_area\u003c/code\u003e when border areas matter, and credit Overture and its sources.\u003c/li\u003e
 \u003c/ul\u003e
