@@ -3,7 +3,7 @@ title: "German EV charging data in BigQuery"
 description: "How to query public EV charging stations, charge points, occupancy history and prices for Germany in BigQuery, and join them with Overture Maps places, roads and boundaries: tables, definitions, data rules, tested SQL examples and maps."
 lead: "Station locations, plug status history every 4 minutes, daily utilisation and prices for about 36,000 public charging stations in Germany, ready to query in BigQuery."
 date: 2026-11-09T00:00:00Z
-lastmod: 2026-11-18T00:00:00Z
+lastmod: 2026-11-25T00:00:00Z
 draft: false
 weight: 27
 toc: true
@@ -118,6 +118,7 @@ Charge points are never deleted. One that is no longer listed keeps its row, and
 | `utilisation` (daily) | FLOAT64 | `occupied ÷ (occupied + available)` |
 | `estimated_sessions` | INT64 | Changes into CHARGING; an estimate, not a count of real sessions |
 | `eligible_sessions` | INT64 | Changes into CHARGING where the status just before was known: the rows of `charging_sessions` with `start_seen` |
+| `estimated_kwh` | FLOAT64 | Estimated energy charged at the station in that hour or day, see [Estimated kWh](#estimated-kwh) |
 
 Minutes are summed over charge points, so a station with 4 charge points has up to 240 minutes per hour. Per station and hour, occupied + available + out of service + unknown = `charge_points_known` × 60.
 
@@ -168,10 +169,11 @@ One row per `CHARGING` row of `charge_point_status_intervals`.
 | `minutes` | FLOAT64 | Length of the session |
 | `start_seen` | BOOL | The row just before is `AVAILABLE`, `BLOCKED`, `RESERVED`, `OUTOFORDER` or `INOPERATIVE` |
 | `end_seen` | BOOL | The row just after exists and is one of those five; false while the session is still running |
+| `estimated_kwh` | FLOAT64 | Estimated energy charged in the session, see [Estimated kWh](#estimated-kwh); null when the charge point's power or type is not known |
 
 A session whose start or end was not seen can be longer than `minutes` says.
 
-A session is a stretch of status CHARGING, not a payment or a delivered amount of energy.
+A session is a stretch of status CHARGING, not a payment.
 
 The number of sessions with `start_seen` per station and hour equals `eligible_sessions`. Ten station-hours on 5 November 2026 are one lower in `eligible_sessions`.
 
@@ -205,9 +207,36 @@ Each charge point's status is read every 4 minutes. The time between two status 
 - a poll was missed (a gap of more than 7 minutes) and the charge point changed status during the gap;
 - the source reported the status UNKNOWN.
 
+## Estimated kWh
+
+`estimated_kwh` is computed from how long a charge point reported CHARGING and from its `max_power_kw` and `is_dc`. It is not metered energy, and no metered kWh per station exists to check it against.
+
+How it is computed:
+
+- Energy grows with the length of a session along a curve that flattens, because a car charges fast at first and slows as the battery fills. DC charge points of 25 kW or more have one curve that depends on their power; all other charge points have three curves, by power.
+- A session never gets more than its charge point's power for the whole time, and nothing is added after 24 hours.
+- A session that follows another on the same charge point within 15 minutes, with only unknown status between them, continues the earlier session's curve. The gap itself adds no energy.
+- Each UTC hour gets the part of each session's energy that falls in it. Daily values sum the hours of the local day.
+- Available for sessions, hours and days since 4 November 2026.
+
+How it was checked. The curves are fitted to measured sessions from two public sources: about 27,800 German charge points in 2019 to 2021 (Hecht, Figgener, Sauer, RWTH Aachen, iScience 2022, CC BY 4.0) and Dundee City Council's 74,808 sessions on 50 kW chargers in 2024. Mean kWh per session, on the sources' own session lengths:
+
+| Measured sessions | Measured | Estimated |
+|---|---|---|
+| Germany, 200 kW and more | 31.4 | 31.5 |
+| Germany, 100 to 200 kW | 27.5 | 27.8 |
+| Germany, 25 to 100 kW (not used in the fit) | 18.2 | 21.7 |
+| Dundee, 50 kW, 20 to 30 minutes | 14.5 | 14.4 |
+| Dundee, 50 kW, 45 to 60 minutes | 27.9 | 27.9 |
+| Dundee, 22 kW AC (not used in the fit) | 16.0 | 12.9 |
+
+{{< img src="kwh-measured-vs-estimated.png" caption="Mean kWh per session by time plugged in. Dots are measured sessions, lines are the estimate. Left: DC charge points, first 90 minutes. Right: AC charge points, first 12 hours." >}}
+
+How far off it can be beyond these checks is a judgement, not a measurement: about 15% either way for the Germany total and about 30% for one station or operator. A single session can be much further off, so sum sessions before drawing conclusions.
+
 ## Rules for reliable results
 
-Check unknown minutes. Unknown share varies a lot by source and day. Leave out stations whose unknown share is high, for example over 20%.
+Check unknown minutes. Unknown share varies a lot by source and day. Leave out stations whose unknown share is high, for example over 20%. No energy is estimated for unknown time, so `estimated_kwh` is too low where the unknown share is high.
 
 Leave out stations that never change status. A charge point stuck in one status reports 100% utilisation with no sessions. Requiring a few `estimated_sessions` over the period removes them.
 
@@ -295,6 +324,38 @@ ORDER BY local_hour
 ```
 
 For stations with DC charging, utilisation is lowest in the early morning and highest around midday, local time.
+
+### Estimated energy by operator last week
+
+```sql
+SELECT
+  s.operator,
+  COUNT(DISTINCT s.station_id) AS stations,
+  ROUND(SUM(d.estimated_kwh) / 1000) AS estimated_mwh,
+  ROUND(SUM(d.estimated_kwh) / SUM(s.charge_point_count), 1) AS kwh_per_charge_point_per_day,
+  ROUND(SAFE_DIVIDE(SUM(d.unknown_minutes),
+    SUM(d.occupied_minutes + d.available_minutes + d.out_of_service_minutes + d.unknown_minutes)), 3) AS unknown_share
+FROM `dekart-ev-public-data.ev_charging_v1.station_daily_metrics` AS d
+JOIN `dekart-ev-public-data.ev_charging_v1.stations` AS s USING (station_id)
+WHERE d.local_date BETWEEN DATE_SUB(CURRENT_DATE('Europe/Berlin'), INTERVAL 7 DAY)
+                       AND DATE_SUB(CURRENT_DATE('Europe/Berlin'), INTERVAL 1 DAY)
+  AND s.charge_point_count > 0
+GROUP BY s.operator
+ORDER BY estimated_mwh DESC
+LIMIT 5
+```
+
+Result for 18 to 24 November 2026:
+
+| operator | stations | estimated_mwh | kwh_per_charge_point_per_day | unknown_share |
+|---|---|---|---|---|
+| Tesla, Inc. | 333 | 4542 | 161.0 | 0.177 |
+| ENBW | 2455 | 2703 | 32.9 | 0.229 |
+| Aral pulse | 594 | 2637 | 80.7 | 0.135 |
+| IONITY | 205 | 2203 | 193.4 | 0.134 |
+| Ladenetz | 3775 | 1628 | 19.8 | 0.09 |
+
+Each row is one station on one day, so dividing by the sum of `charge_point_count` gives kWh per charge point per day.
 
 ### Current energy price by operator
 
@@ -817,7 +878,7 @@ If a daily update fails its checks, the previous day's data stays in place.
 - Use `local_date` for days; convert `hour_utc` with `DATETIME(hour_utc, 'Europe/Berlin')` for local hours.
 - Leave out the first day of status history, and note changes in polling (both under At a glance).
 - For current prices, filter `valid_to IS NULL` and the condition columns; expect several rows per charge point.
-- Call `estimated_sessions` an estimate.
+- Call `estimated_sessions` and `estimated_kwh` estimates.
 - For time per status in a period, use `charge_point_status_intervals`, filter `end_at > period start AND start_at < period end`, and cut each row to the period.
 - For session counts and lengths, use `charging_sessions`; trust a length only when `start_seen` and `end_seen` are both true.
 - Credit the sources listed in `sources`.
