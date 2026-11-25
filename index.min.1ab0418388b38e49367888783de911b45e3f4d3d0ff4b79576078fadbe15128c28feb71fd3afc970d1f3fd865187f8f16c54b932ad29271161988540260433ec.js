@@ -2532,6 +2532,11 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ctd\u003eINT64\u003c/td\u003e
 \u003ctd\u003eChanges into CHARGING where the status just before was known: the rows of \u003ccode\u003echarging_sessions\u003c/code\u003e with \u003ccode\u003estart_seen\u003c/code\u003e\u003c/td\u003e
 \u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eestimated_kwh\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eFLOAT64\u003c/td\u003e
+\u003ctd\u003eEstimated energy charged at the station in that hour or day, see \u003ca href="#estimated-kwh"\u003eEstimated kWh\u003c/a\u003e\u003c/td\u003e
+\u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
 \u003cp\u003eMinutes are summed over charge points, so a station with 4 charge points has up to 240 minutes per hour. Per station and hour, occupied + available + out of service + unknown = \u003ccode\u003echarge_points_known\u003c/code\u003e × 60.\u003c/p\u003e
@@ -2647,10 +2652,15 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003ctd\u003eBOOL\u003c/td\u003e
 \u003ctd\u003eThe row just after exists and is one of those five; false while the session is still running\u003c/td\u003e
 \u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003e\u003ccode\u003eestimated_kwh\u003c/code\u003e\u003c/td\u003e
+\u003ctd\u003eFLOAT64\u003c/td\u003e
+\u003ctd\u003eEstimated energy charged in the session, see \u003ca href="#estimated-kwh"\u003eEstimated kWh\u003c/a\u003e; null when the charge point\u0026rsquo;s power or type is not known\u003c/td\u003e
+\u003c/tr\u003e
 \u003c/tbody\u003e
 \u003c/table\u003e
 \u003cp\u003eA session whose start or end was not seen can be longer than \u003ccode\u003eminutes\u003c/code\u003e says.\u003c/p\u003e
-\u003cp\u003eA session is a stretch of status CHARGING, not a payment or a delivered amount of energy.\u003c/p\u003e
+\u003cp\u003eA session is a stretch of status CHARGING, not a payment.\u003c/p\u003e
 \u003cp\u003eThe number of sessions with \u003ccode\u003estart_seen\u003c/code\u003e per station and hour equals \u003ccode\u003eeligible_sessions\u003c/code\u003e. Ten station-hours on 5 November 2026 are one lower in \u003ccode\u003eeligible_sessions\u003c/code\u003e.\u003c/p\u003e
 \u003ch3 id="prices"\u003eprices\u003c/h3\u003e
 \u003ctable\u003e
@@ -2729,8 +2739,79 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003ea poll was missed (a gap of more than 7 minutes) and the charge point changed status during the gap;\u003c/li\u003e
 \u003cli\u003ethe source reported the status UNKNOWN.\u003c/li\u003e
 \u003c/ul\u003e
+\u003ch2 id="estimated-kwh"\u003eEstimated kWh\u003c/h2\u003e
+\u003cp\u003e\u003ccode\u003eestimated_kwh\u003c/code\u003e is computed from how long a charge point reported CHARGING and from its \u003ccode\u003emax_power_kw\u003c/code\u003e and \u003ccode\u003eis_dc\u003c/code\u003e. It is not metered energy, and no metered kWh per station exists to check it against.\u003c/p\u003e
+\u003cp\u003eHow it is computed:\u003c/p\u003e
+\u003cul\u003e
+\u003cli\u003eEnergy grows with the length of a session along a curve that flattens, because a car charges fast at first and slows as the battery fills. DC charge points of 25 kW or more have one curve that depends on their power; all other charge points have three curves, by power.\u003c/li\u003e
+\u003cli\u003eA session never gets more than its charge point\u0026rsquo;s power for the whole time, and nothing is added after 24 hours.\u003c/li\u003e
+\u003cli\u003eA session that follows another on the same charge point within 15 minutes, with only unknown status between them, continues the earlier session\u0026rsquo;s curve. The gap itself adds no energy.\u003c/li\u003e
+\u003cli\u003eEach UTC hour gets the part of each session\u0026rsquo;s energy that falls in it. Daily values sum the hours of the local day.\u003c/li\u003e
+\u003cli\u003eAvailable for sessions, hours and days since 4 November 2026.\u003c/li\u003e
+\u003c/ul\u003e
+\u003cp\u003eHow it was checked. The curves are fitted to measured sessions from two public sources: about 27,800 German charge points in 2019 to 2021 (Hecht, Figgener, Sauer, RWTH Aachen, iScience 2022, CC BY 4.0) and Dundee City Council\u0026rsquo;s 74,808 sessions on 50 kW chargers in 2024. Mean kWh per session, on the sources\u0026rsquo; own session lengths:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eMeasured sessions\u003c/th\u003e
+\u003cth\u003eMeasured\u003c/th\u003e
+\u003cth\u003eEstimated\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eGermany, 200 kW and more\u003c/td\u003e
+\u003ctd\u003e31.4\u003c/td\u003e
+\u003ctd\u003e31.5\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eGermany, 100 to 200 kW\u003c/td\u003e
+\u003ctd\u003e27.5\u003c/td\u003e
+\u003ctd\u003e27.8\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eGermany, 25 to 100 kW (not used in the fit)\u003c/td\u003e
+\u003ctd\u003e18.2\u003c/td\u003e
+\u003ctd\u003e21.7\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eDundee, 50 kW, 20 to 30 minutes\u003c/td\u003e
+\u003ctd\u003e14.5\u003c/td\u003e
+\u003ctd\u003e14.4\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eDundee, 50 kW, 45 to 60 minutes\u003c/td\u003e
+\u003ctd\u003e27.9\u003c/td\u003e
+\u003ctd\u003e27.9\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eDundee, 22 kW AC (not used in the fit)\u003c/td\u003e
+\u003ctd\u003e16.0\u003c/td\u003e
+\u003ctd\u003e12.9\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cfigure\u003e
+  \u003cimg
+    class="img-fluid lazyload"
+    data-sizes="auto"
+    src="https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_20x0_resize_box_3.png"
+    data-srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_512x0_resize_box_3.png 512w"
+    width="1920"
+    height="768"
+    alt="Mean kWh per session by time plugged in. Dots are measured sessions, lines are the estimate. Left: DC charge points, first 90 minutes. Right: AC charge points, first 12 hours."
+  \u003e
+  \u003cnoscript\u003e\u003cimg class="img-fluid" sizes="100vw" srcset="https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_2048x0_resize_box_3.png 2048w,https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_1600x0_resize_box_3.png 1600w,https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_1024x0_resize_box_3.png 1024w,https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated_hu05696c4f6401f403990dbe4b208c6a75_184925_512x0_resize_box_3.png 512w" src="https://dekart.xyz/docs/knowledge-base/ev-charging-data-bigquery/kwh-measured-vs-estimated.png" width="1920" height="768" alt="Mean kWh per session by time plugged in. Dots are measured sessions, lines are the estimate. Left: DC charge points, first 90 minutes. Right: AC charge points, first 12 hours."\u003e\u003c/noscript\u003e
+  \u003cfigcaption class="figure-caption"\u003eMean kWh per session by time plugged in. Dots are measured sessions, lines are the estimate. Left: DC charge points, first 90 minutes. Right: AC charge points, first 12 hours.\u003c/figcaption\u003e
+\u003c/figure\u003e
+
+
+
+
+
+\u003cp\u003eHow far off it can be beyond these checks is a judgement, not a measurement: about 15% either way for the Germany total and about 30% for one station or operator. A single session can be much further off, so sum sessions before drawing conclusions.\u003c/p\u003e
 \u003ch2 id="rules-for-reliable-results"\u003eRules for reliable results\u003c/h2\u003e
-\u003cp\u003eCheck unknown minutes. Unknown share varies a lot by source and day. Leave out stations whose unknown share is high, for example over 20%.\u003c/p\u003e
+\u003cp\u003eCheck unknown minutes. Unknown share varies a lot by source and day. Leave out stations whose unknown share is high, for example over 20%. No energy is estimated for unknown time, so \u003ccode\u003eestimated_kwh\u003c/code\u003e is too low where the unknown share is high.\u003c/p\u003e
 \u003cp\u003eLeave out stations that never change status. A charge point stuck in one status reports 100% utilisation with no sessions. Requiring a few \u003ccode\u003eestimated_sessions\u003c/code\u003e over the period removes them.\u003c/p\u003e
 \u003cp\u003eUtilisation ignores out-of-service and unknown minutes. A station that was occupied for one hour and out of service for the rest of the week reports 100%.\u003c/p\u003e
 \u003cp\u003eLeave out the first day of status history. It is a partial day with high unknown minutes.\u003c/p\u003e
@@ -2826,6 +2907,72 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elocal_hour\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003elocal_hour\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eFor stations with DC charging, utilisation is lowest in the early morning and highest around midday, local time.\u003c/p\u003e
+\u003ch3 id="estimated-energy-by-operator-last-week"\u003eEstimated energy by operator last week\u003c/h3\u003e
+\u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eSELECT\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eoperator\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eCOUNT\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eDISTINCT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estation_id\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003estations\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eestimated_kwh\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1000\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eestimated_mwh\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eestimated_kwh\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e/\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003echarge_point_count\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ekwh_per_charge_point_per_day\u003c/span\u003e\u003cspan class="p"\u003e,\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="n"\u003eROUND\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003eSAFE_DIVIDE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eunknown_minutes\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e    \u003c/span\u003e\u003cspan class="k"\u003eSUM\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eoccupied_minutes\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e+\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eavailable_minutes\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e+\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eout_of_service_minutes\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e+\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eunknown_minutes\u003c/span\u003e\u003cspan class="p"\u003e)),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e3\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eunknown_share\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eFROM\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estation_daily_metrics\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eJOIN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="n"\u003edekart\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="n"\u003eev\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003epublic\u003c/span\u003e\u003cspan class="o"\u003e-\u003c/span\u003e\u003cspan class="k"\u003edata\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003eev_charging_v1\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003estations\u003c/span\u003e\u003cspan class="o"\u003e\`\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eUSING\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="n"\u003estation_id\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eWHERE\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ed\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003elocal_date\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBETWEEN\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eDATE_SUB\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eCURRENT_DATE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;Europe/Berlin\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="nb"\u003eINTERVAL\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e7\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e                       \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eDATE_SUB\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="k"\u003eCURRENT_DATE\u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="s1"\u003e\u0026#39;Europe/Berlin\u0026#39;\u003c/span\u003e\u003cspan class="p"\u003e),\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="nb"\u003eINTERVAL\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e1\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDAY\u003c/span\u003e\u003cspan class="p"\u003e)\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="k"\u003eAND\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="n"\u003echarge_point_count\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="o"\u003e\u0026gt;\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e0\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eGROUP\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003es\u003c/span\u003e\u003cspan class="p"\u003e.\u003c/span\u003e\u003cspan class="k"\u003eoperator\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eORDER\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eBY\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003eestimated_mwh\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eDESC\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e\u003c/span\u003e\u003cspan class="k"\u003eLIMIT\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="mi"\u003e5\u003c/span\u003e\u003cspan class="w"\u003e
+\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\u003cp\u003eResult for 18 to 24 November 2026:\u003c/p\u003e
+\u003ctable\u003e
+\u003cthead\u003e
+\u003ctr\u003e
+\u003cth\u003eoperator\u003c/th\u003e
+\u003cth\u003estations\u003c/th\u003e
+\u003cth\u003eestimated_mwh\u003c/th\u003e
+\u003cth\u003ekwh_per_charge_point_per_day\u003c/th\u003e
+\u003cth\u003eunknown_share\u003c/th\u003e
+\u003c/tr\u003e
+\u003c/thead\u003e
+\u003ctbody\u003e
+\u003ctr\u003e
+\u003ctd\u003eTesla, Inc.\u003c/td\u003e
+\u003ctd\u003e333\u003c/td\u003e
+\u003ctd\u003e4542\u003c/td\u003e
+\u003ctd\u003e161.0\u003c/td\u003e
+\u003ctd\u003e0.177\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eENBW\u003c/td\u003e
+\u003ctd\u003e2455\u003c/td\u003e
+\u003ctd\u003e2703\u003c/td\u003e
+\u003ctd\u003e32.9\u003c/td\u003e
+\u003ctd\u003e0.229\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eAral pulse\u003c/td\u003e
+\u003ctd\u003e594\u003c/td\u003e
+\u003ctd\u003e2637\u003c/td\u003e
+\u003ctd\u003e80.7\u003c/td\u003e
+\u003ctd\u003e0.135\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eIONITY\u003c/td\u003e
+\u003ctd\u003e205\u003c/td\u003e
+\u003ctd\u003e2203\u003c/td\u003e
+\u003ctd\u003e193.4\u003c/td\u003e
+\u003ctd\u003e0.134\u003c/td\u003e
+\u003c/tr\u003e
+\u003ctr\u003e
+\u003ctd\u003eLadenetz\u003c/td\u003e
+\u003ctd\u003e3775\u003c/td\u003e
+\u003ctd\u003e1628\u003c/td\u003e
+\u003ctd\u003e19.8\u003c/td\u003e
+\u003ctd\u003e0.09\u003c/td\u003e
+\u003c/tr\u003e
+\u003c/tbody\u003e
+\u003c/table\u003e
+\u003cp\u003eEach row is one station on one day, so dividing by the sum of \u003ccode\u003echarge_point_count\u003c/code\u003e gives kWh per charge point per day.\u003c/p\u003e
 \u003ch3 id="current-energy-price-by-operator"\u003eCurrent energy price by operator\u003c/h3\u003e
 \u003cdiv class="highlight"\u003e\u003cpre tabindex="0" class="chroma"\u003e\u003ccode class="language-sql" data-lang="sql"\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="k"\u003eWITH\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="n"\u003ecurrent_energy_price\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="k"\u003eAS\u003c/span\u003e\u003cspan class="w"\u003e \u003c/span\u003e\u003cspan class="p"\u003e(\u003c/span\u003e\u003cspan class="w"\u003e
 \u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class="line"\u003e\u003cspan class="cl"\u003e\u003cspan class="w"\u003e  \u003c/span\u003e\u003cspan class="c1"\u003e-- Open price rows (valid_to IS NULL) without time-of-day or duration conditions.
@@ -3551,7 +3698,7 @@ No breaking changes, just update the docker tag. New Postgres migrations will be
 \u003cli\u003eUse \u003ccode\u003elocal_date\u003c/code\u003e for days; convert \u003ccode\u003ehour_utc\u003c/code\u003e with \u003ccode\u003eDATETIME(hour_utc, 'Europe/Berlin')\u003c/code\u003e for local hours.\u003c/li\u003e
 \u003cli\u003eLeave out the first day of status history, and note changes in polling (both under At a glance).\u003c/li\u003e
 \u003cli\u003eFor current prices, filter \u003ccode\u003evalid_to IS NULL\u003c/code\u003e and the condition columns; expect several rows per charge point.\u003c/li\u003e
-\u003cli\u003eCall \u003ccode\u003eestimated_sessions\u003c/code\u003e an estimate.\u003c/li\u003e
+\u003cli\u003eCall \u003ccode\u003eestimated_sessions\u003c/code\u003e and \u003ccode\u003eestimated_kwh\u003c/code\u003e estimates.\u003c/li\u003e
 \u003cli\u003eFor time per status in a period, use \u003ccode\u003echarge_point_status_intervals\u003c/code\u003e, filter \u003ccode\u003eend_at \u0026gt; period start AND start_at \u0026lt; period end\u003c/code\u003e, and cut each row to the period.\u003c/li\u003e
 \u003cli\u003eFor session counts and lengths, use \u003ccode\u003echarging_sessions\u003c/code\u003e; trust a length only when \u003ccode\u003estart_seen\u003c/code\u003e and \u003ccode\u003eend_seen\u003c/code\u003e are both true.\u003c/li\u003e
 \u003cli\u003eCredit the sources listed in \u003ccode\u003esources\u003c/code\u003e.\u003c/li\u003e
