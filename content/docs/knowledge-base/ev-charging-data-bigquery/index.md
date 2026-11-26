@@ -197,7 +197,7 @@ One charge point can have several rows that apply at the same time, for example 
 
 ### sources
 
-`source`, `country_code`, `licence`, `attribution_text`, `redistribution_allowed`, `url`. Show the `attribution_text` of every source you use. Sources under CC BY 4.0 (Eco-Movement, EnBW AG, Bundesnetzagentur) must be credited.
+`source`, `country_code`, `licence`, `attribution_text`, `redistribution_allowed`, `url`. Show the `attribution_text` of every source you use. Sources under CC BY 4.0 (Eco-Movement, EnBW AG, Bundesnetzagentur) must be credited. Credit is needed only when you share the data or results built from it, for example as a credit line in a map README; internal analysis needs none.
 
 ## How status becomes minutes
 
@@ -881,5 +881,5 @@ If a daily update fails its checks, the previous day's data stays in place.
 - Call `estimated_sessions` and `estimated_kwh` estimates.
 - For time per status in a period, use `charge_point_status_intervals`, filter `end_at > period start AND start_at < period end`, and cut each row to the period.
 - For session counts and lengths, use `charging_sessions`; trust a length only when `start_seen` and `end_seen` are both true.
-- Credit the sources listed in `sources`.
+- Credit the sources listed in `sources` whenever results are shared, for example as a credit line in the map README.
 - For Overture tables in `overture_eu`, filter with the Germany polygon from `division_area` when border areas matter, and credit Overture and its sources.
